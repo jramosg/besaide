@@ -1,0 +1,215 @@
+---
+import Layout from './Base.astro';
+import type { Props as BaseHeadProps } from '../components/head/BaseHead.astro';
+import Logo from '../components/Logo.astro';
+import Header from 'components/Header.astro';
+import Footer from 'components/Footer.astro';
+import { nav } from '@/config/nav';
+export interface Props {
+	seo?: BaseHeadProps;
+	pageClass?: string;
+}
+
+const { seo, pageClass, ...rest } = Astro.props as Props;
+---
+
+<Layout {seo}>
+	<Header slot="header" navData={nav}>
+		<Fragment slot="logo">
+			<Logo />
+		</Fragment>
+	</Header>
+	<div id="page" class={pageClass} {...rest}>
+		<slot />
+	</div>
+	<Footer slot="footer">
+		<Logo slot="logo" />
+	</Footer>
+</Layout>
+
+<style>
+	html {
+		font-family:
+			'Inter',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			sans-serif;
+		scroll-behavior: smooth;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Header Styles */
+	.header {
+		background: linear-gradient(135deg, #2c5530 0%, #1a3d1f 100%);
+		color: white;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+	}
+
+	.header-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 0;
+	}
+
+	.logo h1 {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #fff;
+		margin: 0;
+		letter-spacing: -0.02em;
+	}
+
+	.logo span {
+		display: block;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.8);
+		font-weight: 400;
+		margin-top: -0.25rem;
+	}
+
+	.nav-menu {
+		display: flex;
+		list-style: none;
+		gap: 2rem;
+	}
+
+	.nav-menu a {
+		color: white;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 0.95rem;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+
+	.nav-menu a:hover {
+		background: rgba(255, 255, 255, 0.1);
+		transform: translateY(-1px);
+	}
+
+	.mobile-menu-toggle {
+		display: none;
+		flex-direction: column;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		gap: 0.25rem;
+	}
+
+	.mobile-menu-toggle span {
+		width: 25px;
+		height: 2px;
+		background: white;
+		transition: all 0.3s ease;
+		border-radius: 1px;
+	}
+
+	.mobile-menu-toggle.active span:nth-child(1) {
+		transform: rotate(45deg) translate(5px, 5px);
+	}
+
+	.mobile-menu-toggle.active span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.mobile-menu-toggle.active span:nth-child(3) {
+		transform: rotate(-45deg) translate(7px, -6px);
+	}
+
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+		.mobile-menu-toggle {
+			display: flex;
+		}
+
+		.nav-menu {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			background: #2c5530;
+			flex-direction: column;
+			padding: 1rem 0;
+			transform: translateY(-100%);
+			opacity: 0;
+			visibility: hidden;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		.nav-menu.active {
+			transform: translateY(0);
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.nav-menu li {
+			padding: 0 1rem;
+		}
+
+		.nav-menu a {
+			display: block;
+			padding: 0.75rem 1rem;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.logo h1 {
+			font-size: 1.5rem;
+		}
+
+		.logo span {
+			font-size: 0.8rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.container {
+			padding: 0 15px;
+		}
+
+		.header-content {
+			padding: 0.75rem 0;
+		}
+	}
+</style>
+
+<script>
+	// Mobile menu toggle
+	const toggle = document.querySelector('.mobile-menu-toggle');
+	const menu = document.querySelector('.nav-menu');
+
+	toggle?.addEventListener('click', () => {
+		menu?.classList.toggle('active');
+		toggle.classList.toggle('active');
+	});
+
+	// Smooth scrolling for navigation links
+	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		anchor.addEventListener('click', function (e) {
+			e.preventDefault();
+			const target = document.querySelector(this.getAttribute('href'));
+			if (target) {
+				target.scrollIntoView({
+					behavior: 'smooth',
+					block: 'start'
+				});
+			}
+		});
+	});
+</script>

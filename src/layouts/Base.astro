@@ -1,0 +1,25 @@
+---
+import BaseHead from 'components/head/BaseHead.astro';
+import type { Props as BaseHeadProps } from 'components/head/BaseHead.astro';
+import { getLangFromUrl } from 'i18n/utils';
+export interface Props {
+	seo?: BaseHeadProps;
+}
+
+const { seo } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+<html lang={lang}>
+	<head>
+		<BaseHead {...seo} />
+	</head>
+
+	<body itemscope itemtype="https://schema.org/WebPage">
+		<slot name="header" />
+		<main id="content" class="main-content" role="main">
+			<slot />
+		</main>
+		<slot name="footer" />
+	</body>
+</html>
