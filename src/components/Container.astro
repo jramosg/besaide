@@ -1,0 +1,29 @@
+---
+type Props = {
+	narrow?: boolean;
+	class?: string;
+	tag?: keyof HTMLElementTagNameMap;
+	id?: string;
+	style?: string;
+};
+const { narrow, class: classNAme, tag, ...rest }: Props = Astro.props;
+const Tag = tag || `div`;
+---
+
+<Tag
+	class={`content__container ${narrow ? `content__container--narrow` : ``}  ${classNAme || ``}`}
+	{...rest}
+>
+	<slot />
+</Tag>
+
+<style is:global>
+	:global(.content__container) {
+		margin: 0 auto;
+		max-width: var(--container-max-width);
+		padding: var(--container-padding);
+	}
+	:global(.content__container--narrow) {
+		max-width: var(--container-max-width-narrow);
+	}
+</style>
