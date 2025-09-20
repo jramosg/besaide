@@ -1,0 +1,184 @@
+---
+import { getLangFromUrl, useTranslations, switchLanguage } from 'i18n/utils';
+import { ChevronRight, Check, Languages } from '@lucide/astro';
+
+const languages = [
+	{ code: 'eu', name: 'Euskera', nativeName: 'Euskera' },
+	{ code: 'es', name: 'Español', nativeName: 'Español' }
+];
+
+const url = Astro.url;
+const lang = getLangFromUrl(url);
+const t = useTranslations(lang);
+---
+
+<div class="language-toggle">
+	<button
+		id="lang-toggle-btn"
+		type="button"
+		aria-expanded="false"
+		aria-haspopup="listbox"
+		aria-label={`Current language: ${t(lang)}. Click to change language`}
+		class="lang-toggle-btn"
+	>
+		<Languages class="translate-icon" />
+		<span class="lang-code">{lang.toUpperCase()}</span>
+		<ChevronRight class="chevron"  />
+	</button>
+	<div
+		id="lang-dropdown"
+		class="lang-dropdown"
+		hidden
+		role="listbox"
+		aria-label="Language selection"
+	>
+		{
+			languages.map(language => (
+				<a href={switchLanguage(url)}>
+					<button
+						type="button"
+						class={`lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
+						role="option"
+						aria-selected={language.code === lang}
+						data-lang={language.code}
+					>
+						<span>{language.nativeName}</span>
+						{language.code === lang && <Check fill="currentColor" />}
+					</button>
+				</a>
+			))
+		}
+	</div>
+</div>
+
+<style>
+	a {
+		text-decoration: none;
+	}
+	.language-toggle {
+		position: relative;
+		height: 100%;
+		button: 100%;
+	}
+	.lang-toggle-btn {
+		display: flex;
+		align-items: center;
+		gap: var(--s2);
+		min-width: 100px;
+		padding: var(--s) var(--s);
+		border: unset;
+		background: transparent;
+		border-radius: 0.5em;
+		cursor: pointer;
+		opacity: 0.8;
+		transition:
+			opacity 0.2s linear,
+			border 0.2s linear,
+			color 0.2s linear;
+		color: var(--theme-text-secondary);
+		border: 1px solid var(--theme-text-secondary);
+		&:focus,
+		&:hover {
+			border: 1px solid var(--theme-primary);
+			opacity: 1;
+			color: var(--theme-on-bg);
+		}
+	}
+
+	.chevron {
+		transform: rotate(90deg);
+		transition: transform 0.2s;
+	}
+	.lang-toggle-btn[aria-expanded='true'] .chevron {
+		transform: rotate(-90deg);
+	}
+	.lang-dropdown {
+		position: absolute;
+		right: 0;
+		margin-top: var(--s);
+		background: var(--theme-bg);
+		border: 1px solid var(--theme-outline);
+		border-radius: 0.5em;
+		box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-md);
+		z-index: var(--z-index-popver);
+	}
+	.lang-option {
+		width: 100%;
+		text-align: left;
+		padding: var(--s2) var(--s3);
+		background: none;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: var(--theme-on-bg);
+	}
+
+	.lang-option-btn {
+		border-radius: 0.5em;
+	}
+	.lang-option:hover,
+	.lang-option:focus {
+		background: var(--theme-primary-container-alt);
+		outline: none;
+	}
+	.lang-option.selected {
+		background: var(--theme-primary-container);
+		color: var(--theme-on-primary-container);
+		font-weight: 600;
+	}
+	.check {
+		color: var(--theme-primary);
+	}
+</style>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const langToggleBtn = document.getElementById('lang-toggle-btn');
+		const dropdown = document.getElementById('lang-dropdown');
+
+		function openDropdown() {
+			if (!dropdown || !langToggleBtn) return;
+			dropdown.hidden = false;
+			langToggleBtn.setAttribute('aria-expanded', 'true');
+		}
+		function closeDropdown() {
+			if (!dropdown || !langToggleBtn) return;
+			dropdown.hidden = true;
+			langToggleBtn.setAttribute('aria-expanded', 'false');
+		}
+
+		function handleDropdownEvents() {
+			if (!langToggleBtn || !dropdown) return;
+			langToggleBtn.addEventListener('click', e => {
+				e.stopPropagation();
+				!dropdown.hidden ? closeDropdown() : openDropdown();
+			});
+			langToggleBtn.addEventListener('blur', () => {
+				setTimeout(() => {
+					if (!dropdown.contains(document.activeElement)) closeDropdown();
+				}, 100);
+			});
+			dropdown.addEventListener('mousedown', e => e.preventDefault());
+			dropdown.querySelectorAll('.lang-option').forEach(option => {
+				option.addEventListener('click', () => {
+					const lang = option.getAttribute('data-lang');
+					const event = new CustomEvent('languageChange', {
+						detail: lang,
+						bubbles: true
+					});
+					langToggleBtn.dispatchEvent(event);
+					closeDropdown();
+					langToggleBtn.focus();
+				});
+			});
+			document.addEventListener('click', e => {
+				if (langToggleBtn !== e.target && dropdown !== e.target)
+					closeDropdown();
+			});
+		}
+
+		handleDropdownEvents();
+	});
+</script>
