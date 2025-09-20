@@ -1,0 +1,120 @@
+html,
+body {
+	height: 100%;
+}
+
+body {
+	max-width: 1920px;
+	margin: 0 auto;
+	background-color: var(--theme-bg);
+	position: relative;
+}
+
+pre {
+	padding: 1em;
+	border-radius: 0.5em;
+	overflow: auto;
+}
+
+pre .language-id {
+	display: none;
+}
+
+/* Base card style */
+.card {
+	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-md);
+	background-color: var(--theme-surface-1);
+	border-radius: var(--theme-shape-radius);
+	transition:
+		scale 500ms cubic-bezier(0.4, 0, 0.2, 1),
+		transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+		background-color 0.3s ease,
+		box-shadow 0.3s ease;
+}
+
+/* Elevated card (default) */
+.card--elevated {
+	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-md);
+}
+.card--elevated:hover,
+.card--elevated:focus-visible {
+	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-2xl);
+	scale: 1.02 !important;
+	transform: translateY(-4px) !important;
+	background-color: var(--theme-bg);
+}
+
+/* Outlined card */
+.card--outlined {
+	box-shadow: none;
+	border: 1px solid var(--theme-outline);
+	background-color: var(--theme-bg);
+}
+.card--outlined:hover,
+.card--outlined:focus-visible {
+	border-color: var(--theme-primary);
+	background-color: var(--theme-surface-1);
+}
+
+/* Flat card */
+.card--flat {
+	box-shadow: none;
+	background-color: var(--theme-surface-1);
+}
+.card--flat:hover,
+.card--flat:focus-visible {
+	background-color: var(--theme-surface-2);
+}
+
+/* Enhanced Focus States for Accessibility */
+*:focus-visible {
+	outline: 2px solid var(--theme-primary);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* Button Focus States */
+button:focus-visible,
+.button:focus-visible {
+	outline: 2px solid var(--theme-primary);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 4px rgba(69, 130, 149, 0.2);
+}
+
+/* Link Focus States */
+a:focus-visible {
+	outline: 2px solid var(--theme-primary);
+	outline-offset: 2px;
+	text-decoration: underline;
+}
+
+/* Interactive Elements Minimum Touch Target */
+button,
+.button,
+a[role='button'],
+input[type='submit'],
+input[type='button'] {
+	min-height: 44px;
+	min-width: 44px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+.content__container {
+	margin: 0 auto;
+	max-width: var(--container-max-width);
+	padding: var(--container-padding);
+}
+.content__container--narrow {
+	max-width: var(--container-max-width-narrow);
+}
