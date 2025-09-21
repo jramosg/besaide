@@ -1,15 +1,8 @@
 ---
 import News from '@/components-pages/News.astro';
 
-import { getCollection, getEntry } from 'astro:content';
 import { NewsStaticPaths } from '@/staticPathsHelper';
-import type {
-	GetStaticPaths,
-	GetStaticPathsOptions,
-	PaginateFunction
-} from 'astro';
-
-const allNewsPosts = await getCollection('news');
+import type { GetStaticPathsOptions } from 'astro';
 
 export function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 	return NewsStaticPaths('eu', paginate);
