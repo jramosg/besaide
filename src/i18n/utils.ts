@@ -79,3 +79,27 @@ export function getStaticLangPaths(): { params: { lang: Langs } }[] {
 
 	return langs.map(toParam);
 }
+
+/**
+ * Format a date for the given language.
+ * - 'eu' => yyyy-MM-dd
+ * - 'es' => dd/MM/yyyy
+ * Accepts Date | string | number. If invalid, returns an empty string.
+ */
+export function formatDate(input: Date | string | number, lang?: Langs): string {
+	const date = input instanceof Date ? input : new Date(input);
+	if (Number.isNaN(date.getTime())) return '';
+
+	const pad = (n: number) => String(n).padStart(2, '0');
+	const yyyy = date.getFullYear();
+	const mm = pad(date.getMonth() + 1);
+	const dd = pad(date.getDate());
+
+	const useLang = lang;
+
+	if (useLang === 'es') {
+		return `${dd}/${mm}/${yyyy}`;
+	}
+	// default 'eu' format
+	return `${yyyy}-${mm}-${dd}`;
+}
