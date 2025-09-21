@@ -17,13 +17,3 @@ const Tag = tag || `div`;
 	<slot />
 </Tag>
 
-<style is:global>
-	:global(.content__container) {
-		margin: 0 auto;
-		max-width: var(--container-max-width);
-		padding: var(--container-padding);
-	}
-	:global(.content__container--narrow) {
-		max-width: var(--container-max-width-narrow);
-	}
-</style>
