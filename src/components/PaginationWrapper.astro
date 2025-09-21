@@ -1,0 +1,31 @@
+---
+import Pagination from './Pagination.astro';
+
+export interface Props {
+	page: {
+		currentPage: number;
+		lastPage: number;
+		total: number;
+		size: number;
+		url: {
+			current: string;
+			prev?: string;
+			next?: string;
+			first?: string;
+			last?: string;
+		};
+	};
+	class?: string;
+}
+
+const { page, class: className } = Astro.props;
+---
+
+<Pagination 
+	currentPage={page.currentPage}
+	lastPage={page.lastPage}
+	total={page.total}
+	size={page.size}
+	url={page.url}
+	class={className}
+/>

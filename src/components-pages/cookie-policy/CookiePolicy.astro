@@ -10,7 +10,6 @@ const url = Astro.url;
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 const Content = lang === 'eu' ? euContent : esContent;
-console.log('conteent', Content);
 ---
 
 <Page

@@ -1,0 +1,338 @@
+---
+// Historia component telling the story of Besaide
+---
+
+<section class="historia" id="historia">
+	<div class="container">
+		<div class="historia-content">
+			<div class="historia-text">
+				<div class="section-header">
+					<h2>Besaide</h2>
+					<p>Gure historia eta balioak</p>
+				</div>
+
+				<div class="historia-story">
+					<p class="lead">
+						Besaide Mendizale Elkartea <strong>1957. urtean</strong> sortu zen. Gaur
+						egun, Euskadiko elkarte erakunde garrantzitsuenen eta ospetsuenen artean
+						dago, bai bazkide kopuruei dagokienez, bai kirol jarduera anitzari eta
+						erakargarriari dagokionez.
+					</p>
+
+					<div class="historia-highlights">
+						<div class="highlight-item">
+							<h3>Gure Misioa</h3>
+							<p>
+								Mendizaletasuna eta naturarekin ditugun harreman osasuntsua
+								bultzatzea, kideen artean laguntasun eta elkartasun espiritu
+								sendoa eraikiz.
+							</p>
+						</div>
+
+						<div class="highlight-item">
+							<h3>Gure Balioak</h3>
+							<ul>
+								<li>Naturaren errespetua</li>
+								<li>Elkartasuna eta laguntasuna</li>
+								<li>Mendizaletasun arduratsua</li>
+								<li>Tradizioaren zaindutza</li>
+								<li>Gazteen heziketa</li>
+							</ul>
+						</div>
+
+						<div class="highlight-item">
+							<h3>Gure Lorpenak</h3>
+							<p>
+								68 urteko historian zehar, mendizale ugari hezi ditugu,
+								espedizio garrantzitsuak antolatu ditugu eta Euskadiko
+								mendigoitia ezagutaraztera lagundu dugu.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="cta-section">
+					<a href="#kontaktua" class="btn btn-primary">Gurekin bat egin</a>
+				</div>
+			</div>
+
+			<div class="historia-visual">
+				<div class="timeline">
+					<div class="timeline-item">
+						<div class="timeline-year">1957</div>
+						<div class="timeline-content">
+							<h4>Elkartea sortu zen</h4>
+							<p>
+								Arrasateko mendizale talde batek Besaide elkartea sortu zuen.
+							</p>
+						</div>
+					</div>
+
+					<div class="timeline-item">
+						<div class="timeline-year">1970s</div>
+						<div class="timeline-content">
+							<h4>Hazkunde garaia</h4>
+							<p>
+								Bazkide kopuruak nabarmen hazi zen eta jarduerak anitztu ziren.
+							</p>
+						</div>
+					</div>
+
+					<div class="timeline-item">
+						<div class="timeline-year">1990s</div>
+						<div class="timeline-content">
+							<h4>Modernizazioa</h4>
+							<p>Ekipamendu berriak eta zerbitzu berriak gehitu ziren.</p>
+						</div>
+					</div>
+
+					<div class="timeline-item">
+						<div class="timeline-year">2025</div>
+						<div class="timeline-content">
+							<h4>Gaur egun</h4>
+							<p>Euskadiko mendizale elkarte garrantzitsuenetakoa gara.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.historia {
+		padding: 5rem 0;
+		background: white;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.historia-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.section-header {
+		margin-bottom: 2rem;
+	}
+
+	.section-header h2 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #1f2937;
+		margin-bottom: 1rem;
+	}
+
+	.section-header p {
+		font-size: 1.1rem;
+		color: #6b7280;
+	}
+
+	.lead {
+		font-size: 1.2rem;
+		line-height: 1.7;
+		color: #374151;
+		margin-bottom: 2.5rem;
+	}
+
+	.lead strong {
+		color: #2d5a3d;
+		font-weight: 700;
+	}
+
+	.historia-highlights {
+		display: grid;
+		gap: 2rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.highlight-item {
+		padding: 1.5rem;
+		background: #f8fafc;
+		border-radius: 8px;
+		border-left: 4px solid #2d5a3d;
+	}
+
+	.highlight-item h3 {
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: #1f2937;
+		margin-bottom: 1rem;
+	}
+
+	.highlight-item p {
+		color: #6b7280;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	.highlight-item ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.highlight-item ul li {
+		color: #6b7280;
+		padding: 0.5rem 0;
+		border-bottom: 1px solid #e5e7eb;
+		position: relative;
+		padding-left: 1.5rem;
+	}
+
+	.highlight-item ul li:before {
+		content: '▲';
+		position: absolute;
+		left: 0;
+		color: #2d5a3d;
+		font-size: 0.8rem;
+	}
+
+	.highlight-item ul li:last-child {
+		border-bottom: none;
+	}
+
+	.cta-section {
+		text-align: left;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 0.875rem 2rem;
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		font-size: 0.95rem;
+	}
+
+	.btn-primary {
+		background: #2d5a3d;
+		color: white;
+		box-shadow: 0 4px 15px rgba(45, 90, 61, 0.3);
+	}
+
+	.btn-primary:hover {
+		background: #1a472a;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 25px rgba(45, 90, 61, 0.4);
+	}
+
+	/* Timeline Styles */
+	.timeline {
+		position: relative;
+		padding-left: 2rem;
+	}
+
+	.timeline::before {
+		content: '';
+		position: absolute;
+		left: 1rem;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: linear-gradient(to bottom, #2d5a3d, #4ade80);
+	}
+
+	.timeline-item {
+		position: relative;
+		margin-bottom: 3rem;
+	}
+
+	.timeline-item::before {
+		content: '';
+		position: absolute;
+		left: -1.75rem;
+		top: 0.25rem;
+		width: 12px;
+		height: 12px;
+		background: #2d5a3d;
+		border-radius: 50%;
+		border: 3px solid white;
+		box-shadow: 0 0 0 3px #2d5a3d;
+	}
+
+	.timeline-year {
+		background: #2d5a3d;
+		color: white;
+		padding: 0.5rem 1rem;
+		border-radius: 20px;
+		font-weight: 700;
+		font-size: 0.9rem;
+		display: inline-block;
+		margin-bottom: 1rem;
+	}
+
+	.timeline-content h4 {
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: #1f2937;
+		margin-bottom: 0.75rem;
+	}
+
+	.timeline-content p {
+		color: #6b7280;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+		.historia-content {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.section-header h2 {
+			font-size: 2rem;
+		}
+
+		.lead {
+			font-size: 1.1rem;
+		}
+
+		.timeline {
+			padding-left: 1.5rem;
+		}
+
+		.timeline::before {
+			left: 0.75rem;
+		}
+
+		.timeline-item::before {
+			left: -1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.historia {
+			padding: 3rem 0;
+		}
+
+		.section-header h2 {
+			font-size: 1.75rem;
+		}
+
+		.highlight-item {
+			padding: 1.25rem;
+		}
+
+		.timeline {
+			padding-left: 1rem;
+		}
+
+		.timeline::before {
+			left: 0.5rem;
+		}
+
+		.timeline-item::before {
+			left: -1.25rem;
+		}
+	}
+</style>

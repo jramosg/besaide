@@ -1,0 +1,76 @@
+---
+import Page from '@/layouts/Page.astro';
+import PaginationWrapper from '@/components/PaginationWrapper.astro';
+import { formatDate } from '@/i18n/utils';
+
+const { page } = Astro.props;
+---
+
+<Page pageClass="content__container ">
+	<section class="news-grid">
+		{
+			page.data.map((p: any) => (
+				<article class="card card--elevated news-card">
+					{p.data.image ? (
+						<a class="news-thumb" href={`/berriak/${p.id}/`}>
+							<img src={p.data.image} alt={p.data.imageAlt || p.data.title} />
+						</a>
+					) : null}
+
+					<h2>
+						<a href={`/berriak/${p.id}/`}>{p.data.title}</a>
+					</h2>
+					<p class="news-date">{formatDate(p.data.date)}</p>
+					<p>{p.data.summary}</p>
+				</article>
+			))
+		}
+	</section>
+
+	<PaginationWrapper page={page} />
+</Page>
+
+<style>
+	.news-grid {
+		display: grid;
+		/* create responsive columns with min 200px and max 400px */
+		grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
+		gap: var(--s4);
+		justify-content: center; /* center columns when there's leftover space */
+		align-items: start; /* align article content at top */
+	}
+
+	.news-card {
+		overflow: hidden;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+		padding: var(--s4);
+        height: 100%;
+		h2 {
+			font-size: var(--font-size-md, 1em);
+		}
+		a {
+			text-decoration: none;
+		}
+	}
+
+	.news-thumb img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+	}
+
+	.news-date {
+		color: var(--theme-text-secondary);
+		font-size: var(--font-size-small, 0.875rem);
+	}
+
+	@media (max-width: 768px) {
+		.news-grid {
+			grid-template-columns: 1fr; /* single column on small screens */
+		}
+	}
+</style>

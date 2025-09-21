@@ -1,0 +1,162 @@
+---
+import { getLangFromUrl, switchLanguage, useTranslations } from 'i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const alternativeUrl = switchLanguage(Astro.url);
+const t = useTranslations(currentLang);
+
+// Define language labels
+const langLabels = {
+	eu: 'EU',
+	es: 'ES'
+};
+
+const langNames = {
+	eu: t('language-euskera'),
+	es: t('language-espanol')
+};
+
+const currentLangLabel = langLabels[currentLang];
+const alternateLang = currentLang === 'eu' ? 'es' : 'eu';
+const alternateLangLabel = langLabels[alternateLang];
+const alternateLangName = langNames[alternateLang];
+---
+
+<div class="language-switcher">
+	{
+		alternativeUrl && (
+			<button
+				class="lang-toggle"
+				data-current-lang={currentLang}
+				data-alternate-url={alternativeUrl}
+				aria-label={`${t('switch-language')}: ${alternateLangName}`}
+				title={`${t('switch-language')}: ${alternateLangName}`}
+			>
+				<span class="current-lang">{currentLangLabel}</span>
+				<svg
+					class="lang-icon"
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"
+						fill="currentColor"
+					/>
+				</svg>
+			</button>
+		)
+	}
+</div>
+
+<style>
+	.language-switcher {
+		display: flex;
+		align-items: center;
+	}
+
+	.lang-toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		background: transparent;
+		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: 0.375rem;
+		color: var(--color-text, #1a202c);
+		font-size: 0.875rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		text-decoration: none;
+	}
+
+	.lang-toggle:hover {
+		background: var(--color-bg-hover, #f7fafc);
+		border-color: var(--color-border-hover, #cbd5e0);
+		transform: translateY(-1px);
+	}
+
+	.lang-toggle:focus {
+		outline: 2px solid var(--color-primary, #3182ce);
+		outline-offset: 2px;
+	}
+
+	.current-lang {
+		font-family:
+			'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas,
+			'Courier New', monospace;
+		font-weight: 600;
+	}
+
+	.lang-icon {
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+	}
+
+	.lang-toggle:hover .lang-icon {
+		opacity: 1;
+	}
+
+	/* Dark mode support */
+	@media (prefers-color-scheme: dark) {
+		.lang-toggle {
+			border-color: #4a5568;
+			color: #e2e8f0;
+		}
+
+		.lang-toggle:hover {
+			background: #2d3748;
+			border-color: #718096;
+		}
+
+		.lang-toggle:focus {
+			outline-color: #63b3ed;
+		}
+	}
+
+	/* Mobile responsive */
+	@media (max-width: 768px) {
+		.lang-toggle {
+			padding: 0.375rem 0.5rem;
+			font-size: 0.8rem;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const langToggle = document.querySelector(
+			'.lang-toggle'
+		) as HTMLButtonElement;
+
+		if (langToggle) {
+			langToggle.addEventListener('click', () => {
+				const alternateUrl = langToggle.dataset.alternateUrl;
+
+				if (alternateUrl) {
+					// Add a subtle loading state
+					langToggle.style.opacity = '0.7';
+					langToggle.style.pointerEvents = 'none';
+
+					// Navigate to the alternate language page
+					window.location.href = alternateUrl;
+				} else {
+					// Fallback: reload the current page (this shouldn't happen in normal cases)
+					console.warn('No alternate URL found for language switching');
+					window.location.reload();
+				}
+			});
+
+			// Add keyboard support
+			langToggle.addEventListener('keydown', e => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					langToggle.click();
+				}
+			});
+		}
+	});
+</script>

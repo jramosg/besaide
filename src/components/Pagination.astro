@@ -1,0 +1,348 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+export interface Props {
+	currentPage: number;
+	lastPage: number;
+	total: number;
+	size: number;
+	url: {
+		current: string;
+		prev?: string;
+		next?: string;
+		first?: string;
+		last?: string;
+	};
+	class?: string;
+}
+
+const { currentPage, lastPage, total, size, url, class: className } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Generate page numbers for display
+const generatePageNumbers = (current: number, last: number, maxVisible: number = 5) => {
+	const pages: (number | string)[] = [];
+	
+	if (last <= maxVisible) {
+		// Show all pages if total is small
+		for (let i = 1; i <= last; i++) {
+			pages.push(i);
+		}
+		return pages;
+	}
+	
+	const halfVisible = Math.floor(maxVisible / 2);
+	let start = Math.max(1, current - halfVisible);
+	let end = Math.min(last, current + halfVisible);
+	
+	// Adjust if we're near the beginning or end
+	if (current <= halfVisible) {
+		end = maxVisible;
+	} else if (current >= last - halfVisible) {
+		start = last - maxVisible + 1;
+	}
+	
+	// Add first page and ellipsis if needed
+	if (start > 1) {
+		pages.push(1);
+		if (start > 2) {
+			pages.push('...');
+		}
+	}
+	
+	// Add middle pages
+	for (let i = start; i <= end; i++) {
+		pages.push(i);
+	}
+	
+	// Add ellipsis and last page if needed
+	if (end < last) {
+		if (end < last - 1) {
+			pages.push('...');
+		}
+		pages.push(last);
+	}
+	
+	return pages;
+};
+
+const pageNumbers = generatePageNumbers(currentPage, lastPage);
+
+// Helper to construct URLs for different pages
+const getPageUrl = (pageNum: number): string => {
+	if (pageNum === 1) {
+		return url.first || url.current.replace(/\/\d+$/, '');
+	}
+	
+	// Extract base path from current URL and append page number
+	const basePath = url.current.replace(/\/\d+$/, '');
+	return `${basePath}/${pageNum}`;
+};
+
+const prevUrl = url.prev;
+const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
+const firstUrl = url.first || getPageUrl(1);
+const lastUrl = getPageUrl(lastPage);
+---
+
+<nav class={`pagination ${className || ''}`} aria-label={t('pagination.pages')}>
+	<div class="pagination__info">
+		<span class="pagination__summary">
+			{total} {t('pagination.results-total')}, {size} {t('pagination.per-page')}
+		</span>
+		<span class="pagination__current">
+			{currentPage}. {t('pagination.page-of')} {lastPage}{t('pagination.of')}
+		</span>
+	</div>
+	
+	<ul class="pagination__nav">
+		<!-- First page -->
+		{prevUrl && prevUrl !== firstUrl && (
+			<li class="pagination__item">
+				<a href={firstUrl} class="pagination__link pagination__link--first" aria-label={t('pagination.first-page')}>
+					<span aria-hidden="true">«</span>
+					<span class="pagination__text">{t('pagination.first')}</span>
+				</a>
+			</li>
+		)}
+		
+		<!-- Previous page -->
+		{prevUrl && (
+			<li class="pagination__item">
+				<a href={prevUrl} class="pagination__link pagination__link--prev" aria-label={t('pagination.previous-page')}>
+					<span aria-hidden="true">‹</span>
+					<span class="pagination__text">{t('pagination.previous')}</span>
+				</a>
+			</li>
+		)}
+		
+		<!-- Page numbers -->
+		{pageNumbers.map((pageNum) => (
+			<li class="pagination__item">
+				{pageNum === '...' ? (
+					<span class="pagination__ellipsis" aria-hidden="true">…</span>
+				) : pageNum === currentPage ? (
+					<span class="pagination__link pagination__link--current" aria-current="page">
+						{pageNum}
+					</span>
+				) : (
+					<a href={getPageUrl(pageNum as number)} class="pagination__link" aria-label={`${pageNum}. ${t('pagination.page')}`}>
+						{pageNum}
+					</a>
+				)}
+			</li>
+		))}
+		
+		<!-- Next page -->
+		{nextUrl && (
+			<li class="pagination__item">
+				<a href={nextUrl} class="pagination__link pagination__link--next" aria-label={t('pagination.next-page')}>
+					<span class="pagination__text">{t('pagination.next')}</span>
+					<span aria-hidden="true">›</span>
+				</a>
+			</li>
+		)}
+		
+		<!-- Last page -->
+		{nextUrl !== lastUrl && nextUrl && (
+			<li class="pagination__item">
+				<a href={lastUrl} class="pagination__link pagination__link--last" aria-label={t('pagination.last-page')}>
+					<span class="pagination__text">{t('pagination.last')}</span>
+					<span aria-hidden="true">»</span>
+				</a>
+			</li>
+		)}
+	</ul>
+</nav>
+
+<style>
+.pagination {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin: 2rem 0;
+	padding: 1rem;
+	border-top: 1px solid var(--color-border, #e5e5e5);
+}
+
+.pagination__info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.875rem;
+	color: var(--color-text-secondary, #666);
+}
+
+.pagination__summary {
+	font-weight: 500;
+}
+
+.pagination__current {
+	background: var(--color-background-accent, #f5f5f5);
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	font-weight: 600;
+}
+
+.pagination__nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+}
+
+.pagination__item {
+	display: flex;
+}
+
+.pagination__link {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--color-border, #e5e5e5);
+	background: var(--color-background, white);
+	color: var(--color-primary, #0066cc);
+	text-decoration: none;
+	border-radius: 0.25rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition: all 0.2s ease;
+}
+
+.pagination__link:hover {
+	background: var(--color-primary, #0066cc);
+	color: white;
+	border-color: var(--color-primary, #0066cc);
+}
+
+.pagination__link:focus {
+	outline: 2px solid var(--color-primary, #0066cc);
+	outline-offset: 2px;
+}
+
+.pagination__link--current {
+	background: var(--color-primary, #0066cc);
+	color: white;
+	border-color: var(--color-primary, #0066cc);
+	cursor: default;
+	font-weight: 600;
+}
+
+.pagination__link--current:hover {
+	background: var(--color-primary, #0066cc);
+	color: white;
+}
+
+.pagination__link--first,
+.pagination__link--last {
+	font-weight: 600;
+}
+
+.pagination__link--prev,
+.pagination__link--next {
+	font-weight: 600;
+}
+
+.pagination__text {
+	display: none;
+}
+
+.pagination__ellipsis {
+	display: flex;
+	align-items: center;
+	padding: 0.5rem 0.75rem;
+	color: var(--color-text-secondary, #666);
+	font-weight: 600;
+}
+
+/* Show text labels on larger screens */
+@media (min-width: 640px) {
+	.pagination__text {
+		display: inline;
+	}
+	
+	.pagination__link--first,
+	.pagination__link--last,
+	.pagination__link--prev,
+	.pagination__link--next {
+		padding: 0.5rem 1rem;
+	}
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+	.pagination {
+		padding: 0.5rem;
+	}
+	
+	.pagination__info {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-size: 0.8rem;
+	}
+	
+	.pagination__nav {
+		gap: 0.125rem;
+	}
+	
+	.pagination__link {
+		padding: 0.375rem 0.5rem;
+		font-size: 0.8rem;
+		min-width: 2.5rem;
+		justify-content: center;
+	}
+	
+	.pagination__link--first,
+	.pagination__link--last,
+	.pagination__link--prev,
+	.pagination__link--next {
+		padding: 0.375rem 0.5rem;
+	}
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+	.pagination {
+		border-top-color: #374151;
+	}
+	
+	.pagination__info {
+		color: #9ca3af;
+	}
+	
+	.pagination__current {
+		background: #374151;
+		color: #f9fafb;
+	}
+	
+	.pagination__link {
+		border-color: #374151;
+		background: #1f2937;
+		color: #60a5fa;
+	}
+	
+	.pagination__link:hover {
+		background: #60a5fa;
+		color: #1f2937;
+		border-color: #60a5fa;
+	}
+	
+	.pagination__link--current {
+		background: #60a5fa;
+		color: #1f2937;
+		border-color: #60a5fa;
+	}
+	
+	.pagination__ellipsis {
+		color: #9ca3af;
+	}
+}
+</style>

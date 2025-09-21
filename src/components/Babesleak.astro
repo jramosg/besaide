@@ -1,0 +1,342 @@
+---
+// Babesleak component showing sponsors and partners
+const sponsors = [
+	{
+		name: 'MONDRABERRI Arrasateko Ataria',
+		url: 'http://www.mondraberri.com/mondraberri/',
+		logo: '🌐',
+		description: 'Arrasateko informazio ataria'
+	},
+	{
+		name: 'Compañía Alejandro Altuna',
+		url: 'http://www.jma.es/',
+		logo: '🏢',
+		description: 'Industria enpresa'
+	},
+	{
+		name: 'Caja Laboral Kutxa',
+		url: 'https://www.laboralkutxa.com/eu/partikularrak',
+		logo: '🏦',
+		description: 'Finantza entitatea'
+	},
+	{
+		name: 'Udal Kirol Zerbitzua - Arrasateko Udala',
+		url: 'http://www.arrasate.eus/eu/udala/udal-sail-eta-zerbitzuak/kirola/udal-kirol-zerbitzua',
+		logo: '🏛️',
+		description: 'Arrasateko Udaleko kirol zerbitzua'
+	},
+	{
+		name: 'Ternua',
+		url: 'https://www.ternua.com/es/eu/',
+		logo: '🧥',
+		description: 'Kanpo kirol ekipamendua'
+	},
+	{
+		name: 'Eroski',
+		url: 'http://www.eroski.es/',
+		logo: '🛒',
+		description: 'Kontsumo kooperatiba'
+	}
+];
+---
+
+<section class="babesleak" id="babesleak">
+	<div class="container">
+		<div class="section-header">
+			<h2>Babesleak</h2>
+			<p>Gure jarduera posible egiten duten entitate eta enpresak</p>
+		</div>
+
+		<div class="sponsors-grid">
+			{
+				sponsors.map(sponsor => (
+					<div class="sponsor-card">
+						<a
+							href={sponsor.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="sponsor-link"
+						>
+							<div class="sponsor-logo">
+								<span class="logo-icon">{sponsor.logo}</span>
+							</div>
+							<div class="sponsor-info">
+								<h3>{sponsor.name}</h3>
+								<p>{sponsor.description}</p>
+							</div>
+						</a>
+					</div>
+				))
+			}
+		</div>
+
+		<div class="sponsors-message">
+			<div class="message-content">
+				<h3>Babesle izan nahi al duzu?</h3>
+				<p>
+					Zure enpresa edo erakundea gure mendizale elkarteko babesle izan nahi
+					bada, gurekin harremanetan jar zaitez. Elkarrekin, mendizaletasuna
+					bultzatu eta naturaren kultura zabal dezakegu.
+				</p>
+				<a href="#kontaktua" class="btn btn-primary">Informazioa eskatu</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.babesleak {
+		padding: 5rem 0;
+		background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.section-header h2 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #1f2937;
+		margin-bottom: 1rem;
+	}
+
+	.section-header p {
+		font-size: 1.1rem;
+		color: #6b7280;
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: 1.6;
+	}
+
+	.sponsors-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+
+	.sponsor-card {
+		background: white;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+		transition: all 0.3s ease;
+		border: 1px solid rgba(226, 232, 240, 0.8);
+	}
+
+	.sponsor-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+	}
+
+	.sponsor-link {
+		display: block;
+		padding: 2rem;
+		text-decoration: none;
+		color: inherit;
+		height: 100%;
+	}
+
+	.sponsor-logo {
+		text-align: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.logo-icon {
+		display: inline-block;
+		font-size: 3rem;
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+		transition: all 0.3s ease;
+	}
+
+	.sponsor-card:hover .logo-icon {
+		transform: scale(1.1);
+	}
+
+	.sponsor-info {
+		text-align: center;
+	}
+
+	.sponsor-info h3 {
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: #1f2937;
+		margin-bottom: 0.75rem;
+		line-height: 1.3;
+	}
+
+	.sponsor-info p {
+		color: #6b7280;
+		font-size: 0.95rem;
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	.sponsors-message {
+		background: white;
+		border-radius: 16px;
+		padding: 3rem 2rem;
+		text-align: center;
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(226, 232, 240, 0.8);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.sponsors-message::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			135deg,
+			rgba(45, 90, 61, 0.03),
+			rgba(74, 222, 128, 0.03)
+		);
+		pointer-events: none;
+	}
+
+	.message-content {
+		position: relative;
+		z-index: 10;
+	}
+
+	.sponsors-message h3 {
+		font-size: 1.8rem;
+		font-weight: 600;
+		color: #1f2937;
+		margin-bottom: 1rem;
+	}
+
+	.sponsors-message p {
+		font-size: 1.1rem;
+		color: #6b7280;
+		margin-bottom: 2rem;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: 1.6;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 0.875rem 2rem;
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		font-size: 0.95rem;
+	}
+
+	.btn-primary {
+		background: #2d5a3d;
+		color: white;
+		box-shadow: 0 4px 15px rgba(45, 90, 61, 0.3);
+	}
+
+	.btn-primary:hover {
+		background: #1a472a;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 25px rgba(45, 90, 61, 0.4);
+	}
+
+	/* Sponsor specific colors and effects */
+	.sponsor-card:nth-child(1) .sponsor-link:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(59, 130, 246, 0.05),
+			rgba(147, 197, 253, 0.05)
+		);
+	}
+
+	.sponsor-card:nth-child(2) .sponsor-link:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(107, 114, 128, 0.05),
+			rgba(156, 163, 175, 0.05)
+		);
+	}
+
+	.sponsor-card:nth-child(3) .sponsor-link:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(34, 197, 94, 0.05),
+			rgba(74, 222, 128, 0.05)
+		);
+	}
+
+	.sponsor-card:nth-child(4) .sponsor-link:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(239, 68, 68, 0.05),
+			rgba(252, 165, 165, 0.05)
+		);
+	}
+
+	.sponsor-card:nth-child(5) .sponsor-link:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(168, 85, 247, 0.05),
+			rgba(196, 181, 253, 0.05)
+		);
+	}
+
+	.sponsor-card:nth-child(6) .sponsor-link:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(245, 158, 11, 0.05),
+			rgba(251, 191, 36, 0.05)
+		);
+	}
+
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+		.sponsors-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.section-header h2 {
+			font-size: 2rem;
+		}
+
+		.sponsor-link {
+			padding: 1.5rem;
+		}
+
+		.sponsors-message {
+			padding: 2rem 1.5rem;
+		}
+
+		.sponsors-message h3 {
+			font-size: 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.babesleak {
+			padding: 3rem 0;
+		}
+
+		.section-header h2 {
+			font-size: 1.75rem;
+		}
+
+		.sponsor-link {
+			padding: 1.25rem;
+		}
+
+		.logo-icon {
+			font-size: 2.5rem;
+		}
+	}
+</style>

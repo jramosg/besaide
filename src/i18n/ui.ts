@@ -9,6 +9,21 @@ export const ui = {
 		'switch-language': 'Cambiar idioma',
 		'language-euskera': 'Euskera',
 		'language-espanol': 'Español',
+		// Pagination
+		'pagination.pages': 'Páginas',
+		'pagination.results-total': 'resultados en total',
+		'pagination.per-page': 'por página',
+		'pagination.page-of': 'Página',
+		'pagination.of': 'de',
+		'pagination.first': 'Primera',
+		'pagination.last': 'Última',
+		'pagination.previous': 'Anterior',
+		'pagination.next': 'Siguiente',
+		'pagination.first-page': 'Primera página',
+		'pagination.last-page': 'Última página',
+		'pagination.previous-page': 'Página anterior',
+		'pagination.next-page': 'Página siguiente',
+		'pagination.page': 'Página',
 		a: 'a'
 	},
 	eu: {
@@ -16,7 +31,22 @@ export const ui = {
 			'Besaide Mendizale Elkartea - Hasiera',
 		'switch-language': 'Hizkuntza aldatu',
 		'language-euskera': 'Euskera',
-		'language-espanol': 'Gaztelania'
+		'language-espanol': 'Gaztelania',
+		// Pagination
+		'pagination.pages': 'Orrialdeak',
+		'pagination.results-total': 'emaitza guztira',
+		'pagination.per-page': 'orrialde bakoitzeko',
+		'pagination.page-of': 'orria',
+		'pagination.of': 'tik',
+		'pagination.first': 'Lehena',
+		'pagination.last': 'Azkena',
+		'pagination.previous': 'Aurrekoa',
+		'pagination.next': 'Hurrengoa',
+		'pagination.first-page': 'Lehen orria',
+		'pagination.last-page': 'Azken orria',
+		'pagination.previous-page': 'Aurreko orria',
+		'pagination.next-page': 'Hurrengo orria',
+		'pagination.page': 'orria'
 	}
 } as const;
 
