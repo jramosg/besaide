@@ -5,6 +5,7 @@ import Logo from '../components/Logo.astro';
 import Header from 'components/Header.astro';
 //import Footer from 'components/Footer.astro';
 import { nav } from '@/config/nav';
+import DrawerNav from '@/components/DrawerNav.astro';
 export interface Props {
 	seo?: BaseHeadProps;
 	pageClass?: string;
@@ -19,6 +20,7 @@ const { seo, pageClass, ...rest } = Astro.props as Props;
 			<Logo />
 		</Fragment>
 	</Header>
+	<DrawerNav navData={nav} />
 	<div id="page" class={pageClass} {...rest}>
 		<slot />
 	</div>
