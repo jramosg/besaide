@@ -1,7 +1,3 @@
----
-author: jon
----
-
 # Aviso legal
 
 El presente aviso legal (en adelante, el “Aviso Legal”) regula el uso del sitio web besaide.eus (en adelante, el “Sitio Web”) y de la dirección de correo electrónico besaide@besaide.eus, titularidad de BESAIDE MENDIZALE ELKARTEA (domicilio social: Garibai 3 bis, 20500 ARRASATE (Gipuzkoa) y IFZ: G20131397).

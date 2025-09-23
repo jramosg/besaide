@@ -1,8 +1,8 @@
 ---
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import Page from 'layouts/Page.astro';
-import { Content as euContent } from 'components-pages/cookie-policy/eu.md';
-import { Content as esContent } from 'components-pages/cookie-policy/es.md';
+import { Content as euContent } from '@/data/cookie-policy/eu.md';
+import { Content as esContent } from '@/data/cookie-policy/es.md';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -20,13 +20,3 @@ const Content = lang === 'eu' ? euContent : esContent;
 >
 	<Content />
 </Page>
-
-<style>
-	.article {
-		max-width: 65ch; /* target ~60–66 characters/line */
-		width: min(100%, 90vw); /* keep responsive on small screens */
-		margin: 0 auto;
-		line-height: 1.4–1.6;
-		padding: 0 1rem;
-	}
-</style>
