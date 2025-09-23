@@ -5,14 +5,17 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro build",
-		"preview": "astro preview",
+		"check": "astro check",
+		"build": "astro check && astro build",
+		"preview": "astro check && astro preview",
 		"astro": "astro",
 		"format": "npx prettier -w ."
 	},
 	"dependencies": {
+		"@astrojs/check": "^0.9.4",
 		"@lucide/astro": "^0.544.0",
-		"astro": "^5.13.8"
+		"astro": "^5.13.10",
+		"typescript": "^5.9.2"
 	},
 	"devDependencies": {
 		"prettier": "^3.6.2",
