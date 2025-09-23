@@ -2,13 +2,14 @@
 
 <script>
 	import 'theme-toggles/css/classic.css';
+	import { getStoredTheme, setTheme } from './theme';
 
 	document.addEventListener('astro:page-load', () => {
 		const themeToggle = document.getElementById('theme-toggle');
 		const preferedTheme = getStoredTheme();
 		if (themeToggle) {
 			themeToggle.innerHTML = `
-    <input type="checkbox" id="theme-toggle-checkbox" ${preferedTheme === 'dark' ? 'checked' : ''}/>
+	<input type="checkbox" id="theme-toggle-checkbox" ${preferedTheme === 'dark' ? 'checked' : ''}/>
 	<span class="theme-toggle-sr">Toggle theme</span>
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +42,9 @@
 		const themeToggleCheckbox = document.getElementById(
 			'theme-toggle-checkbox'
 		);
-		themeToggleCheckbox?.addEventListener('change', e => {
-			setTheme(e.target.checked ? 'dark' : 'light');
+		themeToggleCheckbox?.addEventListener('change', () => {
+			const checkbox = document.getElementById('theme-toggle-checkbox') as HTMLInputElement | null;
+			setTheme(checkbox?.checked ? 'dark' : 'light');
 		});
 	});
 </script>
