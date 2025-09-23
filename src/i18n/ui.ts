@@ -34,7 +34,9 @@ export const ui = {
 		'nav.news': 'Noticias',
 		'nav.home': 'Inicio',
 		'Zure enpresak edo erakundeak gure mendizale elkarteko babesle izan nahi badu, jar zaitez gurekin harremanetan. Elkarrekin, mendizaletasuna bultzatu eta naturaren kultura zabal dezakegu.':
-			'Si tu empresa o entidad quiere ser patrocinador de nuestra asociación de montañismo, ponte en contacto con nosotros. Juntos, podemos promover el montañismo y difundir la cultura de la naturaleza.'
+			'Si tu empresa o entidad quiere ser patrocinador de nuestra asociación de montañismo, ponte en contacto con nosotros. Juntos, podemos promover el montañismo y difundir la cultura de la naturaleza.',
+		'nav.cookies-policy': 'Aviso legal / Política de privacidad',
+		'Babeslea izan nahi duzu?': '¿Quieres ser patrocinador?'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -62,7 +64,8 @@ export const ui = {
 		'settings.description': 'setting.description',
 		a: 'a',
 		'nav.news': 'Berriak',
-		'nav.home': 'Hasiera'
+		'nav.home': 'Hasiera',
+		'nav.cookies-policy': 'Lege oharra / Pribatutasun politika'
 	}
 } as const;
 

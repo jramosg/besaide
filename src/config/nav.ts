@@ -6,6 +6,10 @@ export const nav = [
 	{
 		title: 'nav.news',
 		slug: 'news'
+	},
+	{
+		title: 'nav.cookies-policy',
+		slug: 'cookies-policy'
 	}
 ] as const;
 
