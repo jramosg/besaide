@@ -1,3 +1,4 @@
+import { getCollection } from 'astro:content';
 import { ui, defaultLang } from './ui';
 import type { Langs, UIKeys } from './ui';
 
@@ -33,12 +34,11 @@ export function getLangFromUrl(url: URL): Langs {
 
 export function switchLanguage(url: URL): string | null {
 	const pathParts = url.pathname.split('/').filter(Boolean);
-
 	// Handle homepage routing
 	if (pathParts.length === 0 || url.pathname === '/') {
 		// We're on the homepage, switch to the other language homepage
 		const currentLang = getLangFromUrl(url);
-		const newLang = newLangMap[currentLang as keyof typeof newLangMap];
+		const newLang = newLangMap[currentLang];
 
 		if (newLang === 'eu') {
 			return '/'; // Basque is the default, so root path
@@ -68,7 +68,7 @@ export function switchLanguage(url: URL): string | null {
 export function getUrlFromID(slug: string, lang: Langs): string {
 	for (const [urlSlug, info] of Object.entries(langMapping)) {
 		if (info.lang === lang && info.id === slug) {
-			return urlSlug;
+			return `/${urlSlug}`;
 		}
 	}
 	return '';
