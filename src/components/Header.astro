@@ -1,11 +1,11 @@
 ---
 import Burger from 'components/buttons/Burger.astro';
-import { nav, type NavItem } from 'config/nav';
-import { getLangFromUrl, useTranslations } from 'i18n/utils';
+import { nav, type Nav } from 'config/nav';
+import { getLangFromUrl, useTranslations, getUrlFromID } from 'i18n/utils';
 import LanguageToggle from 'components/LanguageToggle.astro';
 
 type Props = {
-	navData: NavItem[];
+	navData: Nav;
 	rightMenu?: boolean;
 };
 const { navData, rightMenu }: Props = Astro.props;
@@ -35,7 +35,7 @@ const t = useTranslations(lang);
 				{
 					navData.map(navItem => (
 						<li class="header-nav__item">
-							<a href={`/${lang}${navItem.slug}`}>{t(navItem.title)}</a>
+							<a href={getUrlFromID(navItem.slug, lang)}>{t(navItem.title)}</a>
 						</li>
 					))
 				}

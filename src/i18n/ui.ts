@@ -24,7 +24,14 @@ export const ui = {
 		'pagination.previous-page': 'Página anterior',
 		'pagination.next-page': 'Página siguiente',
 		'pagination.page': 'Página',
-		a: 'a'
+		eu: 'Euskera',
+		es: 'Español',
+		'settings.description': 'setting.description',
+		a: 'a',
+		'Orri nagusira joan': 'Ir a la página principal',
+		'Menua itxi': 'Cerrar menú',
+		'Menua ireki': 'Abrir menú',
+		'nav.news': 'Noticias'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -46,7 +53,12 @@ export const ui = {
 		'pagination.last-page': 'Azken orria',
 		'pagination.previous-page': 'Aurreko orria',
 		'pagination.next-page': 'Hurrengo orria',
-		'pagination.page': 'orria'
+		'pagination.page': 'orria',
+		eu: 'Euskera',
+		es: 'Gaztelania',
+		'settings.description': 'setting.description',
+		a: 'a',
+		'nav.news': 'Berriak'
 	}
 } as const;
 

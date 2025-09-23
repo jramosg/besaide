@@ -1,0 +1,91 @@
+---
+import Page from '@/layouts/Page.astro';
+import { formatDate } from '@/i18n/utils';
+import { slugify } from '@/utils/string';
+import { render } from 'astro:content';
+
+const { post } = Astro.props;
+
+const { Content } = await render(post);
+const slug = slugify(post.data.title);
+---
+
+<Page pageClass="content__container single-news">
+	<article class="single-article">
+		{
+			post.data.image ? (
+				<header class="hero">
+					<img
+						src={post.data.image}
+						alt={post.data.imageAlt || post.data.title}
+						style={`view-transition-name: ${slug}-image`}
+					/>
+				</header>
+			) : null
+		}
+
+		<div class="article-body container">
+			<h1 class="title" style={`view-transition-name: ${slug}-title`}>
+				{post.data.title}
+			</h1>
+			<p class="meta">{formatDate(post.data.date)} · {post.data.lang}</p>
+
+			{post.data.summary ? <p class="summary">{post.data.summary}</p> : null}
+
+			<section class="content">
+				<Content />
+			</section>
+		</div>
+	</article>
+</Page>
+
+<style>
+	.single-article .hero img {
+		width: 100%;
+		height: auto;
+		display: block;
+		object-fit: cover;
+		max-height: 420px;
+	}
+
+	.article-body.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: var(--s6) 1rem;
+	}
+
+	.title {
+		font-size: 2rem;
+		margin: var(--s3) 0 var(--s2);
+	}
+
+	.meta {
+		color: var(--theme-text-secondary);
+		font-size: 0.9rem;
+		margin-bottom: var(--s2);
+	}
+
+	.summary {
+		font-weight: 600;
+		margin-bottom: var(--s3);
+		color: var(--theme-text);
+	}
+
+	.content :global(p) {
+		line-height: 1.7;
+		margin-bottom: var(--s3);
+	}
+
+	.content :global(a) {
+		color: var(--theme-accent);
+	}
+
+	@media (max-width: 768px) {
+		.title {
+			font-size: 1.5rem;
+		}
+		.single-article .hero img {
+			max-height: 240px;
+		}
+	}
+</style>

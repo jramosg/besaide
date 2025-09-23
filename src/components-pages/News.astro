@@ -2,28 +2,36 @@
 import Page from '@/layouts/Page.astro';
 import PaginationWrapper from '@/components/PaginationWrapper.astro';
 import { formatDate } from '@/i18n/utils';
-
+import { slugify } from '@/utils/string';
+import type { NewsPost } from '@/types/News';
 const { page } = Astro.props;
 ---
 
 <Page pageClass="content__container ">
 	<section class="news-grid">
 		{
-			page.data.map((p: any) => (
-				<article class="card card--elevated news-card">
-					{p.data.image ? (
-						<a class="news-thumb" href={`/berriak/${p.id}/`}>
-							<img src={p.data.image} alt={p.data.imageAlt || p.data.title} />
-						</a>
-					) : null}
+			page.data.map((p: NewsPost) => {
+				const slug = slugify(p.data.title);
+				return (
+					<article class="card card--elevated news-card">
+						{p.data.image ? (
+							<a class="news-thumb" href={`/berriak/${slug}/`}>
+								<img
+									src={p.data.image}
+									alt={p.data.imageAlt || p.data.title}
+									style={`view-transition-name: ${slug}-image`}
+								/>
+							</a>
+						) : null}
 
-					<h2>
-						<a href={`/berriak/${p.id}/`}>{p.data.title}</a>
-					</h2>
-					<p class="news-date">{formatDate(p.data.date)}</p>
-					<p>{p.data.summary}</p>
-				</article>
-			))
+						<h2 style={`view-transition-name: ${slug}-title`}>
+							<a href={`/berriak/${slug}/`}>{p.data.title}</a>
+						</h2>
+						<p class="news-date">{formatDate(p.data.date)}</p>
+						<p>{p.data.summary}</p>
+					</article>
+				);
+			})
 		}
 	</section>
 
@@ -47,7 +55,7 @@ const { page } = Astro.props;
 		flex-direction: column;
 		gap: var(--s2);
 		padding: var(--s4);
-        height: 100%;
+		height: 100%;
 		h2 {
 			font-size: var(--font-size-md, 1em);
 		}

@@ -1,19 +1,12 @@
 export const nav = [
 	{
-		title: 'nav.home',
-		slug: '/'
-	},
-	{
-		title: 'nav.services',
-		slug: '/services'
-	},
-	{
-		title: 'nav.contact',
-		slug: '/contact'
+		title: 'nav.news',
+		slug: 'news'
 	}
-];
+] as const;
 
+export type Nav = typeof nav;
 export type NavItem = {
 	title: string;
-	slug?: string;
+	slug: string;
 };

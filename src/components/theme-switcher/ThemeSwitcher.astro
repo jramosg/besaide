@@ -43,7 +43,9 @@
 			'theme-toggle-checkbox'
 		);
 		themeToggleCheckbox?.addEventListener('change', () => {
-			const checkbox = document.getElementById('theme-toggle-checkbox') as HTMLInputElement | null;
+			const checkbox = document.getElementById(
+				'theme-toggle-checkbox'
+			) as HTMLInputElement | null;
 			setTheme(checkbox?.checked ? 'dark' : 'light');
 		});
 	});

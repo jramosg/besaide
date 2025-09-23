@@ -1,0 +1,13 @@
+---
+import SingleNews from '@/components-pages/SingleNews.astro';
+import { SingleNewsStaticPaths } from '@/staticPathsHelper';
+import type { GetStaticPathsOptions } from 'astro';
+
+export function getStaticPaths({}: GetStaticPathsOptions) {
+	return SingleNewsStaticPaths('eu');
+}
+
+const { post } = Astro.props;
+---
+
+<SingleNews post={post} />

@@ -1,4 +1,3 @@
-
 # Besaide
 
 Besaide is a multilingual (Basque/Spanish) content-driven website built with Astro. It uses simple markdown content files for news and other pages and ships a lightweight, accessible component set.
@@ -8,6 +7,7 @@ This README covers quick setup, where content lives, contribution notes, and a p
 ## Quick start
 
 Prerequisites:
+
 - Node.js 18+ (recommended)
 - pnpm (preferred package manager)
 
@@ -48,10 +48,10 @@ Example frontmatter:
 
 ```md
 ---
-title: "Sample News Item"
-date: "2025-09-22"
-language: "eu"
-summary: "Short summary shown in listings."
+title: 'Sample News Item'
+date: '2025-09-22'
+language: 'eu'
+summary: 'Short summary shown in listings.'
 ---
 
 Markdown content goes here.

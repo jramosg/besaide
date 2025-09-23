@@ -3,8 +3,6 @@ import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import Page from 'layouts/Page.astro';
 import { Content as euContent } from 'components-pages/cookie-policy/eu.md';
 import { Content as esContent } from 'components-pages/cookie-policy/es.md';
-import { getEntry, render } from 'astro:content';
-import Container from 'components/Container.astro';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
