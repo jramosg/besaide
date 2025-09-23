@@ -1,10 +1,18 @@
 ---
-
+import LogoBesaide from '@/assets/logo-besaide-morea.webp';
+import { Image } from 'astro:assets';
 ---
 
+<Image
+	src={LogoBesaide}
+	alt="Besaide Mendizale Elkartea"
+	class="besaide-logo"
+/>
+
 <style>
-	.laguntza-fisioterapia-logo {
+	.besaide-logo {
 		height: 100%;
+		width: 180px;
 		cursor: pointer;
 	}
 </style>
