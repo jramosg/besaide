@@ -1,7 +1,12 @@
 ---
 import Burger from 'components/buttons/Burger.astro';
 import { nav, type Nav } from 'config/nav';
-import { getLangFromUrl, useTranslations, getUrlFromID } from 'i18n/utils';
+import {
+	getLangFromUrl,
+	useTranslations,
+	getUrlFromID,
+	getIdfromUrl
+} from 'i18n/utils';
 import LanguageToggle from 'components/LanguageToggle.astro';
 
 type Props = {
@@ -13,6 +18,7 @@ const { navData, rightMenu }: Props = Astro.props;
 const url = Astro.url;
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
+console.log('getIdfromUrl(url)', getIdfromUrl(url));
 ---
 
 <header
@@ -35,7 +41,16 @@ const t = useTranslations(lang);
 				{
 					navData.map(navItem => (
 						<li class="header-nav__item">
-							<a href={getUrlFromID(navItem.slug, lang)}>{t(navItem.title)}</a>
+							<a
+								class={
+									navItem.slug === getIdfromUrl(url)
+										? 'landing-menu-item--active'
+										: ''
+								}
+								href={getUrlFromID(navItem.slug, lang)}
+							>
+								{t(navItem.title)}
+							</a>
 						</li>
 					))
 				}
@@ -153,6 +168,12 @@ const t = useTranslations(lang);
 		transition: opacity 0.3s ease-in-out;
 	}
 
+	.landing-menu-item--active {
+		opacity: 1;
+		font-weight: 700;
+		border-bottom: 2px solid var(--theme-primary);
+	}
+
 	@media (max-width: 768px) {
 		.header-nav__container {
 			display: none;
@@ -213,9 +234,9 @@ const t = useTranslations(lang);
 		text-decoration: none;
 		font-weight: 700;
 		letter-spacing: 0.08em;
-
 		transition: color 0.2s;
 	}
+
 	.landing-menu-item a:hover {
 		color: var(--theme-secondary, #e8944a);
 		text-shadow:

@@ -1,4 +1,3 @@
-import { getCollection } from 'astro:content';
 import { ui, defaultLang } from './ui';
 import type { Langs, UIKeys } from './ui';
 
@@ -89,6 +88,13 @@ export function getStaticLangPaths(): { params: { lang: Langs } }[] {
 	});
 
 	return langs.map(toParam);
+}
+
+export function getIdfromUrl(url: URL): string | null {
+	let [, firstPathSegment] = url.pathname.split('/');
+	firstPathSegment = firstPathSegment || '';
+	const mappingEntry = langMapping[firstPathSegment] || null;
+	return mappingEntry ? mappingEntry.id : null;
 }
 
 /**

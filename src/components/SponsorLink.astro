@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+const { url, name, LogoComponent } = Astro.props;
+---
+
+<a
+	href={url}
+	target="_blank"
+	rel="noopener noreferrer"
+	class="sponsor-container-link"
+>
+	<Image src={LogoComponent} alt={name} />;
+</a>
+
+<style>
+	.sponsor-container-link {
+		height: 200px;
+		min-width: 200px;
+		flex: 1;
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: contain;
+			aspect-ratio: 4 / 3;
+		}
+	}
+</style>

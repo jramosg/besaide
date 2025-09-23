@@ -3,7 +3,7 @@ import Layout from './Base.astro';
 import type { Props as BaseHeadProps } from '../components/head/BaseHead.astro';
 import Logo from '../components/Logo.astro';
 import Header from 'components/Header.astro';
-import Footer from 'components/Footer.astro';
+//import Footer from 'components/Footer.astro';
 import { nav } from '@/config/nav';
 export interface Props {
 	seo?: BaseHeadProps;
@@ -22,9 +22,9 @@ const { seo, pageClass, ...rest } = Astro.props as Props;
 	<div id="page" class={pageClass} {...rest}>
 		<slot />
 	</div>
-	<Footer slot="footer">
+	<!-- <Footer slot="footer">
 		<Logo slot="logo" />
-	</Footer>
+	</Footer> -->
 </Layout>
 
 <style>

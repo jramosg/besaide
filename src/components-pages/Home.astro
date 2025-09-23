@@ -1,11 +1,11 @@
 ---
-import Hero from 'components/Hero.astro';
-import Agenda from '../components/Agenda.astro';
-import Historia from '../components/Historia.astro';
-import Zerbitzuak from '../components/Zerbitzuak.astro';
-import Berriak from '../components/Berriak.astro';
-import Kontaktua from '../components/Kontaktua.astro';
-import Babesleak from '../components/Babesleak.astro';
+// import Hero from 'components/Hero.astro';
+// import Agenda from '../components/Agenda.astro';
+// import Historia from '../components/Historia.astro';
+//import Zerbitzuak from '../components/Zerbitzuak.astro';
+//import Berriak from '../components/Berriak.astro';
+//import Kontaktua from '../components/Kontaktua.astro';
+import Sponsors from '@/components/Sponsors.astro';
 import Page from 'layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 
@@ -15,11 +15,11 @@ const t = useTranslations(lang);
 ---
 
 <Page seo={{ title: t('Besaide Mendizale Elkartea - Hasiera') }}>
-	<Hero />
+	<!-- 	<Hero />
 	<Agenda />
 	<Historia />
 	<Zerbitzuak />
-	<Berriak />
-	<Babesleak />
-	<Kontaktua />
+	<Berriak /> -->
+	<Sponsors />
+	<!-- 	<Kontaktua /> -->
 </Page>

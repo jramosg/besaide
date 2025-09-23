@@ -1,5 +1,9 @@
 export const nav = [
 	{
+		title: 'nav.home',
+		slug: ''
+	},
+	{
 		title: 'nav.news',
 		slug: 'news'
 	}

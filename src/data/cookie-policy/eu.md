@@ -1,4 +1,3 @@
-
 # Ondorengo lege oharrak (Lege Ohar)
 
 Ondorengo lege oharrak (hemendik aurrera, “Lege Ohar”) BESAIDE MENDIZALE ELKARTEA-k duen (Egoitza soziala: Garibai 3 bis, 20500 ARRASATE (Gipuzkoa) eta IFZ: G20131397) Interneteko besaide.eus/ web orriaren (hemendik aurrera, “Web”) eta besaide@besaide.eus helbidearen erabilera erregulatzen du.

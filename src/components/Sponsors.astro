@@ -1,0 +1,123 @@
+---
+import LogoMondraberri from '@/assets/sponsors/logo-mondraberri.webp';
+import LogoJMA from '@/assets/sponsors/logo-jma.svg';
+import LogoLaboral from '@/assets/sponsors/logo-laboral.svg';
+import LogoUdala from '@/assets/sponsors/logo-arrasateko-udala.svg';
+import LogoTernua from '@/assets/sponsors/logo-ternua.webp';
+import LogoEroski from '@/assets/sponsors/logo-eroski.svg';
+import SponsorLink from './SponsorLink.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+const sponsors = [
+	{
+		name: 'MONDRABERRI Arrasateko Ataria',
+		url: 'http://www.mondraberri.com/mondraberri/',
+		LogoComponent: LogoMondraberri
+	},
+	{
+		name: 'Compañía Alejandro Altuna',
+		url: 'http://www.jma.es/',
+		LogoComponent: LogoJMA
+	},
+	{
+		name: 'Caja Laboral Kutxa',
+		url: 'https://www.laboralkutxa.com',
+		LogoComponent: LogoLaboral
+	},
+	{
+		name: 'Udal Kirol Zerbitzua - Arrasateko Udala',
+		url: 'http://www.arrasate.eus',
+		LogoComponent: LogoUdala
+	},
+	{
+		name: 'Ternua',
+		url: 'https://www.ternua.com/',
+		LogoComponent: LogoTernua
+	},
+	{
+		name: 'Eroski',
+		url: 'http://www.eroski.es/',
+		LogoComponent: LogoEroski
+	}
+];
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="babesleak" id="babesleak">
+	<div class="content__container">
+		<h2>Babesleak</h2>
+		<p>Gure jarduera posible egiten duten entitate eta enpresak</p>
+	</div>
+
+	<div class="carousel">
+		<div class="group">
+			{
+				sponsors.map(sponsor => {
+					return <SponsorLink {...sponsor} />;
+				})
+			}
+		</div>
+		<div aria-hidden="true" class="group">
+			{
+				sponsors.map(sponsor => {
+					return <SponsorLink {...sponsor} />;
+				})
+			}
+		</div>
+	</div>
+
+	<div class="content__container">
+		<div class="message-content">
+			<h3>Babesle izan nahi al duzu?</h3>
+			<p>
+				{
+					t(
+						'Zure enpresak edo erakundeak gure mendizale elkarteko babesle izan nahi badu, jar zaitez gurekin harremanetan. Elkarrekin, mendizaletasuna bultzatu eta naturaren kultura zabal dezakegu.'
+					)
+				}
+			</p>
+			<a href="#kontaktua" class="btn btn-primary">Informazioa eskatu</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.carousel {
+		margin: 0 auto;
+		overflow: hidden;
+		display: flex;
+		-webkit-mask-image: linear-gradient(
+			90deg,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 15%,
+			rgba(0, 0, 0, 1) 85%,
+			rgba(0, 0, 0, 0) 100%
+		);
+		> * {
+			flex: 0 0 100%;
+		}
+		&:hover .group {
+			animation-play-state: paused;
+		}
+	}
+	.group {
+		gap: var(--s2);
+		display: flex;
+		padding-right: var(--s2);
+		will-change: transform;
+		animation: scrolling 10s linear infinite;
+	}
+	.group[aria-hidden='true'] {
+		display: flex;
+	}
+
+	@keyframes scrolling {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+</style>

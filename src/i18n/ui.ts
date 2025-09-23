@@ -31,7 +31,10 @@ export const ui = {
 		'Orri nagusira joan': 'Ir a la página principal',
 		'Menua itxi': 'Cerrar menú',
 		'Menua ireki': 'Abrir menú',
-		'nav.news': 'Noticias'
+		'nav.news': 'Noticias',
+		'nav.home': 'Inicio',
+		'Zure enpresak edo erakundeak gure mendizale elkarteko babesle izan nahi badu, jar zaitez gurekin harremanetan. Elkarrekin, mendizaletasuna bultzatu eta naturaren kultura zabal dezakegu.':
+			'Si tu empresa o entidad quiere ser patrocinador de nuestra asociación de montañismo, ponte en contacto con nosotros. Juntos, podemos promover el montañismo y difundir la cultura de la naturaleza.'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -58,7 +61,8 @@ export const ui = {
 		es: 'Gaztelania',
 		'settings.description': 'setting.description',
 		a: 'a',
-		'nav.news': 'Berriak'
+		'nav.news': 'Berriak',
+		'nav.home': 'Hasiera'
 	}
 } as const;
 

@@ -44,7 +44,7 @@ export async function SingleNewsStaticPaths(lang: Langs) {
 	return filtered.map(post => {
 		return {
 			params: {
-				singleNewsId: slugify(post.id),
+				singleNewsId: slugify(post.id)
 			},
 			props: { post }
 		};
