@@ -171,12 +171,14 @@ const organizationData = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
 <script
 	type="application/ld+json"
+	is:inline
 	set:html={JSON.stringify(professionalData)}
 />
 <script
 	type="application/ld+json"
+	is:inline
 	set:html={JSON.stringify(organizationData)}
 />
