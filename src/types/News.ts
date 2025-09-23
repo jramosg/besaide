@@ -1,4 +1,5 @@
 export type NewsPost = {
+	id: string;
 	data: {
 		title: string;
 		date: string;

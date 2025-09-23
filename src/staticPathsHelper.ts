@@ -42,10 +42,10 @@ export async function SingleNewsStaticPaths(lang: Langs) {
 	});
 
 	return filtered.map(post => {
-		console.log('Post title:', post.data.title);
-		console.log('Slugified title:', slugify(post.data.title));
 		return {
-			params: { new: slugify(post.data.title) },
+			params: {
+				singleNewsId: slugify(post.id),
+			},
 			props: { post }
 		};
 	});

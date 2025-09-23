@@ -1,21 +1,24 @@
 ---
 import Page from '@/layouts/Page.astro';
 import PaginationWrapper from '@/components/PaginationWrapper.astro';
-import { formatDate } from '@/i18n/utils';
+import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import type { NewsPost } from '@/types/News';
 const { page } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const section = getUrlFromID('news', lang);
 ---
 
 <Page pageClass="content__container ">
 	<section class="news-grid">
 		{
 			page.data.map((p: NewsPost) => {
-				const slug = slugify(p.data.title);
+				const slug = slugify(p.id);
+				const href = `${section}/${slug}/`;
 				return (
 					<article class="card card--elevated news-card">
 						{p.data.image ? (
-							<a class="news-thumb" href={`/berriak/${slug}/`}>
+							<a class="news-thumb" href={href}>
 								<img
 									src={p.data.image}
 									alt={p.data.imageAlt || p.data.title}
@@ -25,7 +28,7 @@ const { page } = Astro.props;
 						) : null}
 
 						<h2 style={`view-transition-name: ${slug}-title`}>
-							<a href={`/berriak/${slug}/`}>{p.data.title}</a>
+							<a href={href}>{p.data.title}</a>
 						</h2>
 						<p class="news-date">{formatDate(p.data.date)}</p>
 						<p>{p.data.summary}</p>
@@ -41,11 +44,10 @@ const { page } = Astro.props;
 <style>
 	.news-grid {
 		display: grid;
-		/* create responsive columns with min 200px and max 400px */
 		grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
 		gap: var(--s4);
-		justify-content: center; /* center columns when there's leftover space */
-		align-items: start; /* align article content at top */
+		justify-content: center;
+		align-items: start;
 	}
 
 	.news-card {

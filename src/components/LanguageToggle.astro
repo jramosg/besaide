@@ -1,14 +1,28 @@
 ---
-import { getLangFromUrl, useTranslations, switchLanguage } from 'i18n/utils';
+import { getLangFromUrl, useTranslations, switchLanguage, getUrlFromID } from 'i18n/utils';
 import { ChevronRight, Check, Languages } from '@lucide/astro';
+import type { Langs } from '@/i18n/ui';
 
 const languages = [
 	{ code: 'eu', name: 'Euskera', nativeName: 'Euskera' },
 	{ code: 'es', name: 'Español', nativeName: 'Español' }
-];
+] as const;
 
 const url = Astro.url;
+const { singleNewsId } = Astro.params;
 const lang = getLangFromUrl(url);
+
+function langHref(targetLang: Langs) {
+	if (!singleNewsId) {
+		return switchLanguage(url);
+	}
+	const section = getUrlFromID('news', targetLang);
+	const newSingleNewsId =
+		targetLang === 'es'
+			? `${singleNewsId}-es`
+			: singleNewsId.replace(/-es$/, '');
+	return `${section}/${newSingleNewsId}`;
+}
 const t = useTranslations(lang);
 ---
 
@@ -34,7 +48,7 @@ const t = useTranslations(lang);
 	>
 		{
 			languages.map(language => (
-				<a href={switchLanguage(url)}>
+				<a href={langHref(language.code)}>
 					<button
 						type="button"
 						class={`lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
@@ -43,7 +57,7 @@ const t = useTranslations(lang);
 						data-lang={language.code}
 					>
 						<span>{language.nativeName}</span>
-						{language.code === lang && <Check class='check'/>}
+						{language.code === lang && <Check class="check" />}
 					</button>
 				</a>
 			))
