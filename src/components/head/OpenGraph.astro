@@ -8,7 +8,7 @@ type Props = {
 	type?: string;
 };
 
-const { desc, image, type = 'website' }: Props = Astro.props;
+const { desc, type = 'website' }: Props = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
