@@ -43,7 +43,7 @@ const t = useTranslations(lang);
 						data-lang={language.code}
 					>
 						<span>{language.nativeName}</span>
-						{language.code === lang && <Check fill="currentColor" />}
+						{language.code === lang && <Check class='check'/>}
 					</button>
 				</a>
 			))
@@ -129,7 +129,7 @@ const t = useTranslations(lang);
 		font-weight: 600;
 	}
 	.check {
-		color: var(--theme-primary);
+		margin-left: var(--s2);
 	}
 </style>
 
