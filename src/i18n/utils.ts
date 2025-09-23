@@ -5,21 +5,23 @@ const newLangMap = { es: 'eu', eu: 'es' } as const;
 
 type LangMappingEntry = {
 	lang: string;
-	slug: string;
+	id: string;
 };
 type LangMapping = { [key: string]: LangMappingEntry };
 
 const langMapping: LangMapping = {
 	'aviso-legal-y-politica-de-privacidad': {
 		lang: 'es',
-		slug: 'cookies-policy'
+		id: 'cookies-policy'
 	},
 	'lege-oharra-eta-pribatutasun-politika': {
 		lang: 'eu',
-		slug: 'cookies-policy'
+		id: 'cookies-policy'
 	},
-	es: { lang: 'es', slug: '' },
-	'': { lang: 'eu', slug: '' }
+	es: { lang: 'es', id: '' },
+	'': { lang: 'eu', id: '' },
+	noticias: { lang: 'es', id: 'news' },
+	berriak: { lang: 'eu', id: 'news' }
 };
 
 export function getLangFromUrl(url: URL): Langs {
@@ -56,11 +58,20 @@ export function switchLanguage(url: URL): string | null {
 	const currentLang = currentEntry.lang;
 
 	for (const [slug, info] of Object.entries(langMapping)) {
-		if (info.lang !== currentLang && info.slug === currentEntry.slug) {
+		if (info.lang !== currentLang && info.id === currentEntry.id) {
 			return `/${slug}`;
 		}
 	}
 	return null;
+}
+
+export function getUrlFromID(slug: string, lang: Langs): string {
+	for (const [urlSlug, info] of Object.entries(langMapping)) {
+		if (info.lang === lang && info.id === slug) {
+			return urlSlug;
+		}
+	}
+	return '';
 }
 
 export function useTranslations(lang: Langs) {
@@ -86,7 +97,10 @@ export function getStaticLangPaths(): { params: { lang: Langs } }[] {
  * - 'es' => dd/MM/yyyy
  * Accepts Date | string | number. If invalid, returns an empty string.
  */
-export function formatDate(input: Date | string | number, lang?: Langs): string {
+export function formatDate(
+	input: Date | string | number,
+	lang?: Langs
+): string {
 	const date = input instanceof Date ? input : new Date(input);
 	if (Number.isNaN(date.getTime())) return '';
 
