@@ -7,6 +7,8 @@ import type { NewsPost } from '@/types/News';
 const { page } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const section = getUrlFromID('news', lang);
+import UdalaitzImg from '@/assets/udalaitz.webp';
+import { Image } from 'astro:assets';
 ---
 
 <Page pageClass="content__container ">
@@ -19,8 +21,8 @@ const section = getUrlFromID('news', lang);
 					<article class="card card--elevated news-card">
 						{p.data.image ? (
 							<a class="news-thumb" href={href}>
-								<img
-									src={p.data.image}
+								<Image
+									src={UdalaitzImg}
 									alt={p.data.imageAlt || p.data.title}
 									style={`view-transition-name: ${slug}-image`}
 								/>

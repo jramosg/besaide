@@ -3,7 +3,8 @@ import Page from '@/layouts/Page.astro';
 import { formatDate } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import { render } from 'astro:content';
-
+import UdalaitzImg from '@/assets/udalaitz.webp';
+import { Image } from 'astro:assets';
 const { post } = Astro.props;
 
 const { Content } = await render(post);
@@ -15,8 +16,8 @@ const slug = slugify(post.id);
 		{
 			post.data.image ? (
 				<header class="hero">
-					<img
-						src={post.data.image}
+					<Image
+						src={UdalaitzImg}
 						alt={post.data.imageAlt || post.data.title}
 						style={`view-transition-name: ${slug}-image`}
 					/>
