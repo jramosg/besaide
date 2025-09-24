@@ -24,12 +24,13 @@ import { Image } from 'astro:assets';
 								<Image
 									src={UdalaitzImg}
 									alt={p.data.imageAlt || p.data.title}
-									style={`view-transition-name: ${slug}-image`}
+									class="news-image"
+									style={`view-transition-name: image-${slug}`}
 								/>
 							</a>
 						) : null}
 
-						<h2 style={`view-transition-name: ${slug}-title`}>
+						<h2 style={`view-transition-name: title-${slug}`}>
 							<a href={href}>{p.data.title}</a>
 						</h2>
 						<p class="news-date">{formatDate(p.data.date)}</p>
@@ -58,26 +59,33 @@ import { Image } from 'astro:assets';
 		display: flex;
 		flex-direction: column;
 		gap: var(--s2);
-		padding: var(--s4);
+		padding-bottom: var(--s4);
 		height: 100%;
 		h2 {
 			font-size: var(--font-size-md, 1em);
+			margin-left: var(--s4);
 		}
 		a {
 			text-decoration: none;
 		}
+		p {
+			margin-left: var(--s4);
+		}
 	}
 
-	.news-thumb img {
+	.news-image {
 		display: block;
 		width: 100%;
 		height: auto;
 		object-fit: cover;
+		border-top-right-radius: var(--theme-shape-radius);
+		border-top-left-radius: var(--theme-shape-radius);
 	}
 
 	.news-date {
 		color: var(--theme-text-secondary);
 		font-size: var(--font-size-small, 0.875rem);
+		margin-left: var(--s4);
 	}
 
 	@media (max-width: 768px) {

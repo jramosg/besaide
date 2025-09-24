@@ -18,15 +18,15 @@ const slug = slugify(post.id);
 				<header class="hero">
 					<Image
 						src={UdalaitzImg}
+						style={`view-transition-name: image-${slug}`}
 						alt={post.data.imageAlt || post.data.title}
-						style={`view-transition-name: ${slug}-image`}
 					/>
 				</header>
 			) : null
 		}
 
 		<div class="article-body container">
-			<h1 class="title" style={`view-transition-name: ${slug}-title`}>
+			<h1 class="title" style={`view-transition-name: title-${slug}`}>
 				{post.data.title}
 			</h1>
 			<p class="meta">{formatDate(post.data.date)} · {post.data.lang}</p>

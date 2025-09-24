@@ -7,7 +7,7 @@
 		"dev": "astro dev",
 		"check": "astro check",
 		"build": "astro check && astro build",
-		"preview": "astro check && astro preview",
+		"preview": "pnpm run build && astro preview",
 		"astro": "astro",
 		"format": "npx prettier -w ."
 	},

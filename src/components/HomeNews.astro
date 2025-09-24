@@ -1,154 +1,120 @@
 ---
-// Berriak component showing latest news and updates
-const news = [
-	{
-		id: 1,
-		title: '2025EKO EKINTZAK',
-		excerpt:
-			'2025eko EKINTZÉN EGUTEGIA. Urtarrilak 1 Udalatxera igoera, Urtarrilak 16 Batzar orokorra, Urtarrilak 19 Ezkabako ihesaren lehen etapa...',
-		date: '2025-01-01',
-		category: 'Ekintzak',
-		featured: true,
-		image: '🏔️'
-	},
-	{
-		id: 2,
-		title: 'EUSKAL MENDIZALE FEDERAZIOAREN 100.URTEAIRRENEKO MOTXILA',
-		excerpt:
-			'EMFaren 100. urteaurreneko motxila berezia eskuragarri dago gure bazkideentzat.',
-		date: '2024-12-15',
-		category: 'Produktuak',
-		featured: true,
-		image: '🎒'
-	},
-	{
-		id: 3,
-		title: '100 URTE 100 MENDI',
-		excerpt:
-			'Euskal Mendizale Federazioaren 100. urteurrena ospatuz, 100 mendi igo beharreko erronka berria.',
-		date: '2024-12-10',
-		category: 'Erronkak',
-		featured: true,
-		image: '⛰️'
-	},
-	{
-		id: 4,
-		title: 'Neguko ekipamenduaren prestaketa',
-		excerpt:
-			'Neguko denboraldia hurbil dago, ekipamendua prestatzeko aholkuak.',
-		date: '2024-12-05',
-		category: 'Prestakuntza',
-		featured: false,
-		image: '❄️'
-	},
-	{
-		id: 5,
-		title: 'Bazkide berrien harrera',
-		excerpt: 'Urrian bazkide berriak ongi etorri ditugu gure elkartean.',
-		date: '2024-11-30',
-		category: 'Elkartea',
-		featured: false,
-		image: '👥'
-	}
-];
+import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import { sortedAndFilteredNewsPosts } from '@/staticPathsHelper';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import UdalaitzImg from '@/assets/udalaitz.webp';
+import { slugify } from '@/utils/string';
+import Button from './buttons/Button.astro';
 
-// Format date function
-function formatDate(dateString: string) {
-	const date = new Date(dateString);
-	const options: Intl.DateTimeFormatOptions = {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
-	};
-	return date.toLocaleDateString('eu-ES', options);
-}
+const lang = getLangFromUrl(Astro.url);
+let news: CollectionEntry<'news'>[] = await sortedAndFilteredNewsPosts(lang);
+news = news.slice(0, 5); // Limit to 5 news items for the component
+
+const newsSection = getUrlFromID('news', lang);
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif,webp}'
+);
+
+const processedNews = await Promise.all(
+	news.map(async item => {
+		let processedImage: ImageMetadata | string = UdalaitzImg; // default fallback
+
+		if (item.data.image) {
+			if (item.data.image.startsWith('@/assets/')) {
+				// Handle local asset imports using import.meta.glob
+				const imagePath = item.data.image.replace('@/', 'src/');
+				const fullPath = `/${imagePath}`;
+				try {
+					if (images[fullPath]) {
+						processedImage = (await images[fullPath]()).default;
+					} else {
+						console.error(
+							`Image not found: ${fullPath}. Available images:`,
+							Object.keys(images)
+						);
+						console.error(
+							`Falling back to default image for item ID: ${item.id}`
+						);
+					}
+				} catch (error) {
+					console.warn(`Could not import image: ${item.data.image}`, error);
+				}
+			} else if (item.data.image.startsWith('http')) {
+				// Handle external URLs
+			//	processedImage = item.data.image;
+			}
+		}
+
+		return {
+			...item,
+			processedImage,
+			slug: `${newsSection}/${slugify(item.id)}`
+		};
+	})
+);
 ---
 
-<section class="berriak" id="berriak">
-	<div class="container">
+<section class="content__container" id="berriak">
 		<div class="section-header">
 			<h2>Berriak</h2>
 			<p>Azken albisteak eta eguneraketak</p>
 		</div>
 
-		<div class="news-grid">
-			<div class="featured-news">
+		<div class="featured-news">
 				{
-					news
-						.filter(item => item.featured)
-						.map(item => (
-							<article class="news-card featured">
-								<div class="news-image">
-									<span class="news-emoji">{item.image}</span>
+					processedNews.map(item => (
+						<article class="news-card featured">
+							<div
+								class="news-image"
+								style={`view-transition-name: image-${slugify(item.id)}`}
+							>
+								{typeof item.processedImage === 'string' ? (
+									<img
+										src={item.processedImage}
+										alt={item.data.imageAlt || item.data.title}
+										style="width: 100%; height: 100%; object-fit: cover;"
+									/>
+								) : (
+									<Image
+										src={item.processedImage}
+										alt={item.data.imageAlt || item.data.title}
+										style="width: 100%; height: 100%; object-fit: cover;"
+									/>
+								)}
+							</div>
+							<div class="news-content">
+								<div class="news-meta">
+									<span class="news-date">{formatDate(item.data.date)}</span>
 								</div>
-								<div class="news-content">
-									<div class="news-meta">
-										<span class="news-category">{item.category}</span>
-										<span class="news-date">{formatDate(item.date)}</span>
-									</div>
-									<h3>{item.title}</h3>
-									<p>{item.excerpt}</p>
-									<div class="news-actions">
-										<a href={`/berriak/${item.id}`} class="read-more">
-											+ info
-										</a>
-										<div class="share-buttons">
-											<span>Partekatu lagunekin:</span>
-											<a href="#" class="share-btn facebook" title="Facebook">
-												F
-											</a>
-											<a href="#" class="share-btn twitter" title="Twitter">
-												T
-											</a>
-											<a href="#" class="share-btn email" title="Email">
-												@
-											</a>
-										</div>
-									</div>
-								</div>
-							</article>
-						))
-				}
-			</div>
-
-			<div class="regular-news">
-				<h3>Beste albisteak</h3>
-				{
-					news
-						.filter(item => !item.featured)
-						.map(item => (
-							<article class="news-item">
-								<div class="news-item-image">
-									<span>{item.image}</span>
-								</div>
-								<div class="news-item-content">
-									<div class="news-item-meta">
-										<span class="category">{item.category}</span>
-										<span class="date">{formatDate(item.date)}</span>
-									</div>
-									<h4>{item.title}</h4>
-									<p>{item.excerpt}</p>
-									<a href={`/berriak/${item.id}`} class="read-more-simple">
-										Gehiago irakurri
+								<h3
+									style={`view-transition-name: title-${slugify(item.id)}`}
+								<p>{item.data.summary}</p>
+								<div class="news-actions">
+									<a href={item.slug} class="read-more">
+										+ info
 									</a>
+									<div class="share-buttons">
+										<span>Partekatu lagunekin:</span>
+										
+									</div>
 								</div>
-							</article>
-						))
+							</div>
+						</article>
+					))
 				}
 			</div>
-		</div>
 
 		<div class="news-footer">
-			<a href="/berriak" class="btn btn-outline">Berri guztiak ikusi</a>
+			<Button outlined href={getUrlFromID('news', lang)}
+				>Berri guztiak ikusi</Button
+			>
 		</div>
-	</div>
 </section>
 
 <style>
-	.berriak {
-		padding: 5rem 0;
-		background: white;
-	}
 
 	.container {
 		max-width: 1200px;
@@ -157,58 +123,52 @@ function formatDate(dateString: string) {
 	}
 
 	.section-header {
-		text-align: center;
 		margin-bottom: 4rem;
 	}
 
 	.section-header h2 {
 		font-size: 2.5rem;
 		font-weight: 700;
-		color: #1f2937;
 		margin-bottom: 1rem;
 	}
 
 	.section-header p {
 		font-size: 1.1rem;
-		color: #6b7280;
+		color: var(--theme-text-secondary);
 		max-width: 600px;
-		margin: 0 auto;
 	}
 
-	.news-grid {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
-		gap: 3rem;
-		margin-bottom: 3rem;
-	}
 
 	/* Featured News */
 	.featured-news {
 		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		margin-bottom: 3rem;
+		justify-content: center;
 		gap: 2rem;
 	}
 
 	.news-card {
-		background: white;
-		border-radius: 12px;
+		background: var(--theme-bg);
+		border-radius: var(--theme-shape-radius);
 		overflow: hidden;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-		transition: all 0.3s ease;
-		border: 1px solid #e5e7eb;
+		box-shadow: var(--shadow-md);
+		transition: var(--theme-transition);
+		border: 1px solid var(--theme-outline);
 	}
 
 	.news-card:hover {
 		transform: translateY(-4px);
-		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--shadow-xl);
 	}
 
 	.news-card.featured {
-		border-left: 4px solid #2d5a3d;
+		border-left: 4px solid var(--theme-primary);
 	}
 
 	.news-image {
-		height: 120px;
-		background: linear-gradient(135deg, #2d5a3d, #4ade80);
+		height: 150px;
+		background: var(--theme-container-gradient);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -232,29 +192,29 @@ function formatDate(dateString: string) {
 	}
 
 	.news-category {
-		background: #2d5a3d;
-		color: white;
+		background: var(--theme-primary);
+		color: var(--theme-on-primary);
 		padding: 0.25rem 0.75rem;
-		border-radius: 12px;
+		border-radius: var(--theme-button-border-radius);
 		font-size: 0.8rem;
 		font-weight: 600;
 	}
 
 	.news-date {
-		color: #6b7280;
+		color: var(--theme-text-secondary);
 		font-size: 0.9rem;
 	}
 
 	.news-content h3 {
 		font-size: 1.4rem;
 		font-weight: 600;
-		color: #1f2937;
+		color: var(--theme-on-bg);
 		margin-bottom: 1rem;
 		line-height: 1.3;
 	}
 
 	.news-content p {
-		color: #6b7280;
+		color: var(--theme-text-secondary);
 		line-height: 1.6;
 		margin-bottom: 1.5rem;
 	}
@@ -268,17 +228,17 @@ function formatDate(dateString: string) {
 	}
 
 	.read-more {
-		color: #2d5a3d;
+		color: var(--theme-primary);
 		text-decoration: none;
 		font-weight: 600;
 		font-size: 0.9rem;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		transition: color 0.3s ease;
+		transition: var(--theme-transition);
 	}
 
 	.read-more:hover {
-		color: #1a472a;
+		color: var(--theme-primary-dark);
 	}
 
 	.share-buttons {
@@ -289,7 +249,7 @@ function formatDate(dateString: string) {
 
 	.share-buttons span {
 		font-size: 0.8rem;
-		color: #9ca3af;
+		color: var(--theme-text-secondary);
 		margin-right: 0.5rem;
 	}
 
@@ -419,21 +379,26 @@ function formatDate(dateString: string) {
 	}
 
 	.btn-outline {
-		color: #2d5a3d;
-		border: 2px solid #2d5a3d;
+		color: var(--theme-primary);
+		border: 2px solid var(--theme-primary);
 		background: transparent;
 	}
 
 	.btn-outline:hover {
-		background: #2d5a3d;
-		color: white;
+		background: var(--theme-primary);
+		color: var(--theme-on-primary);
 		transform: translateY(-2px);
-		box-shadow: 0 4px 15px rgba(45, 90, 61, 0.3);
+		box-shadow: var(--shadow-lg);
 	}
 
+	@media (max-width: 1200px) {
+		.featured-news {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
 	/* Mobile Styles */
 	@media (max-width: 768px) {
-		.news-grid {
+		.featured-news {
 			grid-template-columns: 1fr;
 		}
 
@@ -460,10 +425,6 @@ function formatDate(dateString: string) {
 	}
 
 	@media (max-width: 480px) {
-		.berriak {
-			padding: 3rem 0;
-		}
-
 		.news-content {
 			padding: 1.5rem;
 		}

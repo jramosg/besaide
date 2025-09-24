@@ -3,23 +3,36 @@
 // import Agenda from '../components/Agenda.astro';
 // import Historia from '../components/Historia.astro';
 //import Zerbitzuak from '../components/Zerbitzuak.astro';
-//import Berriak from '../components/Berriak.astro';
 //import Kontaktua from '../components/Kontaktua.astro';
 import Sponsors from '@/components/Sponsors.astro';
 import Page from 'layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
+import HomeNews from '@/components/HomeNews.astro';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 ---
 
-<Page seo={{ title: t('Besaide Mendizale Elkartea - Hasiera') }}>
+<Page
+	seo={{ title: t('Besaide Mendizale Elkartea - Hasiera') }}
+	pageClass="home-page"
+>
 	<!-- 	<Hero />
 	<Agenda />
 	<Historia />
 	<Zerbitzuak />
-	<Berriak /> -->
+ -->
+	<HomeNews />
 	<Sponsors />
 	<!-- 	<Kontaktua /> -->
 </Page>
+
+<style>
+	.home-page {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s6);
+		margin-bottom: var(--s6);
+	}
+</style>

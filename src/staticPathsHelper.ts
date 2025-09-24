@@ -1,5 +1,5 @@
 import type { PaginateFunction } from 'astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { slugify } from '@/utils/string';
 import type { Langs } from './i18n/ui';
 
@@ -7,7 +7,9 @@ type Options = {
 	pageSize?: number;
 };
 
-const sortedAndFilteredNewsPosts = async (lang: Langs) => {
+export const sortedAndFilteredNewsPosts = async (
+	lang: Langs
+): Promise<CollectionEntry<'news'>[]> => {
 	// load collection
 	let allNewsPosts = await getCollection('news');
 	allNewsPosts.sort((a, b) => {

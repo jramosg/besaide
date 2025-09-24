@@ -173,14 +173,14 @@ const lang = getLangFromUrl(url);
 			}
 		}
 
-		function showCookieNotice() {
+		/* function showCookieNotice() {
 			const notice = document.getElementById('cookie-notice');
 			if (notice && notice.dataset.visible !== 'true') {
 				notice.classList.add('show');
 				notice.setAttribute('aria-hidden', 'false');
 				notice.dataset.visible = 'true';
 			}
-		}
+		} */
 
 		const cookiesAccepted = localStorage.getItem('cookies-accepted');
 		if (cookiesAccepted !== 'true') {
