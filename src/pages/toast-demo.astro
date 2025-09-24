@@ -1,0 +1,107 @@
+---
+// Example page demonstrating the toast system
+import ToastContainer from '@/components/ToastContainer.astro';
+import Container from '@/components/Container.astro';
+import Button from '@/components/buttons/Button.astro';
+import Page from '@/layouts/Page.astro';
+---
+
+<Page
+	><Container>
+		<h1>Toast System Demo</h1>
+		<p>Click the buttons below to test different toast variants:</p>
+
+		<div class="demo-buttons">
+			<Button id="success-btn">Success Toast</Button>
+			<Button id="error-btn" outlined>Error Toast</Button>
+			<Button id="warning-btn" outlined>Warning Toast</Button>
+			<Button id="info-btn" outlined>Info Toast</Button>
+			<Button id="action-btn" outlined>Toast with Action</Button>
+			<Button id="long-btn" outlined>Long Duration Toast</Button>
+			<Button id="dismiss-all-btn" outlined>Dismiss All</Button>
+		</div>
+	</Container>
+
+	<ToastContainer />
+</Page>
+<style>
+	.demo-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+</style>
+<script>
+	import { toast } from '@/utils/toast';
+
+	document.addEventListener('astro:page-load', () => {
+		// Success toast
+		console.log(document.getElementById('success-btn'));
+		document.getElementById('success-btn')?.addEventListener('click', () => {
+			console.log('Success button clicked'); // Debug log
+			toast.success(
+				'Operation Successful!',
+				'Your action was completed successfully.'
+			);
+		});
+
+		// Error toast
+		document.getElementById('error-btn')?.addEventListener('click', () => {
+			toast.error(
+				'Something went wrong',
+				'Please try again or contact support if the problem persists.'
+			);
+		});
+
+		// Warning toast
+		document.getElementById('warning-btn')?.addEventListener('click', () => {
+			toast.warning(
+				'Warning!',
+				'This action cannot be undone. Please proceed with caution.'
+			);
+		});
+
+		// Info toast
+		document.getElementById('info-btn')?.addEventListener('click', () => {
+			toast.info(
+				'Information',
+				'Here is some useful information for you to know.'
+			);
+		});
+
+		// Toast with action
+		document.getElementById('action-btn')?.addEventListener('click', () => {
+			toast.show({
+				variant: 'warning',
+				title: 'Unsaved Changes',
+				description: 'You have unsaved changes. What would you like to do?',
+				action: {
+					label: 'Save',
+					onClick: () => {
+						toast.success('Saved!', 'Your changes have been saved.');
+					}
+				},
+				duration: 10000
+			});
+		});
+
+		// Long duration toast
+		document.getElementById('long-btn')?.addEventListener('click', () => {
+			toast.show({
+				variant: 'info',
+				title: 'Long Duration Toast',
+				description: 'This toast will stay for 10 seconds.',
+				duration: 10000
+			});
+		});
+
+		// Dismiss all toasts
+		document
+			.getElementById('dismiss-all-btn')
+			?.addEventListener('click', () => {
+				toast.dismissAll();
+				toast.info('Dismissed', 'All toasts have been dismissed.');
+			});
+	});
+</script>

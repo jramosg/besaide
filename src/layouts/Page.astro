@@ -7,6 +7,7 @@ import Header from 'components/Header.astro';
 import { nav } from '@/config/nav';
 import DrawerNav from '@/components/DrawerNav.astro';
 import Footer from '@/components/Footer.astro';
+import ToastContainer from '@/components/ToastContainer.astro';
 export interface Props {
 	seo?: BaseHeadProps;
 	pageClass?: string;
@@ -28,6 +29,7 @@ const { seo, pageClass, ...rest } = Astro.props as Props;
 	<Footer slot="footer">
 		<Logo slot="logo" />
 	</Footer>
+	<ToastContainer />
 </Layout>
 
 <style>
