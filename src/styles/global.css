@@ -35,6 +35,7 @@ pre .language-id {
 /* Elevated card (default) */
 .card--elevated {
 	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-md);
+	transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
 }
 .card--elevated:hover,
 .card--elevated:focus-visible {
