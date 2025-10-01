@@ -1,0 +1,45 @@
+---
+title: 'Txindoki - El Matterhorn de Gipuzkoa'
+lang: 'es'
+date: '2025-10-25'
+time: '08:00'
+location: 'Larraitz'
+mountain: 'Txindoki'
+region: 'euskal-mendiak'
+difficulty: 'zaila'
+distance: '10 km'
+elevation: '1346 m'
+duration: '6 horas'
+meetingPoint: 'Local Besaide - 07:30'
+image: '@/assets/udalaitz.webp'
+imageAlt: 'Perfil del monte Txindoki'
+summary: 'Recorrido con escalada fácil para subir al emblemático monte Txindoki (1.346m) de Gipuzkoa.'
+featured: true
+---
+
+Txindoki es uno de los montes más conocidos de Gipuzkoa, apodado "El Matterhorn de Gipuzkoa" por su distintiva forma piramidal. Con una altitud de 1.346 metros, forma parte de la sierra de Aralar.
+
+## Recorrido
+
+Comenzaremos desde el valle de Larraitz, pasando por el caserío Urdaburu. Tras una dura subida, ayudados por cadenas, llegaremos a la cumbre. En la cumbre, la vista es magnífica: Aralar, Aizkorri, Peñas de Aia y el amplio mar.
+
+## Características
+
+- Hay algunas cadenas en el último tramo hacia la cumbre
+- No es escalada técnica, pero requiere tener cabeza
+- Paisajes espectaculares de toda la sierra
+- Clásico para montañeros
+
+## Qué traer
+
+- Botas de montaña adecuadas (impermeables)
+- Guantes (para las cadenas)
+- Agua y comida
+- Cortavientos
+- Mapa
+
+## Dificultad
+
+Dificultad alta. Subida dura y cadenas en el último tramo. Se recomienda experiencia y buena forma física.
+
+Inscripciones: besaide@besaide.eus

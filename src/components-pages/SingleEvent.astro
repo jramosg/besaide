@@ -1,0 +1,535 @@
+---
+import Page from '@/layouts/Page.astro';
+import { formatDate, getLangFromUrl } from '@/i18n/utils';
+import { slugify } from '@/utils/string';
+import { render } from 'astro:content';
+import UdalaitzImg from '@/assets/udalaitz.webp';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+const slug = slugify(event.id);
+const lang = getLangFromUrl(Astro.url);
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif,webp}'
+);
+
+let processedImage: ImageMetadata | string = UdalaitzImg;
+
+if (event.data.image) {
+	if (event.data.image.startsWith('@/assets/')) {
+		const imagePath = event.data.image.replace('@/', 'src/');
+		const fullPath = `/${imagePath}`;
+		try {
+			if (images[fullPath]) {
+				processedImage = (await images[fullPath]()).default;
+			}
+		} catch (error) {
+			console.warn(`Could not import image: ${event.data.image}`, error);
+		}
+	}
+}
+
+type Difficulty = 'erraza' | 'ertaina' | 'zaila';
+
+const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
+	eu: {
+		erraza: 'Erraza',
+		ertaina: 'Ertaina',
+		zaila: 'Zaila'
+	},
+	es: {
+		erraza: 'Fácil',
+		ertaina: 'Media',
+		zaila: 'Difícil'
+	}
+};
+
+const difficulty = event.data.difficulty as Difficulty;
+
+const difficultyColor =
+	difficulty === 'erraza'
+		? 'green'
+		: difficulty === 'ertaina'
+			? 'orange'
+			: 'red';
+
+const eventDate = new Date(event.data.date);
+const formattedDate = eventDate.toLocaleDateString(
+	lang === 'eu' ? 'eu-ES' : 'es-ES',
+	{
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	}
+);
+---
+
+<Page pageClass="content__container single-event">
+	<article class="event-article">
+		<header class="event-hero">
+			{
+				typeof processedImage === 'string' ? (
+					<img
+						src={processedImage}
+						style={`view-transition-name: image-${slug}`}
+						alt={event.data.imageAlt || event.data.title}
+						class="hero-image"
+					/>
+				) : (
+					<Image
+						src={processedImage}
+						style={`view-transition-name: image-${slug}`}
+						alt={event.data.imageAlt || event.data.title}
+						class="hero-image"
+					/>
+				)
+			}
+			<div class="hero-overlay"></div>
+			<div class="hero-content">
+				<div class="hero-badges">
+					<span class={`badge difficulty ${difficultyColor}`}>
+						{difficultyLabels[lang][difficulty]}
+					</span>
+					<span class="badge region">
+						{
+							event.data.region === 'euskal-mendiak'
+								? '🏔️ Euskal Herria'
+								: '⛰️ Pirineoak'
+						}
+					</span>
+					{
+						event.data.featured && (
+							<span class="badge featured">⭐ Destacado</span>
+						)
+					}
+				</div>
+			</div>
+		</header>
+
+		<div class="article-body container">
+			<h1 class="title" style={`view-transition-name: title-${slug}`}>
+				{event.data.title}
+			</h1>
+
+			<div class="event-meta-grid">
+				<div class="meta-item">
+					<span class="meta-icon">📅</span>
+					<div>
+						<div class="meta-label">
+							{lang === 'eu' ? 'Data' : 'Fecha'}
+						</div>
+						<div class="meta-value">{formattedDate}</div>
+						{
+							event.data.time && (
+								<div class="meta-extra">⏰ {event.data.time}</div>
+							)
+						}
+					</div>
+				</div>
+
+				<div class="meta-item">
+					<span class="meta-icon">📍</span>
+					<div>
+						<div class="meta-label">
+							{lang === 'eu' ? 'Mendia' : 'Montaña'}
+						</div>
+						<div class="meta-value">{event.data.mountain}</div>
+						<div class="meta-extra">{event.data.location}</div>
+					</div>
+				</div>
+
+				{
+					event.data.meetingPoint && (
+						<div class="meta-item">
+							<span class="meta-icon">🚩</span>
+							<div>
+								<div class="meta-label">
+									{lang === 'eu' ? 'Bilgune' : 'Punto de encuentro'}
+								</div>
+								<div class="meta-value">{event.data.meetingPoint}</div>
+							</div>
+						</div>
+					)
+				}
+			</div>
+
+			<div class="event-stats">
+				{
+					event.data.distance && (
+						<div class="stat-card">
+							<span class="stat-icon">📏</span>
+							<div class="stat-label">
+								{lang === 'eu' ? 'Distantzia' : 'Distancia'}
+							</div>
+							<div class="stat-value">{event.data.distance}</div>
+						</div>
+					)
+				}
+				{
+					event.data.elevation && (
+						<div class="stat-card">
+							<span class="stat-icon">⬆️</span>
+							<div class="stat-label">
+								{lang === 'eu' ? 'Desnibela' : 'Desnivel'}
+							</div>
+							<div class="stat-value">{event.data.elevation}</div>
+						</div>
+					)
+				}
+				{
+					event.data.duration && (
+						<div class="stat-card">
+							<span class="stat-icon">⏱️</span>
+							<div class="stat-label">
+								{lang === 'eu' ? 'Iraupena' : 'Duración'}
+							</div>
+							<div class="stat-value">{event.data.duration}</div>
+						</div>
+					)
+				}
+			</div>
+
+			{event.data.summary && <p class="summary">{event.data.summary}</p>}
+
+			<section class="content">
+				<Content />
+			</section>
+
+			<div class="cta-section">
+				<div class="cta-box">
+					<h3>
+						{
+							lang === 'eu'
+								? '📧 Izena eman txangoan parte hartzeko'
+								: '📧 Inscríbete para participar en la excursión'
+						}
+					</h3>
+					<p>
+						{
+							lang === 'eu'
+								? 'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan:'
+								: 'Si te interesa participar en esta salida, ponte en contacto con nosotros:'
+						}
+					</p>
+					<a href="mailto:besaide@besaide.eus" class="cta-button">
+						besaide@besaide.eus
+					</a>
+				</div>
+			</div>
+		</div>
+	</article>
+</Page>
+
+<style>
+	.event-article {
+		padding-bottom: 3rem;
+	}
+
+	.event-hero {
+		position: relative;
+		width: 100%;
+		height: 500px;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.1) 0%,
+			rgba(0, 0, 0, 0.5) 100%
+		);
+	}
+
+	.hero-content {
+		position: absolute;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 2;
+		width: 100%;
+		max-width: 800px;
+		padding: 0 1rem;
+	}
+
+	.hero-badges {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.badge {
+		padding: 0.5rem 1rem;
+		border-radius: 24px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	.badge.difficulty.green {
+		background: #d1fae5;
+		color: #065f46;
+	}
+
+	.badge.difficulty.orange {
+		background: #fed7aa;
+		color: #92400e;
+	}
+
+	.badge.difficulty.red {
+		background: #fecaca;
+		color: #991b1b;
+	}
+
+	.badge.region {
+		background: #dbeafe;
+		color: #1e40af;
+	}
+
+	.badge.featured {
+		background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+		color: white;
+	}
+
+	.article-body.container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 3rem 1.5rem;
+	}
+
+	.title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-bottom: 2rem;
+		color: var(--theme-text);
+		line-height: 1.2;
+	}
+
+	.event-meta-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.meta-item {
+		display: flex;
+		gap: 1rem;
+		padding: 1.25rem;
+		background: #f9fafb;
+		border-radius: 12px;
+		border-left: 4px solid var(--theme-primary);
+	}
+
+	.meta-icon {
+		font-size: 2rem;
+		line-height: 1;
+	}
+
+	.meta-label {
+		font-size: 0.8rem;
+		color: var(--theme-text-secondary);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		margin-bottom: 0.25rem;
+	}
+
+	.meta-value {
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--theme-text);
+		margin-bottom: 0.25rem;
+	}
+
+	.meta-extra {
+		font-size: 0.9rem;
+		color: var(--theme-text-secondary);
+	}
+
+	.event-stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		gap: 1rem;
+		margin-bottom: 2.5rem;
+		padding: 2rem;
+		background: linear-gradient(135deg, #f8fafb 0%, #f0f4f7 100%);
+		border-radius: 16px;
+	}
+
+	.stat-card {
+		text-align: center;
+		padding: 1rem;
+	}
+
+	.stat-icon {
+		font-size: 2.5rem;
+		display: block;
+		margin-bottom: 0.5rem;
+	}
+
+	.stat-label {
+		font-size: 0.8rem;
+		color: var(--theme-text-secondary);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		margin-bottom: 0.5rem;
+	}
+
+	.stat-value {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--theme-primary);
+	}
+
+	.summary {
+		font-size: 1.15rem;
+		font-weight: 600;
+		margin-bottom: 2rem;
+		padding: 1.5rem;
+		background: #fef3c7;
+		border-left: 4px solid #f59e0b;
+		border-radius: 8px;
+		color: var(--theme-text);
+		line-height: 1.6;
+	}
+
+	.content {
+		margin-top: 2.5rem;
+	}
+
+	.content :global(h2) {
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin: 2.5rem 0 1rem;
+		color: var(--theme-text);
+	}
+
+	.content :global(h3) {
+		font-size: 1.35rem;
+		font-weight: 600;
+		margin: 2rem 0 1rem;
+		color: var(--theme-text);
+	}
+
+	.content :global(p) {
+		line-height: 1.8;
+		margin-bottom: 1.5rem;
+		color: var(--theme-text);
+		font-size: 1.05rem;
+	}
+
+	.content :global(ul),
+	.content :global(ol) {
+		margin-bottom: 1.5rem;
+		padding-left: 1.5rem;
+	}
+
+	.content :global(li) {
+		line-height: 1.8;
+		margin-bottom: 0.5rem;
+		color: var(--theme-text);
+	}
+
+	.content :global(a) {
+		color: var(--theme-primary);
+		font-weight: 600;
+		text-decoration: underline;
+	}
+
+	.cta-section {
+		margin-top: 3rem;
+	}
+
+	.cta-box {
+		background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
+		color: white;
+		padding: 2.5rem;
+		border-radius: 16px;
+		text-align: center;
+		box-shadow: 0 8px 30px rgba(45, 90, 61, 0.2);
+	}
+
+	.cta-box h3 {
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+
+	.cta-box p {
+		font-size: 1.05rem;
+		margin-bottom: 1.5rem;
+		opacity: 0.95;
+	}
+
+	.cta-button {
+		display: inline-block;
+		padding: 1rem 2.5rem;
+		background: white;
+		color: var(--theme-primary);
+		font-weight: 700;
+		font-size: 1.1rem;
+		border-radius: 30px;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+	}
+
+	@media (max-width: 768px) {
+		.event-hero {
+			height: 350px;
+		}
+
+		.title {
+			font-size: 1.75rem;
+		}
+
+		.event-meta-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.event-stats {
+			padding: 1.5rem;
+		}
+
+		.stat-value {
+			font-size: 1.25rem;
+		}
+
+		.article-body.container {
+			padding: 2rem 1rem;
+		}
+
+		.cta-box {
+			padding: 2rem 1.5rem;
+		}
+
+		.cta-box h3 {
+			font-size: 1.4rem;
+		}
+	}
+</style>

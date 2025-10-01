@@ -1,0 +1,13 @@
+---
+import SingleEvent from '@/components-pages/SingleEvent.astro';
+import { SingleEventStaticPaths } from '@/staticPathsHelper';
+import type { GetStaticPathsOptions } from 'astro';
+
+export function getStaticPaths({}: GetStaticPathsOptions) {
+	return SingleEventStaticPaths('eu');
+}
+
+const { event } = Astro.props;
+---
+
+<SingleEvent event={event} />

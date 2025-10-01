@@ -4,6 +4,10 @@ export const nav = [
 		slug: ''
 	},
 	{
+		title: 'nav.agenda',
+		slug: 'agenda'
+	},
+	{
 		title: 'nav.news',
 		slug: 'news'
 	},

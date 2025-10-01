@@ -1,0 +1,48 @@
+---
+title: 'Monte Anie - Pirineos'
+lang: 'es'
+date: '2025-11-22'
+time: '06:30'
+location: 'Isaba / Izaba'
+mountain: 'Anie / Auñamendi'
+region: 'pirineoak'
+difficulty: 'zaila'
+distance: '16 km'
+elevation: '2507 m'
+duration: '8-9 horas'
+meetingPoint: 'Local Besaide - 05:45'
+image: '@/assets/udalaitz.webp'
+imageAlt: 'Panorámica del monte Anie'
+summary: 'Salida para alcanzar la cumbre de Anie (2.507m), frontera entre Navarra y los Pirineos Atlánticos.'
+featured: false
+---
+
+Anie o Auñamendi es una de las cumbres más emblemáticas del Pirineo occidental. Con una altitud de 2.507 metros, está cerca de la cumbre más alta de Navarra.
+
+## Recorrido
+
+Comenzaremos desde Isaba (en el Roncal), tomando el recorrido del valle de Belagua. Es una subida larga y dura, pero técnicamente fácil en verano. Desde la cumbre, tendremos una vista incomparable de todos los Pirineos.
+
+## Características
+
+- Clásico pirenaico
+- Más de 1.500 metros de ascenso
+- Paisajes espectaculares de roca caliza
+- Cultura pastoril en el entorno
+
+## Qué traer
+
+- Equipo completo de montaña
+- Agua (2-3 litros)
+- Comida y alimentos energéticos
+- Capas para el calor
+- Gafas de sol y crema solar
+- Bastones telescópicos
+
+## Dificultad
+
+Dificultad alta. Recorrido largo y mucho desnivel. Experiencia y preparación física buena necesarias.
+
+**Nota:** Organizaremos transporte. Plazas limitadas.
+
+Inscripciones: besaide@besaide.eus (antes del 10 de noviembre)

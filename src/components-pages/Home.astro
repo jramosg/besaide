@@ -8,6 +8,7 @@ import Sponsors from '@/components/Sponsors.astro';
 import Page from 'layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import HomeNews from '@/components/HomeNews.astro';
+import HomeAgenda from '@/components/HomeAgenda.astro';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -23,6 +24,7 @@ const t = useTranslations(lang);
 	<Historia />
 	<Zerbitzuak />
  -->
+	<HomeAgenda />
 	<HomeNews />
 	<Sponsors />
 	<!-- 	<Kontaktua /> -->

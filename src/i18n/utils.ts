@@ -21,7 +21,9 @@ const langMapping: LangMapping = {
 	es: { lang: 'es', id: '' },
 	'': { lang: 'eu', id: '' },
 	noticias: { lang: 'es', id: 'news' },
-	berriak: { lang: 'eu', id: 'news' }
+	berriak: { lang: 'eu', id: 'news' },
+	'agenda-es': { lang: 'es', id: 'agenda' },
+	agenda: { lang: 'eu', id: 'agenda' }
 };
 
 export function getLangFromUrl(url: URL): Langs {
