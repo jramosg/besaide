@@ -1,18 +1,21 @@
 :root {
 	/* Theme Primary Colors */
-	--theme-primary: #800080;
-	--theme-primary-100: #f3e6f3;
-	--theme-primary-200: #e6cce6;
-	--theme-primary-300: #d399d3;
-	--theme-primary-400: #b366b3;
-	--theme-primary-600: #660066;
-	--theme-primary-700: #4d004d;
-	--theme-primary-800: #330033;
-	--theme-primary-900: #1a001a;
+	--theme-primary: #b11cab;
+	--theme-primary-50: #ffd1fd;
+	--theme-primary-100: #eda7ea;
+	--theme-primary-200: #e275dd;
+	--theme-primary-300: #db5ed6;
+	--theme-primary-400: #ce3ac9;
+	--theme-primary-600: #971e92;
+	--theme-primary-700: #80157b;
+	--theme-primary-800: #8b1487;
+	--theme-primary-900: #741370;
+	--theme-primary-950: #4b0b48;
 	--theme-primary-light: var(--theme-primary-300);
 	--theme-primary-dark: var(--theme-primary-700);
-	--theme-primary-container: var(--theme-primary-200);
-	--theme-primary-container-alt: var(--theme-primary-100);
+	--theme-primary-container: var(--theme-primary-50);
+	--theme-primary-container-alt: var(--theme-primary-50);
+	--theme-on-primary-container-alt: #000;
 	--theme-on-primary: #fff;
 	--theme-on-primary-container: #f3e6f3;
 	--theme-container-gradient: linear-gradient(
@@ -156,6 +159,8 @@
 	/* Primary Colors (Dark) */
 	--theme-primary-container: var(--theme-primary-800);
 	--theme-primary-container-alt: var(--theme-primary-900);
+		--theme-on-primary-container-alt: #fff;
+
 	--theme-on-primary-container: #fff;
 
 	/* Secondary Colors (Dark) */
