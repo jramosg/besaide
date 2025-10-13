@@ -35,7 +35,7 @@ const Tag = href ? 'a' : 'button';
 <style>
 	.btn {
 		width: fit-content;
-		padding: 0.36rem 0.92rem;
+		padding: 0.75rem 1.5rem;
 		margin-bottom: 0;
 		display: flex;
 		align-items: center;
@@ -43,8 +43,8 @@ const Tag = href ? 'a' : 'button';
 		background-color: var(--theme-primary);
 		color: var(--theme-on-primary);
 		border: none;
-		border-radius: var(--theme-button-border-radius);
-		font-weight: 500;
+		border-radius: 12px;
+		font-weight: var(--font-weight-semibold);
 		transition: background-color 300ms ease-in-out;
 	}
 	.btn:hover {
