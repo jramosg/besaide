@@ -23,7 +23,13 @@ const langMapping: LangMapping = {
 	noticias: { lang: 'es', id: 'news' },
 	berriak: { lang: 'eu', id: 'news' },
 	'agenda-es': { lang: 'es', id: 'agenda' },
-	agenda: { lang: 'eu', id: 'agenda' }
+	agenda: { lang: 'eu', id: 'agenda' },
+	besaide: { lang: 'eu', id: 'besaide' },
+	besaidees: { lang: 'es', id: 'besaide' },
+	servicios: { lang: 'es', id: 'services' },
+	zerbitzuak: { lang: 'eu', id: 'services' },
+	rutas: { lang: 'es', id: 'routes' },
+	ibilbideak: { lang: 'eu', id: 'routes' }
 };
 
 export function getLangFromUrl(url: URL): Langs {

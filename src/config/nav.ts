@@ -12,12 +12,15 @@ export const nav = [
 		slug: 'news'
 	},
 	{
-		title: 'nav.cookies-policy',
-		slug: 'cookies-policy'
-	}
+		title: 'nav.besaide',
+		slug: 'besaide'
+	},
+	{ title: 'nav.services', slug: 'services' },
+	{ title: 'nav.routes', slug: 'courses' }
 ] as const;
 
 export type Nav = typeof nav;
+
 export type NavItem = {
 	title: string;
 	slug: string;

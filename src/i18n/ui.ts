@@ -43,13 +43,16 @@ export const ui = {
 		// 404 Page
 		'404.page-title': 'Besaide Mendizale Elkartea - Página no encontrada',
 		'404.heading': '404 - Página no encontrada',
-		'404.description': 'Lo sentimos, la página que buscas no existe o ha sido movida.',
+		'404.description':
+			'Lo sentimos, la página que buscas no existe o ha sido movida.',
 		'404.home-button': 'Volver al inicio',
 		'404.contact-button': 'Contacto',
 		'404.helpful-links-title': 'Puede que te interese:',
 		'404.link-news': 'Noticias',
 		'404.link-agenda': 'Agenda',
-		'404.link-membership': 'Ser socio'
+		'404.link-membership': 'Ser socio',
+		'Bazkidetza / Federatzea': 'Ser socio / Federarse',
+		Kontaktua: 'Contacto'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -85,7 +88,8 @@ export const ui = {
 		// 404 Page
 		'404.page-title': 'Besaide Mendizale Elkartea - Orrialdea ez da aurkitu',
 		'404.heading': '404 - Orrialdea ez da aurkitu',
-		'404.description': 'Barkatu, bilatzen ari zaren orrialdea ez da existitzen edo lekuz aldatu da.',
+		'404.description':
+			'Barkatu, bilatzen ari zaren orrialdea ez da existitzen edo lekuz aldatu da.',
 		'404.home-button': 'Hasierara itzuli',
 		'404.contact-button': 'Kontaktua',
 		'404.helpful-links-title': 'Baliteke interesgarria izatea:',

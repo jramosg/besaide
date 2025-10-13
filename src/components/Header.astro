@@ -8,6 +8,7 @@ import {
 	getIdfromUrl
 } from 'i18n/utils';
 import LanguageToggle from 'components/LanguageToggle.astro';
+import Button from '@/components/buttons/Button.astro';
 
 type Props = {
 	navData: Nav;
@@ -65,14 +66,15 @@ const t = useTranslations(lang);
 			data-close-label={t('Menua itxi')}
 			navData={nav}
 		/>
-		<slot name="action-item" />
+		<Button outlined>{t('Bazkidetza / Federatzea')}</Button>
+		<Button>{t('Kontaktua')}</Button>
 	</div>
 </header>
 
 <style>
 	header {
 		width: 100%;
-		padding: 0 var(--s2);
+		padding: 0 var(--s6);
 		height: var(--header-height);
 		display: flex;
 		justify-content: space-between;
@@ -153,11 +155,11 @@ const t = useTranslations(lang);
 	nav ul li:not(.landing-menu-item) a {
 		text-decoration: none;
 		margin-right: 1rem;
-		opacity: 0.72;
+		font-weight: var(--font-weight-medium);
 		transition: opacity linear 150ms;
 	}
 	nav ul li a:hover {
-		opacity: 1;
+		opacity: 0.8;
 	}
 
 	.language-select__container {
@@ -166,12 +168,15 @@ const t = useTranslations(lang);
 	}
 
 	.landing-menu-item--active {
-		opacity: 1;
-		font-weight: 700;
 		border-bottom: 2px solid var(--theme-primary);
 	}
 
+	/* Mobile styles */
 	@media (max-width: 768px) {
+
+		header {
+			padding: 0 var(--s2);
+		}
 		.header-nav__container {
 			display: none;
 		}
