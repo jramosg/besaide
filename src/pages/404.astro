@@ -1,0 +1,158 @@
+---
+import Page from 'layouts/Page.astro';
+import Container from '@/components/Container.astro';
+import { getLangFromUrl, useTranslations } from 'i18n/utils';
+import Button from '@/components/buttons/Button.astro';
+
+const url = Astro.url;
+const lang = getLangFromUrl(url);
+const t = useTranslations(lang);
+---
+
+<Page
+	seo={{
+		title: t('404.page-title'),
+		noindex: true
+	}}
+	pageClass="error-page"
+>
+	<section class="error-container">
+		<Container narrow>
+			<div class="error-content">
+				<div class="error-code">404</div>
+				<h1>{t('404.heading')}</h1>
+				<p class="error-description">{t('404.description')}</p>
+
+				<div class="error-actions">
+					<Button href={lang === 'eu' ? '/' : '/es'} class="btn-primary">
+						{t('404.home-button')}
+					</Button>
+					<Button
+						href={lang === 'eu' ? '/kontaktua' : '/contacto'}
+						class="btn-outline"
+					>
+						{t('404.contact-button')}
+					</Button>
+				</div>
+
+				<div class="helpful-links">
+					<h3>{t('404.helpful-links-title')}</h3>
+					<ul>
+						<li>
+							<a href={lang === 'eu' ? '/berriak' : '/noticias'}>
+								{t('404.link-news')}
+							</a>
+						</li>
+						<li>
+							<a href={lang === 'eu' ? '/agenda' : '/agenda-es'}>
+								{t('404.link-agenda')}
+							</a>
+						</li>
+						<li>
+							<a
+								href={lang === 'eu'
+									? '/bazkidetza-federatzea'
+									: '/ser-socio-federarse'}
+							>
+								{t('404.link-membership')}
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</Container>
+	</section>
+</Page>
+
+<style>
+	.error-page {
+		min-height: calc(100vh - var(--header-height) - 200px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.error-container {
+		padding: var(--s8) 0;
+	}
+
+	.error-content {
+		text-align: center;
+		max-width: var(--container-max-width-narrow);
+		margin: 0 auto;
+	}
+
+	.error-code {
+		font-size: var(--font-size-xxxl);
+		font-weight: var(--font-weight-bold);
+		color: var(--theme-primary);
+		line-height: 1;
+		margin-bottom: var(--s4);
+		opacity: 0.9;
+	}
+
+	.error-content h1 {
+		font-size: var(--font-size-xl);
+		margin-bottom: var(--s4);
+		color: var(--theme-on-bg);
+	}
+
+	.error-description {
+		font-size: var(--font-size-md);
+		color: var(--theme-text-secondary);
+		margin-bottom: var(--s7);
+		line-height: 1.6;
+	}
+
+	.error-actions {
+		display: flex;
+		gap: var(--s4);
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-bottom: var(--s7);
+	}
+
+	.helpful-links {
+		margin-top: var(--s7);
+		padding-top: var(--s6);
+		border-top: 1px solid var(--theme-outline);
+	}
+
+	.helpful-links h3 {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-medium);
+		margin-bottom: var(--s4);
+		color: var(--theme-on-bg);
+	}
+
+	.helpful-links ul {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--s3);
+	}
+
+	.helpful-links a {
+		color: var(--theme-primary);
+		text-decoration: none;
+		font-size: var(--font-size-base);
+		transition: var(--theme-transition);
+	}
+
+	.helpful-links a:hover {
+		color: var(--theme-primary-dark);
+		text-decoration: underline;
+	}
+
+	@media (max-width: 768px) {
+		.error-container {
+			padding: var(--s6) 0;
+		}
+
+		.error-actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+	}
+</style>

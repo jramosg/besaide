@@ -36,8 +36,20 @@ export const ui = {
 		'nav.agenda': 'Agenda',
 		'Zure enpresak edo erakundeak gure mendizale elkarteko babesle izan nahi badu, jar zaitez gurekin harremanetan. Elkarrekin, mendizaletasuna bultzatu eta naturaren kultura zabal dezakegu.':
 			'Si tu empresa o entidad quiere ser patrocinador de nuestra asociación de montañismo, ponte en contacto con nosotros. Juntos, podemos promover el montañismo y difundir la cultura de la naturaleza.',
-		'nav.cookies-policy': 'Aviso legal / Política de privacidad',
-		'Babeslea izan nahi duzu?': '¿Quieres ser patrocinador?'
+		'nav.besaide': 'Besaide',
+		'nav.services': 'Servicios',
+		'nav.routes': 'Rutas',
+		'Babeslea izan nahi duzu?': '¿Quieres ser patrocinador?',
+		// 404 Page
+		'404.page-title': 'Besaide Mendizale Elkartea - Página no encontrada',
+		'404.heading': '404 - Página no encontrada',
+		'404.description': 'Lo sentimos, la página que buscas no existe o ha sido movida.',
+		'404.home-button': 'Volver al inicio',
+		'404.contact-button': 'Contacto',
+		'404.helpful-links-title': 'Puede que te interese:',
+		'404.link-news': 'Noticias',
+		'404.link-agenda': 'Agenda',
+		'404.link-membership': 'Ser socio'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -67,7 +79,19 @@ export const ui = {
 		'nav.news': 'Berriak',
 		'nav.home': 'Hasiera',
 		'nav.agenda': 'Agenda',
-		'nav.cookies-policy': 'Lege oharra / Pribatutasun politika'
+		'nav.besaide': 'Besaide',
+		'nav.services': 'Zerbitzuak',
+		'nav.routes': 'Ibilbideak',
+		// 404 Page
+		'404.page-title': 'Besaide Mendizale Elkartea - Orrialdea ez da aurkitu',
+		'404.heading': '404 - Orrialdea ez da aurkitu',
+		'404.description': 'Barkatu, bilatzen ari zaren orrialdea ez da existitzen edo lekuz aldatu da.',
+		'404.home-button': 'Hasierara itzuli',
+		'404.contact-button': 'Kontaktua',
+		'404.helpful-links-title': 'Baliteke interesgarria izatea:',
+		'404.link-news': 'Berriak',
+		'404.link-agenda': 'Agenda',
+		'404.link-membership': 'Bazkidetza'
 	}
 } as const;
 
