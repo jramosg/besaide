@@ -34,22 +34,8 @@ const { seo, pageClass, ...rest } = Astro.props as Props;
 
 <style>
 	html {
-		font-family:
-			'Inter',
-			-apple-system,
-			BlinkMacSystemFont,
-			'Segoe UI',
-			Roboto,
-			sans-serif;
 		scroll-behavior: smooth;
 	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-
 	/* Header Styles */
 	.header {
 		background: linear-gradient(135deg, #2c5530 0%, #1a3d1f 100%);
@@ -184,10 +170,6 @@ const { seo, pageClass, ...rest } = Astro.props as Props;
 	}
 
 	@media (max-width: 480px) {
-		.container {
-			padding: 0 15px;
-		}
-
 		.header-content {
 			padding: 0.75rem 0;
 		}
