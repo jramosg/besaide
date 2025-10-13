@@ -17,13 +17,15 @@ import Button from '@/components/buttons/Button.astro';
 		--hero-color: white;
 		--hero-color-contrast: #000000;
 		position: relative;
-		min-height: calc(100vh - var(--header-height));
+		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		color: var(--hero-color);
 		overflow: hidden;
+		margin-top: calc(-1 * var(--header-height));
+		padding-top: var(--header-height);
 
 		h1 {
 			font-weight: 500;

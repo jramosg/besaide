@@ -11,13 +11,14 @@ import ToastContainer from '@/components/ToastContainer.astro';
 export interface Props {
 	seo?: BaseHeadProps;
 	pageClass?: string;
+	transparentHeader?: boolean;
 }
 
-const { seo, pageClass, ...rest } = Astro.props as Props;
+const { seo, pageClass, transparentHeader, ...rest } = Astro.props as Props;
 ---
 
 <Layout {seo}>
-	<Header slot="header" navData={nav}>
+	<Header slot="header" navData={nav} transparent={transparentHeader}>
 		<Fragment slot="logo">
 			<Logo />
 		</Fragment>

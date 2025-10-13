@@ -13,8 +13,9 @@ import Button from '@/components/buttons/Button.astro';
 type Props = {
 	navData: Nav;
 	rightMenu?: boolean;
+	transparent?: boolean;
 };
-const { navData, rightMenu }: Props = Astro.props;
+const { navData, rightMenu, transparent }: Props = Astro.props;
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -23,7 +24,7 @@ const t = useTranslations(lang);
 
 <header
 	id="laguntzaFisioterapiaNavHeader"
-	class={`${rightMenu ? 'header--right' : ``.trim()}`}
+	class={`${rightMenu ? 'header--right' : ''} ${transparent ? 'header--transparent' : ''}`.trim()}
 >
 	<div class="header-logo-menu__container">
 		<a
@@ -87,6 +88,10 @@ const t = useTranslations(lang);
 			transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		background-color: var(--theme-bg);
 		padding-top: var(--s3);
+	}
+
+	header.header--transparent {
+		background-color: transparent;
 	}
 
 	header.header-nav__container--scrolling-down {
