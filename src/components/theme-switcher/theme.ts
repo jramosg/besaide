@@ -1,0 +1,20 @@
+type Theme = string | null;
+
+export function getStoredTheme() {
+	const localStorageTheme = localStorage.getItem('theme');
+	return (
+		localStorageTheme ??
+		(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : null)
+	);
+}
+
+export function setTheme(theme: Theme = null) {
+	if (theme) {
+		localStorage.setItem('theme', theme);
+	}
+	const doc = document.firstElementChild;
+	theme = theme ?? getStoredTheme();
+	if (theme && doc) {
+		doc.setAttribute('data-theme', theme);
+	}
+}

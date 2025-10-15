@@ -63,126 +63,119 @@ const processedEvents = await Promise.all(
 );
 ---
 
-<section class="agenda-section" id="agenda">
-	<div class="content__container">
-		<div class="section-header">
-			<h2>🏔️ Hurrengo Irteerak</h2>
-			<p>
-				Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko
-				jarduerak
-			</p>
-		</div>
+<section id="agenda" class="content__container">
+	<div class="section-header">
+		<h2>🏔️ Hurrengo Irteerak</h2>
+		<p>
+			Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko
+			jarduerak
+		</p>
+	</div>
 
-		<div class="events-grid">
-			{
-				processedEvents.map(item => {
-					const eventDate = new Date(item.data.date);
-					const dayOfWeek = eventDate.toLocaleDateString(
-						lang === 'eu' ? 'eu-ES' : 'es-ES',
-						{ weekday: 'short' }
-					);
-					const day = eventDate.getDate();
-					const month = eventDate.toLocaleDateString(
-						lang === 'eu' ? 'eu-ES' : 'es-ES',
-						{ month: 'short' }
-					);
+	<div class="events-grid">
+		{
+			processedEvents.map(item => {
+				const eventDate = new Date(item.data.date);
+				const dayOfWeek = eventDate.toLocaleDateString(
+					lang === 'eu' ? 'eu-ES' : 'es-ES',
+					{ weekday: 'short' }
+				);
+				const day = eventDate.getDate();
+				const month = eventDate.toLocaleDateString(
+					lang === 'eu' ? 'eu-ES' : 'es-ES',
+					{ month: 'short' }
+				);
 
-					const difficultyColor =
-						item.data.difficulty === 'erraza'
-							? 'green'
-							: item.data.difficulty === 'ertaina'
-								? 'orange'
-								: 'red';
+				const difficultyColor =
+					item.data.difficulty === 'erraza'
+						? 'green'
+						: item.data.difficulty === 'ertaina'
+							? 'orange'
+							: 'red';
 
-					return (
-						<a href={item.slug} class="event-card">
-							<div class="event-image-container">
-								{typeof item.processedImage === 'string' ? (
-									<img
-										src={item.processedImage}
-										alt={item.data.imageAlt || item.data.title}
-										class="event-image"
-										style={`view-transition-name: image-${slugify(item.id)}`}
-									/>
-								) : (
-									<Image
-										src={item.processedImage}
-										alt={item.data.imageAlt || item.data.title}
-										class="event-image"
-										style={`view-transition-name: image-${slugify(item.id)}`}
-									/>
+				return (
+					<a href={item.slug} class="event-card">
+						<div class="event-image-container">
+							{typeof item.processedImage === 'string' ? (
+								<img
+									src={item.processedImage}
+									alt={item.data.imageAlt || item.data.title}
+									class="event-image"
+									style={`view-transition-name: image-${slugify(item.id)}`}
+								/>
+							) : (
+								<Image
+									src={item.processedImage}
+									alt={item.data.imageAlt || item.data.title}
+									class="event-image"
+									style={`view-transition-name: image-${slugify(item.id)}`}
+								/>
+							)}
+							<div class="event-overlay" />
+							<div class="event-date-badge">
+								<div class="badge-day">{day}</div>
+								<div class="badge-month">{month}</div>
+							</div>
+							{item.data.featured && (
+								<div class="featured-badge">⭐ Destacado</div>
+							)}
+						</div>
+
+						<div class="event-content">
+							<div class="event-meta">
+								<span class={`difficulty-badge ${difficultyColor}`}>
+									{difficultyLabels[lang][item.data.difficulty as Difficulty]}
+								</span>
+								<span class="region-badge">
+									{item.data.region === 'euskal-mendiak'
+										? '🏔️ Euskal Herria'
+										: '⛰️ Pirineoak'}
+								</span>
+							</div>
+
+							<h3>{item.data.title}</h3>
+							<p class="event-mountain">📍 {item.data.mountain}</p>
+							<p class="event-summary">{item.data.summary}</p>
+
+							<div class="event-details-grid">
+								{item.data.distance && (
+									<div class="detail-item">
+										<span class="detail-icon">📏</span>
+										<span class="detail-text">{item.data.distance}</span>
+									</div>
 								)}
-								<div class="event-overlay" />
-								<div class="event-date-badge">
-									<div class="badge-day">{day}</div>
-									<div class="badge-month">{month}</div>
-								</div>
-								{item.data.featured && (
-									<div class="featured-badge">⭐ Destacado</div>
+								{item.data.elevation && (
+									<div class="detail-item">
+										<span class="detail-icon">⬆️</span>
+										<span class="detail-text">{item.data.elevation}</span>
+									</div>
+								)}
+								{item.data.duration && (
+									<div class="detail-item">
+										<span class="detail-icon">⏱️</span>
+										<span class="detail-text">{item.data.duration}</span>
+									</div>
 								)}
 							</div>
 
-							<div class="event-content">
-								<div class="event-meta">
-									<span class={`difficulty-badge ${difficultyColor}`}>
-										{difficultyLabels[lang][item.data.difficulty as Difficulty]}
-									</span>
-									<span class="region-badge">
-										{item.data.region === 'euskal-mendiak'
-											? '🏔️ Euskal Herria'
-											: '⛰️ Pirineoak'}
-									</span>
-								</div>
-
-								<h3>{item.data.title}</h3>
-								<p class="event-mountain">📍 {item.data.mountain}</p>
-								<p class="event-summary">{item.data.summary}</p>
-
-								<div class="event-details-grid">
-									{item.data.distance && (
-										<div class="detail-item">
-											<span class="detail-icon">📏</span>
-											<span class="detail-text">{item.data.distance}</span>
-										</div>
-									)}
-									{item.data.elevation && (
-										<div class="detail-item">
-											<span class="detail-icon">⬆️</span>
-											<span class="detail-text">{item.data.elevation}</span>
-										</div>
-									)}
-									{item.data.duration && (
-										<div class="detail-item">
-											<span class="detail-icon">⏱️</span>
-											<span class="detail-text">{item.data.duration}</span>
-										</div>
-									)}
-								</div>
-
-								<div class="event-cta">
-									<span class="cta-text">Informazio gehiago →</span>
-								</div>
+							<div class="event-cta">
+								<span class="cta-text">Informazio gehiago →</span>
 							</div>
-						</a>
-					);
-				})
-			}
-		</div>
+						</div>
+					</a>
+				);
+			})
+		}
+	</div>
 
-		<div class="agenda-footer">
-			<Button outlined href={getUrlFromID('agenda', lang)}
-				>Agenda osoa ikusi</Button
-			>
-		</div>
+	<div class="agenda-footer">
+		<Button outlined href={getUrlFromID('agenda', lang)}
+			>Agenda osoa ikusi</Button
+		>
 	</div>
 </section>
 
 <style>
-	.agenda-section {
-		padding: 5rem 0;
-		background: linear-gradient(135deg, #f8fafb 0%, #f0f4f7 100%);
-	}
-
 	.section-header {
 		text-align: center;
 		margin-bottom: 4rem;
@@ -213,7 +206,7 @@ const processedEvents = await Promise.all(
 	}
 
 	.event-card {
-		background: white;
+		background: var(--theme-surface-1);
 		border-radius: 16px;
 		overflow: hidden;
 		text-decoration: none;
@@ -434,10 +427,6 @@ const processedEvents = await Promise.all(
 	}
 
 	@media (max-width: 480px) {
-		.agenda-section {
-			padding: 3rem 0;
-		}
-
 		.section-header h2 {
 			font-size: 1.75rem;
 		}

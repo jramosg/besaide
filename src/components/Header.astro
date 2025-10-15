@@ -8,6 +8,7 @@ import {
 	getIdfromUrl
 } from 'i18n/utils';
 import LanguageToggle from 'components/LanguageToggle.astro';
+import ThemeSwitcher from 'components/theme-switcher/ThemeSwitcher.astro';
 import Button from '@/components/buttons/Button.astro';
 
 type Props = {
@@ -60,6 +61,7 @@ const t = useTranslations(lang);
 	</div>
 	<div class="header-action-item__container">
 		<LanguageToggle />
+		<ThemeSwitcher />
 		<Burger
 			id="menuButton"
 			aria-label={t('Menua ireki')}

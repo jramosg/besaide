@@ -47,6 +47,9 @@ importers:
       sharp:
         specifier: ^0.34.4
         version: 0.34.4
+      theme-toggles:
+        specifier: ^4.10.1
+        version: 4.10.1
       typescript:
         specifier: ^5.9.2
         version: 5.9.3
@@ -2708,6 +2711,9 @@ packages:
 
   tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+
+  theme-toggles@4.10.1:
+    resolution: {integrity: sha512-PCvj0cB+3JOv8gUXjvp+/7Nu7hSLAYCwmxsAjltIhUUpF6NPn3jDMo64KCu2S2HQe+lGAEM01f2hDzqlPg3bsQ==}
 
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
@@ -6868,6 +6874,8 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   tabbable@6.2.0: {}
+
+  theme-toggles@4.10.1: {}
 
   tiny-inflate@1.0.3: {}
 
