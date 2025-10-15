@@ -13,9 +13,17 @@
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.4",
+		"@astrojs/markdoc": "^0.15.8",
+		"@astrojs/react": "^4.4.0",
 		"@fontsource-variable/roboto": "^5.2.8",
+		"@keystatic/astro": "^5.0.6",
+		"@keystatic/core": "^0.5.48",
 		"@lucide/astro": "^0.544.0",
-		"astro": "^5.13.10",
+		"@types/react": "^19.2.2",
+		"@types/react-dom": "^19.2.2",
+		"astro": "^5.14.5",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"sharp": "^0.34.4",
 		"typescript": "^5.9.2"
 	},

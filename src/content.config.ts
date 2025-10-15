@@ -14,11 +14,11 @@ const news = defineCollection({
 });
 
 const events = defineCollection({
-	loader: glob({ pattern: '**/*.md', base: './src/data/events' }),
+	loader: glob({ pattern: '**/*.mdoc', base: './src/data/events' }),
 	schema: z.object({
 		title: z.string(),
 		lang: z.string(),
-		date: z.string(),
+		date: z.date(),
 		time: z.string().optional(),
 		location: z.string(),
 		mountain: z.string(),

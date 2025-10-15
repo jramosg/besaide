@@ -1,8 +1,8 @@
 # Besaide
 
-Besaide is a multilingual (Basque/Spanish) content-driven website built with Astro. It uses simple markdown content files for news and other pages and ships a lightweight, accessible component set.
+Besaide is a multilingual (Basque/Spanish) content-driven website built with Astro. It uses simple markdown content files for news and events, and includes Keystatic for content management. The site ships a lightweight, accessible component set.
 
-This README covers quick setup, where content lives, contribution notes, and a proposed future improvement to add a content-editing workflow using Keystatic.
+This README covers quick setup, where content lives, how to use the content editor, and contribution notes.
 
 ## Quick start
 
@@ -20,6 +20,8 @@ pnpm dev
 
 The dev server will start on http://localhost:4321 by default.
 
+**Content management:** Access the Keystatic admin interface at http://localhost:4321/keystatic to manage events and other content.
+
 Build for production:
 
 ```bash
@@ -31,21 +33,45 @@ pnpm preview
 
 - `src/` — main source files (components, pages, layouts)
 - `src/data/news/` — markdown content for news articles (there are language variants, e.g. `.md` and `-es.md` or language-specific files)
+- `src/data/events/` — markdown content for events/activities, managed via Keystatic
 - `src/components/` — reusable UI components and page fragments
 - `public/` — static assets served as-is
+- `keystatic.config.ts` — Keystatic configuration for content management
 
-If you add new content, follow the existing files in `src/data/news/` for frontmatter keys and filename conventions.
+If you add new content manually, follow the existing files in the respective data folders for frontmatter keys and filename conventions.
 
-## Writing content
+## Content management
 
-Content in this site is currently authored as Markdown files in `src/data/news/` (and other data folders). Each file contains frontmatter used by the site to render lists and pages. When adding new content:
+### Using Keystatic (recommended for events)
 
-- Add the markdown file to the appropriate folder (for news: `src/data/news/`).
-- Follow the existing frontmatter fields (title, date, language, summary, etc.).
-- If your site uses language variants, add matching translated files (e.g. `article.md` and `article-es.md`).
+The site includes Keystatic for easy content management, especially for events. To use the content editor:
 
-Example frontmatter:
+1. **Start the development server:**
+   ```bash
+   pnpm dev
+   ```
 
+2. **Access the admin interface:**
+   Navigate to `http://localhost:4321/keystatic` in your browser
+
+3. **Manage events:**
+   - Create, edit, and delete events through the web interface
+   - All fields are properly labeled in both Basque and Spanish
+   - Events are automatically saved as `.mdoc` files in `src/data/events/`
+
+### Manual content editing
+
+Content can also be authored directly as Markdown files:
+
+- **News articles:** `src/data/news/` (with language variants like `.md` and `-es.md`)
+- **Events:** `src/data/events/` (use `.mdoc` format for Keystatic compatibility)
+
+When adding content manually:
+- Follow the existing frontmatter fields in similar files
+- For multilingual content, create separate files for each language
+- Use consistent filename conventions
+
+Example news frontmatter:
 ```md
 ---
 title: 'Sample News Item'
@@ -57,21 +83,12 @@ summary: 'Short summary shown in listings.'
 Markdown content goes here.
 ```
 
-## Future improvement — Keystatic (content editor)
+### Keystatic features
 
-Consider adding Keystatic for a simple, file-backed content editing experience. Keystatic (https://github.com/Thinkmill/keystatic) provides an admin UI for managing markdown content stored in your repository. It can speed up non-technical contributors adding news or pages while still keeping content in Git.
-
-Suggested next steps to evaluate Keystatic:
-
-1. Read Keystatic docs and examples: https://github.com/Thinkmill/keystatic
-2. Prototype a small Keystatic config that maps to `src/data/news/` frontmatter fields
-3. Add an optional admin route and restrict access (or run locally for editors)
-
-Benefits:
-
-- Simple UI for editors
-- Keeps content as Markdown in the repo (Git-first workflow)
-- Low operational overhead compared with a headless CMS
+- **File-based:** All content remains as Markdown files in Git
+- **Multilingual support:** Built-in language selection for Basque/Spanish
+- **Rich editing:** User-friendly interface with validation
+- **Local storage:** No external dependencies or databases required
 
 ## Contributing
 
