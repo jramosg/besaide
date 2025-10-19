@@ -3,7 +3,11 @@ import { config, fields, collection } from '@keystatic/core';
 
 export default config({
 	storage: {
-		kind: 'local'
+		kind: 'github',
+		repo: {
+			owner: 'jramosg',
+			name: 'besaide'
+		}
 	},
 	collections: {
 		events: collection({
@@ -92,7 +96,7 @@ export default config({
 					description: 'Gertaera hau nabarmendu nahi al duzu?',
 					defaultValue: false
 				}),
-				content: fields.markdoc({ 
+				content: fields.markdoc({
 					label: 'Edukia / Contenido',
 					description: 'Gertaeraren deskribapen osoa'
 				})
