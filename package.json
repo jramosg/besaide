@@ -15,6 +15,7 @@
 		"@astrojs/check": "^0.9.4",
 		"@astrojs/markdoc": "^0.15.8",
 		"@astrojs/react": "^4.4.0",
+		"@astrojs/vercel": "^8.2.10",
 		"@fontsource-variable/roboto": "^5.2.8",
 		"@keystatic/astro": "^5.0.6",
 		"@keystatic/core": "^0.5.48",
