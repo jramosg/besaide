@@ -16,7 +16,9 @@ export default config({
 			path: 'src/data/events/*',
 			format: { contentField: 'content' },
 			schema: {
-				title: fields.slug({ name: { label: 'Izenburua / Título' } }),
+				title: fields.slug({
+					name: { label: 'Izenburua / Título' }
+				}),
 				lang: fields.select({
 					label: 'Hizkuntza / Idioma',
 					options: [
@@ -27,19 +29,23 @@ export default config({
 				}),
 				date: fields.date({
 					label: 'Data / Fecha',
-					description: 'Gertaeraren data'
+					description: 'Gertaeraren data',
+					validation: { isRequired: true }
 				}),
 				time: fields.text({
 					label: 'Ordua / Hora',
-					description: 'Adib: 06:30'
+					description: 'Adib: 06:30',
+					validation: { isRequired: true }
 				}),
 				location: fields.text({
 					label: 'Kokalekua / Ubicación',
-					description: 'Herria edo kokalekua'
+					description: 'Herria edo kokalekua',
+					validation: { isRequired: true }
 				}),
 				mountain: fields.text({
 					label: 'Mendia / Montaña',
-					description: 'Mendi edo gailurraren izena'
+					description: 'Mendi edo gailurraren izena',
+					validation: { isRequired: true }
 				}),
 				region: fields.select({
 					label: 'Eskualdea / Región',
@@ -64,32 +70,34 @@ export default config({
 				}),
 				distance: fields.text({
 					label: 'Distantzia / Distancia',
-					description: 'Adib: 16 km'
+					description: 'Adib: 16 km',
+					validation: { isRequired: true }
 				}),
 				elevation: fields.text({
 					label: 'Altuera / Altitud',
-					description: 'Adib: 2507 m'
+					description: 'Adib: 2507 m',
+					validation: { isRequired: true }
 				}),
 				duration: fields.text({
 					label: 'Iraupena / Duración',
-					description: 'Adib: 8-9 ordu'
+					description: 'Adib: 8-9 ordu',
+					validation: { isRequired: true }
 				}),
 				meetingPoint: fields.text({
 					label: 'Bilketa puntua / Punto de encuentro',
-					description: 'Non eta noiz bildu'
+					description: 'Non eta noiz bildu',
+					validation: { isRequired: true }
 				}),
-				image: fields.text({
+				image: fields.image({
 					label: 'Irudia / Imagen',
-					description: 'Irudiaren bidea, adib: @/assets/udalaitz.webp'
-				}),
-				imageAlt: fields.text({
-					label: 'Irudiaren azalpena / Alt de imagen',
-					description: 'Irudiaren deskribapen laburra'
+					directory: 'src/assets/images/events',
+					validation: { isRequired: true }
 				}),
 				summary: fields.text({
 					label: 'Laburpena / Resumen',
 					description: 'Gertaeraren laburpen motza',
-					multiline: true
+					multiline: true,
+					validation: { isRequired: true }
 				}),
 				featured: fields.checkbox({
 					label: 'Nabarmendu / Destacar',
