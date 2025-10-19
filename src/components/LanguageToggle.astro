@@ -29,46 +29,51 @@ function langHref(targetLang: Langs) {
 	return `${section}/${newSingleNewsId}`;
 }
 const t = useTranslations(lang);
+
+const switchLang = languages.filter(l => l.code !== lang)[0];
+const switchHref = langHref(switchLang.code);
 ---
 
-<div class="language-toggle">
-	<button
-		id="lang-toggle-btn"
-		type="button"
-		aria-expanded="false"
-		aria-haspopup="listbox"
-		aria-label={`Current language: ${t(lang)}. Click to change language`}
-		class="lang-toggle-btn"
-	>
-		<Languages class="translate-icon" />
-		<span class="lang-code">{lang.toUpperCase()}</span>
-		<ChevronRight class="chevron" />
-	</button>
-	<div
-		id="lang-dropdown"
-		class="lang-dropdown"
-		hidden
-		role="listbox"
-		aria-label="Language selection"
-	>
-		{
-			languages.map(language => (
-				<a href={langHref(language.code)}>
-					<button
-						type="button"
-						class={`lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
-						role="option"
-						aria-selected={language.code === lang}
-						data-lang={language.code}
-					>
-						<span>{language.nativeName}</span>
-						{language.code === lang && <Check class="check" />}
-					</button>
-				</a>
-			))
-		}
-	</div>
-</div>
+{
+	switchHref && (
+		<div class="language-toggle">
+			<button
+				id="lang-toggle-btn"
+				type="button"
+				aria-expanded="false"
+				aria-haspopup="listbox"
+				aria-label={`Current language: ${t(lang)}. Click to change language`}
+				class="lang-toggle-btn"
+			>
+				<Languages class="translate-icon" />
+				<span class="lang-code">{lang.toUpperCase()}</span>
+				<ChevronRight class="chevron" />
+			</button>
+			<div
+				id="lang-dropdown"
+				class="lang-dropdown"
+				hidden
+				role="listbox"
+				aria-label="Language selection"
+			>
+				{languages.map(language => (
+					<a href={langHref(language.code)}>
+						<button
+							type="button"
+							class={`lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
+							role="option"
+							aria-selected={language.code === lang}
+							data-lang={language.code}
+						>
+							<span>{language.nativeName}</span>
+							{language.code === lang && <Check class="check" />}
+						</button>
+					</a>
+				))}
+			</div>
+		</div>
+	)
+}
 
 <style>
 	a {
