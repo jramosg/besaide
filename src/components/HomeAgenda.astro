@@ -1,5 +1,5 @@
 ---
-import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import { getLangFromUrl, getUrlFromID } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
@@ -34,12 +34,14 @@ const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
 	}
 };
 
-console.log('Filtered future events:', events);
-
 const processedEvents = await Promise.all(
 	events.map(async item => {
-		const processedImage = await processEventImage(images, item.id, item.data.image, UdalaitzImg);
-		const slug = item.id;
+		const processedImage = await processEventImage(
+			images,
+			item.id,
+			item.data.image,
+			UdalaitzImg
+		);
 
 		return {
 			...item,
@@ -63,10 +65,6 @@ const processedEvents = await Promise.all(
 		{
 			processedEvents.map(item => {
 				const eventDate = new Date(item.data.date);
-				const dayOfWeek = eventDate.toLocaleDateString(
-					lang === 'eu' ? 'eu-ES' : 'es-ES',
-					{ weekday: 'short' }
-				);
 				const day = eventDate.getDate();
 				const month = eventDate.toLocaleDateString(
 					lang === 'eu' ? 'eu-ES' : 'es-ES',
