@@ -5,32 +5,21 @@ import { slugify } from '@/utils/string';
 import { render } from 'astro:content';
 import UdalaitzImg from '@/assets/udalaitz.webp';
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import { getEventImages, processEventImage } from '@/utils/images';
 
 const { event } = Astro.props;
 const { Content } = await render(event);
 const slug = slugify(event.id);
 const lang = getLangFromUrl(Astro.url);
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/assets/*.{jpeg,jpg,png,gif,webp}'
+const images = getEventImages();
+
+const processedImage = await processEventImage(
+	images,
+	event.id,
+	event.data.image,
+	UdalaitzImg
 );
-
-let processedImage: ImageMetadata | string = UdalaitzImg;
-
-if (event.data.image) {
-	if (event.data.image.startsWith('@/assets/')) {
-		const imagePath = event.data.image.replace('@/', 'src/');
-		const fullPath = `/${imagePath}`;
-		try {
-			if (images[fullPath]) {
-				processedImage = (await images[fullPath]()).default;
-			}
-		} catch (error) {
-			console.warn(`Could not import image: ${event.data.image}`, error);
-		}
-	}
-}
 
 type Difficulty = 'erraza' | 'ertaina' | 'zaila';
 
@@ -232,7 +221,7 @@ const formattedDate = eventDate.toLocaleDateString(
 	.event-hero {
 		position: relative;
 		width: 100%;
-		height: 500px;
+		aspect-ratio: 16 / 9;
 		overflow: hidden;
 	}
 
@@ -500,10 +489,6 @@ const formattedDate = eventDate.toLocaleDateString(
 	}
 
 	@media (max-width: 768px) {
-		.event-hero {
-			height: 350px;
-		}
-
 		.title {
 			font-size: 1.75rem;
 		}
