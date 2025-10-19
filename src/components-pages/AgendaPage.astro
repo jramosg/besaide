@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import UdalaitzImg from '@/assets/udalaitz.webp';
 import { slugify } from '@/utils/string';
+import { getEventImages, processEventImage } from '@/utils/images';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -20,9 +21,8 @@ const pastEvents = events.filter(event => new Date(event.data.date) < today);
 
 const agendaSection = getUrlFromID('agenda', lang);
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/assets/*.{jpeg,jpg,png,gif,webp}'
-);
+ 
+const images = getEventImages();
 
 type Difficulty = 'erraza' | 'ertaina' | 'zaila';
 
@@ -42,21 +42,7 @@ const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
 const processEvents = async (eventsList: typeof events) => {
 	return await Promise.all(
 		eventsList.map(async item => {
-			let processedImage: ImageMetadata | string = UdalaitzImg;
-
-			if (item.data.image) {
-				if (item.data.image.startsWith('@/assets/')) {
-					const imagePath = item.data.image.replace('@/', 'src/');
-					const fullPath = `/${imagePath}`;
-					try {
-						if (images[fullPath]) {
-							processedImage = (await images[fullPath]()).default;
-						}
-					} catch (error) {
-						console.warn(`Could not import image: ${item.data.image}`, error);
-					}
-				}
-			}
+			const processedImage = await processEventImage(images, item.id, item.data.image, UdalaitzImg);
 
 			return {
 				...item,
