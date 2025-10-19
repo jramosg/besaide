@@ -14,18 +14,21 @@ const languages = [
 ] as const;
 
 const url = Astro.url;
-const { singleNewsId } = Astro.params;
+const { singleNewsId, singleEventId } = Astro.params;
 const lang = getLangFromUrl(url);
 
 function langHref(targetLang: Langs) {
-	if (!singleNewsId) {
+	if (!singleNewsId && !singleEventId) {
 		return switchLanguage(url);
 	}
-	const section = getUrlFromID('news', targetLang);
+
+	const sectionId = singleNewsId ? 'news' : 'agenda';
+	const id = singleNewsId || singleEventId || '';
+	const section = getUrlFromID(sectionId, targetLang);
 	const newSingleNewsId =
 		targetLang === 'es'
-			? `${singleNewsId}-es`
-			: singleNewsId.replace(/-es$/, '');
+			? `${id}-es`
+			: id.replace(/-es$/, '');
 	return `${section}/${newSingleNewsId}`;
 }
 const t = useTranslations(lang);
