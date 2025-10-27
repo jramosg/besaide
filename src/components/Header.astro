@@ -21,12 +21,21 @@ const { navData, rightMenu, transparent }: Props = Astro.props;
 const url = Astro.url;
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
+
+const currentPageId = getIdfromUrl(url);
+const headerClasses = [
+	rightMenu && 'header--right',
+	transparent && 'header--transparent'
+]
+	.filter(Boolean)
+	.join(' ');
 ---
 
-<header
-	id="laguntzaFisioterapiaNavHeader"
-	class={`${rightMenu ? 'header--right' : ''} ${transparent ? 'header--transparent' : ''}`.trim()}
->
+<header id="besaideHeader" class={headerClasses}>
+	<div class="header-toggles__container">
+		<ThemeSwitcher />
+		<LanguageToggle />
+	</div>
 	<div class="header-logo-menu__container">
 		<a
 			class="header-logo__link"
@@ -41,27 +50,24 @@ const t = useTranslations(lang);
 		<nav>
 			<ul>
 				{
-					navData.map(navItem => (
-						<li class="header-nav__item">
-							<a
-								class={
-									navItem.slug === getIdfromUrl(url)
-										? 'landing-menu-item--active'
-										: ''
-								}
-								href={getUrlFromID(navItem.slug, lang)}
-							>
-								{t(navItem.title)}
-							</a>
-						</li>
-					))
+					navData.map(navItem => {
+						const isActive = navItem.slug === currentPageId;
+						return (
+							<li class="header-nav__item">
+								<a
+									class={isActive ? 'nav-link--active' : ''}
+									href={getUrlFromID(navItem.slug, lang)}
+								>
+									{t(navItem.title)}
+								</a>
+							</li>
+						);
+					})
 				}
 			</ul>
 		</nav>
 	</div>
 	<div class="header-action-item__container">
-		<LanguageToggle />
-		<ThemeSwitcher />
 		<Burger
 			id="menuButton"
 			aria-label={t('Menua ireki')}
@@ -76,31 +82,54 @@ const t = useTranslations(lang);
 
 <style>
 	header {
+		--transition-transform: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		--transition-height: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		--horizontal-padding: var(--s6);
 		width: 100%;
-		padding: 0 var(--s6);
 		height: var(--header-height);
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
 		align-items: center;
 		position: fixed;
+		align-items: center;
 		top: 0;
 		z-index: 200;
 		transition:
-			all 0.3s ease-in-out,
-			transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			var(--transition-height),
+			var(--transition-transform),
+			padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		background-color: var(--theme-bg);
-		padding-top: var(--s3);
+	}
+	.header-toggles__container {
+		grid-column: span 3 / span 3;
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		border-bottom: 1px solid var(--theme-outline);
+		height: var(--header-toggles-height);
+		opacity: 1;
+		gap: var(--s4);
+		transform: translateY(0);
+		transition:
+			var(--transition-height),
+			opacity 0.25s ease-in,
+			var(--transition-transform);
+		padding: 0 var(--horizontal-padding);
 	}
 
 	header.header--transparent {
-		background-color: transparent;
+		background-color: color-mix(in srgb, var(--theme-bg) 60%, transparent);
+		backdrop-filter: blur(10px);
 	}
 
 	header.header-nav__container--scrolling-down {
-		padding-top: 0;
-	}
-	header.header--hidden {
-		transform: translateY(-100%);
+		height: var(--header-content-height);
+		.header-toggles__container {
+			height: 0;
+			opacity: 0;
+			overflow: hidden;
+			transform: translateY(-100%);
+		}
 	}
 	header.header--right {
 		display: grid;
@@ -110,11 +139,16 @@ const t = useTranslations(lang);
 		width: fit-content;
 		color: inherit;
 		text-decoration: none;
-		
-		padding: var(--s4) 0;
+
+		padding-left: var(--horizontal-padding);
 		svg {
 			width: var(--s10);
 		}
+	}
+
+	.header-nav__container {
+		display: flex;
+		justify-content: center;
 	}
 	.header-logo-menu__container {
 		display: flex;
@@ -126,12 +160,13 @@ const t = useTranslations(lang);
 		display: flex;
 		gap: var(--s2);
 		align-items: center;
+		height: 100%;
 	}
 	.header-nav__container--scrolled {
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 		margin-top: 0;
 		opacity: 0.9;
-		backdrop-filter: blur(10px);
+		background-color: transparent;
 	}
 
 	header[drawer-open] {
@@ -144,10 +179,6 @@ const t = useTranslations(lang);
 		.header-logo-menu__container {
 			opacity: 0;
 		}
-	}
-	.header-nav__container--scrolling-down {
-		height: var(--s8);
-		background-color: var(--theme-primary-container);
 	}
 
 	nav {
@@ -174,21 +205,28 @@ const t = useTranslations(lang);
 		transition: opacity 0.3s ease-in-out;
 	}
 
-	.landing-menu-item--active {
+	.nav-link--active {
 		border-bottom: 2px solid var(--theme-primary);
+	}
+
+	.header-action-item__container {
+		padding-right: var(--horizontal-padding);
 	}
 
 	/* Mobile styles */
 	@media (max-width: 768px) {
-
 		header {
 			padding: 0 var(--s2);
 		}
 		.header-nav__container {
 			display: none;
 		}
-		#menuButton {
-			display: flex;
+
+		.header-action-item__container button {
+			display: none;
+			&#menuButton {
+				display: flex;
+			}
 		}
 	}
 
@@ -274,63 +312,78 @@ const t = useTranslations(lang);
 </style>
 
 <script>
+	const SCROLL_THRESHOLD = 60;
+	const HEADER_ID = 'besaideHeader';
+	const MOBILE_MENU_ID = 'mobile-menu';
+	const LANG_TOGGLE_BTN_ID = 'lang-toggle-btn';
+	const LANG_DROPDOWN_ID = 'lang-dropdown';
+
+	const CSS_CLASSES = {
+		SCROLLED: 'header-nav__container--scrolled',
+		SCROLLING_DOWN: 'header-nav__container--scrolling-down'
+	} as const;
+
 	document.addEventListener('astro:page-load', () => {
-		const bodyElement = document.body;
-		const navHeader = document.getElementById('laguntzaFisioterapiaNavHeader');
-		const mobileMenu = document.getElementById('mobile-menu');
-		const langToggleBtn = document.getElementById('lang-toggle-btn');
-		const dropdown = document.getElementById('lang-dropdown');
+		const navHeader = document.getElementById(HEADER_ID);
+		const mobileMenu = document.getElementById(MOBILE_MENU_ID);
+		const langToggleBtn = document.getElementById(LANG_TOGGLE_BTN_ID);
+		const dropdown = document.getElementById(LANG_DROPDOWN_ID);
+
+		if (!navHeader) return;
 
 		let lastScrollY = window.scrollY;
 		let ticking = false;
 
-		if (!navHeader || !bodyElement) return;
-
-		function closeDropdown() {
+		const closeDropdown = () => {
 			if (!dropdown || !langToggleBtn) return;
 			dropdown.hidden = true;
 			langToggleBtn.setAttribute('aria-expanded', 'false');
-		}
+		};
 
-		function onScroll() {
+		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
-			if (!navHeader) return;
+
 			// Hide dropdown on scroll
 			if (
 				dropdown &&
 				langToggleBtn &&
-				window.scrollY > 60 &&
+				currentScrollY > SCROLL_THRESHOLD &&
 				!dropdown.hidden
 			) {
 				closeDropdown();
 				langToggleBtn.blur();
 			}
+
 			// Prevent scroll logic if mobile menu is open
-			if (mobileMenu && mobileMenu.hasAttribute('open')) {
-				navHeader.classList.remove('header-nav__container--scrolling-down');
+			if (mobileMenu?.hasAttribute('open')) {
+				navHeader.classList.remove(CSS_CLASSES.SCROLLING_DOWN);
 				return;
 			}
-			// Twitter-like header hide/show
-			if (currentScrollY < 60) {
-				navHeader.classList.remove('header-nav__container--scrolled');
+
+			// Header hide/show based on scroll direction
+			if (currentScrollY < SCROLL_THRESHOLD) {
+				navHeader.classList.remove(CSS_CLASSES.SCROLLED);
 			} else {
-				navHeader.classList.add('header-nav__container--scrolled');
+				navHeader.classList.add(CSS_CLASSES.SCROLLED);
 
 				if (currentScrollY > lastScrollY) {
-					navHeader.classList.add('header-nav__container--scrolling-down');
+					navHeader.classList.add(CSS_CLASSES.SCROLLING_DOWN);
 				} else {
-					navHeader.classList.remove('header-nav__container--scrolling-down');
+					navHeader.classList.remove(CSS_CLASSES.SCROLLING_DOWN);
 				}
 			}
+
 			lastScrollY = currentScrollY;
 			ticking = false;
-		}
-		function onScrollHandler() {
+		};
+
+		const onScrollHandler = () => {
 			if (!ticking) {
-				window.requestAnimationFrame(onScroll);
+				window.requestAnimationFrame(handleScroll);
 				ticking = true;
 			}
-		}
+		};
+
 		window.addEventListener('scroll', onScrollHandler);
 	});
 </script>

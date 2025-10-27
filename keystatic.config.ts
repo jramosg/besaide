@@ -93,17 +93,6 @@ export default config({
 					directory: 'src/assets/images/events',
 					validation: { isRequired: true }
 				}),
-				summary: fields.text({
-					label: 'Laburpena / Resumen',
-					description: 'Gertaeraren laburpen motza',
-					multiline: true,
-					validation: { isRequired: true }
-				}),
-				featured: fields.checkbox({
-					label: 'Nabarmendu / Destacar',
-					description: 'Gertaera hau nabarmendu nahi al duzu?',
-					defaultValue: false
-				}),
 				content: fields.markdoc({
 					label: 'Edukia / Contenido',
 					description: 'Gertaeraren deskribapen osoa'
