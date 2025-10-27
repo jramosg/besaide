@@ -116,10 +116,16 @@ const processedEvents = await Promise.all(
 									/>
 								)}
 								{item.data.duration && (
-									<HomeAgendaMeta title={t('IRAUPENA')} desc={item.data.duration} />
+									<HomeAgendaMeta
+										title={t('IRAUPENA')}
+										desc={item.data.duration}
+									/>
 								)}
 								{item.data.elevation && (
-									<HomeAgendaMeta title={t('ALTITUD')} desc={item.data.elevation} />
+									<HomeAgendaMeta
+										title={t('ALTITUD')}
+										desc={item.data.elevation}
+									/>
 								)}
 								{item.data.difficulty && (
 									<HomeAgendaMeta

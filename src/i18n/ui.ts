@@ -133,7 +133,7 @@ export const ui = {
 		'Berri guztiak ikusi': 'Berri guztiak ikusi',
 		'Agenda osoa ikusi': 'Agenda osoa ikusi',
 		'nav.membership-federation': 'Bazkidetza / Federatzea',
-		'nav.contact': 'Kontaktua',
+		'nav.contact': 'Kontaktua'
 		// Event meta labels
 	}
 } as const;

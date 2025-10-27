@@ -47,6 +47,7 @@ If you add new content manually, follow the existing files in the respective dat
 The site includes Keystatic for easy content management, especially for events. To use the content editor:
 
 1. **Start the development server:**
+
    ```bash
    pnpm dev
    ```
@@ -67,11 +68,13 @@ Content can also be authored directly as Markdown files:
 - **Events:** `src/data/events/` (use `.mdoc` format for Keystatic compatibility)
 
 When adding content manually:
+
 - Follow the existing frontmatter fields in similar files
 - For multilingual content, create separate files for each language
 - Use consistent filename conventions
 
 Example news frontmatter:
+
 ```md
 ---
 title: 'Sample News Item'

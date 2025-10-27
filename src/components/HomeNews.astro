@@ -18,7 +18,11 @@ const images = getGeneralImages();
 
 const processedNews = await Promise.all(
 	news.map(async item => {
-		const processedImage = await processGeneralImage(images, item.data.image, UdalaitzImg);
+		const processedImage = await processGeneralImage(
+			images,
+			item.data.image,
+			UdalaitzImg
+		);
 
 		return {
 			...item,

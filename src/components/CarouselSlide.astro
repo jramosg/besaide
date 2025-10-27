@@ -7,7 +7,7 @@ type Props = {
 const { class: className = '', id, ...rest } = Astro.props;
 ---
 
-<div class={`carousel-slide ${className}`.trim()} id={id}, {...rest}>
+<div class={`carousel-slide ${className}`.trim()} id={id} , {...rest}>
 	<slot />
 </div>
 

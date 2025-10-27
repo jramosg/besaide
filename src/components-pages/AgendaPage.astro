@@ -19,7 +19,6 @@ const pastEvents = events.filter(event => new Date(event.data.date) < today);
 
 const agendaSection = getUrlFromID('agenda', lang);
 
- 
 const images = getEventImages();
 
 type Difficulty = 'erraza' | 'ertaina' | 'zaila';
@@ -40,7 +39,12 @@ const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
 const processEvents = async (eventsList: typeof events) => {
 	return await Promise.all(
 		eventsList.map(async item => {
-			const processedImage = await processEventImage(images, item.id, item.data.image, UdalaitzImg);
+			const processedImage = await processEventImage(
+				images,
+				item.id,
+				item.data.image,
+				UdalaitzImg
+			);
 
 			return {
 				...item,
