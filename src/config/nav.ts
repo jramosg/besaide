@@ -25,3 +25,14 @@ export type NavItem = {
 	title: string;
 	slug: string;
 };
+
+export const navActions = [
+	{
+		title: 'nav.membership-federation',
+		slug: 'membership'
+	},
+	{
+		title: 'nav.contact',
+		slug: 'contact'
+	}
+] as const;

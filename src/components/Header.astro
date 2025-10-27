@@ -1,6 +1,6 @@
 ---
 import Burger from 'components/buttons/Burger.astro';
-import { nav, type Nav } from 'config/nav';
+import { nav, navActions, type Nav } from 'config/nav';
 import {
 	getLangFromUrl,
 	useTranslations,
@@ -68,6 +68,13 @@ const headerClasses = [
 		</nav>
 	</div>
 	<div class="header-action-item__container">
+		{
+			navActions.map((action, i) => (
+				<Button outlined={i !== navActions.length - 1}>
+					{t(action.title)}
+				</Button>
+			))
+		}
 		<Burger
 			id="menuButton"
 			aria-label={t('Menua ireki')}
@@ -75,8 +82,6 @@ const headerClasses = [
 			data-close-label={t('Menua itxi')}
 			navData={nav}
 		/>
-		<Button outlined>{t('Bazkidetza / Federatzea')}</Button>
-		<Button>{t('Kontaktua')}</Button>
 	</div>
 </header>
 
@@ -160,6 +165,7 @@ const headerClasses = [
 		gap: var(--s2);
 		align-items: center;
 		height: 100%;
+		justify-content: flex-end;
 	}
 	.header-nav__container--scrolled {
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -174,9 +180,24 @@ const headerClasses = [
 		backdrop-filter: none;
 		opacity: 1;
 		box-shadow: unset;
-		.language-toggle,
 		.header-logo-menu__container {
 			opacity: 0;
+		}
+
+		.header-toggles__container {
+			border-bottom: none;
+		}
+
+		.lang-toggle-link {
+			&:first-child::after {
+				background-color: var(--theme-on-primary);
+			}
+			.lang-option {
+				color: var(--theme-on-primary);
+				&:hover {
+					color: var(--theme-on-primary);
+				}
+			}
 		}
 	}
 
@@ -189,12 +210,14 @@ const headerClasses = [
 		list-style: none;
 		display: flex;
 	}
-	nav ul li:not(.landing-menu-item) a {
+
+	nav ul li:not(.drawer-menu-item) a {
 		text-decoration: none;
 		margin-right: 1rem;
 		font-weight: var(--font-weight-medium);
 		transition: opacity linear 150ms;
 	}
+
 	nav ul li a:hover {
 		opacity: 0.8;
 	}
@@ -262,19 +285,19 @@ const headerClasses = [
 		gap: var(--s5);
 	}
 
-	.landing-menu-item {
+	.drawer-menu-item {
 		opacity: 0;
 		transform: translateY(40px) scale(0.95);
 		transition:
 			opacity 0.4s cubic-bezier(0.4, 2, 0.6, 1),
 			transform 0.4s cubic-bezier(0.4, 2, 0.6, 1);
 	}
-	.menu-overlay.open .landing-menu-item {
+	.menu-overlay.open .drawer-menu-item {
 		opacity: 1;
 		transform: translateY(0) scale(1);
 	}
 
-	.landing-menu-item a {
+	.drawer-menu-item a {
 		font-size: var(--font-size-lg);
 		color: var(--theme-on-primary, #fff);
 		text-decoration: none;
@@ -283,7 +306,7 @@ const headerClasses = [
 		transition: color 0.2s;
 	}
 
-	.landing-menu-item a:hover {
+	.drawer-menu-item a:hover {
 		color: var(--theme-secondary, #e8944a);
 		text-shadow:
 			0 2px 32px #e8944a,

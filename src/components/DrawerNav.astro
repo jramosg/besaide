@@ -1,7 +1,7 @@
 ---
-import type { Nav } from '@/config/nav';
+import { navActions, type Nav } from '@/config/nav';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
-import Logo from '@/components/Logo.astro';
+import Button from './buttons/Button.astro';
 
 type Props = {
 	navData: Nav;
@@ -26,16 +26,26 @@ const t = useTranslations(lang);
 					</li>
 				))
 			}
+			{
+				navActions.map((action, i) => (
+					<li>
+						<Button
+							class="drawer-menu-item"
+							style={`transition-delay: ${(i + navData.length + 1) * 100 + 200}ms`}
+							tonal
+						>
+							{t(action.title)}
+						</Button>
+					</li>
+				))
+			}
 		</ul>
 	</nav>
-	<div class="drawer-menu-item logo-menu-item">
-		<Logo />
-	</div>
 </aside>
 <div id="drawer-backdrop" class="drawer-backdrop"></div>
 <style>
 	:root {
-		--drawer-animation: 0.4s cubic-bezier(0.4, 2, 0.6, 1);
+		--drawer-animation: 0.3s cubic-bezier(0.4, 2, 0.6, 1);
 	}
 	.menu-overlay {
 		position: fixed;

@@ -64,8 +64,7 @@ export const ui = {
 		'hero.federation.cta': 'Más información para federarse',
 		'themeSwitcher.toggleTheme': 'Cambiar tema',
 		Agenda: 'Agenda',
-		'Azken albisteak eta eguneraketak':
-			'Últimas noticias y actualizaciones',
+		'Azken albisteak eta eguneraketak': 'Últimas noticias y actualizaciones',
 		'Berri guztiak ikusi': 'Ver todas las noticias',
 		'Agenda osoa ikusi': 'Ver toda la agenda',
 		// Event meta labels
@@ -73,7 +72,9 @@ export const ui = {
 		TOPAGUNEA: 'PUNTO DE ENCUENTRO',
 		IRAUPENA: 'DURACIÓN',
 		ALTITUD: 'ALTITUD',
-		DIFICULTAD: 'DIFICULTAD'
+		ZAILTASUNA: 'DIFICULTAD',
+		'nav.membership-federation': 'Ser socio / Federarse',
+		'nav.contact': 'Contacto'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -128,16 +129,12 @@ export const ui = {
 		'hero.federation.cta': 'Federatzeko informazio gehiago',
 		'themeSwitcher.toggleTheme': 'Gaia aldatu',
 		Agenda: 'Agenda',
-		'Azken albisteak eta eguneraketak':
-			'Azken albisteak eta eguneraketak',
+		'Azken albisteak eta eguneraketak': 'Azken albisteak eta eguneraketak',
 		'Berri guztiak ikusi': 'Berri guztiak ikusi',
 		'Agenda osoa ikusi': 'Agenda osoa ikusi',
+		'nav.membership-federation': 'Bazkidetza / Federatzea',
+		'nav.contact': 'Kontaktua',
 		// Event meta labels
-		MENDIA: 'Mendia',
-		TOPAGUNEA: 'Topagunea',
-		IRAUPENA: 'Iraupena',
-		ALTITUD: 'Altuera',
-		DIFICULTAD: 'Zailtasuna'
 	}
 } as const;
 
