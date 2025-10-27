@@ -28,7 +28,6 @@ function langHref(targetLang: Langs) {
 		targetLang === 'es' ? `${id}-es` : id.replace(/-es$/, '');
 	return `${section}/${newSingleNewsId}`;
 }
-const t = useTranslations(lang);
 
 const switchLang = languages.filter(l => l.code !== lang)[0];
 const switchHref = langHref(switchLang.code);
