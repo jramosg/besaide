@@ -11,11 +11,11 @@
 	--theme-primary-800: #8b1487;
 	--theme-primary-900: #741370;
 	--theme-primary-950: #4b0b48;
+	--theme-primary-hover-bg: rgba(177, 28, 171, 0.08);
 	--theme-primary-light: var(--theme-primary-300);
 	--theme-primary-dark: var(--theme-primary-700);
 	--theme-primary-container: var(--theme-primary-50);
 	--theme-primary-container-alt: var(--theme-primary-50);
-	--theme-on-primary-container-alt: #000;
 	--theme-on-primary: #fff;
 	--theme-on-primary-container: #f3e6f3;
 	--theme-container-gradient: linear-gradient(
@@ -59,16 +59,16 @@
 	--theme-bg: #fff;
 	--theme-on-bg: #000;
 
-	--theme-surface-1: #f2f2f2;
+	--theme-card: #fff;
+
+	--theme-card: #fff;
 	--theme-on-surface-1: var(--theme-on-bg);
 
 	--theme-surface-2: #800080;
 	--theme-on-surface-2: #fff;
 
 	/* Theme Shapes */
-	/* Set this to 0 if you want all of the rounded cards, images, etc to be straight edges */
-	--theme-shape-radius: clamp(1rem, 2rem, 3rem);
-	--theme-button-border-radius: 3rem;
+	--theme-shape-radius: 0.75rem;
 
 	/* Theme Transition */
 	--theme-transition: 0.2s ease-in-out;
@@ -76,6 +76,7 @@
 	/* Theme Layout */
 	--section-margin: 3rem;
 	--theme-grid-gap: 1rem;
+	--container-max-width-xl: 1920px;
 	--container-max-width: 1440px;
 	--container-max-width-narrow: 960px;
 	--container-padding: 0 1rem;
@@ -86,7 +87,11 @@
 	--theme-font-family:
 		'Roboto Variable', sans-serif, -apple-system, BlinkMacSystemFont;
 
-	--header-height: 5.8rem;
+	--header-toggles-height: var(--s6);
+	--header-content-height: 6rem;
+	--header-height: calc(
+		var(--header-content-height) + var(--header-toggles-height)
+	);
 
 	/* Spacing Scale */
 	--s: 0.25rem;
@@ -119,16 +124,11 @@
 	--grey-900: #232427;
 
 	/* Theme Shadows */
-	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-	--shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.06);
-	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
 	--shadow-lg:
 		0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-	--shadow-xl:
-		0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-	--shadow-none: 0 0 #0000;
+	--shadow-card: 3px 7px 12.8px 4px #00000026;
+	--shadow-card-hover: 3px 12px 20px 6px #00000033;
 
 	--ring-offset-shadow: 0 0 #0000;
 	--ring-shadow: 0 0 #0000;
@@ -149,7 +149,8 @@
 	--theme-bg: hsl(0, 0%, 2%);
 	--theme-on-bg: hsl(0, 0%, 100%);
 
-	--theme-surface-1: hsl(0, 0%, 20%);
+	--theme-card: oklch(20.5% 0 0);
+	--theme-card: hsl(0, 0%, 20%);
 
 	--theme-surface-2: #203422;
 	--theme-on-surface-2: #ffffff;
@@ -159,7 +160,6 @@
 	/* Primary Colors (Dark) */
 	--theme-primary-container: var(--theme-primary-800);
 	--theme-primary-container-alt: var(--theme-primary-900);
-		--theme-on-primary-container-alt: #fff;
 
 	--theme-on-primary-container: #fff;
 

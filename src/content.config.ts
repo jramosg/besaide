@@ -30,7 +30,6 @@ const events = defineCollection({
 		meetingPoint: z.string().optional(),
 		image: z.string().optional(),
 		imageAlt: z.string().optional(),
-		summary: z.string(),
 		featured: z.boolean().optional()
 	})
 });

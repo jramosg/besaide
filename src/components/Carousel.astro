@@ -1,0 +1,320 @@
+---
+import { ArrowRight, ArrowLeft } from '@lucide/astro';
+
+type Props = {
+	id?: string;
+	slideWidth?: string;
+	slideHeight?: string;
+	gap?: string;
+	autoScroll?: boolean;
+	autoScrollInterval?: number;
+	showNavigation?: boolean;
+	class?: string;
+};
+
+const {
+	id = 'carousel',
+	slideWidth = '300px',
+	slideHeight = '300px',
+	gap = '50px',
+	autoScroll = false,
+	autoScrollInterval = 5000,
+	showNavigation = true,
+	class: className = '',
+	...rest
+} = Astro.props;
+
+const carouselId = `carousel-${id}`;
+const slidesId = `${carouselId}-slides`;
+const prevBtnId = `${carouselId}-prev`;
+const nextBtnId = `${carouselId}-next`;
+---
+
+<div
+	class={`carousel ${className}`.trim()}
+	data-carousel-id={carouselId}
+	data-auto-scroll={autoScroll}
+	data-auto-scroll-interval={autoScrollInterval}
+	style={`--slide-width: ${slideWidth}; --slide-height: ${slideHeight}; --slide-gap: ${gap};`}
+	{...rest}
+>
+	<div id={slidesId} class="carousel__slides">
+		<slot />
+	</div>
+	{
+		showNavigation && (
+			<button
+				id={prevBtnId}
+				class="carousel__nav carousel__nav--prev"
+				aria-label="Previous slide"
+				type="button"
+			>
+				<ArrowLeft />
+			</button>
+		)
+	}
+
+	{
+		showNavigation && (
+			<button
+				id={nextBtnId}
+				class="carousel__nav carousel__nav--next"
+				aria-label="Next slide"
+				type="button"
+			>
+				<ArrowRight />
+			</button>
+		)
+	}
+</div>
+
+<style>
+	.carousel {
+		position: relative;
+		width: 100%;
+		max-width: var(--slide-width, 300px);
+		margin: 0 auto;
+	}
+
+	.carousel__slides {
+		display: flex;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: thin;
+		scrollbar-color: transparent transparent;
+		gap: var(--slide-gap, 50px);
+	}
+
+	.carousel__slides::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.carousel__slides::-webkit-scrollbar-thumb {
+		background: var(--theme-primary, #000);
+		border-radius: 10px;
+	}
+
+	.carousel__slides::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.carousel__slides > :global(*) {
+		scroll-snap-align: start;
+		flex-shrink: 0;
+		width: var(--slide-width, 300px);
+		height: var(--slide-height, 300px);
+	}
+
+	.carousel__nav {
+		position: absolute;
+		bottom: -60px;
+		z-index: 10;
+		background: var(--theme-card, rgba(255, 255, 255, 0.9));
+		color: var(--theme-on-bg, #000);
+		border: 1px solid var(--theme-outline, #ddd);
+		border-radius: 50%;
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	.carousel__nav:hover {
+		background: var(--theme-primary, #000);
+		color: var(--theme-on-primary, #fff);
+		transform: scale(1.1);
+	}
+
+	.carousel__nav:active {
+		transform: scale(0.95);
+	}
+
+	.carousel__nav--prev {
+		left: calc(50% - 60px);
+	}
+
+	.carousel__nav--next {
+		right: calc(50% - 60px);
+	}
+
+	/* Mobile responsive navigation */
+	@media (max-width: 768px) {
+		.carousel__nav--prev {
+			left: calc(50% - 50px);
+		}
+
+		.carousel__nav--next {
+			right: calc(50% - 50px);
+		}
+
+		.carousel__nav {
+			width: 40px;
+			height: 40px;
+			bottom: -50px;
+			background: var(--theme-card, rgba(255, 255, 255, 0.95));
+		}
+	}
+
+	/* Hide scrollbar on mobile for cleaner look */
+	@media (max-width: 768px) {
+		.carousel__slides {
+			scrollbar-width: none;
+		}
+
+		.carousel__slides::-webkit-scrollbar {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	interface CarouselConfig {
+		autoScroll: boolean;
+		autoScrollInterval: number;
+	}
+
+	class CarouselController {
+		private container: HTMLElement;
+		private slidesContainer: HTMLElement;
+		private prevBtn: HTMLButtonElement | null;
+		private nextBtn: HTMLButtonElement | null;
+		private slides: HTMLElement[] = [];
+		private currentIndex: number = 0;
+		private autoScrollTimer: number | null = null;
+		private config: CarouselConfig;
+
+		constructor(container: HTMLElement, config: CarouselConfig) {
+			this.container = container;
+			this.config = config;
+
+			const carouselId = container.dataset.carouselId || '';
+			this.slidesContainer = document.getElementById(
+				`${carouselId}-slides`
+			) as HTMLElement;
+			this.prevBtn = document.getElementById(
+				`${carouselId}-prev`
+			) as HTMLButtonElement | null;
+			this.nextBtn = document.getElementById(
+				`${carouselId}-next`
+			) as HTMLButtonElement | null;
+
+			if (!this.slidesContainer) return;
+
+			this.slides = Array.from(this.slidesContainer.children) as HTMLElement[];
+			this.init();
+		}
+
+		private init(): void {
+			if (this.slides.length === 0) return;
+
+			// Add navigation event listeners
+			this.prevBtn?.addEventListener('click', () => this.prev());
+			this.nextBtn?.addEventListener('click', () => this.next());
+
+			// Add keyboard navigation
+			this.container.addEventListener('keydown', (e: KeyboardEvent) => {
+				if (e.key === 'ArrowLeft') this.prev();
+				if (e.key === 'ArrowRight') this.next();
+			});
+
+			// Track scroll position for current index
+			this.slidesContainer.addEventListener('scroll', () => {
+				this.updateCurrentIndex();
+			});
+
+			// Auto-scroll functionality
+			if (this.config.autoScroll) {
+				this.startAutoScroll();
+
+				// Pause on hover
+				this.container.addEventListener('mouseenter', () =>
+					this.stopAutoScroll()
+				);
+				this.container.addEventListener('mouseleave', () =>
+					this.startAutoScroll()
+				);
+			}
+		}
+
+		private updateCurrentIndex(): void {
+			const scrollLeft = this.slidesContainer.scrollLeft;
+			const slideWidth =
+				this.slides[0]?.offsetWidth +
+					parseInt(getComputedStyle(this.slidesContainer).gap || '0') || 0;
+
+			if (slideWidth > 0) {
+				this.currentIndex = Math.round(scrollLeft / slideWidth);
+			}
+		}
+
+		private scrollToSlide(index: number): void {
+			const slideWidth =
+				this.slides[0]?.offsetWidth +
+					parseInt(getComputedStyle(this.slidesContainer).gap || '0') || 0;
+
+			this.slidesContainer.scrollTo({
+				left: index * slideWidth,
+				behavior: 'smooth'
+			});
+		}
+
+		public next(): void {
+			const nextIndex = (this.currentIndex + 1) % this.slides.length;
+			this.scrollToSlide(nextIndex);
+		}
+
+		public prev(): void {
+			const prevIndex =
+				(this.currentIndex - 1 + this.slides.length) % this.slides.length;
+			this.scrollToSlide(prevIndex);
+		}
+
+		private startAutoScroll(): void {
+			if (!this.config.autoScroll) return;
+
+			this.stopAutoScroll();
+			this.autoScrollTimer = window.setInterval(() => {
+				this.next();
+			}, this.config.autoScrollInterval);
+		}
+
+		private stopAutoScroll(): void {
+			if (this.autoScrollTimer !== null) {
+				clearInterval(this.autoScrollTimer);
+				this.autoScrollTimer = null;
+			}
+		}
+
+		public destroy(): void {
+			this.stopAutoScroll();
+		}
+	}
+
+	// Initialize all carousels on the page
+	function initCarousels(): void {
+		const carousels = document.querySelectorAll(
+			'[data-carousel-id]'
+		) as NodeListOf<HTMLElement>;
+
+		carousels.forEach(carousel => {
+			const autoScroll = carousel.dataset.autoScroll === 'true' || false;
+			const autoScrollInterval = parseInt(
+				carousel.dataset.autoScrollInterval || '5000'
+			);
+
+			new CarouselController(carousel, {
+				autoScroll,
+				autoScrollInterval
+			});
+		});
+	}
+
+	// Initialize on page load and after Astro page transitions
+	document.addEventListener('astro:page-load', initCarousels);
+</script>

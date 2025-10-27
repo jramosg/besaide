@@ -1,5 +1,7 @@
 ---
 import Hero from '@/components/Hero.astro';
+import '@/styles/card.css';
+
 // import Agenda from '../components/Agenda.astro';
 // import Historia from '../components/Historia.astro';
 //import Zerbitzuak from '../components/Zerbitzuak.astro';
@@ -37,5 +39,9 @@ const t = useTranslations(lang);
 		flex-direction: column;
 		gap: var(--s6);
 		margin-bottom: var(--s6);
+	}
+
+	:global(.home-section) {
+		padding: var(--container-padding);
 	}
 </style>

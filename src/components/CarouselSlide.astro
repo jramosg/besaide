@@ -1,0 +1,22 @@
+---
+type Props = {
+	class?: string;
+	id?: string;
+};
+
+const { class: className = '', id, ...rest } = Astro.props;
+---
+
+<div class={`carousel-slide ${className}`.trim()} id={id}, {...rest}>
+	<slot />
+</div>
+
+<style>
+	.carousel-slide {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		overflow: hidden;
+	}
+</style>

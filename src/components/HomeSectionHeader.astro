@@ -1,0 +1,70 @@
+---
+import Button from './buttons/Button.astro';
+
+interface Props {
+	title: string;
+	subtitle: string;
+	buttonText: string;
+	buttonHref: string;
+	class?: string;
+}
+
+const {
+	title,
+	subtitle,
+	buttonText,
+	buttonHref,
+	class: className
+} = Astro.props;
+---
+
+<div class={`section-header ${className || ''}`}>
+	<h2 class="section-header__title">{title}</h2>
+	<div class="section-header__action">
+		<Button href={buttonHref}>{buttonText}</Button>
+	</div>
+	<p class="section-header__subtitle">{subtitle}</p>
+</div>
+
+<style>
+	.section-header {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		column-gap: var(--s4);
+		margin-bottom: var(--s5);
+	}
+
+	.section-header__title {
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-normal);
+		margin-bottom: 0;
+	}
+
+	.section-header__subtitle {
+		margin: 0;
+	}
+
+	.section-header__action {
+		grid-row: span 2 / span 2;
+
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	@media (max-width: 768px) {
+		.section-header {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.section-header__action {
+			width: 100%;
+		}
+
+		.section-header__action :global(.btn) {
+			width: 100%;
+		}
+	}
+</style>

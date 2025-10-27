@@ -3,13 +3,46 @@
 import udalaitzImage from '@/assets/udalaitz.webp';
 import { Image } from 'astro:assets';
 import Button from '@/components/buttons/Button.astro';
+import Carousel from './Carousel.astro';
+import CarouselSlide from './CarouselSlide.astro';
+import Container from './Container.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="hero" id="hero">
 	<Image src={udalaitzImage} alt="Udalaitz mendia" class="hero-image" />
+	<div class="hero-overlay"></div>
 
-	<h1>Bazkidetza / Federatzea</h1>
-	<Button class="btn-home-hero">Bazkide egin</Button>
+	<Carousel
+		id="hero-slider"
+		class="hero-carousel__container"
+		slideWidth="100%"
+		slideHeight="100%"
+		autoScroll={true}
+		autoScrollInterval={5000}
+	>
+		<CarouselSlide>
+			<Container narrow class="hero-slider__container">
+				<h1>{t('hero.membership.title')}</h1>
+				<p>
+					{t('hero.membership.description')}
+				</p>
+				<Button class="btn-home-hero">{t('hero.membership.cta')}</Button>
+			</Container>
+		</CarouselSlide>
+		<CarouselSlide>
+			<Container narrow class="hero-slider__container">
+				<h1>{t('hero.federation.title')}</h1>
+				<p>
+					{t('hero.federation.description')}
+				</p>
+				<Button class="btn-home-hero">{t('hero.federation.cta')}</Button>
+			</Container>
+		</CarouselSlide>
+	</Carousel>
 </section>
 
 <style>
@@ -32,6 +65,17 @@ import Button from '@/components/buttons/Button.astro';
 		}
 	}
 
+	.hero-slider__container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: var(--s5);
+		h1 {
+			text-align: center;
+		}
+	}
+
 	.hero-image {
 		position: absolute;
 		inset: 0;
@@ -42,11 +86,23 @@ import Button from '@/components/buttons/Button.astro';
 		z-index: -1;
 	}
 
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.3) 0%,
+			rgba(0, 0, 0, 0.5) 100%
+		);
+		z-index: -1;
+	}
+
 	.btn-home-hero {
-		background-color: var(--hero-color) !important;
+		background-color: var(--theme-card) !important;
 		color: var(--theme-primary) !important;
+		transition: opacity 0.3s ease;
 		&:hover {
-			background-color: var(--grey-200) !important;
+			opacity: 0.72;
 		}
 	}
 </style>

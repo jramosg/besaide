@@ -10,66 +10,6 @@ body {
 	position: relative;
 }
 
-pre {
-	padding: 1em;
-	border-radius: 0.5em;
-	overflow: auto;
-}
-
-pre .language-id {
-	display: none;
-}
-
-/* Base card style */
-.card {
-	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-md);
-	background-color: var(--theme-surface-1);
-	border-radius: var(--theme-shape-radius);
-	transition:
-		scale 500ms cubic-bezier(0.4, 0, 0.2, 1),
-		transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
-		background-color 0.3s ease,
-		box-shadow 0.3s ease;
-}
-
-/* Elevated card (default) */
-.card--elevated {
-	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-md);
-	transition:
-		box-shadow 0.3s ease,
-		transform 0.3s ease,
-		background-color 0.3s ease;
-}
-.card--elevated:hover,
-.card--elevated:focus-visible {
-	box-shadow: var(--ring-offset-shadow), var(--ring-shadow), var(--shadow-2xl);
-	scale: 1.02 !important;
-	transform: translateY(-4px) !important;
-	background-color: var(--theme-bg);
-}
-
-/* Outlined card */
-.card--outlined {
-	box-shadow: none;
-	border: 1px solid var(--theme-outline);
-	background-color: var(--theme-bg);
-}
-.card--outlined:hover,
-.card--outlined:focus-visible {
-	border-color: var(--theme-primary);
-	background-color: var(--theme-surface-1);
-}
-
-/* Flat card */
-.card--flat {
-	box-shadow: none;
-	background-color: var(--theme-surface-1);
-}
-.card--flat:hover,
-.card--flat:focus-visible {
-	background-color: var(--theme-surface-2);
-}
-
 /* Enhanced Focus States for Accessibility */
 *:focus-visible {
 	outline: 2px solid var(--theme-primary);

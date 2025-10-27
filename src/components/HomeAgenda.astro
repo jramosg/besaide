@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
@@ -7,8 +7,12 @@ import UdalaitzImg from '@/assets/udalaitz.webp';
 import { slugify } from '@/utils/string';
 import { getEventImages, processEventImage } from '@/utils/images';
 import Button from './buttons/Button.astro';
+import HomeSectionHeader from './HomeSectionHeader.astro';
+import MountainClimb from '@/assets/icons/elevation.svg';
+import HomeAgendaMeta from './HomeAgendaMeta.astro';
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 let events: CollectionEntry<'events'>[] = await sortedAndFilteredEvents(lang);
 
 // Filter future events and limit to 4
@@ -52,14 +56,13 @@ const processedEvents = await Promise.all(
 );
 ---
 
-<section id="agenda" class="content__container">
-	<div class="section-header">
-		<h2>🏔️ Hurrengo Irteerak</h2>
-		<p>
-			Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko
-			jarduerak
-		</p>
-	</div>
+<section id="agenda" class="home-section">
+	<HomeSectionHeader
+		title={t('Agenda')}
+		subtitle={t('Azken albisteak eta eguneraketak')}
+		buttonText={t('Berri guztiak ikusi')}
+		buttonHref="/berriak"
+	/>
 
 	<div class="events-grid">
 		{
@@ -68,18 +71,14 @@ const processedEvents = await Promise.all(
 				const day = eventDate.getDate();
 				const month = eventDate.toLocaleDateString(
 					lang === 'eu' ? 'eu-ES' : 'es-ES',
-					{ month: 'short' }
+					{ month: 'long' }
 				);
 
-				const difficultyColor =
-					item.data.difficulty === 'erraza'
-						? 'green'
-						: item.data.difficulty === 'ertaina'
-							? 'orange'
-							: 'red';
+				const formattedDate =
+					lang === 'es' ? `${day} de ${month}` : `${month}k ${day}`;
 
 				return (
-					<a href={item.slug} class="event-card">
+					<a href={item.slug} class="card card--elevated event-card">
 						<div class="event-image-container">
 							{typeof item.processedImage === 'string' ? (
 								<img
@@ -97,54 +96,39 @@ const processedEvents = await Promise.all(
 								/>
 							)}
 							<div class="event-overlay" />
-							<div class="event-date-badge">
-								<div class="badge-day">{day}</div>
-								<div class="badge-month">{month}</div>
-							</div>
-							{item.data.featured && (
-								<div class="featured-badge">⭐ Destacado</div>
-							)}
 						</div>
 
 						<div class="event-content">
-							<div class="event-meta">
-								<span class={`difficulty-badge ${difficultyColor}`}>
-									{difficultyLabels[lang][item.data.difficulty as Difficulty]}
-								</span>
-								<span class="region-badge">
-									{item.data.region === 'euskal-mendiak'
-										? '🏔️ Euskal Herria'
-										: '⛰️ Pirineoak'}
-								</span>
+							<div class="event-header">
+								<div class="event-date-badge">
+									{formattedDate.toUpperCase()}
+								</div>
+								<MountainClimb />
 							</div>
+							<h3 class="event-title">{item.data.title}</h3>
 
-							<h3>{item.data.title}</h3>
-							<p class="event-mountain">📍 {item.data.mountain}</p>
-							<p class="event-summary">{item.data.summary}</p>
-
-							<div class="event-details-grid">
-								{item.data.distance && (
-									<div class="detail-item">
-										<span class="detail-icon">📏</span>
-										<span class="detail-text">{item.data.distance}</span>
-									</div>
-								)}
-								{item.data.elevation && (
-									<div class="detail-item">
-										<span class="detail-icon">⬆️</span>
-										<span class="detail-text">{item.data.elevation}</span>
-									</div>
+							<div class="event-meta">
+								<HomeAgendaMeta title="MENDIA" desc={item.data.mountain} />
+								{item.data.meetingPoint && (
+									<HomeAgendaMeta
+										title="TOPAGUNEA"
+										desc={item.data.meetingPoint}
+									/>
 								)}
 								{item.data.duration && (
-									<div class="detail-item">
-										<span class="detail-icon">⏱️</span>
-										<span class="detail-text">{item.data.duration}</span>
-									</div>
+									<HomeAgendaMeta title="IRAUPENA" desc={item.data.duration} />
 								)}
-							</div>
-
-							<div class="event-cta">
-								<span class="cta-text">Informazio gehiago →</span>
+								{item.data.elevation && (
+									<HomeAgendaMeta title="ALTITUD" desc={item.data.elevation} />
+								)}
+								{item.data.difficulty && (
+									<HomeAgendaMeta
+										title="DIFICULTAD"
+										desc={
+											difficultyLabels[lang][item.data.difficulty as Difficulty]
+										}
+									/>
+								)}
 							</div>
 						</div>
 					</a>
@@ -161,56 +145,30 @@ const processedEvents = await Promise.all(
 </section>
 
 <style>
-	.section-header {
-		text-align: center;
-		margin-bottom: 4rem;
+	a {
+		text-decoration: none;
+		color: inherit;
 	}
-
-	.section-header h2 {
-		font-size: 2.5rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-		background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.section-header p {
-		font-size: 1.1rem;
-		color: var(--theme-text-secondary);
-		max-width: 700px;
-		margin: 0 auto;
-	}
-
 	.events-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		grid-template-columns: repeat(auto-fit, 320px);
 		gap: 2rem;
 		margin-bottom: 3rem;
 	}
 
 	.event-card {
-		background: var(--theme-surface-1);
-		border-radius: 16px;
-		overflow: hidden;
-		text-decoration: none;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-		transition: all 0.3s ease;
+		position: relative;
+		min-height: 400px;
 		display: flex;
 		flex-direction: column;
-		position: relative;
-	}
-
-	.event-card:hover {
-		transform: translateY(-8px);
-		box-shadow: 0 12px 40px rgba(45, 90, 61, 0.15);
+		overflow: hidden;
 	}
 
 	.event-image-container {
-		position: relative;
-		height: 240px;
+		position: absolute;
+		inset: 0;
 		overflow: hidden;
+		z-index: 0;
 	}
 
 	.event-image {
@@ -221,174 +179,85 @@ const processedEvents = await Promise.all(
 	}
 
 	.event-card:hover .event-image {
-		transform: scale(1.1);
+		transform: scale(1.05);
 	}
 
 	.event-overlay {
 		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
+		inset: 0;
 		background: linear-gradient(
 			to bottom,
-			rgba(0, 0, 0, 0.1) 0%,
-			rgba(0, 0, 0, 0.3) 100%
+			rgba(0, 0, 0, 0.3) 0%,
+			rgba(0, 0, 0, 0.7) 100%
 		);
 	}
 
+	.event-title {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		margin-bottom: 0;
+		flex: 1;
+	}
+
 	.event-date-badge {
-		position: absolute;
-		top: 1rem;
-		left: 1rem;
-		background: white;
-		border-radius: 12px;
-		padding: 0.75rem;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		background: var(--theme-card);
+		color: var(--theme-on-bg);
+		border-radius: 100px;
+		padding: var(--s2);
 		text-align: center;
-		z-index: 2;
-	}
-
-	.badge-day {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: var(--theme-primary);
-		line-height: 1;
-	}
-
-	.badge-month {
-		font-size: 0.75rem;
-		font-weight: 600;
-		color: var(--theme-text-secondary);
-		text-transform: uppercase;
-		margin-top: 0.25rem;
-	}
-
-	.featured-badge {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-		color: white;
-		padding: 0.5rem 1rem;
-		border-radius: 20px;
-		font-size: 0.8rem;
-		font-weight: 600;
-		box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
-		z-index: 2;
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
 	}
 
 	.event-content {
-		padding: 1.5rem;
-		flex: 1;
+		padding: var(--s4);
+		position: relative;
+		z-index: 1;
 		display: flex;
 		flex-direction: column;
+		gap: var(--s2);
+		color: white;
+		height: 100%;
+	}
+
+	.event-header {
+		display: flex;
+		justify-content: space-between;
 	}
 
 	.event-meta {
-		display: flex;
-		gap: 0.5rem;
-		margin-bottom: 1rem;
-		flex-wrap: wrap;
-	}
-
-	.difficulty-badge,
-	.region-badge {
-		padding: 0.375rem 0.75rem;
-		border-radius: 20px;
-		font-size: 0.75rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-	}
-
-	.difficulty-badge.green {
-		background: #d1fae5;
-		color: #065f46;
-	}
-
-	.difficulty-badge.orange {
-		background: #fed7aa;
-		color: #92400e;
-	}
-
-	.difficulty-badge.red {
-		background: #fecaca;
-		color: #991b1b;
-	}
-
-	.region-badge {
-		background: #dbeafe;
-		color: #1e40af;
-	}
-
-	.event-content h3 {
-		font-size: 1.3rem;
-		font-weight: 700;
-		color: var(--theme-text);
-		margin-bottom: 0.5rem;
-		line-height: 1.3;
-	}
-
-	.event-mountain {
-		font-size: 0.95rem;
-		font-weight: 600;
-		color: var(--theme-primary);
-		margin-bottom: 0.75rem;
-	}
-
-	.event-summary {
-		color: var(--theme-text-secondary);
-		line-height: 1.6;
-		margin-bottom: 1rem;
-		flex: 1;
-		font-size: 0.9rem;
-	}
-
-	.event-details-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-		gap: 0.75rem;
-		margin-bottom: 1rem;
-		padding-top: 1rem;
-		border-top: 1px solid #e5e7eb;
+		grid-template-columns: 1fr auto;
+		grid-template-rows: auto auto auto;
+		gap: 0.5rem;
+		margin-top: auto;
+		align-items: end;
+	}
+	.event-meta > :global(:nth-child(1)) {
+		grid-column: 1;
+		grid-row: 1;
 	}
 
-	.detail-item {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.25rem;
+	.event-meta > :global(:nth-child(2)) {
+		grid-column: 1;
+		grid-row: 2;
 	}
-
-	.detail-icon {
-		font-size: 1.25rem;
+	.event-meta > :global(:nth-child(3)) {
+		grid-column: 1;
+		grid-row: 3;
 	}
-
-	.detail-text {
-		font-size: 0.8rem;
-		font-weight: 600;
-		color: var(--theme-text-secondary);
-		text-align: center;
+	.event-meta > :global(:nth-child(4)) {
+		grid-column: 2;
+		grid-row: 2;
 	}
-
-	.event-cta {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding-top: 1rem;
-		border-top: 1px solid #e5e7eb;
+	.event-meta > :global(:nth-child(5)) {
+		grid-column: 2;
+		grid-row: 3;
 	}
-
-	.cta-text {
-		color: var(--theme-primary);
-		font-weight: 700;
-		font-size: 0.9rem;
-		transition: all 0.3s ease;
-	}
-
-	.event-card:hover .cta-text {
-		transform: translateX(4px);
+	.event-meta > :global(:nth-child(6)) {
+		grid-column: 2;
+		grid-row: 3;
+		align-self: start;
 	}
 
 	.agenda-footer {
@@ -406,8 +275,8 @@ const processedEvents = await Promise.all(
 			gap: 1.5rem;
 		}
 
-		.event-image-container {
-			height: 200px;
+		.event-card {
+			min-height: 400px;
 		}
 	}
 
@@ -418,10 +287,6 @@ const processedEvents = await Promise.all(
 
 		.event-content {
 			padding: 1.25rem;
-		}
-
-		.event-content h3 {
-			font-size: 1.15rem;
 		}
 	}
 </style>

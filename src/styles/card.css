@@ -1,0 +1,44 @@
+
+/* Base card style */
+.card {
+	box-shadow: var(--shadow-card);
+	background-color: var(--theme-card);
+	border-radius: var(--theme-shape-radius);
+	transition:
+		scale 300ms cubic-bezier(0.4, 0, 0.2, 1),
+		transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+		box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+/* Elevated card (default) */
+.card--elevated {
+	box-shadow: var(--shadow-card);
+}
+.card--elevated:hover,
+.card--elevated:focus-visible {
+	scale: 1.02;
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-card-hover);
+}
+
+/* Outlined card */
+.card--outlined {
+	box-shadow: none;
+	border: 1px solid var(--theme-outline);
+	background-color: var(--theme-bg);
+}
+.card--outlined:hover,
+.card--outlined:focus-visible {
+	border-color: var(--theme-primary);
+	background-color: var(--theme-card);
+}
+
+/* Flat card */
+.card--flat {
+	box-shadow: none;
+	background-color: var(--theme-card);
+}
+.card--flat:hover,
+.card--flat:focus-visible {
+	background-color: var(--theme-surface-2);
+}

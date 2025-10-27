@@ -52,7 +52,21 @@ export const ui = {
 		'404.link-agenda': 'Agenda',
 		'404.link-membership': 'Ser socio',
 		'Bazkidetza / Federatzea': 'Ser socio / Federarse',
-		Kontaktua: 'Contacto'
+		Kontaktua: 'Contacto',
+		// Hero
+		'hero.membership.title': '¿Quieres ser socio?',
+		'hero.membership.description':
+			'Los socios tendrán la posibilidad de alquilar material de Besaide. Además, tendrán descuentos al reservar el refugio de Leixargara, al participar en actividades o cursos y al comprar forfaits de las estaciones de esquí de Formigal, Panticosa, Astun y Candanchu.',
+		'hero.membership.cta': 'Quiero ser socio',
+		'hero.federation.title': 'Federarse',
+		'hero.federation.description':
+			'La licencia federativa se tramita a través de la asociación de montaña. Incluye tanto seguro de accidentes como suscripción a la revista trimestral Pyrenaica',
+		'hero.federation.cta': 'Más información para federarse',
+		'themeSwitcher.toggleTheme': 'Cambiar tema',
+		Agenda: 'Agenda',
+		'Azken albisteak eta eguneraketak':
+			'Últimas noticias y actualizaciones',
+		'Berri guztiak ikusi': 'Ver todas las noticias'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -95,7 +109,21 @@ export const ui = {
 		'404.helpful-links-title': 'Baliteke interesgarria izatea:',
 		'404.link-news': 'Berriak',
 		'404.link-agenda': 'Agenda',
-		'404.link-membership': 'Bazkidetza'
+		'404.link-membership': 'Bazkidetza',
+		// Hero
+		'hero.membership.title': 'Bazkide izan nahi duzu?',
+		'hero.membership.description':
+			'Bazkideek Besaideko materiala alokatzeko aukera izango dute. Horrez gain, beherapenak izango dituzte Leixargarateko aterpetxea hartzerako orduan, ekintzetan edo ikastaroetan parte hartzerako orduan eta Formigal, Panticosa, Astun eta Candanchu eski estaziotako forfaitak erosterako orduan.',
+		'hero.membership.cta': 'Bazkide izan nahi dut',
+		'hero.federation.title': 'Federatu',
+		'hero.federation.description':
+			'Federatu lizentzia mendi elkartearen bitartez tramitatzen da. Bai istripu asegurua eta bai Pyrenaica hiruhilabetekariaren harpidetza dauzka barnean',
+		'hero.federation.cta': 'Federatzeko informazio gehiago',
+		'themeSwitcher.toggleTheme': 'Gaia aldatu',
+		Agenda: 'Agenda',
+		'Azken albisteak eta eguneraketak':
+			'Azken albisteak eta eguneraketak',
+		'Berri guztiak ikusi': 'Berri guztiak ikusi'
 	}
 } as const;
 
