@@ -66,7 +66,14 @@ export const ui = {
 		Agenda: 'Agenda',
 		'Azken albisteak eta eguneraketak':
 			'Últimas noticias y actualizaciones',
-		'Berri guztiak ikusi': 'Ver todas las noticias'
+		'Berri guztiak ikusi': 'Ver todas las noticias',
+		'Agenda osoa ikusi': 'Ver toda la agenda',
+		// Event meta labels
+		MENDIA: 'MONTAÑA',
+		TOPAGUNEA: 'PUNTO DE ENCUENTRO',
+		IRAUPENA: 'DURACIÓN',
+		ALTITUD: 'ALTITUD',
+		DIFICULTAD: 'DIFICULTAD'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -123,7 +130,14 @@ export const ui = {
 		Agenda: 'Agenda',
 		'Azken albisteak eta eguneraketak':
 			'Azken albisteak eta eguneraketak',
-		'Berri guztiak ikusi': 'Berri guztiak ikusi'
+		'Berri guztiak ikusi': 'Berri guztiak ikusi',
+		'Agenda osoa ikusi': 'Agenda osoa ikusi',
+		// Event meta labels
+		MENDIA: 'Mendia',
+		TOPAGUNEA: 'Topagunea',
+		IRAUPENA: 'Iraupena',
+		ALTITUD: 'Altuera',
+		DIFICULTAD: 'Zailtasuna'
 	}
 } as const;
 

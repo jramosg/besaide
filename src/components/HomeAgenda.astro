@@ -60,7 +60,7 @@ const processedEvents = await Promise.all(
 	<HomeSectionHeader
 		title={t('Agenda')}
 		subtitle={t('Azken albisteak eta eguneraketak')}
-		buttonText={t('Berri guztiak ikusi')}
+		buttonText={t('Agenda osoa ikusi')}
 		buttonHref="/berriak"
 	/>
 
@@ -108,22 +108,22 @@ const processedEvents = await Promise.all(
 							<h3 class="event-title">{item.data.title}</h3>
 
 							<div class="event-meta">
-								<HomeAgendaMeta title="MENDIA" desc={item.data.mountain} />
+								<HomeAgendaMeta title={t('MENDIA')} desc={item.data.mountain} />
 								{item.data.meetingPoint && (
 									<HomeAgendaMeta
-										title="TOPAGUNEA"
+										title={t('TOPAGUNEA')}
 										desc={item.data.meetingPoint}
 									/>
 								)}
 								{item.data.duration && (
-									<HomeAgendaMeta title="IRAUPENA" desc={item.data.duration} />
+									<HomeAgendaMeta title={t('IRAUPENA')} desc={item.data.duration} />
 								)}
 								{item.data.elevation && (
-									<HomeAgendaMeta title="ALTITUD" desc={item.data.elevation} />
+									<HomeAgendaMeta title={t('ALTITUD')} desc={item.data.elevation} />
 								)}
 								{item.data.difficulty && (
 									<HomeAgendaMeta
-										title="DIFICULTAD"
+										title={t('DIFICULTAD')}
 										desc={
 											difficultyLabels[lang][item.data.difficulty as Difficulty]
 										}
