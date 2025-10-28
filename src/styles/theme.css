@@ -88,7 +88,7 @@
 		'Roboto Variable', sans-serif, -apple-system, BlinkMacSystemFont;
 
 	--header-toggles-height: var(--s6);
-	--header-content-height: 6rem;
+	--header-content-height: 4rem;
 	--header-height: calc(
 		var(--header-content-height) + var(--header-toggles-height)
 	);

@@ -32,7 +32,8 @@ const t = useTranslations(lang);
 						<Button
 							class="drawer-menu-item"
 							style={`transition-delay: ${(i + navData.length + 1) * 100 + 200}ms`}
-							tonal
+							bordered={i === 0}
+							tonal={i === 1}
 						>
 							{t(action.title)}
 						</Button>
@@ -113,7 +114,6 @@ const t = useTranslations(lang);
 	}
 
 	.drawer-menu-item a {
-		font-size: var(--font-size-lg);
 		color: var(--theme-on-primary, #fff);
 		text-decoration: none;
 		font-weight: 700;

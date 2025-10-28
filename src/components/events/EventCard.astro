@@ -1,0 +1,226 @@
+---
+import { Image } from 'astro:assets';
+import { slugify } from '@/utils/string';
+import MountainClimb from '@/assets/icons/elevation.svg';
+import CardMeta from '@/components/events/CardMeta.astro';
+import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
+
+type Difficulty = 'erraza' | 'ertaina' | 'zaila';
+
+const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
+	eu: {
+		erraza: 'Erraza',
+		ertaina: 'Ertaina',
+		zaila: 'Zaila'
+	},
+	es: {
+		erraza: 'Fácil',
+		ertaina: 'Media',
+		zaila: 'Difícil'
+	}
+};
+
+type ProcessedEvent = CollectionEntry<'events'> & {
+	processedImage: string | ImageMetadata;
+};
+
+type Props = {
+	item: ProcessedEvent;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { item } = Astro.props;
+
+const eventDate = new Date(item.data.date);
+const day = eventDate.getDate();
+const month = eventDate.toLocaleDateString(lang === 'eu' ? 'eu-ES' : 'es-ES', {
+	month: 'long'
+});
+
+const formattedDate = lang === 'es' ? `${day} de ${month}` : `${month}k ${day}`;
+
+const difficultyLabel = item.data.difficulty
+	? difficultyLabels[lang][item.data.difficulty as Difficulty]
+	: undefined;
+
+const agendaSection = getUrlFromID('agenda', lang);
+
+const slug = `${agendaSection}/${slugify(item.id)}`;
+---
+
+<a href={slug} class="card card--elevated event-card">
+	<div class="event-image-container">
+		{
+			typeof item.processedImage === 'string' ? (
+				<img
+					src={item.processedImage}
+					alt={item.data.imageAlt || item.data.title}
+					class="event-image"
+					style={`view-transition-name: image-${slugify(item.id)}`}
+				/>
+			) : (
+				<Image
+					src={item.processedImage}
+					alt={item.data.imageAlt || item.data.title}
+					class="event-image"
+					style={`view-transition-name: image-${slugify(item.id)}`}
+				/>
+			)
+		}
+		<div class="event-overlay"></div>
+	</div>
+
+	<div class="event-content">
+		<div class="event-header">
+			<div class="event-date-badge">
+				{formattedDate.toUpperCase()}
+			</div>
+			<MountainClimb />
+		</div>
+		<h3 class="event-title">{item.data.title}</h3>
+
+		<div class="event-meta">
+			<CardMeta title={t('MENDIA')} desc={item.data.mountain} />
+			{
+				item.data.meetingPoint && (
+					<CardMeta title={t('TOPAGUNEA')} desc={item.data.meetingPoint} />
+				)
+			}
+			{
+				item.data.duration && (
+					<CardMeta title={t('IRAUPENA')} desc={item.data.duration} />
+				)
+			}
+			{
+				item.data.elevation && (
+					<CardMeta title={t('ALTITUD')} desc={item.data.elevation} />
+				)
+			}
+			{
+				difficultyLabel && (
+					<CardMeta title={t('ZAILTASUNA')} desc={difficultyLabel} />
+				)
+			}
+		</div>
+	</div>
+</a>
+
+<style>
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.event-card {
+		position: relative;
+		min-height: 400px;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.event-image-container {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		z-index: 0;
+	}
+
+	.event-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.event-card:hover .event-image {
+		transform: scale(1.05);
+	}
+
+	.event-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.3) 0%,
+			rgba(0, 0, 0, 0.7) 100%
+		);
+	}
+
+	.event-title {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		margin-bottom: 0;
+		flex: 1;
+	}
+
+	.event-date-badge {
+		background: var(--theme-card);
+		color: var(--theme-on-bg);
+		border-radius: 100px;
+		padding: var(--s2);
+		text-align: center;
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
+	}
+
+	.event-content {
+		padding: var(--s4);
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+		color: white;
+		height: 100%;
+	}
+
+	.event-header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.event-meta {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-rows: auto auto auto;
+		gap: 0.5rem;
+		margin-top: auto;
+		align-items: end;
+	}
+
+	.event-meta > :global(:nth-child(1)) {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	.event-meta > :global(:nth-child(2)) {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	.event-meta > :global(:nth-child(3)) {
+		grid-column: 1;
+		grid-row: 3;
+	}
+
+	.event-meta > :global(:nth-child(4)) {
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	.event-meta > :global(:nth-child(5)) {
+		grid-column: 2;
+		grid-row: 3;
+	}
+
+	.event-meta > :global(:nth-child(6)) {
+		grid-column: 2;
+		grid-row: 3;
+		align-self: start;
+	}
+</style>

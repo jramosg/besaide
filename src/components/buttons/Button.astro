@@ -4,6 +4,7 @@ const {
 	unelevated,
 	outlined,
 	tonal,
+	bordered,
 	customIcon,
 	onPrimary,
 	newTab,
@@ -17,7 +18,7 @@ const Tag = href ? 'a' : 'button';
 <Tag
 	class={`btn ${unelevated && `btn--unelevated`} ${
 		outlined && `btn--outlined`
-	} ${tonal && `btn--tonal`} ${onPrimary && `btn--on-primary`} ${className}`}
+	} ${tonal && `btn--tonal`} ${bordered && `btn--bordered`} ${onPrimary && `btn--on-primary`} ${className}`}
 	href={href}
 	target={`${newTab ? '_blank' : ``}`}
 	rel={`${newTab ? 'noopener noreferrer' : ``}`}
@@ -75,6 +76,9 @@ const Tag = href ? 'a' : 'button';
 	}
 	.btn--tonal:hover {
 		opacity: 0.72;
+	}
+	.btn--bordered {
+		border: 1px solid white;
 	}
 	.custom-icon__span {
 		margin-left: 0.25rem;
