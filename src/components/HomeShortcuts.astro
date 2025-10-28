@@ -1,0 +1,105 @@
+---
+import Button from 'components/buttons/Button.astro';
+import Container from './Container.astro';
+import { getLangFromUrl, useTranslations } from 'i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const shortcuts = [
+	{
+		title: t('hero.membership.title'),
+		description: t('hero.membership.description'),
+		cta: t('hero.membership.cta'),
+		href: '#' // TODO: Add actual link
+	},
+	{
+		title: t('hero.federation.title'),
+		description: t('hero.federation.description'),
+		cta: t('hero.federation.cta'),
+		href: '#' // TODO: Add actual link
+	},
+	{
+		title: t('hero.shelter.title'),
+		description: t('hero.shelter.description'),
+		cta: t('hero.shelter.cta'),
+		href: '#' // TODO: Add actual link
+	}
+];
+---
+
+<section class="shortcuts-grid">
+	{
+		shortcuts.map(shortcut => (
+			<div class="shortcut-item">
+				<h3>{shortcut.title}</h3>
+				<p>{shortcut.description}</p>
+				<Button href={shortcut.href}>{shortcut.cta}</Button>
+			</div>
+		))
+	}
+</section>
+
+<style>
+	.shortcuts-grid {
+		padding: var(--s8) 0;
+		background-color: var(--theme-primary-container);
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--s6);
+	}
+
+	.shortcut-item {
+		padding: var(--container-padding);
+		display: flex;
+		flex-direction: column;
+		gap: var(--s4);
+		align-items: center;
+	}
+
+	.shortcut-item h3 {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		margin: 0;
+		color: var(--theme-on-bg);
+	}
+
+	.shortcut-item p {
+		flex: 1;
+		margin: 0;
+		color: var(--theme-on-bg);
+		text-align: center;
+	}
+
+	/* Tablet - 2 columns */
+	@media (max-width: 1024px) {
+		.shortcuts-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: var(--s5);
+		}
+
+		.shortcuts-container {
+			padding: var(--s5);
+		}
+	}
+
+	/* Mobile - 1 column */
+	@media (max-width: 768px) {
+		.shortcuts-grid {
+			padding: var(--s6) 0;
+		}
+
+		.shortcuts-grid {
+			grid-template-columns: 1fr;
+			gap: var(--s5);
+		}
+
+		.shortcuts-container {
+			padding: var(--s5);
+		}
+
+		.shortcut-item h3 {
+			font-size: var(--font-size-lg);
+		}
+	}
+</style>

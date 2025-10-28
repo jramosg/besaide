@@ -11,6 +11,7 @@ import Page from 'layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import HomeNews from '@/components/HomeNews.astro';
 import HomeAgenda from '@/components/HomeAgenda.astro';
+import HomeShortcuts from '@/components/HomeShortcuts.astro';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -29,7 +30,9 @@ const t = useTranslations(lang);
  -->
 	<HomeAgenda />
 	<HomeNews />
+	<HomeShortcuts />
 	<Sponsors />
+
 	<!-- 	<Kontaktua /> -->
 </Page>
 
