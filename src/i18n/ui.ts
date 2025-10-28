@@ -75,10 +75,14 @@ export const ui = {
 		MENDIA: 'MONTAÑA',
 		TOPAGUNEA: 'PUNTO DE ENCUENTRO',
 		IRAUPENA: 'DURACIÓN',
-		ALTITUD: 'ALTITUD',
-		ZAILTASUNA: 'DIFICULTAD',
+		DESNIBELA: 'DESNIVEL',
+		MAILA: 'DIFICULTAD',
 		'nav.membership-federation': 'Ser socio / Federarse',
-		'nav.contact': 'Contacto'
+		'nav.contact': 'Contacto',
+		'Azken berriak': 'Últimas noticias',
+		'Hurrengo irteerak': 'Próximas salidas',
+		'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.':
+			'Excursiones y actividades de montaña organizadas a montes vascos y Pirineos.'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
