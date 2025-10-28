@@ -1,6 +1,6 @@
 ---
 import Page from '@/layouts/Page.astro';
-import { getLangFromUrl } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import { render } from 'astro:content';
 import UdalaitzImg from '@/assets/udalaitz.webp';
@@ -11,6 +11,7 @@ const { event } = Astro.props;
 const { Content } = await render(event);
 const slug = slugify(event.id);
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const images = getEventImages();
 
@@ -57,7 +58,10 @@ const formattedDate = eventDate.toLocaleDateString(
 );
 ---
 
-<Page pageClass="content__container single-event">
+<Page
+	pageClass="content__container single-event"
+	seo={{ title: 'Besaide - Agenda ' + ' - ' + event.data.title }}
+>
 	<article class="event-article">
 		<header class="event-hero">
 			{

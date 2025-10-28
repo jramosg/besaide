@@ -87,7 +87,8 @@ export const ui = {
 		'Informazio gehiago': 'Más información',
 		Babesleak: 'Patrocinadores',
 		'Gure jarduera posible egiten duten entitate eta enpresak':
-			'Entidades y empresas que hacen posible nuestra actividad'
+			'Entidades y empresas que hacen posible nuestra actividad',
+		'Besaide Mendizale Elkartea': 'Asociación de Montañismo Besaide'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
