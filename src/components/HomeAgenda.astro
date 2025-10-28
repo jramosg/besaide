@@ -38,12 +38,14 @@ const processedEvents = await Promise.all(
 );
 ---
 
-<section id="agenda" class="home-section">
+<section id="agenda" class="home-section_container">
 	<HomeSectionHeader
-		title={t('Agenda')}
-		subtitle={t('Azken albisteak eta eguneraketak')}
+		title={t('Hurrengo irteerak')}
+		subtitle={t(
+			'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.'
+		)}
 		buttonText={t('Agenda osoa ikusi')}
-		buttonHref="/berriak"
+		buttonHref={getUrlFromID('agenda', lang)}
 	/>
 
 	<div class="events-grid">

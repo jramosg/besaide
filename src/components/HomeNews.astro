@@ -1,5 +1,10 @@
 ---
-import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import {
+	formatDate,
+	getLangFromUrl,
+	getUrlFromID,
+	useTranslations
+} from '@/i18n/utils';
 import { sortedAndFilteredNewsPosts } from '@/staticPathsHelper';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
@@ -7,8 +12,11 @@ import UdalaitzImg from '@/assets/udalaitz.webp';
 import { slugify } from '@/utils/string';
 import { getGeneralImages, processGeneralImage } from '@/utils/images';
 import Button from './buttons/Button.astro';
+import HomeSectionHeader from './HomeSectionHeader.astro';
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 let news: CollectionEntry<'news'>[] = await sortedAndFilteredNewsPosts(lang);
 news = news.slice(0, 5); // Limit to 5 news items for the component
 
@@ -33,11 +41,13 @@ const processedNews = await Promise.all(
 );
 ---
 
-<section class="content__container" id="berriak">
-	<div class="section-header">
-		<h2>Berriak</h2>
-		<p>Azken albisteak eta eguneraketak</p>
-	</div>
+<section class="home-section_container" id="berriak">
+	<HomeSectionHeader
+		title={t('Azken berriak')}
+		subtitle={t('Azken albisteak eta eguneraketak')}
+		buttonText={t('Berri guztiak ikusi')}
+		buttonHref={newsSection}
+	/>
 
 	<div class="featured-news">
 		{
