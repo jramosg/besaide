@@ -29,7 +29,9 @@ const slug = slugify(post.id);
 			<h1 class="title" style={`view-transition-name: title-${slug}`}>
 				{post.data.title}
 			</h1>
-			<p class="meta">{formatDate(post.data.date)} · {post.data.lang}</p>
+			<time class="meta" style={`view-transition-name: date-${slug}`}
+				>{formatDate(post.data.date)} · {post.data.lang}</time
+			>
 
 			{post.data.summary ? <p class="summary">{post.data.summary}</p> : null}
 

@@ -82,7 +82,12 @@ export const ui = {
 		'Azken berriak': 'Últimas noticias',
 		'Hurrengo irteerak': 'Próximas salidas',
 		'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.':
-			'Excursiones y actividades de montaña organizadas a montes vascos y Pirineos.'
+			'Excursiones y actividades de montaña organizadas a montes vascos y Pirineos.',
+		Partekatu: 'Compartir',
+		'Informazio gehiago': 'Más información',
+		Babesleak: 'Patrocinadores',
+		'Gure jarduera posible egiten duten entitate eta enpresak':
+			'Entidades y empresas que hacen posible nuestra actividad'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':

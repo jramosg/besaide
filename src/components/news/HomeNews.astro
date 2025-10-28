@@ -1,0 +1,71 @@
+---
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
+import { sortedAndFilteredNewsPosts } from '@/staticPathsHelper';
+import type { CollectionEntry } from 'astro:content';
+import UdalaitzImg from '@/assets/udalaitz.webp';
+import { slugify } from '@/utils/string';
+import { getGeneralImages, processGeneralImage } from '@/utils/images';
+import Button from '@/components/buttons/Button.astro';
+import HomeSectionHeader from '@/components/HomeSectionHeader.astro';
+import NewsCard from '@/components/news/NewsCard.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+let news: CollectionEntry<'news'>[] = await sortedAndFilteredNewsPosts(lang);
+news = news.slice(0, 3); // Limit to 3 news items for the component
+
+const newsSection = getUrlFromID('news', lang);
+
+const images = getGeneralImages();
+
+const processedNews = await Promise.all(
+	news.map(async item => {
+		const processedImage = await processGeneralImage(
+			images,
+			item.data.image,
+			UdalaitzImg
+		);
+
+		return {
+			...item,
+			processedImage,
+			slug: `${newsSection}/${slugify(item.id)}`
+		};
+	})
+);
+---
+
+<section class="home-section_container" id="berriak">
+	<HomeSectionHeader
+		title={t('Azken berriak')}
+		subtitle={t('Azken albisteak eta eguneraketak')}
+		buttonText={t('Berri guztiak ikusi')}
+		buttonHref={newsSection}
+	/>
+
+	<div class="featured-news">
+		{processedNews.map(item => <NewsCard item={item} />)}
+	</div>
+</section>
+
+<style>
+	.featured-news {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		margin-bottom: 3rem;
+		justify-content: center;
+		gap: 2rem;
+	}
+
+	@media (max-width: 1200px) {
+		.featured-news {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+		.featured-news {
+			grid-template-columns: 1fr;
+		}
+</style>

@@ -7,6 +7,7 @@ import LogoTernua from '@/assets/sponsors/logo-ternua.webp';
 import LogoEroski from '@/assets/sponsors/logo-eroski.svg';
 import SponsorLink from './SponsorLink.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import HomeSectionHeader from './HomeSectionHeader.astro';
 const sponsors = [
 	{
 		name: 'MONDRABERRI Arrasateko Ataria',
@@ -44,11 +45,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class="babesleak" id="babesleak">
-	<div class="content__container">
-		<h2>Babesleak</h2>
-		<p>Gure jarduera posible egiten duten entitate eta enpresak</p>
-	</div>
+<section class='id="babesleak"'>
+	<HomeSectionHeader title={t('Babesleak')} class="content__container" />
 
 	<div class="carousel">
 		<div class="group">
@@ -64,20 +62,6 @@ const t = useTranslations(lang);
 					return <SponsorLink {...sponsor} />;
 				})
 			}
-		</div>
-	</div>
-
-	<div class="content__container">
-		<div class="message-content">
-			<h3>{t('Babeslea izan nahi duzu?')}</h3>
-			<p>
-				{
-					t(
-						'Zure enpresak edo erakundeak gure mendizale elkarteko babesle izan nahi badu, jar zaitez gurekin harremanetan. Elkarrekin, mendizaletasuna bultzatu eta naturaren kultura zabal dezakegu.'
-					)
-				}
-			</p>
-			<a href="#kontaktua" class="btn btn-primary">Informazioa eskatu</a>
 		</div>
 	</div>
 </section>

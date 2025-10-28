@@ -3,9 +3,9 @@ import Button from './buttons/Button.astro';
 
 interface Props {
 	title: string;
-	subtitle: string;
-	buttonText: string;
-	buttonHref: string;
+	subtitle?: string;
+	buttonText?: string;
+	buttonHref?: string;
 	class?: string;
 }
 
@@ -14,23 +14,27 @@ const {
 	subtitle,
 	buttonText,
 	buttonHref,
-	class: className
+	class: className,
+	...rest
 } = Astro.props;
 ---
 
-<div class={`section-header ${className || ''}`}>
+<div class={`section-header ${className || ''}`} {...rest}>
 	<h2 class="section-header__title">{title}</h2>
-	<div class="section-header__action">
-		<Button href={buttonHref}>{buttonText}</Button>
-	</div>
-	<p class="section-header__subtitle">{subtitle}</p>
+	{
+		buttonText && (
+			<div class="section-header__action">
+				<Button href={buttonHref}>{buttonText}</Button>
+			</div>
+		)
+	}
+	{subtitle && <p class="section-header__subtitle">{subtitle}</p>}
 </div>
 
 <style>
 	.section-header {
 		display: grid;
 		grid-template-columns: repeat(2, auto);
-		grid-template-rows: repeat(2, 1fr);
 		column-gap: var(--s4);
 		margin-bottom: var(--s5);
 	}
