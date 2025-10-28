@@ -226,6 +226,9 @@ const nextBtnId = `${carouselId}-next`;
 			// Track scroll position for current index
 			this.slidesContainer.addEventListener('scroll', () => {
 				this.updateCurrentIndex();
+				if (this.config.autoScroll) {
+					this.startAutoScroll();
+				}
 			});
 
 			// Auto-scroll functionality
