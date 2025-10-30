@@ -84,14 +84,10 @@ const slug = `${agendaSection}/${slugify(item.id)}`;
 
 const discriminant = item.data.typeSpecificFields.discriminant;
 const { mountain, elevation, difficulty } =
-	discriminant === 'mountain'
-		? item.data.typeSpecificFields.value
-		: {};
+	discriminant === 'mountain' ? item.data.typeSpecificFields.value : {};
 
 const { location } =
-	discriminant === 'ski-alpino'
-		? item.data.typeSpecificFields.value
-		: {};
+	discriminant === 'ski-alpino' ? item.data.typeSpecificFields.value : {};
 
 const difficultyLabel = difficulty
 	? difficultyLabels[lang][difficulty as Difficulty]

@@ -151,9 +151,9 @@ export const ui = {
 		'Azken albisteak eta eguneraketak': 'Azken albisteak eta eguneraketak',
 		'Berri guztiak ikusi': 'Berri guztiak ikusi',
 		'Agenda osoa ikusi': 'Agenda osoa ikusi',
-			// Event meta labels (eu)
-			KOKALEKUA: 'Kokalekua',
-			'nav.membership-federation': 'Bazkidetza / Federatzea',
+		// Event meta labels (eu)
+		KOKALEKUA: 'Kokalekua',
+		'nav.membership-federation': 'Bazkidetza / Federatzea',
 		'nav.contact': 'Kontaktua'
 	}
 } as const;
