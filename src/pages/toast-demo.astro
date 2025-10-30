@@ -37,9 +37,7 @@ import Page from '@/layouts/Page.astro';
 
 	document.addEventListener('astro:page-load', () => {
 		// Success toast
-		console.log(document.getElementById('success-btn'));
 		document.getElementById('success-btn')?.addEventListener('click', () => {
-			console.log('Success button clicked'); // Debug log
 			toast.success(
 				'Operation Successful!',
 				'Your action was completed successfully.'

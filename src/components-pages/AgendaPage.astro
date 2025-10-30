@@ -79,8 +79,6 @@ const emptyMessage =
 	lang === 'eu'
 		? 'Ez dago etorkizuneko irteerarik programatuta oraingoz.'
 		: 'No hay salidas futuras programadas por el momento.';
-const regionEuskadi = lang === 'eu' ? '🏔️ Euskal Herria' : '🏔️ Euskal Herria';
-const regionPyrenees = lang === 'eu' ? '⛰️ Pirineoak' : '⛰️ Pirineos';
 const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 ---
 
@@ -113,7 +111,15 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 							);
 							const year = eventDate.getFullYear();
 
-							const difficulty = item.data.difficulty as Difficulty;
+							const { mountain, difficulty, elevation } =
+								item.data.typeSpecificFields.discriminant === 'mountain'
+									? item.data.typeSpecificFields.value
+									: {};
+
+							const { location } =
+								item.data.typeSpecificFields.discriminant === 'ski-alpino'
+									? item.data.typeSpecificFields.value
+									: {};
 							const difficultyColor =
 								difficulty === 'erraza'
 									? 'green'
@@ -155,20 +161,22 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 									<div class="event-info-col">
 										<div class="event-badges">
 											<span class={`badge difficulty ${difficultyColor}`}>
-												{difficultyLabels[lang][difficulty]}
+												{difficultyLabels[lang][difficulty as Difficulty]}
 											</span>
-											<span class="badge region">
-												{item.data.region === 'euskal-mendiak'
-													? regionEuskadi
-													: regionPyrenees}
-											</span>
+
 											{item.data.featured && (
 												<span class="badge featured">{featuredLabel}</span>
 											)}
 										</div>
 										<h3>{item.data.title}</h3>
 										<p class="event-location">
-											📍 {item.data.mountain} - {item.data.location}
+											📍{' '}
+											{item.data.typeSpecificFields.discriminant === 'mountain'
+												? mountain
+												: item.data.typeSpecificFields.discriminant ===
+													  'ski-alpino'
+													? location
+													: `${mountain || ''}${mountain && location ? ' - ' : ''}${location || ''}`}
 										</p>
 										<div class="event-quick-info">
 											{item.data.time && (
@@ -177,8 +185,8 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 											{item.data.distance && (
 												<span class="info-item">📏 {item.data.distance}</span>
 											)}
-											{item.data.elevation && (
-												<span class="info-item">⬆️ {item.data.elevation}</span>
+											{elevation && (
+												<span class="info-item">⬆️ {elevation}</span>
 											)}
 											{item.data.duration && (
 												<span class="info-item">⏱️ {item.data.duration}</span>
@@ -217,13 +225,16 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 								}
 							);
 
+							const locationText =
+								item.data.typeSpecificFields.discriminant === 'mountain'
+									? item.data.typeSpecificFields.value.mountain
+									: item.data.typeSpecificFields.value.location;
+
 							return (
 								<div class="past-event-card">
 									<div class="past-event-date">{formattedDate}</div>
 									<h4>{item.data.title}</h4>
-									<p>
-										{item.data.mountain} - {item.data.location}
-									</p>
+									<p>{locationText}</p>
 								</div>
 							);
 						})}

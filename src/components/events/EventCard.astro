@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { slugify } from '@/utils/string';
 import MountainClimb from '@/assets/icons/elevation.svg';
+import DownHillSkiing from '@/assets/icons/downhill_skiing.svg';
 import CardMeta from '@/components/events/CardMeta.astro';
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
@@ -35,21 +36,66 @@ const t = useTranslations(lang);
 
 const { item } = Astro.props;
 
-const eventDate = new Date(item.data.date);
-const day = eventDate.getDate();
-const month = eventDate.toLocaleDateString(lang === 'eu' ? 'eu-ES' : 'es-ES', {
-	month: 'long'
-});
+const startDate = new Date(item.data.date);
+const endDate = item.data.endDate ? new Date(item.data.endDate) : null;
 
-const formattedDate = lang === 'es' ? `${day} de ${month}` : `${month}k ${day}`;
+const locale = lang === 'eu' ? 'eu-ES' : 'es-ES';
 
-const difficultyLabel = item.data.difficulty
-	? difficultyLabels[lang][item.data.difficulty as Difficulty]
-	: undefined;
+const startDay = startDate.getDate();
+const startMonth = startDate.toLocaleDateString(locale, { month: 'long' });
+
+let formattedDate: string;
+
+if (!endDate) {
+	// single-day event (existing behaviour)
+	formattedDate =
+		lang === 'es'
+			? `${startDay} de ${startMonth}`
+			: `${startMonth}k ${startDay}`;
+} else {
+	const endDay = endDate.getDate();
+	const endMonth = endDate.toLocaleDateString(locale, { month: 'long' });
+
+	const sameMonth =
+		startDate.getMonth() === endDate.getMonth() &&
+		startDate.getFullYear() === endDate.getFullYear();
+
+	if (sameMonth) {
+		// Show compact range within same month: "OTSAILAK 8-9" or "8-9 de febrero"
+		formattedDate =
+			lang === 'es'
+				? `${startDay}-${endDay} de ${startMonth}`
+				: `${startMonth}k ${startDay}-${endDay}`;
+	} else {
+		// Different months: show both sides of the range
+		// e.g. "8 febrero - 9 marzo" (es) or "8 otsaila - 9 martxoa" (eu)
+		if (lang === 'es') {
+			formattedDate = `${startDay} ${startMonth} - ${endDay} ${endMonth}`;
+		} else {
+			// For Basque, keep a readable order similar to "otsailak 8 - martxoak 9"
+			formattedDate = `${startMonth}k ${startDay} - ${endMonth}k ${endDay}`;
+		}
+	}
+}
 
 const agendaSection = getUrlFromID('agenda', lang);
 
 const slug = `${agendaSection}/${slugify(item.id)}`;
+
+const discriminant = item.data.typeSpecificFields.discriminant;
+const { mountain, elevation, difficulty } =
+	discriminant === 'mountain'
+		? item.data.typeSpecificFields.value
+		: {};
+
+const { location } =
+	discriminant === 'ski-alpino'
+		? item.data.typeSpecificFields.value
+		: {};
+
+const difficultyLabel = difficulty
+	? difficultyLabels[lang][difficulty as Difficulty]
+	: undefined;
 ---
 
 <a href={slug} class="card card--elevated event-card">
@@ -79,15 +125,33 @@ const slug = `${agendaSection}/${slugify(item.id)}`;
 			<div class="event-date-badge">
 				{formattedDate.toUpperCase()}
 			</div>
-			<MountainClimb />
+			{
+				item.data.typeSpecificFields.discriminant === 'ski-alpino' ? (
+					<DownHillSkiing />
+				) : (
+					<MountainClimb />
+				)
+			}
 		</div>
 		<h3 class="event-title">{item.data.title}</h3>
 
 		<div class="event-meta">
-			<CardMeta title={t('MENDIA')} desc={item.data.mountain} />
+			{
+				discriminant === 'mountain' ? (
+					<CardMeta title={t('MENDIA')} desc={mountain || ''} />
+				) : discriminant === 'ski-alpino' ? (
+					<CardMeta title={t('KOKALEKUA')} desc={location || ''} />
+				) : (
+					// fallback: show both if type is unknown
+					<CardMeta title={t('MENDIA')} desc={mountain || location || ''} />
+				)
+			}
 			{
 				item.data.meetingPoint && (
-					<CardMeta title={t('TOPAGUNEA')} desc={item.data.meetingPoint} />
+					<CardMeta
+						title={t('TOPAGUNEA')}
+						desc={`${item.data.meetingPoint}${item.data.time ? ' - ' + item.data.time : ''}`}
+					/>
 				)
 			}
 			{
@@ -95,11 +159,7 @@ const slug = `${agendaSection}/${slugify(item.id)}`;
 					<CardMeta title={t('IRAUPENA')} desc={item.data.duration} />
 				)
 			}
-			{
-				item.data.elevation && (
-					<CardMeta title={t('DESNIBELA')} desc={item.data.elevation} />
-				)
-			}
+			{elevation && <CardMeta title={t('DESNIBELA')} desc={elevation} />}
 			{
 				difficultyLabel && (
 					<CardMeta title={t('MAILA')} desc={difficultyLabel} />
@@ -182,6 +242,7 @@ const slug = `${agendaSection}/${slugify(item.id)}`;
 	.event-header {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 	}
 
 	.event-meta {

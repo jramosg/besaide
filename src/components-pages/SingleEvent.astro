@@ -1,6 +1,6 @@
 ---
 import Page from '@/layouts/Page.astro';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { getLangFromUrl } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import { render } from 'astro:content';
 import UdalaitzImg from '@/assets/udalaitz.webp';
@@ -11,7 +11,6 @@ const { event } = Astro.props;
 const { Content } = await render(event);
 const slug = slugify(event.id);
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
 const images = getEventImages();
 
@@ -128,10 +127,40 @@ const formattedDate = eventDate.toLocaleDateString(
 					<span class="meta-icon">📍</span>
 					<div>
 						<div class="meta-label">
-							{lang === 'eu' ? 'Mendia' : 'Montaña'}
+							{
+								event.data.type === 'mountain'
+									? lang === 'eu'
+										? 'Mendia'
+										: 'Montaña'
+									: lang === 'eu'
+										? 'Kokalekua'
+										: 'Ubicación'
+							}
 						</div>
-						<div class="meta-value">{event.data.mountain}</div>
-						<div class="meta-extra">{event.data.location}</div>
+						<div class="meta-value">
+							{
+								event.data.type === 'mountain'
+									? event.data.mountain
+									: event.data.type === 'ski-alpino'
+										? event.data.location
+										: `${event.data.mountain || ''}${event.data.mountain && event.data.location ? ' - ' : ''}${event.data.location || ''}`
+							}
+						</div>
+						{
+							event.data.type === 'mountain'
+								? // show location as extra when mountain-type if available
+									event.data.location && (
+										<div class="meta-extra">{event.data.location}</div>
+									)
+								: event.data.type === 'ski-alpino'
+									? // show mountain as extra when ski-alpino-type if available
+										event.data.mountain && (
+											<div class="meta-extra">{event.data.mountain}</div>
+										)
+									: (event.data.mountain || event.data.location) && (
+											<div class="meta-extra">{`${event.data.mountain || ''}${event.data.mountain && event.data.location ? ' - ' : ''}${event.data.location || ''}`}</div>
+										)
+						}
 					</div>
 				</div>
 

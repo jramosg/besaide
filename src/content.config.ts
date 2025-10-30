@@ -1,5 +1,6 @@
 import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { eventsSchema } from './schemas/events';
 
 const news = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/data/news' }),
@@ -15,23 +16,7 @@ const news = defineCollection({
 
 const events = defineCollection({
 	loader: glob({ pattern: '**/*.mdoc', base: './src/data/events' }),
-	schema: z.object({
-		title: z.string(),
-		lang: z.string(),
-		date: z.date(),
-		time: z.string().optional(),
-		location: z.string(),
-		mountain: z.string(),
-		region: z.string(), // 'euskal-mendiak' or 'pirineoak'
-		difficulty: z.enum(['erraza', 'ertaina', 'zaila']),
-		distance: z.string().optional(),
-		elevation: z.string().optional(),
-		duration: z.string().optional(),
-		meetingPoint: z.string().optional(),
-		image: z.string().optional(),
-		imageAlt: z.string().optional(),
-		featured: z.boolean().optional()
-	})
+	schema: eventsSchema
 });
 
 // Expose your defined collection to Astro

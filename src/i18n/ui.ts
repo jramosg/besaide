@@ -73,6 +73,7 @@ export const ui = {
 		'Agenda osoa ikusi': 'Ver toda la agenda',
 		// Event meta labels
 		MENDIA: 'MONTAÑA',
+		KOKALEKUA: 'UBICACIÓN',
 		TOPAGUNEA: 'PUNTO DE ENCUENTRO',
 		IRAUPENA: 'DURACIÓN',
 		DESNIBELA: 'DESNIVEL',
@@ -150,7 +151,9 @@ export const ui = {
 		'Azken albisteak eta eguneraketak': 'Azken albisteak eta eguneraketak',
 		'Berri guztiak ikusi': 'Berri guztiak ikusi',
 		'Agenda osoa ikusi': 'Agenda osoa ikusi',
-		'nav.membership-federation': 'Bazkidetza / Federatzea',
+			// Event meta labels (eu)
+			KOKALEKUA: 'Kokalekua',
+			'nav.membership-federation': 'Bazkidetza / Federatzea',
 		'nav.contact': 'Kontaktua'
 	}
 } as const;
