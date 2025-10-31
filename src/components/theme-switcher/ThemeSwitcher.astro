@@ -1,13 +1,23 @@
 ---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <label
 	id="theme-toggle"
-	class="theme-toggle"
-	title="${t('themeSwitcher.toggleTheme')}"
+	class="besaide-theme-toggle theme-toggle"
+	title={t('themeSwitcher.toggleTheme')}
 >
 </label>
+
+<style>
+	.besaide-theme-toggle {
+		display: flex;
+		align-items: center;
+	}
+</style>
 
 <script>
 	import 'theme-toggles/css/around.css';
@@ -18,14 +28,13 @@
 		const preferedTheme = getStoredTheme();
 		if (themeToggle) {
 			themeToggle.innerHTML = `
-			<label class="theme-toggle" title="Toggle theme">
   <input type="checkbox" id='theme-toggle-checkbox' ${preferedTheme === 'dark' ? 'checked' : ''}/>
   <span class="theme-toggle-sr">Toggle theme</span>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
-    width="1.5em"
-    height="1.5em"
+    width="1.3em"
+    height="1.3em"
     fill="currentColor"
     class="theme-toggle__around"
     viewBox="0 0 32 32"
