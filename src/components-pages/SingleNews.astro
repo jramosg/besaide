@@ -1,13 +1,20 @@
 ---
 import Page from '@/layouts/Page.astro';
-import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import {
+	formatDate,
+	getLangFromUrl,
+	getUrlFromID,
+	useTranslations
+} from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import { processNewsItem } from '@/staticPathsHelper';
+import { ArrowLeft, Share2 } from '@lucide/astro';
 
 const { post } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const newsSection = getUrlFromID('news', lang);
 const processedPost = await processNewsItem(post, lang, newsSection);
@@ -23,8 +30,16 @@ const { Content } = await render(entry);
 const slug = slugify(post.id);
 ---
 
-<Page pageClass="content__container single-news">
+<Page
+	pageClass="content__container single-news"
+	seo={{ title: 'Besaide Mendizale elkartea - ' + processedPost.title }}
+>
 	<article class="single-article">
+		<a href={newsSection} class="back-link">
+			<ArrowLeft />
+			{t('Atzera itzuli')}
+		</a>
+
 		{
 			processedPost.processedImage ? (
 				<header class="hero">
@@ -38,12 +53,24 @@ const slug = slugify(post.id);
 		}
 
 		<div class="content__container content__container--narrow">
-			<h1 class="title" style={`view-transition-name: title-${slug}`}>
-				{processedPost.title}
-			</h1>
-			<time class="meta" style={`view-transition-name: date-${slug}`}
-				>{formatDate(post.data.date)}</time
-			>
+			<div class="header-row">
+				<h1 class="title" style={`view-transition-name: title-${slug}`}>
+					{processedPost.title}
+				</h1>
+				<button
+					class="share-button"
+					aria-label={t('Partekatu')}
+					data-share-title={processedPost.title}
+					data-share-text={processedPost.summary}
+					data-share-url={Astro.url.href}
+				>
+					<Share2 />
+				</button>
+			</div>
+
+			<time class="meta" style={`view-transition-name: date-${slug}`}>
+				{formatDate(post.data.date, lang)}
+			</time>
 
 			<section class="content">
 				<Content />
@@ -53,7 +80,32 @@ const slug = slugify(post.id);
 </Page>
 
 <style>
-	.single-article .hero img {
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--s2);
+		color: var(--theme-primary);
+		text-decoration: none;
+		font-weight: 600;
+		margin-bottom: var(--s3);
+		transition: gap 0.3s ease;
+	}
+
+	.back-link:hover {
+		gap: var(--s3);
+	}
+
+	.back-link svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.single-article .hero {
+		border-radius: var(--theme-shape-radius);
+		overflow: hidden;
+	}
+
+	.hero img {
 		width: 100%;
 		height: auto;
 		display: block;
@@ -61,27 +113,44 @@ const slug = slugify(post.id);
 		max-height: 420px;
 	}
 
-	.article-body.container {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: var(--s6) 1rem;
+	.header-row {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: var(--s3);
+		margin: var(--s4) 0 var(--s2);
 	}
 
 	.title {
 		font-size: 2rem;
-		margin: var(--s3) 0 var(--s2);
+		margin: 0;
+		flex: 1;
+	}
+
+	.share-button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: var(--s2);
+		color: var(--theme-text-secondary);
+		transition: color 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		flex-shrink: 0;
+	}
+
+	.share-button:hover {
+		color: var(--theme-primary);
+		background-color: var(--theme-primary-hover-bg);
 	}
 
 	.meta {
+		display: block;
 		color: var(--theme-text-secondary);
-		font-size: 0.9rem;
-		margin-bottom: var(--s2);
-	}
-
-	.summary {
-		font-weight: 600;
-		margin-bottom: var(--s3);
-		color: var(--theme-text);
+		font-size: var(--font-size-sm);
+		margin-bottom: var(--s4);
 	}
 
 	.content :global(p) {
@@ -100,5 +169,27 @@ const slug = slugify(post.id);
 		.single-article .hero img {
 			max-height: 240px;
 		}
+		.header-row {
+			margin-top: var(--s3);
+		}
 	}
 </style>
+
+<script>
+	import { shareContent } from '@/utils/share';
+
+	document.addEventListener('astro:page-load', () => {
+		const shareButton = document.querySelector('.share-button');
+		if (!shareButton) return;
+
+		shareButton.addEventListener('click', async event => {
+			event.preventDefault();
+			const button = event.currentTarget as HTMLButtonElement;
+			const title = button.dataset.shareTitle || document.title;
+			const text = button.dataset.shareText || '';
+			const url = button.dataset.shareUrl || window.location.href;
+
+			await shareContent({ title, text, url });
+		});
+	});
+</script>

@@ -86,6 +86,7 @@ export const ui = {
 			'Excursiones y actividades de montaña organizadas a montes vascos y Pirineos.',
 		Partekatu: 'Compartir',
 		'Informazio gehiago': 'Más información',
+		'Atzera itzuli': 'Volver',
 		Babesleak: 'Patrocinadores',
 		'Gure jarduera posible egiten duten entitate eta enpresak':
 			'Entidades y empresas que hacen posible nuestra actividad',
@@ -154,7 +155,10 @@ export const ui = {
 		// Event meta labels (eu)
 		KOKALEKUA: 'Kokalekua',
 		'nav.membership-federation': 'Bazkidetza / Federatzea',
-		'nav.contact': 'Kontaktua'
+		'nav.contact': 'Kontaktua',
+		Partekatu: 'Partekatu',
+		'Informazio gehiago': 'Informazio gehiago',
+		'Atzera itzuli': 'Atzera itzuli'
 	}
 } as const;
 
