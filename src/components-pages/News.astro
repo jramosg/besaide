@@ -24,7 +24,7 @@ import { Image } from 'astro:assets';
 							<a class="news-thumb" href={href}>
 								<Image
 									src={UdalaitzImg}
-									alt={p.data.imageAlt || p.data.title}
+									alt={p.data.imageAlt || p.data.title || ''}
 									class="news-image"
 									style={`view-transition-name: image-${slug}`}
 								/>

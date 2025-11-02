@@ -1,17 +1,15 @@
-import { z, defineCollection } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { eventsSchema } from './schemas/events';
+import { eventsSchema } from '@/schemas/events';
+import { newsSchema } from '@/schemas/news';
 
 const news = defineCollection({
-	loader: glob({ pattern: '**/*.md', base: './src/data/news' }),
-	schema: z.object({
-		title: z.string(),
-		lang: z.enum(['eu', 'es']),
-		date: z.string(),
-		image: z.string().optional(),
-		imageAlt: z.string().optional(),
-		summary: z.string()
-	})
+	loader: glob({ pattern: '**/*.yaml', base: './src/data/news' }),
+	schema: newsSchema
+});
+
+const newsContent = defineCollection({
+	loader: glob({ pattern: '**/*.mdoc', base: './src/data/news' })
 });
 
 const events = defineCollection({
@@ -21,4 +19,4 @@ const events = defineCollection({
 
 // Expose your defined collection to Astro
 // with the `collections` export
-export const collections = { news, events };
+export const collections = { news, newsContent, events };

@@ -2,9 +2,8 @@
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
 import type { CollectionEntry } from 'astro:content';
-import UdalaitzImg from '@/assets/udalaitz.webp';
 import { slugify } from '@/utils/string';
-import { getEventImages, processEventImage } from '@/utils/images';
+import { processEventImage } from '@/utils/images';
 import HomeSectionHeader from './HomeSectionHeader.astro';
 import EventCard from '@/components/events/EventCard.astro';
 
@@ -18,16 +17,9 @@ events = events.filter(event => new Date(event.data.date) >= today).slice(0, 4);
 
 const agendaSection = getUrlFromID('agenda', lang);
 
-const images = getEventImages();
-
 const processedEvents = await Promise.all(
 	events.map(async item => {
-		const processedImage = await processEventImage(
-			images,
-			item.id,
-			item.data.image,
-			UdalaitzImg
-		);
+		const processedImage = await processEventImage(item.id, item.data.image);
 
 		return {
 			...item,

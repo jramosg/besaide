@@ -1,38 +1,21 @@
 ---
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
-import { sortedAndFilteredNewsPosts } from '@/staticPathsHelper';
-import type { CollectionEntry } from 'astro:content';
-import UdalaitzImg from '@/assets/udalaitz.webp';
-import { slugify } from '@/utils/string';
-import { getGeneralImages, processGeneralImage } from '@/utils/images';
+import {
+	sortedAndFilteredNewsPosts,
+	processNewsItems
+} from '@/staticPathsHelper';
 import HomeSectionHeader from '@/components/HomeSectionHeader.astro';
 import NewsCard from '@/components/news/NewsCard.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-let news: CollectionEntry<'news'>[] = await sortedAndFilteredNewsPosts(lang);
-news = news.slice(0, 3); // Limit to 3 news items for the component
+const news = await sortedAndFilteredNewsPosts();
+const limitedNews = news.slice(0, 3); // Limit to 3 news items for the component
+
+const processedNews = await processNewsItems(limitedNews, lang);
 
 const newsSection = getUrlFromID('news', lang);
-
-const images = getGeneralImages();
-
-const processedNews = await Promise.all(
-	news.map(async item => {
-		const processedImage = await processGeneralImage(
-			images,
-			item.data.image,
-			UdalaitzImg
-		);
-
-		return {
-			...item,
-			processedImage,
-			slug: `${newsSection}/${slugify(item.id)}`
-		};
-	})
-);
 ---
 
 <section class="home-section_container" id="berriak">

@@ -1,18 +1,13 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { slugify } from '@/utils/string';
 import { formatDate } from '@/i18n/utils';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import { Share2, ArrowRight } from '@lucide/astro';
-
-type Item = CollectionEntry<'news'> & {
-	processedImage: string | ImageMetadata;
-	slug: string;
-};
+import type { ProcessedNewsItem } from '@/staticPathsHelper';
 
 type Props = {
-	item: Item;
+	item: ProcessedNewsItem;
 };
 const { item }: Props = Astro.props;
 
@@ -28,14 +23,14 @@ const slug = slugify(item.id);
 				typeof item.processedImage === 'string' ? (
 					<img
 						src={item.processedImage}
-						alt={item.data.imageAlt || item.data.title}
+						alt={item.title}
 						style={`view-transition-name: image-${slug}`}
 					/>
 				) : (
 					<Image
 						src={item.processedImage}
 						style={`view-transition-name: image-${slug}`}
-						alt={item.data.imageAlt || item.data.title}
+						alt={item.title}
 					/>
 				)
 			}
@@ -46,7 +41,7 @@ const slug = slugify(item.id);
 				class="news-card__title"
 				style={`view-transition-name: title-${slug}`}
 			>
-				{item.data.title}
+				{item.title}
 			</h3>
 			<time
 				class="news-card__date"
@@ -54,7 +49,7 @@ const slug = slugify(item.id);
 			>
 				{formatDate(item.data.date)}
 			</time>
-			<p class="news-card__summary">{item.data.summary}</p>
+			<p class="news-card__summary">{item.summary}</p>
 
 			<div class="news-card__footer">
 				<button class="news-card__share" aria-label={t('Partekatu')}>

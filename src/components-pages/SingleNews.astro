@@ -1,39 +1,49 @@
 ---
 import Page from '@/layouts/Page.astro';
-import { formatDate } from '@/i18n/utils';
+import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
-import { render } from 'astro:content';
-import UdalaitzImg from '@/assets/udalaitz.webp';
+import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
-const { post } = Astro.props;
+import { processNewsItem } from '@/staticPathsHelper';
 
-const { Content } = await render(post);
+const { post } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+
+const newsSection = getUrlFromID('news', lang);
+const processedPost = await processNewsItem(post, lang, newsSection);
+
+// Get the content
+const contentId = post.id + '/content' + lang;
+const entry = await getEntry('newsContent', contentId);
+if (!entry) {
+	throw new Error(`Content not found for ${contentId}`);
+}
+const { Content } = await render(entry);
+
 const slug = slugify(post.id);
 ---
 
 <Page pageClass="content__container single-news">
 	<article class="single-article">
 		{
-			post.data.image ? (
+			processedPost.processedImage ? (
 				<header class="hero">
 					<Image
-						src={UdalaitzImg}
+						src={processedPost.processedImage}
 						style={`view-transition-name: image-${slug}`}
-						alt={post.data.imageAlt || post.data.title}
+						alt={processedPost.title}
 					/>
 				</header>
 			) : null
 		}
 
-		<div class="article-body container">
+		<div class="content__container content__container--narrow">
 			<h1 class="title" style={`view-transition-name: title-${slug}`}>
-				{post.data.title}
+				{processedPost.title}
 			</h1>
 			<time class="meta" style={`view-transition-name: date-${slug}`}
-				>{formatDate(post.data.date)} · {post.data.lang}</time
+				>{formatDate(post.data.date)}</time
 			>
-
-			{post.data.summary ? <p class="summary">{post.data.summary}</p> : null}
 
 			<section class="content">
 				<Content />

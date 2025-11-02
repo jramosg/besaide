@@ -24,7 +24,7 @@ const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
 };
 
 type ProcessedEvent = CollectionEntry<'events'> & {
-	processedImage: string | ImageMetadata;
+	processedImage: ImageMetadata;
 };
 
 type Props = {
@@ -96,23 +96,12 @@ const difficultyLabel = difficulty
 
 <a href={slug} class="card card--elevated event-card">
 	<div class="event-image-container">
-		{
-			typeof item.processedImage === 'string' ? (
-				<img
-					src={item.processedImage}
-					alt={item.data.imageAlt || item.data.title}
-					class="event-image"
-					style={`view-transition-name: image-${slugify(item.id)}`}
-				/>
-			) : (
-				<Image
-					src={item.processedImage}
-					alt={item.data.imageAlt || item.data.title}
-					class="event-image"
-					style={`view-transition-name: image-${slugify(item.id)}`}
-				/>
-			)
-		}
+		<Image
+			src={item.processedImage}
+			alt={item.data.imageAlt || item.data.title}
+			class="event-image"
+			style={`view-transition-name: image-${slugify(item.id)}`}
+		/>
 		<div class="event-overlay"></div>
 	</div>
 

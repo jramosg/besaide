@@ -5,7 +5,7 @@ import { NewsStaticPaths } from '@/staticPathsHelper';
 import type { GetStaticPathsOptions } from 'astro';
 
 export function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-	return NewsStaticPaths('es', paginate);
+	return NewsStaticPaths(paginate);
 }
 
 const { page } = Astro.props;
