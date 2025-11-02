@@ -15,7 +15,7 @@ export const EventImages = getEventImages();
 /**
  * Import all news images using glob pattern
  */
-export const getNewsImages = () => {
+const getNewsImages = () => {
 	return import.meta.glob<{ default: ImageMetadata }>(
 		'/src/assets/images/news/*/image.{jpeg,jpg,png,gif,webp}'
 	);
@@ -24,10 +24,29 @@ export const getNewsImages = () => {
 export const NewsImages = getNewsImages();
 
 /**
- * Get image path for a specific event
+ * Generic helper to process images
  */
-export const getEventImagePath = (eventId: string): string => {
-	return `/src/assets/images/events/${eventId}/image`;
+const processImage = async (
+	type: 'events' | 'news',
+	images: Record<string, () => Promise<{ default: ImageMetadata }>>,
+	itemId: string,
+	imageFileName: string | undefined
+): Promise<ImageMetadata> => {
+	if (!imageFileName) {
+		return UdalaitzImg;
+	}
+
+	const imagePath = `/src/assets/images/${type}/${itemId}/${imageFileName}`;
+
+	try {
+		if (images[imagePath]) {
+			return (await images[imagePath]()).default;
+		}
+	} catch (error) {
+		console.warn(`Could not import image: ${imageFileName}`, error);
+	}
+
+	return UdalaitzImg;
 };
 
 /**
@@ -37,43 +56,15 @@ export const processEventImage = async (
 	eventId: string,
 	imageFileName: string | undefined
 ): Promise<ImageMetadata> => {
-	if (!imageFileName) {
-		return UdalaitzImg;
-	}
-
-	const imagePath = `/src/assets/images/events/${eventId}/${imageFileName}`;
-
-	try {
-		if (EventImages[imagePath]) {
-			return (await EventImages[imagePath]()).default;
-		}
-	} catch (error) {
-		console.warn(`Could not import image: ${imageFileName}`, error);
-	}
-
-	return UdalaitzImg;
+	return processImage('events', EventImages, eventId, imageFileName);
 };
 
 /**
- * Process event image from event data
+ * Process news image from news data
  */
 export const processNewsImage = async (
-	eventId: string,
+	newsId: string,
 	imageFileName: string | undefined
 ): Promise<ImageMetadata> => {
-	if (!imageFileName) {
-		return UdalaitzImg;
-	}
-
-	const imagePath = `/src/assets/images/news/${eventId}/${imageFileName}`;
-
-	try {
-		if (NewsImages[imagePath]) {
-			return (await NewsImages[imagePath]()).default;
-		}
-	} catch (error) {
-		console.warn(`Could not import image: ${imageFileName}`, error);
-	}
-
-	return UdalaitzImg;
+	return processImage('news', NewsImages, newsId, imageFileName);
 };
