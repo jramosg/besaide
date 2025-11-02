@@ -16,17 +16,14 @@ type Props = {
 	rightMenu?: boolean;
 	transparent?: boolean;
 };
-const { navData, rightMenu, transparent }: Props = Astro.props;
+const { navData, rightMenu }: Props = Astro.props;
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 
 const currentPageId = getIdfromUrl(url);
-const headerClasses = [
-	rightMenu && 'header--right',
-	transparent && 'header--transparent'
-]
+const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 	.filter(Boolean)
 	.join(' ');
 ---
