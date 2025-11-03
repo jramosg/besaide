@@ -1,16 +1,17 @@
 :root {
 	/* Theme Primary Colors */
 	--theme-primary: #b11cab;
-	--theme-primary-50: #ffd1fd;
-	--theme-primary-100: #eda7ea;
-	--theme-primary-200: #e275dd;
-	--theme-primary-300: #db5ed6;
-	--theme-primary-400: #ce3ac9;
-	--theme-primary-600: #971e92;
-	--theme-primary-700: #80157b;
-	--theme-primary-800: #8b1487;
-	--theme-primary-900: #741370;
-	--theme-primary-950: #4b0b48;
+	--theme-primary-50: #fceaff;
+	--theme-primary-100: #fbe3fc;
+	--theme-primary-200: #f7c7fb;
+	--theme-primary-300: #f29cf4;
+	--theme-primary-400: #ed66ef;
+	--theme-primary-500: #ec43ed;
+	--theme-primary-600: #e23df7;
+	--theme-primary-700: #c132d2;
+	--theme-primary-800: #a028ab;
+	--theme-primary-900: #800080;
+	--theme-primary-950: #460c46;
 	--theme-primary-hover-bg: rgba(177, 28, 171, 0.08);
 	--theme-primary-light: var(--theme-primary-300);
 	--theme-primary-dark: var(--theme-primary-700);
