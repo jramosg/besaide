@@ -52,7 +52,14 @@
 	--theme-on-accent: #fff;
 	--theme-on-accent-container: #3a220e;
 
-	--theme-error: #dc2626;
+	/* Theme Success/Green Colors */
+	--theme-success: #2fd36f;
+	--theme-success-light: #6ee7a8;
+	--theme-success-dark: #1fa855;
+	--theme-on-success: #fff;
+
+	/* Theme Error Colors */
+	--theme-error: #da160f;
 	--theme-error-dark: #b91c1c;
 	--theme-on-error: #fff;
 	--theme-on-error-container: #410e0b;

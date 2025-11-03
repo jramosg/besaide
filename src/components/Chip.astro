@@ -1,0 +1,49 @@
+---
+interface Props {
+	variant?: 'primary' | 'success' | 'error' | 'default';
+	class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+---
+
+<span class:list={['chip', 'button-text', `chip--${variant}`, className]}>
+	<slot />
+</span>
+
+<style>
+	.chip {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 34px;
+		min-width: 125px;
+		padding: 0 12px;
+		gap: 10px;
+		border-radius: 100px;
+		white-space: nowrap;
+		transition: var(--theme-transition);
+        text-transform: uppercase;
+	}
+
+	.chip--default {
+		background: var(--theme-bg);
+		color: var(--theme-on-bg);
+		border: 1px solid var(--theme-outline);
+	}
+
+	.chip--primary {
+		background: var(--theme-primary-900);
+		color: var(--theme-on-primary);
+	}
+
+	.chip--success {
+		background: var(--theme-success);
+		color: var(--theme-on-success);
+	}
+
+	.chip--error {
+		background: var(--theme-error);
+		color: var(--theme-on-error);
+	}
+</style>
