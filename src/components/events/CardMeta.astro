@@ -9,9 +9,9 @@ const { title, desc }: Props = Astro.props;
 
 <div class="home-agenda-meta">
 	<div class="icon-container">
-		<Location height={20} width={14} />
+		<slot name="icon" />
 	</div>
-	<h4 class="meta-text">{title}</h4>
+	<h4 class="overline">{title}</h4>
 	<span class="meta-desc">{desc}</span>
 </div>
 
@@ -36,9 +36,14 @@ const { title, desc }: Props = Astro.props;
 
 	h4 {
 		align-content: end;
-		font-size: var(--font-size-sm);
 	}
 	p {
 		font-weight: var(--font-weight-medium);
+	}
+
+	.icon-container :global(svg) {
+		--size: var(--font-size-h4);
+		width: var(--size);
+		height: var(--size);
 	}
 </style>

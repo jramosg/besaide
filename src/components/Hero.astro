@@ -26,7 +26,7 @@ const t = useTranslations(lang);
 	>
 		<CarouselSlide>
 			<Container narrow class="hero-slider__container">
-				<h1>{t('hero.membership.title')}</h1>
+				<h1 class="h1">{t('hero.membership.title')}</h1>
 				<p>
 					{t('hero.membership.description')}
 				</p>
@@ -68,10 +68,6 @@ const t = useTranslations(lang);
 		overflow: hidden;
 		margin-top: calc(-1 * var(--header-height));
 		padding-top: var(--header-height);
-
-		h1 {
-			font-weight: 500;
-		}
 	}
 
 	.hero-slider__container {
@@ -109,6 +105,7 @@ const t = useTranslations(lang);
 	.btn-home-hero {
 		background-color: var(--theme-card) !important;
 		color: var(--theme-primary) !important;
+		border-color: var(--theme-card) !important;
 		transition: opacity 0.3s ease;
 		&:hover {
 			opacity: 0.72;

@@ -50,7 +50,7 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 					navData.map(navItem => {
 						const isActive = navItem.slug === currentPageId;
 						return (
-							<li class="header-nav__item">
+							<li class="header-nav__item button-text">
 								<a
 									class={isActive ? 'nav-link--active' : ''}
 									href={getUrlFromID(navItem.slug, lang)}
@@ -228,12 +228,15 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 	nav ul li:not(.drawer-menu-item) a {
 		text-decoration: none;
 		margin-right: 1rem;
-		font-weight: var(--font-weight-medium);
-		transition: opacity linear 150ms;
+		border-bottom: 1px solid transparent;
+		transition:
+			color linear 200ms,
+			border-bottom linear 200ms;
 	}
 
 	nav ul li a:hover {
-		opacity: 0.8;
+		color: var(--theme-primary-800);
+		border-bottom: 1px solid var(--theme-primary-800);
 	}
 
 	.language-select__container {
@@ -241,9 +244,9 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 		transition: opacity 0.3s ease-in-out;
 	}
 
-	.nav-link--active {
-		border-bottom: 3px solid var(--theme-primary);
-		color: var(--theme-primary);
+	nav ul li:not(.drawer-menu-item) a.nav-link--active {
+		border-bottom: 3px solid var(--theme-primary-900);
+		color: var(--theme-primary-900);
 	}
 
 	.header-action-item__container {
@@ -271,7 +274,7 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 		position: fixed;
 		inset: 0;
 		z-index: 1000;
-		background: var(--theme-primary);
+		background: var(--theme-primary-900);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -312,15 +315,7 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 		transform: translateY(0) scale(1);
 	}
 
-	.drawer-menu-item a {
-		font-size: var(--font-size-lg);
-		color: var(--theme-on-primary, #fff);
-		text-decoration: none;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		transition: color 0.2s;
-	}
-
+	
 	.drawer-menu-item a:hover {
 		color: var(--theme-secondary, #e8944a);
 		text-shadow:

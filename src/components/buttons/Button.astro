@@ -16,7 +16,7 @@ const Tag = href ? 'a' : 'button';
 ---
 
 <Tag
-	class={`btn ${unelevated && `btn--unelevated`} ${
+	class={`btn button-text ${unelevated && `btn--unelevated`} ${
 		outlined && `btn--outlined`
 	} ${tonal && `btn--tonal`} ${bordered && `btn--bordered`} ${onPrimary && `btn--on-primary`} ${className}`}
 	href={href}
@@ -39,18 +39,22 @@ const Tag = href ? 'a' : 'button';
 		width: fit-content;
 		padding: 0.75rem 1.5rem;
 		margin-bottom: 0;
+		border: 1px solid;
+		border-color: var(--theme-primary-800);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: var(--theme-primary);
+		background-color: var(--theme-primary-800);
 		color: var(--theme-on-primary);
-		border: none;
 		border-radius: 12px;
 		font-weight: var(--font-weight-semibold);
-		transition: background-color 300ms ease-in-out;
+		transition:
+			background-color 300ms ease-in-out,
+			border-color 300ms ease-in-out;
 	}
 	.btn:hover {
-		background-color: var(--theme-primary-700);
+		background-color: var(--theme-primary-900);
+		border-color: var(--theme-primary-900);
 	}
 	.btn--unelevated {
 		background-color: transparent;
@@ -63,7 +67,7 @@ const Tag = href ? 'a' : 'button';
 	.btn--outlined {
 		color: var(--theme-primary);
 		background-color: transparent;
-		border: 2px solid var(--theme-primary);
+		border: 1px solid var(--theme-primary-900);
 		transition: background-color 0.3s ease;
 	}
 	.btn--outlined:hover {
@@ -71,7 +75,8 @@ const Tag = href ? 'a' : 'button';
 	}
 	.btn--tonal {
 		background-color: var(--theme-card);
-		color: var(--theme-primary);
+		border-color: var(--theme-card);
+		color: var(--theme-primary-800);
 		transition: opacity 0.3s ease;
 	}
 	.btn--tonal:hover {
@@ -79,6 +84,7 @@ const Tag = href ? 'a' : 'button';
 	}
 	.btn--bordered {
 		border: 1px solid white;
+		background-color: transparent;
 	}
 	.custom-icon__span {
 		margin-left: 0.25rem;

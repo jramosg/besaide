@@ -30,7 +30,7 @@ const switchHref = langHref(switchLang.code);
 
 {
 	switchHref && (
-		<div class="language-toggle">
+		<div class="language-toggle button-text">
 			{languages.map(language => (
 				<a href={langHref(language.code)} class="lang-toggle-link">
 					<button
@@ -51,8 +51,6 @@ const switchHref = langHref(switchLang.code);
 <style>
 	.language-toggle {
 		display: flex;
-		font-size: var(--font-size-sm);
-		font-weight: var(--font-weight-semibold);
 	}
 	.lang-toggle-link {
 		text-decoration: none;
@@ -64,12 +62,12 @@ const switchHref = langHref(switchLang.code);
 			display: block;
 			width: 2px;
 			height: var(--s3);
-			background-color: var(--theme-primary);
+			background-color: var(--theme-primary-900);
 		}
 
 		&:hover {
 			.lang-option {
-				color: var(--theme-primary-900);
+				color: var(--theme-primary-950);
 			}
 		}
 	}
@@ -80,7 +78,7 @@ const switchHref = langHref(switchLang.code);
 		background: none;
 		border: none;
 		cursor: pointer;
-		color: var(--theme-primary);
+		color: var(--theme-primary-900);
 		transition: color 0.3s ease-in-out;
 	}
 	.lang-option:hover,

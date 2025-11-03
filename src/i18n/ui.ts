@@ -78,6 +78,14 @@ export const ui = {
 		IRAUPENA: 'DURACIÓN',
 		DESNIBELA: 'DESNIVEL',
 		MAILA: 'DIFICULTAD',
+		// Event page
+		'event.finished': 'Finalizado',
+		'event.register': 'Inscribirse',
+		// Event types
+		'event.type.mountain': 'Montaña',
+		'event.type.ski-alpino': 'Esquí Alpino',
+		'event.type.ski-fondo': 'Esquí de Fondo',
+		'event.type.trekking': 'Trekking',
 		'nav.membership-federation': 'Ser socio / Federarse',
 		'nav.contact': 'Contacto',
 		'Azken berriak': 'Últimas noticias',
@@ -90,7 +98,9 @@ export const ui = {
 		Babesleak: 'Patrocinadores',
 		'Gure jarduera posible egiten duten entitate eta enpresak':
 			'Entidades y empresas que hacen posible nuestra actividad',
-		'Besaide Mendizale Elkartea': 'Asociación de Montañismo Besaide'
+		'Besaide Mendizale Elkartea': 'Asociación de Montañismo Besaide',
+		'Izen ematea': 'Inscripción',
+		'event.registrationInfo': 'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -153,12 +163,26 @@ export const ui = {
 		'Berri guztiak ikusi': 'Berri guztiak ikusi',
 		'Agenda osoa ikusi': 'Agenda osoa ikusi',
 		// Event meta labels (eu)
+		MENDIA: 'Mendia',
 		KOKALEKUA: 'Kokalekua',
+		TOPAGUNEA: 'Topagunea',
+		IRAUPENA: 'Iraupena',
+		DESNIBELA: 'Desnibela',
+		MAILA: 'Maila',
+		// Event page
+		'event.finished': 'Amaituta',
+		'event.register': 'Izena eman',
+		// Event types
+		'event.type.mountain': 'Mendia',
+		'event.type.ski-alpino': 'Eski Alpinoa',
+		'event.type.ski-fondo': 'Eski Fondoa',
+		'event.type.trekking': 'Trekkinga',
 		'nav.membership-federation': 'Bazkidetza / Federatzea',
 		'nav.contact': 'Kontaktua',
 		Partekatu: 'Partekatu',
 		'Informazio gehiago': 'Informazio gehiago',
-		'Atzera itzuli': 'Atzera itzuli'
+		'Atzera itzuli': 'Atzera itzuli',
+		'event.registrationInfo': 'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.'
 	}
 } as const;
 

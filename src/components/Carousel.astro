@@ -111,9 +111,9 @@ const nextBtnId = `${carouselId}-next`;
 		position: absolute;
 		bottom: -60px;
 		z-index: 10;
-		background: var(--theme-card, rgba(255, 255, 255, 0.9));
-		color: var(--theme-on-bg, #000);
-		border: 1px solid var(--theme-outline, #ddd);
+		background: var(--theme-primary-800);
+		color: var(--theme-on-primary);
+		border: none;
 		border-radius: 50%;
 		width: 48px;
 		height: 48px;
@@ -126,7 +126,7 @@ const nextBtnId = `${carouselId}-next`;
 	}
 
 	.carousel__nav:hover {
-		background: var(--theme-primary, #000);
+		background: var(--theme-primary-900, #000);
 		color: var(--theme-on-primary, #fff);
 		transform: scale(1.1);
 	}

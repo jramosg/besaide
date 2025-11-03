@@ -19,7 +19,7 @@ const t = useTranslations(lang);
 			{
 				navData?.map((navItem, i) => (
 					<li
-						class="drawer-menu-item"
+						class="drawer-menu-item subtitle"
 						style={`transition-delay: ${(i + 1) * 100 + 200}ms`}
 					>
 						<a href={getUrlFromID(navItem.slug, lang)}>{t(navItem.title)}</a>
@@ -52,7 +52,7 @@ const t = useTranslations(lang);
 		position: fixed;
 		inset: 0;
 		z-index: var(--z-index-drawer);
-		background: var(--theme-primary);
+		background: var(--theme-primary-900);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -122,7 +122,7 @@ const t = useTranslations(lang);
 		transition: color 0.2s;
 	}
 	.drawer-menu-item a:hover {
-		color: var(--theme-secondary, #e8944a);
+		color: var(--theme-primary-950);
 		text-shadow:
 			0 2px 32px #e8944a,
 			0 0 2px #fff;
