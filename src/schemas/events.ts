@@ -29,8 +29,7 @@ export const eventsSchema = z
 		duration: z.string().optional(),
 		meetingPoint: z.string().optional(),
 		image: z.string().optional(),
-		imageAlt: z.string().optional(),
-		featured: z.boolean().optional()
+		summary: z.string()
 	})
 	.refine(data => !data.endDate || data.endDate > data.date, {
 		message: 'endDate must be after date',

@@ -155,6 +155,12 @@ export default config({
 					directory: 'src/assets/images/events',
 					validation: { isRequired: true }
 				}),
+				summary: fields.text({
+					label: 'Laburpena / Resumen',
+					description: 'Laburpen labur bat / Un resumen breve',
+					validation: { isRequired: true, length: { max: 200 } },
+					multiline: true
+				}),
 				content: fields.markdoc({
 					label: 'Edukia / Contenido',
 					description: 'Gertaeraren deskribapen osoa'

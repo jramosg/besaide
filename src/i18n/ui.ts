@@ -78,6 +78,9 @@ export const ui = {
 		IRAUPENA: 'DURACIÓN',
 		DESNIBELA: 'DESNIVEL',
 		MAILA: 'DIFICULTAD',
+		DATA: 'FECHA',
+		ORDUA: 'HORA',
+		DISTANTZIA: 'DISTANCIA',
 		// Event page
 		'event.finished': 'Finalizado',
 		'event.register': 'Inscribirse',
@@ -100,7 +103,9 @@ export const ui = {
 			'Entidades y empresas que hacen posible nuestra actividad',
 		'Besaide Mendizale Elkartea': 'Asociación de Montañismo Besaide',
 		'Izen ematea': 'Inscripción',
-		'event.registrationInfo': 'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.'
+		'event.registrationInfo': 'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.',
+		'Kontsulta itzazu Besaideren irteera guztiak.': 'Consulta todas las salidas de Besaide.'
+		
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
