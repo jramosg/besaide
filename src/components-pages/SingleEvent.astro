@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import Page from '@/layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
@@ -132,11 +134,8 @@ const isFinished = new Date() > eventDate;
 				}
 				{
 					elevation && (
-						<CardMeta
-							title={lang === 'eu' ? 'DESNIBELA' : 'DESNIVEL'}
-							desc={elevation}
-						>
-							<ElevationIcon slot="icon" />
+						<CardMeta title={t('DESNIBELA')} desc={elevation}>
+							<ElevationIcon slot="icon" fill="currentColor" />
 						</CardMeta>
 					)
 				}
@@ -205,13 +204,11 @@ const isFinished = new Date() > eventDate;
 	}
 
 	.event-meta-container {
-		background-color: var(--theme-primary-container);
-		color: var(--theme-on-bg);
-		padding: var(--s8);
-		border-radius: var(--theme-shape-radius);
+		background-color: var(--theme-primary-container-alt);
+		padding: var(--s5);
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: var(--s6);
+		gap: var(--s5);
 		margin-bottom: var(--s4);
 	}
 

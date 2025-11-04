@@ -15,7 +15,7 @@
 	--theme-primary-hover-bg: rgba(177, 28, 171, 0.08);
 	--theme-primary-light: var(--theme-primary-300);
 	--theme-primary-dark: var(--theme-primary-700);
-	--theme-primary-container: #b11cab1f;
+	--theme-primary-container: var(--theme-primary-100);
 	--theme-primary-container-alt: var(--theme-primary-50);
 	--theme-on-primary: #fff;
 	--theme-on-primary-container: #f3e6f3;
@@ -166,8 +166,8 @@
 	--form-field-input-color: var(--theme-on-bg);
 
 	/* Primary Colors (Dark) */
-	--theme-primary-container: #b11cab33;
-	--theme-primary-container-alt: var(--theme-primary-900);
+	--theme-primary-container: var(--theme-primary-950);
+	--theme-primary-container-alt: var(--theme-primary-950);
 
 	--theme-on-primary-container: #fff;
 

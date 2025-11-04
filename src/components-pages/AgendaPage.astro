@@ -5,6 +5,7 @@ import { sortedAndFilteredEvents } from '@/staticPathsHelper';
 import { slugify } from '@/utils/string';
 import { processEventImage } from '@/utils/images';
 import EventListCard from '@/components/events/EventListCard.astro';
+import type { ProcessedEvent } from '@/types/Events';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -12,35 +13,45 @@ const t = useTranslations(lang);
 
 const events = await sortedAndFilteredEvents(lang);
 
-// Separate future and past events
 const today = new Date();
-const futureEvents = events.filter(event => new Date(event.data.date) >= today);
-const pastEvents = events.filter(event => new Date(event.data.date) < today);
-
 const agendaSection = getUrlFromID('agenda', lang);
 
-const processEvents = async (eventsList: typeof events) => {
-	return await Promise.all(
-		eventsList.map(async item => {
-			const processedImage = await processEventImage(item.id, item.data.image);
+// Process and separate events in a single pass
+const { processedFutureEvents, processedPastEvents } = await events.reduce<
+	Promise<{
+		processedFutureEvents: ProcessedEvent[];
+		processedPastEvents: ProcessedEvent[];
+	}>
+>(
+	async (accPromise, item) => {
+		const acc = await accPromise;
+		const processedImage = await processEventImage(item.id, item.data.image);
+		const isPast = new Date(item.data.date) < today;
 
-			return {
-				...item,
-				processedImage,
-				slug: `${agendaSection}/${slugify(item.id)}`
-			};
-		})
-	);
-};
+		const processedEvent = {
+			...item,
+			processedImage,
+			slug: `${agendaSection}/${slugify(item.id)}`,
+			isPast
+		};
 
-const processedFutureEvents = await processEvents(futureEvents);
-const processedPastEvents = await processEvents(pastEvents);
+		if (isPast) {
+			acc.processedPastEvents.push(processedEvent);
+		} else {
+			acc.processedFutureEvents.push(processedEvent);
+		}
+
+		return acc;
+	},
+	Promise.resolve({ processedFutureEvents: [], processedPastEvents: [] })
+);
 
 const pastTitle = lang === 'eu' ? 'Iraganeko irteerak' : 'Salidas pasadas';
 const emptyMessage =
 	lang === 'eu'
 		? 'Ez dago etorkizuneko irteerarik programatuta oraingoz.'
 		: 'No hay salidas futuras programadas por el momento.';
+const futureCount = processedFutureEvents.length;
 ---
 
 <Page
@@ -51,6 +62,15 @@ const emptyMessage =
 	<h2 class="body-text">
 		{t('Kontsulta itzazu Besaideren irteera guztiak.')}
 	</h2>
+	{
+		futureCount > 0 && (
+			<p class="future-count">
+				{futureCount === 1
+					? t('Irteera bakarra dago planifikatuta.')
+					: `${futureCount} ${t('irteera daude planifikatuta.')}`}
+			</p>
+		)
+	}
 	{
 		processedFutureEvents.length > 0 ? (
 			<section class="events-list">
@@ -80,6 +100,9 @@ const emptyMessage =
 </Page>
 
 <style>
+	.future-count {
+		color: var(--theme-primary-900);
+	}
 	.events-section {
 		margin-bottom: 4rem;
 	}

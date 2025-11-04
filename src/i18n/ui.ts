@@ -82,7 +82,7 @@ export const ui = {
 		ORDUA: 'HORA',
 		DISTANTZIA: 'DISTANCIA',
 		// Event page
-		'event.finished': 'Finalizado',
+		'event.finished': 'EL EVENTO HA TERMINADO',
 		'event.register': 'Inscribirse',
 		// Event types
 		'event.type.mountain': 'Montaña',
@@ -106,7 +106,9 @@ export const ui = {
 		'event.registrationInfo':
 			'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.',
 		'Kontsulta itzazu Besaideren irteera guztiak.':
-			'Consulta todas las salidas de Besaide.'
+			'Consulta todas las salidas de Besaide.',
+		'Irteera bakarra dago planifikatuta.': 'Hay una única salida planificada.',
+		'irteera daude planifikatuta.': 'salidas planificadas.'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -176,7 +178,7 @@ export const ui = {
 		DESNIBELA: 'Desnibela',
 		MAILA: 'Maila',
 		// Event page
-		'event.finished': 'Amaituta',
+		'event.finished': 'EKITALDIA AMAITU DA',
 		'event.register': 'Izena eman',
 		// Event types
 		'event.type.mountain': 'Mendia',
