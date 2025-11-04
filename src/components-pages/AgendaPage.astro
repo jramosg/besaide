@@ -2,8 +2,7 @@
 import Page from '@/layouts/Page.astro';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
-import { slugify } from '@/utils/string';
-import { processEventImage } from '@/utils/images';
+import { processEvent } from '@/utils/events';
 import EventListCard from '@/components/events/EventListCard.astro';
 import type { ProcessedEvent } from '@/types/Events';
 
@@ -25,17 +24,9 @@ const { processedFutureEvents, processedPastEvents } = await events.reduce<
 >(
 	async (accPromise, item) => {
 		const acc = await accPromise;
-		const processedImage = await processEventImage(item.id, item.data.image);
-		const isPast = new Date(item.data.date) < today;
+		const processedEvent = await processEvent(item, agendaSection, today);
 
-		const processedEvent = {
-			...item,
-			processedImage,
-			slug: `${agendaSection}/${slugify(item.id)}`,
-			isPast
-		};
-
-		if (isPast) {
+		if (processedEvent.isPast) {
 			acc.processedPastEvents.push(processedEvent);
 		} else {
 			acc.processedFutureEvents.push(processedEvent);

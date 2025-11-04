@@ -1,9 +1,8 @@
 ---
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
+import { processEvent } from '@/utils/events';
 import type { CollectionEntry } from 'astro:content';
-import { slugify } from '@/utils/string';
-import { processEventImage } from '@/utils/images';
 import HomeSectionHeader from './HomeSectionHeader.astro';
 import EventCard from '@/components/events/EventCard.astro';
 
@@ -18,15 +17,7 @@ events = events.filter(event => new Date(event.data.date) >= today).slice(0, 4);
 const agendaSection = getUrlFromID('agenda', lang);
 
 const processedEvents = await Promise.all(
-	events.map(async item => {
-		const processedImage = await processEventImage(item.id, item.data.image);
-
-		return {
-			...item,
-			processedImage,
-			slug: `${agendaSection}/${slugify(item.id)}`
-		};
-	})
+	events.map(item => processEvent(item, agendaSection, today))
 );
 ---
 

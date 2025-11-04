@@ -4,14 +4,13 @@ import { slugify } from '@/utils/string';
 import MountainClimb from '@/assets/icons/elevation.svg';
 import DownHillSkiing from '@/assets/icons/downhill_skiing.svg';
 import CardMeta from '@/components/events/CardMeta.astro';
-import type { ImageMetadata } from 'astro';
-import type { CollectionEntry } from 'astro:content';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { Map, Clock3 } from '@lucide/astro';
 import DistanceIcon from '@/assets/icons/distance.svg';
 import ElevationIcon from '@/assets/icons/elevation.svg';
 import LevelIcon from '@/assets/icons/level.svg';
 import { formatEventDate } from '@/utils/date';
+import type { ProcessedEvent } from '@/types/Events';
 
 type Difficulty = 'erraza' | 'ertaina' | 'zaila';
 
@@ -26,10 +25,6 @@ const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
 		ertaina: 'Media',
 		zaila: 'Difícil'
 	}
-};
-
-type ProcessedEvent = CollectionEntry<'events'> & {
-	processedImage: ImageMetadata;
 };
 
 type Props = {
