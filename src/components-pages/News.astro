@@ -1,45 +1,31 @@
 ---
 import Page from '@/layouts/Page.astro';
 import PaginationWrapper from '@/components/PaginationWrapper.astro';
-import { formatDate, getLangFromUrl, getUrlFromID } from '@/i18n/utils';
-import { slugify } from '@/utils/string';
-import type { NewsPost } from '@/types/News';
-const { page } = Astro.props;
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import PageHeader from '@/components/PageHeader.astro';
+import NewsCard from '@/components/news/NewsCard.astro';
+import { processNewsItems } from '@/staticPathsHelper';
+import type { Page as AstroPage } from 'astro';
+
+type Props = {
+	page: AstroPage;
+};
+const { page }: Props = Astro.props;
+console.log(page);
 const lang = getLangFromUrl(Astro.url);
-const section = getUrlFromID('news', lang);
-import UdalaitzImg from '@/assets/udalaitz.webp';
-import { Image } from 'astro:assets';
+const t = useTranslations(lang);
+
+const processedNews = await processNewsItems(page.data, lang);
 ---
 
 <Page pageClass="content__container ">
-	<h1>Berriak</h1>
-	<section class="news-grid">
-		{
-			page.data.map((p: NewsPost) => {
-				const slug = slugify(p.id);
-				const href = `${section}/${slug}/`;
-				return (
-					<article class="card card--elevated news-card">
-						{p.data.image ? (
-							<a class="news-thumb" href={href}>
-								<Image
-									src={UdalaitzImg}
-									alt={p.data.imageAlt || p.data.title || ''}
-									class="news-image"
-									style={`view-transition-name: image-${slug}`}
-								/>
-							</a>
-						) : null}
+	<PageHeader
+		title={t('Berriak')}
+		subtitle={t('Atal honetan berri guztiak ikusgai dituzu.')}
+	/>
 
-						<h2 style={`view-transition-name: title-${slug}`}>
-							<a href={href}>{p.data.title}</a>
-						</h2>
-						<p class="overline">{formatDate(p.data.date)}</p>
-						<p>{p.data.summary}</p>
-					</article>
-				);
-			})
-		}
+	<section class="news-grid">
+		{processedNews.map(p => <NewsCard item={p} />)}
 	</section>
 
 	<PaginationWrapper page={page} />
@@ -50,8 +36,7 @@ import { Image } from 'astro:assets';
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
 		gap: var(--s4);
-		justify-content: center;
-		align-items: start;
+		align-items: stretch;
 	}
 
 	.news-card {

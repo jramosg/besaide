@@ -3,18 +3,11 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { slugify } from '@/utils/string';
 import type { Langs } from './i18n/ui';
 import { processNewsImage } from '@/utils/images';
-import type { ImageMetadata } from 'astro';
 import { getUrlFromID } from '@/i18n/utils';
+import type { ProcessedNewsItem } from '@/types/News';
 
 type Options = {
 	pageSize?: number;
-};
-
-export type ProcessedNewsItem = CollectionEntry<'news'> & {
-	processedImage: ImageMetadata;
-	slug: string;
-	title: string;
-	summary: string;
 };
 
 export const sortedAndFilteredNewsPosts = async (): Promise<

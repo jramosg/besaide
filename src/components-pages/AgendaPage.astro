@@ -4,6 +4,7 @@ import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
 import { processEvent } from '@/utils/events';
 import EventListCard from '@/components/events/EventListCard.astro';
+import PageHeader from '@/components/PageHeader.astro';
 import type { ProcessedEvent } from '@/types/Events';
 
 const url = Astro.url;
@@ -49,10 +50,10 @@ const futureCount = processedFutureEvents.length;
 	seo={{ title: 'Besaide Mendizale Elkartea - Agenda' }}
 	pageClass="content__container"
 >
-	<h1>Agenda</h1>
-	<h2 class="body-text">
-		{t('Kontsulta itzazu Besaideren irteera guztiak.')}
-	</h2>
+	<PageHeader
+		title="Agenda"
+		subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
+	/>
 	{
 		futureCount > 0 && (
 			<p class="future-count">

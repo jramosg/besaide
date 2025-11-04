@@ -1,12 +1,8 @@
-export type NewsPost = {
-	id: string;
-	data: {
-		title: string;
-		date: string;
-		lang: string;
-		summary: string;
-		image: string;
-		imageAlt: string;
-		content: string;
-	};
+import type { CollectionEntry } from 'astro:content';
+
+export type ProcessedNewsItem = CollectionEntry<'news'> & {
+	processedImage: ImageMetadata;
+	slug: string;
+	title: string;
+	summary: string;
 };

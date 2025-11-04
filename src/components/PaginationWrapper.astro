@@ -1,12 +1,11 @@
 ---
 import Pagination from './Pagination.astro';
+import type { Page as AstroPage } from 'astro';
 
-export interface Props {
+type Props = {
 	page: AstroPage;
 	class?: string;
-}
-
-import type { Page as AstroPage } from 'astro';
+};
 
 const { page, class: className }: Props = Astro.props;
 ---

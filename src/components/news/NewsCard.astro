@@ -4,7 +4,7 @@ import { slugify } from '@/utils/string';
 import { formatDate } from '@/i18n/utils';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import { Share2, ArrowRight } from '@lucide/astro';
-import type { ProcessedNewsItem } from '@/staticPathsHelper';
+import type { ProcessedNewsItem } from '@/types/News';
 
 type Props = {
 	item: ProcessedNewsItem;
@@ -19,21 +19,11 @@ const slug = slugify(item.id);
 <article class="card card--elevated news-card">
 	<a href={item.slug} class="news-card__link">
 		<div class="news-card__image">
-			{
-				typeof item.processedImage === 'string' ? (
-					<img
-						src={item.processedImage}
-						alt={item.title}
-						style={`view-transition-name: image-${slug}`}
-					/>
-				) : (
-					<Image
-						src={item.processedImage}
-						style={`view-transition-name: image-${slug}`}
-						alt={item.title}
-					/>
-				)
-			}
+			<Image
+				src={item.processedImage}
+				style={`view-transition-name: image-${slug}`}
+				alt={item.title}
+			/>
 		</div>
 
 		<div class="news-card__content">
@@ -125,13 +115,13 @@ const slug = slugify(item.id);
 	.news-card__summary {
 		/* Figma: 401.33 x 64px */
 		margin: 0;
-		/* Truncate to 3 lines to fit ~64px height */
+		/* Truncate to 3 lines to fit ~72px height */
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-height: 64px;
+		max-height: 72px;
 	}
 
 	.news-card__footer {

@@ -1,0 +1,23 @@
+---
+type Props = {
+	title: string;
+	subtitle?: string;
+};
+
+const { title, subtitle } = Astro.props;
+---
+
+<>
+	<h1>{title}</h1>
+	{subtitle && <p class="page-subtitle">{subtitle}</p>}
+</>
+
+<style>
+	h1 {
+		margin-bottom: var(--s2);
+	}
+
+	.page-subtitle {
+		margin-bottom: var(--s6);
+	}
+</style>
