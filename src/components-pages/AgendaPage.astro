@@ -2,7 +2,6 @@
 import Page from '@/layouts/Page.astro';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
-import { Image } from 'astro:assets';
 import { slugify } from '@/utils/string';
 import { processEventImage } from '@/utils/images';
 import EventListCard from '@/components/events/EventListCard.astro';
@@ -12,7 +11,6 @@ const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 
 const events = await sortedAndFilteredEvents(lang);
-console.log('evs', events);
 
 // Separate future and past events
 const today = new Date();
@@ -38,7 +36,6 @@ const processEvents = async (eventsList: typeof events) => {
 const processedFutureEvents = await processEvents(futureEvents);
 const processedPastEvents = await processEvents(pastEvents);
 
-const upcomingTitle = lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas';
 const pastTitle = lang === 'eu' ? 'Iraganeko irteerak' : 'Salidas pasadas';
 const emptyMessage =
 	lang === 'eu'
