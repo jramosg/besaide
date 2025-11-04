@@ -1,15 +1,18 @@
 ---
 import Page from '@/layouts/Page.astro';
-import { getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/staticPathsHelper';
 import { Image } from 'astro:assets';
 import { slugify } from '@/utils/string';
 import { processEventImage } from '@/utils/images';
+import EventListCard from '@/components/events/EventListCard.astro';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
+const t = useTranslations(lang);
 
-let events = await sortedAndFilteredEvents(lang);
+const events = await sortedAndFilteredEvents(lang);
+console.log('evs', events);
 
 // Separate future and past events
 const today = new Date();
@@ -17,21 +20,6 @@ const futureEvents = events.filter(event => new Date(event.data.date) >= today);
 const pastEvents = events.filter(event => new Date(event.data.date) < today);
 
 const agendaSection = getUrlFromID('agenda', lang);
-
-type Difficulty = 'erraza' | 'ertaina' | 'zaila';
-
-const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
-	eu: {
-		erraza: 'Erraza',
-		ertaina: 'Ertaina',
-		zaila: 'Zaila'
-	},
-	es: {
-		erraza: 'Fácil',
-		ertaina: 'Media',
-		zaila: 'Difícil'
-	}
-};
 
 const processEvents = async (eventsList: typeof events) => {
 	return await Promise.all(
@@ -50,230 +38,52 @@ const processEvents = async (eventsList: typeof events) => {
 const processedFutureEvents = await processEvents(futureEvents);
 const processedPastEvents = await processEvents(pastEvents);
 
-const pageTitle =
-	lang === 'eu'
-		? 'Besaide Mendizale Elkartea - Agenda'
-		: 'Asociación de Montañismo Besaide - Agenda';
-
-const headerTitle =
-	lang === 'eu'
-		? '🏔️ Agenda - Mendiko Jarduerak'
-		: '🏔️ Agenda - Actividades de Montaña';
-
-const headerDescription =
-	lang === 'eu'
-		? 'Besaide Mendizale Elkartearen antolatutako irteera, txango eta ekintza guztien egutegia'
-		: 'Calendario de todas las salidas, excursiones y actividades organizadas por la Asociación de Montañismo Besaide';
-
 const upcomingTitle = lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas';
 const pastTitle = lang === 'eu' ? 'Iraganeko irteerak' : 'Salidas pasadas';
 const emptyMessage =
 	lang === 'eu'
 		? 'Ez dago etorkizuneko irteerarik programatuta oraingoz.'
 		: 'No hay salidas futuras programadas por el momento.';
-const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 ---
 
-<Page seo={{ title: pageTitle }} pageClass="agenda-page">
-	<div class="content__container">
-		<div class="page-header">
-			<h1>{headerTitle}</h1>
-			<p>{headerDescription}</p>
-		</div>
+<Page
+	seo={{ title: 'Besaide Mendizale Elkartea - Agenda' }}
+	pageClass="content__container"
+>
+	<h1>Agenda</h1>
+	<h2 class="body-text">
+		{t('Kontsulta itzazu Besaideren irteera guztiak.')}
+	</h2>
+	{
+		processedFutureEvents.length > 0 ? (
+			<section class="events-list">
+				{processedFutureEvents.map(item => <EventListCard item={item} />)}
+			</section>
+		) : (
+			<div class="empty-state">
+				<p>{emptyMessage}</p>
+			</div>
+		)
+	}
 
-		{
-			processedFutureEvents.length > 0 ? (
-				<section class="events-section">
-					<h2 class="section-title">{upcomingTitle}</h2>
-					<div class="events-list">
-						{processedFutureEvents.map(item => {
-							const eventDate = new Date(item.data.date);
-							const dayOfWeek = eventDate.toLocaleDateString(
-								lang === 'eu' ? 'eu-ES' : 'es-ES',
-								{
-									weekday: 'long'
-								}
-							);
-							const day = eventDate.getDate();
-							const month = eventDate.toLocaleDateString(
-								lang === 'eu' ? 'eu-ES' : 'es-ES',
-								{
-									month: 'long'
-								}
-							);
-							const year = eventDate.getFullYear();
-
-							const { mountain, difficulty, elevation } =
-								item.data.typeSpecificFields.discriminant === 'mountain'
-									? item.data.typeSpecificFields.value
-									: {};
-
-							const { location } =
-								item.data.typeSpecificFields.discriminant === 'ski-alpino'
-									? item.data.typeSpecificFields.value
-									: {};
-							const difficultyColor =
-								difficulty === 'erraza'
-									? 'green'
-									: difficulty === 'ertaina'
-										? 'orange'
-										: 'red';
-
-							return (
-								<a href={item.slug} class="event-row">
-									<div class="event-date-col">
-										<div class="date-display">
-											<div class="date-day">{day}</div>
-											<div class="date-month-year">
-												{month}
-												<br />
-												{year}
-											</div>
-										</div>
-										<div class="date-weekday">{dayOfWeek}</div>
-									</div>
-
-									<div class="event-image-col">
-										{typeof item.processedImage === 'string' ? (
-											<img
-												src={item.processedImage}
-												alt={item.data.imageAlt || item.data.title}
-												class="event-thumbnail"
-											/>
-										) : (
-											<Image
-												src={item.processedImage}
-												alt={item.data.imageAlt || item.data.title}
-												class="event-thumbnail"
-												style={`view-transition-name: image-${slugify(item.id)}`}
-											/>
-										)}
-									</div>
-
-									<div class="event-info-col">
-										<div class="event-badges">
-											<span class={`badge difficulty ${difficultyColor}`}>
-												{difficultyLabels[lang][difficulty as Difficulty]}
-											</span>
-
-											{item.data.featured && (
-												<span class="badge featured">{featuredLabel}</span>
-											)}
-										</div>
-										<h3>{item.data.title}</h3>
-										<p class="event-location">
-											📍{' '}
-											{item.data.typeSpecificFields.discriminant === 'mountain'
-												? mountain
-												: item.data.typeSpecificFields.discriminant ===
-													  'ski-alpino'
-													? location
-													: `${mountain || ''}${mountain && location ? ' - ' : ''}${location || ''}`}
-										</p>
-										<div class="event-quick-info">
-											{item.data.time && (
-												<span class="info-item">⏰ {item.data.time}</span>
-											)}
-											{item.data.distance && (
-												<span class="info-item">📏 {item.data.distance}</span>
-											)}
-											{elevation && (
-												<span class="info-item">⬆️ {elevation}</span>
-											)}
-											{item.data.duration && (
-												<span class="info-item">⏱️ {item.data.duration}</span>
-											)}
-										</div>
-									</div>
-
-									<div class="event-action-col">
-										<span class="action-arrow">→</span>
-									</div>
-								</a>
-							);
-						})}
-					</div>
-				</section>
-			) : (
-				<div class="empty-state">
-					<p>{emptyMessage}</p>
+	{
+		processedPastEvents.length > 0 && (
+			<section class="events-section past-events">
+				<h2 class="section-title">{pastTitle}</h2>
+				<div class="events-list">
+					{processedPastEvents.slice(0, 6).map(item => <EventListCard item={item} />)}
 				</div>
-			)
-		}
-
-		{
-			processedPastEvents.length > 0 && (
-				<section class="events-section past-events">
-					<h2 class="section-title">{pastTitle}</h2>
-					<div class="events-grid-simple">
-						{processedPastEvents.slice(0, 6).map(item => {
-							const eventDate = new Date(item.data.date);
-							const formattedDate = eventDate.toLocaleDateString(
-								lang === 'eu' ? 'eu-ES' : 'es-ES',
-								{
-									year: 'numeric',
-									month: 'long',
-									day: 'numeric'
-								}
-							);
-
-							const locationText =
-								item.data.typeSpecificFields.discriminant === 'mountain'
-									? item.data.typeSpecificFields.value.mountain
-									: item.data.typeSpecificFields.value.location;
-
-							return (
-								<div class="past-event-card">
-									<div class="past-event-date">{formattedDate}</div>
-									<h4>{item.data.title}</h4>
-									<p>{locationText}</p>
-								</div>
-							);
-						})}
-					</div>
-				</section>
-			)
-		}
-	</div>
+			</section>
+		)
+	}
 </Page>
 
 <style>
-	.agenda-page {
-		padding: 3rem 0;
-		min-height: 70vh;
-	}
-
-	.page-header {
-		text-align: center;
-		margin-bottom: 4rem;
-		padding: 2rem 0;
-	}
-
-	.page-header h1 {
-		font-size: 2.75rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-		background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.page-header p {
-		font-size: 1.15rem;
-		color: var(--theme-text-secondary);
-		max-width: 700px;
-		margin: 0 auto;
-	}
-
 	.events-section {
 		margin-bottom: 4rem;
 	}
 
 	.section-title {
-		font-size: 1.75rem;
-		font-weight: 700;
-		color: var(--theme-text);
 		margin-bottom: 2rem;
 		padding-bottom: 0.75rem;
 		border-bottom: 3px solid var(--theme-primary);
@@ -283,172 +93,9 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		margin: var(--s6) 0;
 	}
 
-	.event-row {
-		display: grid;
-		grid-template-columns: 140px 120px 1fr auto;
-		gap: 1.5rem;
-		background: white;
-		border-radius: 16px;
-		padding: 1.5rem;
-		text-decoration: none;
-		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-		transition: all 0.3s ease;
-		align-items: center;
-	}
-
-	.event-row:hover {
-		transform: translateX(8px);
-		box-shadow: 0 4px 24px rgba(45, 90, 61, 0.15);
-	}
-
-	.event-date-col {
-		text-align: center;
-	}
-
-	.date-display {
-		background: linear-gradient(135deg, var(--theme-primary) 0%, #1a472a 100%);
-		color: white;
-		border-radius: 12px;
-		padding: 1rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.date-day {
-		font-size: 2rem;
-		font-weight: 700;
-		line-height: 1;
-	}
-
-	.date-month-year {
-		font-size: 0.75rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		margin-top: 0.5rem;
-		opacity: 0.9;
-	}
-
-	.date-weekday {
-		font-size: 0.8rem;
-		color: var(--theme-text-secondary);
-		text-transform: capitalize;
-		font-weight: 600;
-	}
-
-	.event-image-col {
-		position: relative;
-		overflow: hidden;
-		border-radius: 12px;
-	}
-
-	.event-thumbnail {
-		width: 120px;
-		height: 90px;
-		object-fit: cover;
-		border-radius: 12px;
-		transition: transform 0.3s ease;
-	}
-
-	.event-row:hover .event-thumbnail {
-		transform: scale(1.1);
-	}
-
-	.event-info-col {
-		flex: 1;
-	}
-
-	.event-badges {
-		display: flex;
-		gap: 0.5rem;
-		margin-bottom: 0.75rem;
-		flex-wrap: wrap;
-	}
-
-	.badge {
-		padding: 0.375rem 0.75rem;
-		border-radius: 20px;
-		font-size: 0.7rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-	}
-
-	.badge.difficulty.green {
-		background: #d1fae5;
-		color: #065f46;
-	}
-
-	.badge.difficulty.orange {
-		background: #fed7aa;
-		color: #92400e;
-	}
-
-	.badge.difficulty.red {
-		background: #fecaca;
-		color: #991b1b;
-	}
-
-	.badge.region {
-		background: #dbeafe;
-		color: #1e40af;
-	}
-
-	.badge.featured {
-		background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-		color: white;
-	}
-
-	.event-info-col h3 {
-		font-size: 1.35rem;
-		font-weight: 700;
-		color: var(--theme-text);
-		margin-bottom: 0.5rem;
-		line-height: 1.3;
-	}
-
-	.event-location {
-		font-size: 0.95rem;
-		font-weight: 600;
-		color: var(--theme-primary);
-		margin-bottom: 0.5rem;
-	}
-
-	.event-summary {
-		color: var(--theme-text-secondary);
-		line-height: 1.5;
-		margin-bottom: 0.75rem;
-		font-size: 0.9rem;
-	}
-
-	.event-quick-info {
-		display: flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
-
-	.info-item {
-		font-size: 0.8rem;
-		color: var(--theme-text-secondary);
-		font-weight: 600;
-	}
-
-	.event-action-col {
-		display: flex;
-		align-items: center;
-	}
-
-	.action-arrow {
-		font-size: 2rem;
-		color: var(--theme-primary);
-		transition: transform 0.3s ease;
-	}
-
-	.event-row:hover .action-arrow {
-		transform: translateX(8px);
-	}
-
-	/* Past events */
 	.past-events {
 		margin-top: 3rem;
 		padding-top: 3rem;
@@ -457,38 +104,6 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 
 	.past-events .section-title {
 		border-bottom-color: #9ca3af;
-		color: var(--theme-text-secondary);
-	}
-
-	.events-grid-simple {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1.5rem;
-	}
-
-	.past-event-card {
-		background: #f9fafb;
-		border-radius: 12px;
-		padding: 1.5rem;
-		border: 1px solid #e5e7eb;
-	}
-
-	.past-event-date {
-		font-size: 0.8rem;
-		color: var(--theme-text-secondary);
-		font-weight: 600;
-		margin-bottom: 0.75rem;
-	}
-
-	.past-event-card h4 {
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--theme-text);
-		margin-bottom: 0.5rem;
-	}
-
-	.past-event-card p {
-		font-size: 0.9rem;
 		color: var(--theme-text-secondary);
 	}
 
@@ -501,69 +116,6 @@ const featuredLabel = lang === 'eu' ? '⭐ Nabarmena' : '⭐ Destacado';
 	}
 
 	.empty-state p {
-		font-size: 1.1rem;
 		color: var(--theme-text-secondary);
-	}
-
-	@media (max-width: 1024px) {
-		.event-row {
-			grid-template-columns: 120px 100px 1fr auto;
-			gap: 1rem;
-		}
-
-		.event-thumbnail {
-			width: 100px;
-			height: 75px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.event-row {
-			grid-template-columns: 1fr;
-			gap: 1rem;
-		}
-
-		.event-date-col {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-
-		.date-display {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			padding: 0.75rem 1rem;
-		}
-
-		.date-day {
-			font-size: 1.5rem;
-		}
-
-		.date-month-year {
-			margin-top: 0;
-			text-align: left;
-		}
-
-		.event-image-col {
-			width: 100%;
-		}
-
-		.event-thumbnail {
-			width: 100%;
-			height: 200px;
-		}
-
-		.event-action-col {
-			display: none;
-		}
-
-		.page-header h1 {
-			font-size: 2rem;
-		}
-
-		.events-grid-simple {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>
