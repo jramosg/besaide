@@ -1,11 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-import {
-	ArrowRight,
-	ArrowLeft,
-	ChevronsLeft,
-	ChevronsRight
-} from '@lucide/astro';
+import { ArrowRight, ArrowLeft } from '@lucide/astro';
 
 type Props = {
 	currentPage: number;
@@ -91,9 +86,6 @@ const getPageUrl = (pageNum: number): string => {
 
 const prevUrl = url.prev;
 const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
-const firstUrl = getPageUrl(1);
-const lastUrl = getPageUrl(lastPage);
-const showFirstLast = lastPage > 3;
 ---
 
 <nav class={`pagination ${className || ''}`} aria-label={t('pagination.pages')}>
