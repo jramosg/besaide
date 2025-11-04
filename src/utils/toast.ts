@@ -138,7 +138,6 @@ class ToastManager {
 	}
 
 	show(options: ToastOptions): string {
-		console.log('Showing toast:', options);
 		this.ensureContainer();
 
 		const id = `toast-${++this.toastCounter}`;

@@ -28,7 +28,6 @@ export async function shareContent(shareData: ShareData): Promise<void> {
 		// Try to use Web Share API if available and supported
 		if (navigator.canShare && navigator.canShare(shareData)) {
 			await navigator.share(shareData);
-			console.log('Successful share');
 		} else {
 			// Fallback to copying URL to clipboard
 			await copyToClipboard(shareData.url);
