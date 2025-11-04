@@ -103,9 +103,10 @@ export const ui = {
 			'Entidades y empresas que hacen posible nuestra actividad',
 		'Besaide Mendizale Elkartea': 'Asociación de Montañismo Besaide',
 		'Izen ematea': 'Inscripción',
-		'event.registrationInfo': 'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.',
-		'Kontsulta itzazu Besaideren irteera guztiak.': 'Consulta todas las salidas de Besaide.'
-		
+		'event.registrationInfo':
+			'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.',
+		'Kontsulta itzazu Besaideren irteera guztiak.':
+			'Consulta todas las salidas de Besaide.'
 	},
 	eu: {
 		'Besaide Mendizale Elkartea - Hasiera':
@@ -187,7 +188,8 @@ export const ui = {
 		Partekatu: 'Partekatu',
 		'Informazio gehiago': 'Informazio gehiago',
 		'Atzera itzuli': 'Atzera itzuli',
-		'event.registrationInfo': 'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.'
+		'event.registrationInfo':
+			'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.'
 	}
 } as const;
 

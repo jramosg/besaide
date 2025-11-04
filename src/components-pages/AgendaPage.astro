@@ -54,7 +54,9 @@ const emptyMessage =
 	{
 		processedFutureEvents.length > 0 ? (
 			<section class="events-list">
-				{processedFutureEvents.map(item => <EventListCard item={item} />)}
+				{processedFutureEvents.map(item => (
+					<EventListCard item={item} />
+				))}
 			</section>
 		) : (
 			<div class="empty-state">
@@ -68,7 +70,9 @@ const emptyMessage =
 			<section class="events-section past-events">
 				<h2 class="section-title">{pastTitle}</h2>
 				<div class="events-list">
-					{processedPastEvents.slice(0, 6).map(item => <EventListCard item={item} />)}
+					{processedPastEvents.slice(0, 6).map(item => (
+						<EventListCard item={item} />
+					))}
 				</div>
 			</section>
 		)
