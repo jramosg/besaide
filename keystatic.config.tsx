@@ -1,5 +1,5 @@
 // keystatic.config.ts
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
 	ui: {
@@ -12,11 +12,11 @@ export default config({
 	},
 
 	storage: {
-		kind: 'github',
-		repo: {
+		kind: 'local'
+		/* repo: {
 			owner: 'jramosg',
 			name: 'besaide'
-		}
+		} */
 	},
 	collections: {
 		news: collection({
@@ -164,6 +164,71 @@ export default config({
 				content: fields.markdoc({
 					label: 'Edukia / Contenido',
 					description: 'Gertaeraren deskribapen osoa'
+				})
+			}
+		})
+	},
+	singletons: {
+		besaideHistory: singleton({
+			label: 'Historia / Besaide Historia',
+			path: 'src/data/besaide/historia',
+			schema: {
+				contentEu: fields.markdoc({
+					label: 'Historia euskeraz',
+					description: 'Besaide Mendizale Elkartearen historia euskeraz'
+				}),
+				contentEs: fields.markdoc({
+					label: 'Historia en español',
+					description: 'Historia de la Asociación de Montañismo Besaide'
+				})
+			}
+		}),
+		funtzionamendua: singleton({
+			label: 'Funtzionamendua / Funcionamiento',
+			path: 'src/data/funtzionamendua/funtzionamendua',
+			schema: {
+				introductionEu: fields.text({
+					label: 'Sarrera euskeraz',
+					description: 'Sarrera testua',
+					multiline: true
+				}),
+				introductionEs: fields.text({
+					label: 'Introducción en español',
+					description: 'Texto de introducción',
+					multiline: true
+				}),
+				boardMembers: fields.array(
+					fields.object({
+						positionEu: fields.text({
+							label: 'Kargua euskeraz',
+							description: 'Adib: Lehendakaria, Diruzaina...',
+							validation: { isRequired: true }
+						}),
+						positionEs: fields.text({
+							label: 'Cargo en español',
+							description: 'Ejemplo: Presidente, Tesorero...',
+							validation: { isRequired: true }
+						}),
+						name: fields.text({
+							label: 'Izena / Nombre',
+							validation: { isRequired: true }
+						})
+					}),
+					{
+						label: 'Zuzendaritza Taldea / Equipo Directivo',
+						itemLabel: props =>
+							props.fields.positionEu.value || 'Kidea / Miembro'
+					}
+				),
+				closingTextEu: fields.text({
+					label: 'Amaiera testua euskeraz',
+					description: 'Batzar Orokorrari buruzko informazioa eta bestelakoak',
+					multiline: true
+				}),
+				closingTextEs: fields.text({
+					label: 'Texto de cierre en español',
+					description: 'Información sobre la Asamblea General y otros detalles',
+					multiline: true
 				})
 			}
 		})

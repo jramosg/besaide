@@ -25,7 +25,7 @@ const langMapping: LangMapping = {
 	'agenda-es': { lang: 'es', id: 'agenda' },
 	agenda: { lang: 'eu', id: 'agenda' },
 	besaide: { lang: 'eu', id: 'besaide' },
-	besaidees: { lang: 'es', id: 'besaide' },
+	'besaide-es': { lang: 'es', id: 'besaide' },
 	servicios: { lang: 'es', id: 'services' },
 	zerbitzuak: { lang: 'eu', id: 'services' },
 	rutas: { lang: 'es', id: 'routes' },

@@ -1,0 +1,128 @@
+---
+import BesaideLandscape from '@/assets/images/besaide.webp';
+import PageHeader from '@/components/PageHeader.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+import Page from '@/layouts/Page.astro';
+import { Image } from 'astro:assets';
+import { getEntry, render } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const entry = await getEntry('history', 'content' + lang);
+
+const besaideFunctioning = await getEntry('functioning', 'funtzionamendua');
+
+if (!entry) {
+	throw new Error(`Content not found for history content ${lang}`);
+}
+
+if (!besaideFunctioning) {
+	throw new Error('Besaide functioning content not found');
+}
+
+const { Content: HistoryContent } = await render(entry);
+---
+
+<Page
+	seo={{ title: 'Besaide Mendizale Elkartea' }}
+	pageClass="content__container besaide-page"
+>
+	<PageHeader title="Besaide Mendizale Elkartea" />
+	<Image src={BesaideLandscape} alt="Besaide" class="besaide-image" />
+
+	<section class="functioning-section">
+		<h2 class="h4">{t('Funtzionamendua')}</h2>
+		<p>
+			{
+				lang === 'eu'
+					? besaideFunctioning.data.introductionEu
+					: besaideFunctioning.data.introductionEs
+			}
+		</p>
+
+		{
+			besaideFunctioning.data.boardMembers &&
+				besaideFunctioning.data.boardMembers.length > 0 && (
+					<ul class="board-members">
+						{besaideFunctioning.data.boardMembers.map(member => (
+							<li>
+								<strong>
+									{lang === 'eu' ? member.positionEu : member.positionEs}:
+								</strong>{' '}
+								{member.name}
+							</li>
+						))}
+					</ul>
+				)
+		}
+
+		<p>
+			{
+				lang === 'eu'
+					? besaideFunctioning.data.closingTextEu
+					: besaideFunctioning.data.closingTextEs
+			}
+		</p>
+	</section>
+
+	<section class="history-section">
+		<h2 class="h4">{t('Historia')}</h2>
+		<HistoryContent />
+	</section>
+</Page>
+
+<style>
+	.besaide-page {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s6);
+		margin-bottom: var(--s5);
+	}
+	.besaide-image {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1312 / 375.87744140625;
+		border-radius: var(--theme-shape-radius);
+		object-fit: cover;
+		margin: 0 auto;
+		display: block;
+		box-shadow: 3px 7px 12.8px 4px #00000026;
+	}
+
+	.functioning-section,
+	.history-section {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.board-members {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+		margin: 0;
+		margin-bottom: var(--s4);
+	}
+
+	@media (max-width: 1440px) {
+		.besaide-image {
+			max-width: calc(100vw - 128px); /* 64px left + 64px right */
+		}
+	}
+
+	@media (max-width: 768px) {
+		.besaide-image {
+			max-width: calc(100vw - 64px); /* 32px left + 32px right */
+			border-radius: 8px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.besaide-image {
+			max-width: 100%;
+			border-radius: 0;
+		}
+	}
+</style>

@@ -8,12 +8,15 @@ const { title, subtitle } = Astro.props;
 ---
 
 <>
-	<h1>{title}</h1>
+	<h1 class:list={['h2', subtitle && 'has-subtitle']}>{title}</h1>
 	{subtitle && <p class="page-subtitle">{subtitle}</p>}
 </>
 
 <style>
-	h1 {
+	h1.h2 {
+		margin-bottom: var(--s6);
+	}
+	h1.h2.has-subtitle {
 		margin-bottom: var(--s2);
 	}
 

@@ -111,7 +111,10 @@ export const ui = {
 		'irteera daude planifikatuta.': 'salidas planificadas.',
 		Berriak: 'Noticias',
 		'Atal honetan berri guztiak ikusgai dituzu.':
-			'En esta sección puedes ver todas las noticias.'
+			'En esta sección puedes ver todas las noticias.',
+		// Besaide page - Functioning section
+		Funtzionamendua: 'Funcionamiento',
+		Historia: 'Historia'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -194,7 +197,10 @@ export const ui = {
 		'Informazio gehiago': 'Informazio gehiago',
 		'Atzera itzuli': 'Atzera itzuli',
 		'event.registrationInfo':
-			'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.'
+			'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.',
+		// Besaide page - Functioning section
+		Funtzionamendua: 'Funtzionamendua',
+		Historia: 'Historia'
 	}
 } as const;
 
