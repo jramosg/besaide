@@ -29,14 +29,13 @@ const shortcuts = [
 
 <section class="shortcuts-grid">
 	{
-		shortcuts.map((shortcut, index) => (
+		shortcuts.map(shortcut => (
 			<>
 				<div class="shortcut-item">
 					<h3>{shortcut.title}</h3>
 					<p>{shortcut.description}</p>
 					<Button href={shortcut.href}>{shortcut.cta}</Button>
 				</div>
-				{index < shortcuts.length - 1 && <div class="shortcut-divider" />}
 			</>
 		))
 	}
@@ -46,21 +45,27 @@ const shortcuts = [
 	.shortcuts-grid {
 		background-color: var(--theme-primary-container);
 		display: grid;
-		grid-template-columns: 1fr auto 1fr auto 1fr;
-		gap: var(--s6);
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0;
+		--border-color: #fff;
 	}
 
-	.shortcut-divider {
-		width: 1px;
-		background-color: #fff;
-	}
-
-	:global([data-theme='dark']) .shortcut-divider {
-		background-color: #000;
+	:global([data-theme='dark']) .shortcuts-grid {
+		--border-color: #000;
 	}
 
 	.shortcut-item {
-		padding: var(--s8) 0;
+		border-right: 1px solid var(--border-color);
+	}
+
+	.shortcut-item:last-child {
+		border-right: none;
+	}
+
+	.shortcut-item {
+		padding: var(--container-padding);
+		padding-top: var(--s8);
+		padding-bottom: var(--s8);
 
 		display: flex;
 		flex-direction: column;
@@ -84,27 +89,32 @@ const shortcuts = [
 	@media (max-width: 1024px) {
 		.shortcuts-grid {
 			grid-template-columns: repeat(2, 1fr);
-			gap: var(--s5);
 		}
 
-		.shortcuts-container {
-			padding: var(--s5);
+		.shortcut-item {
+			border-bottom: 1px solid var(--border-color);
 		}
+
+		.shortcut-item:last-child {
+			border-bottom: none;
+		}
+
+		
 	}
 
 	/* Mobile - 1 column */
 	@media (max-width: 768px) {
 		.shortcuts-grid {
-			padding: var(--s6) 0;
-		}
-
-		.shortcuts-grid {
 			grid-template-columns: 1fr;
-			gap: var(--s5);
 		}
 
-		.shortcuts-container {
-			padding: var(--s5);
+		.shortcut-item {
+			border-right: none;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		.shortcut-item:last-child {
+			border-bottom: none;
 		}
 	}
 </style>
