@@ -11,14 +11,16 @@ type Props = {
 	page: AstroPage;
 };
 const { page }: Props = Astro.props;
-console.log(page);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const processedNews = await processNewsItems(page.data, lang);
 ---
 
-<Page pageClass="content__container ">
+<Page
+	pageClass="content__container"
+	seo={{ title: t('Berriak') + ' Besaide Mendizale Elkartea' }}
+>
 	<PageHeader
 		title={t('Berriak')}
 		subtitle={t('Atal honetan berri guztiak ikusgai dituzu.')}

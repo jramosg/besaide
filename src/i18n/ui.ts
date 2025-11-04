@@ -2,8 +2,6 @@ export const defaultLang = 'eu';
 
 export const ui = {
 	es: {
-		'Besaide Mendizale Elkartea - Hasiera':
-			'Asociación de Montañismo Besaide - Inicio',
 		'Besaide Mendizale Elkartea - Lege oharra eta pribatutasun politika':
 			'Asociación de Montañismo Besaide - Aviso legal y política de privacidad',
 		'switch-language': 'Cambiar idioma',
@@ -24,6 +22,8 @@ export const ui = {
 		'pagination.previous-page': 'Página anterior',
 		'pagination.next-page': 'Página siguiente',
 		'pagination.page': 'Página',
+		'Aurreko orria': 'Página anterior',
+		'Hurrengo orria': 'Página siguiente',
 		eu: 'Euskera',
 		es: 'Español',
 		'settings.description': 'setting.description',
@@ -114,8 +114,6 @@ export const ui = {
 			'En esta sección puedes ver todas las noticias.'
 	},
 	eu: {
-		'Besaide Mendizale Elkartea - Hasiera':
-			'Besaide Mendizale Elkartea - Hasiera',
 		'switch-language': 'Hizkuntza aldatu',
 		'language-euskera': 'Euskera',
 		'language-espanol': 'Gaztelania',
@@ -134,6 +132,8 @@ export const ui = {
 		'pagination.previous-page': 'Aurreko orria',
 		'pagination.next-page': 'Hurrengo orria',
 		'pagination.page': 'orria',
+		'Aurreko orria': 'Aurreko orria',
+		'Hurrengo orria': 'Hurrengo orria',
 		eu: 'Euskera',
 		es: 'Gaztelania',
 		'settings.description': 'setting.description',
