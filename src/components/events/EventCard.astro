@@ -59,7 +59,7 @@ const difficultyLabel = difficulty
 <a href={slug} class="card card--elevated event-card">
 	<div class="event-image-container">
 		<Image
-			src={item.processedImage}
+			src={item.data.image}
 			alt={item.data.title}
 			class="event-image"
 			style={`view-transition-name: image-${slugify(item.id)}`}

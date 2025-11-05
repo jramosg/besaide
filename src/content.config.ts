@@ -15,7 +15,7 @@ const newsContent = defineCollection({
 
 const events = defineCollection({
 	loader: glob({ pattern: '**/*.mdoc', base: './src/data/events' }),
-	schema: eventsSchema
+	schema: ({ image }) => eventsSchema(image)
 });
 
 const history = defineCollection({

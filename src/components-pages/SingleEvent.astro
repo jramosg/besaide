@@ -6,7 +6,6 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import { render, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { processEventImage } from '@/utils/images';
 import Chip from '@/components/Chip.astro';
 import Button from '@/components/buttons/Button.astro';
 import CardMeta from '@/components/events/CardMeta.astro';
@@ -25,8 +24,6 @@ const { Content } = await render(event);
 const slug = slugify(event.id);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const processedImage = await processEventImage(event.id, event.data.image);
 
 type Difficulty = 'erraza' | 'ertaina' | 'zaila';
 
@@ -69,7 +66,7 @@ const isFinished = new Date() > eventDate;
 	<article>
 		<header class="event-hero">
 			<Image
-				src={processedImage}
+				src={event.data.image}
 				style={`view-transition-name: image-${slug}`}
 				alt={event.data.title}
 				class="hero-image"

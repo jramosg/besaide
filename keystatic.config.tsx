@@ -12,11 +12,11 @@ export default config({
 	},
 
 	storage: {
-		kind: 'local'
-		/* repo: {
+		kind: 'github',
+		repo: {
 			owner: 'jramosg',
 			name: 'besaide'
-		} */
+		}
 	},
 	collections: {
 		news: collection({
@@ -153,6 +153,7 @@ export default config({
 				image: fields.image({
 					label: 'Irudia / Imagen',
 					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
 					validation: { isRequired: true }
 				}),
 				summary: fields.text({

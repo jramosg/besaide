@@ -50,16 +50,6 @@ const processImage = async (
 };
 
 /**
- * Process event image from event data
- */
-export const processEventImage = async (
-	eventId: string,
-	imageFileName: string | undefined
-): Promise<ImageMetadata> => {
-	return processImage('events', EventImages, eventId, imageFileName);
-};
-
-/**
  * Process news image from news data
  */
 export const processNewsImage = async (

@@ -64,22 +64,12 @@ const difficultyLabel = difficulty
 	]}
 >
 	<div class="event-image-col">
-		{
-			typeof item.processedImage === 'string' ? (
-				<img
-					src={item.processedImage}
-					alt={item.data.title}
-					class="event-thumbnail"
-				/>
-			) : (
-				<Image
-					src={item.processedImage}
-					alt={item.data.title}
-					class="event-thumbnail"
-					style={`view-transition-name: image-${slugify(item.id)}`}
-				/>
-			)
-		}
+		<Image
+			src={item.data.image}
+			alt={item.data.title}
+			class="event-thumbnail"
+			style={`view-transition-name: image-${slugify(item.id)}`}
+		/>
 		<div class="event-header">
 			<Chip variant="default">{formattedDate.toUpperCase()}</Chip>
 			{

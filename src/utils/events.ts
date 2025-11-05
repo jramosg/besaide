@@ -1,7 +1,7 @@
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ProcessedEvent } from '@/types/Events';
-import { processEventImage } from './images';
 import { slugify } from './string';
+import type { Langs } from '@/i18n/ui';
 
 /**
  * Process a single event with image processing and slug generation
@@ -11,13 +11,44 @@ export const processEvent = async (
 	agendaSection: string,
 	today?: Date
 ): Promise<ProcessedEvent> => {
-	const processedImage = await processEventImage(item.id, item.data.image);
 	const isPast = today ? new Date(item.data.date) < today : false;
 
 	return {
 		...item,
-		processedImage,
 		slug: `${agendaSection}/${slugify(item.id)}`,
 		isPast
 	};
+};
+
+export const sortedAndFilteredEvents = async (
+	lang: Langs,
+	agendaSection: string = 'agenda',
+	today: Date = new Date()
+): Promise<ProcessedEvent[]> => {
+	// load collection
+	const allEvents = await getCollection('events');
+	const processedEvents: ProcessedEvent[] = [];
+
+	for (const entry of allEvents) {
+		// Filter by language
+		const entryLang = entry?.data?.lang ?? null;
+		if (entryLang && entryLang !== lang) continue;
+
+		// Add isPast and slug
+		const isPast = new Date(entry.data.date) < today;
+		processedEvents.push({
+			...entry,
+			slug: `${agendaSection}/${slugify(entry.id)}`,
+			isPast
+		});
+	}
+
+	// Sort by date (oldest first)
+	processedEvents.sort((a, b) => {
+		const dateA = new Date(a.data.date);
+		const dateB = new Date(b.data.date);
+		return dateA.getTime() - dateB.getTime();
+	});
+
+	return processedEvents;
 };

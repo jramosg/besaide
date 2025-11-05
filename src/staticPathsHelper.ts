@@ -5,6 +5,7 @@ import type { Langs } from './i18n/ui';
 import { processNewsImage } from '@/utils/images';
 import { getUrlFromID } from '@/i18n/utils';
 import type { ProcessedNewsItem } from '@/types/News';
+import { sortedAndFilteredEvents } from './utils/events';
 
 type Options = {
 	pageSize?: number;
@@ -69,36 +70,6 @@ export async function SingleNewsStaticPaths(lang: Langs) {
 			},
 			props: { post }
 		};
-	});
-}
-
-// Events helper functions
-export const sortedAndFilteredEvents = async (
-	lang: Langs
-): Promise<CollectionEntry<'events'>[]> => {
-	// load collection
-	let allEvents = await getCollection('events');
-	allEvents.sort((a, b) => {
-		const dateA = new Date(a.data.date);
-		const dateB = new Date(b.data.date);
-		return dateA.getTime() - dateB.getTime(); // Oldest first (upcoming events)
-	});
-
-	// filter by language if entries provide language metadata
-	return allEvents.filter(entry => {
-		const entryLang = entry?.data?.lang ?? null;
-		if (!entryLang) return true;
-		return entryLang === lang;
-	});
-};
-
-export async function EventsStaticPaths(
-	lang: Langs,
-	paginate: PaginateFunction,
-	opts: Options = { pageSize: 10 }
-): Promise<ReturnType<PaginateFunction>> {
-	return paginate(await sortedAndFilteredEvents(lang), {
-		pageSize: opts.pageSize
 	});
 }
 
