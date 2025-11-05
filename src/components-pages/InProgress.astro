@@ -1,0 +1,479 @@
+---
+import Page from 'layouts/Page.astro';
+import Container from '@/components/Container.astro';
+import { getLangFromUrl, useTranslations } from 'i18n/utils';
+import Button from '@/components/buttons/Button.astro';
+
+const url = Astro.url;
+const lang = getLangFromUrl(url);
+const t = useTranslations(lang);
+---
+
+<Page
+	seo={{
+		title: t('in-progress.page-title'),
+		noindex: true
+	}}
+	pageClass="in-progress-page"
+>
+	<section class="in-progress-container">
+		<Container>
+			<div class="in-progress-content">
+				<!-- Animated Mountain Peak -->
+				<div class="mountain-icon">
+					<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+						<defs>
+							<linearGradient
+								id="mountainGradient"
+								x1="0%"
+								y1="0%"
+								x2="0%"
+								y2="100%"
+							>
+								<stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1"
+								></stop>
+								<stop offset="100%" style="stop-color:#2E5C8A;stop-opacity:1"
+								></stop>
+							</linearGradient>
+							<filter id="glow">
+								<feGaussianBlur stdDeviation="3" result="coloredBlur"
+								></feGaussianBlur>
+								<feMerge>
+									<feMergeNode in="coloredBlur"></feMergeNode>
+									<feMergeNode in="SourceGraphic"></feMergeNode>
+								</feMerge>
+							</filter>
+						</defs>
+						<!-- Main Mountain -->
+						<path
+							class="mountain-peak"
+							d="M100,40 L160,140 L40,140 Z"
+							fill="url(#mountainGradient)"
+							filter="url(#glow)"></path>
+						<!-- Snow Cap -->
+						<path
+							class="snow-cap"
+							d="M100,40 L120,80 L80,80 Z"
+							fill="#FFFFFF"
+							opacity="0.9"></path>
+						<!-- Flag -->
+						<g class="flag-group">
+							<line
+								x1="100"
+								y1="40"
+								x2="100"
+								y2="20"
+								stroke="#E8944A"
+								stroke-width="2"
+								class="flag-pole"></line>
+							<path d="M100,20 L115,25 L100,30 Z" fill="#E8944A" class="flag"
+							></path>
+						</g>
+						<!-- Clouds -->
+						<circle
+							class="cloud cloud-1"
+							cx="30"
+							cy="50"
+							r="8"
+							fill="#ffffff"
+							opacity="0.4"></circle>
+						<circle
+							class="cloud cloud-1"
+							cx="38"
+							cy="48"
+							r="10"
+							fill="#ffffff"
+							opacity="0.4"></circle>
+						<circle
+							class="cloud cloud-1"
+							cx="45"
+							cy="50"
+							r="7"
+							fill="#ffffff"
+							opacity="0.4"></circle>
+
+						<circle
+							class="cloud cloud-2"
+							cx="150"
+							cy="60"
+							r="9"
+							fill="#ffffff"
+							opacity="0.3"></circle>
+						<circle
+							class="cloud cloud-2"
+							cx="160"
+							cy="58"
+							r="11"
+							fill="#ffffff"
+							opacity="0.3"></circle>
+						<circle
+							class="cloud cloud-2"
+							cx="168"
+							cy="60"
+							r="8"
+							fill="#ffffff"
+							opacity="0.3"></circle>
+					</svg>
+				</div>
+
+				<!-- Animated Progress Dots -->
+				<div class="progress-indicator">
+					<span class="dot"></span>
+					<span class="dot"></span>
+					<span class="dot"></span>
+				</div>
+
+				<h1 class="glitch-text" data-text={t('in-progress.heading')}>
+					{t('in-progress.heading')}
+				</h1>
+
+				<p class="in-progress-description">{t('in-progress.description')}</p>
+
+				<!-- Animated Trail Path -->
+				<div class="trail-path">
+					<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg">
+						<path
+							class="trail-line"
+							d="M 0,30 Q 100,10 200,30 T 400,30"
+							stroke="var(--theme-primary)"
+							stroke-width="3"
+							fill="none"
+							stroke-dasharray="10,5"
+							stroke-linecap="round"></path>
+						<circle class="hiker" cx="0" cy="30" r="6" fill="#E8944A">
+							<animate
+								attributeName="cx"
+								from="0"
+								to="400"
+								dur="4s"
+								repeatCount="indefinite"></animate>
+						</circle>
+					</svg>
+				</div>
+
+				<div class="in-progress-actions">
+					<Button href={lang === 'eu' ? '/' : '/es'}>
+						{t('in-progress.home-button')}
+					</Button>
+					<Button outlined href={lang === 'eu' ? '/agenda' : '/agenda-es'}>
+						{t('in-progress.agenda-button')}
+					</Button>
+				</div>
+			</div>
+		</Container>
+	</section>
+</Page>
+
+<style>
+	.in-progress-page {
+		min-height: calc(100vh - var(--header-height));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(
+			135deg,
+			var(--theme-bg) 0%,
+			color-mix(in srgb, var(--theme-primary) 5%, var(--theme-bg)) 100%
+		);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.in-progress-page::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(
+			circle,
+			color-mix(in srgb, var(--theme-primary) 8%, transparent) 0%,
+			transparent 70%
+		);
+		animation: rotate 20s linear infinite;
+		pointer-events: none;
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.in-progress-container {
+		padding: var(--s8) 0;
+		position: relative;
+		z-index: 1;
+	}
+
+	.in-progress-content {
+		text-align: center;
+		max-width: 700px;
+		margin: 0 auto;
+		padding: var(--s6);
+	}
+
+	/* Mountain Icon Animation */
+	.mountain-icon {
+		width: 200px;
+		height: 200px;
+		margin: 0 auto var(--s6);
+		animation: float 3s ease-in-out infinite;
+	}
+
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0px);
+		}
+		50% {
+			transform: translateY(-20px);
+		}
+	}
+
+	.mountain-peak {
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.8;
+		}
+	}
+
+	.snow-cap {
+		animation: shimmer 3s ease-in-out infinite;
+	}
+
+	@keyframes shimmer {
+		0%,
+		100% {
+			opacity: 0.9;
+		}
+		50% {
+			opacity: 1;
+		}
+	}
+
+	.flag {
+		animation: wave 1.5s ease-in-out infinite;
+		transform-origin: 100px 25px;
+	}
+
+	@keyframes wave {
+		0%,
+		100% {
+			transform: rotate(0deg);
+		}
+		50% {
+			transform: rotate(10deg);
+		}
+	}
+
+	.cloud-1 {
+		animation: drift1 8s ease-in-out infinite;
+	}
+
+	.cloud-2 {
+		animation: drift2 10s ease-in-out infinite;
+	}
+
+	@keyframes drift1 {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		50% {
+			transform: translateX(20px);
+		}
+	}
+
+	@keyframes drift2 {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		50% {
+			transform: translateX(-25px);
+		}
+	}
+
+	/* Progress Dots */
+	.progress-indicator {
+		display: flex;
+		gap: var(--s2);
+		justify-content: center;
+		margin-bottom: var(--s4);
+	}
+
+	.dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--theme-primary);
+		animation: bounce 1.4s infinite ease-in-out both;
+	}
+
+	.dot:nth-child(1) {
+		animation-delay: -0.32s;
+	}
+	.dot:nth-child(2) {
+		animation-delay: -0.16s;
+	}
+
+	@keyframes bounce {
+		0%,
+		80%,
+		100% {
+			transform: scale(0);
+			opacity: 0.5;
+		}
+		40% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	/* Glitch Text Effect */
+	.glitch-text {
+		font-size: var(--font-size-h1);
+		font-weight: var(--font-weight-bold);
+		color: var(--theme-on-bg);
+		margin-bottom: var(--s4);
+		position: relative;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.glitch-text::before,
+	.glitch-text::after {
+		content: attr(data-text);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.8;
+	}
+
+	.glitch-text::before {
+		animation: glitch1 2.5s infinite;
+		color: var(--theme-primary);
+		z-index: -1;
+	}
+
+	.glitch-text::after {
+		animation: glitch2 2.5s infinite;
+		color: #e8944a;
+		z-index: -2;
+	}
+
+	@keyframes glitch1 {
+		0%,
+		100% {
+			transform: translate(0);
+		}
+		20% {
+			transform: translate(-2px, 2px);
+		}
+		40% {
+			transform: translate(-2px, -2px);
+		}
+		60% {
+			transform: translate(2px, 2px);
+		}
+		80% {
+			transform: translate(2px, -2px);
+		}
+	}
+
+	@keyframes glitch2 {
+		0%,
+		100% {
+			transform: translate(0);
+		}
+		20% {
+			transform: translate(2px, 2px);
+		}
+		40% {
+			transform: translate(2px, -2px);
+		}
+		60% {
+			transform: translate(-2px, 2px);
+		}
+		80% {
+			transform: translate(-2px, -2px);
+		}
+	}
+
+	.in-progress-description {
+		font-size: var(--font-size-h4);
+		color: var(--theme-on-surface);
+		margin-bottom: var(--s6);
+		line-height: 1.6;
+		animation: fadeInUp 0.8s ease-out;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Trail Path */
+	.trail-path {
+		max-width: 400px;
+		margin: var(--s6) auto;
+		height: 60px;
+	}
+
+	.trail-line {
+		animation: dash 3s linear infinite;
+		stroke-dasharray: 10, 5;
+	}
+
+	@keyframes dash {
+		to {
+			stroke-dashoffset: -100;
+		}
+	}
+
+	/* Actions */
+	.in-progress-actions {
+		display: flex;
+		gap: var(--s3);
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-bottom: var(--s6);
+		animation: fadeInUp 1s ease-out 0.3s both;
+	}
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.mountain-icon {
+			width: 150px;
+			height: 150px;
+		}
+
+		.glitch-text {
+			font-size: var(--font-size-h2);
+		}
+
+		.in-progress-description {
+			font-size: var(--font-size-body);
+		}
+	}
+</style>
