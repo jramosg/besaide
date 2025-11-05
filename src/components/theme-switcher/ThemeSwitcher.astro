@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-
+import 'theme-toggles/css/around.min.css';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -20,7 +20,6 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-	import 'theme-toggles/css/around.css';
 	import { getStoredTheme, setTheme } from './theme';
 
 	document.addEventListener('astro:page-load', () => {
@@ -35,7 +34,7 @@ const t = useTranslations(lang);
     aria-hidden="true"
     width="1.3em"
     height="1.3em"
-    fill="currentColor"
+    fill="var(--theme-primary-900)"
     class="theme-toggle__around"
     viewBox="0 0 32 32"
   >

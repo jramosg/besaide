@@ -30,8 +30,8 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 
 <header id="besaideHeader" class={headerClasses}>
 	<div class="header-toggles__container">
-		<ThemeSwitcher />
 		<LanguageToggle />
+		<ThemeSwitcher />
 	</div>
 	<div class="header-logo-menu__container">
 		<a
@@ -119,7 +119,7 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 		border-bottom: 1px solid var(--theme-outline);
 		height: var(--header-toggles-height);
 		opacity: 1;
-		gap: var(--s4);
+		gap: var(--s2);
 		transform: translateY(0);
 		transition:
 			var(--transition-height),
@@ -206,11 +206,11 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 			&:first-child::after {
 				background-color: var(--theme-on-primary);
 			}
-			.lang-option {
+		}
+		.lang-option {
+			color: var(--theme-on-primary);
+			&:hover {
 				color: var(--theme-on-primary);
-				&:hover {
-					color: var(--theme-on-primary);
-				}
 			}
 		}
 	}
