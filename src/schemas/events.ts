@@ -16,7 +16,8 @@ export const eventsSchema = (image: ImageFunction) =>
 					value: z.object({
 						mountain: z.string(),
 						difficulty: z.enum(['erraza', 'ertaina', 'zaila']),
-						elevation: z.string()
+						elevation: z.string(),
+						distance: z.string()
 					})
 				}),
 				z.object({
@@ -26,7 +27,6 @@ export const eventsSchema = (image: ImageFunction) =>
 					})
 				})
 			]),
-			distance: z.string().optional(),
 			duration: z.string().optional(),
 			meetingPoint: z.string().optional(),
 			image: image(),

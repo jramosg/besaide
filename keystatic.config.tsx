@@ -126,6 +126,11 @@ export default config({
 								label: 'Altuera / Altitud',
 								description: 'Adib: 2507 m',
 								validation: { isRequired: true }
+							}),
+							distance: fields.text({
+								label: 'Distantzia / Distancia',
+								description: 'Adib: 16 km',
+								validation: { isRequired: true }
 							})
 						}),
 						'ski-alpino': fields.object({
@@ -137,11 +142,7 @@ export default config({
 						})
 					}
 				),
-				distance: fields.text({
-					label: 'Distantzia / Distancia',
-					description: 'Adib: 16 km',
-					validation: { isRequired: true }
-				}),
+
 				duration: fields.text({
 					label: 'Iraupena / Duración',
 					description: 'Adib: 8-9 ordu',
