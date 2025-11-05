@@ -23,13 +23,14 @@
 /* Outlined card */
 .card--outlined {
 	box-shadow: none;
-	border: 1px solid var(--theme-outline);
+	border: 1px solid;
+	border-color: var(--theme-outline);
 	background-color: var(--theme-bg);
+	transition: border-color 200ms ease;
 }
 .card--outlined:hover,
 .card--outlined:focus-visible {
 	border-color: var(--theme-primary);
-	background-color: var(--theme-card);
 }
 
 /* Flat card */

@@ -37,8 +37,13 @@ export const ui = {
 		'Zure enpresak edo erakundeak gure mendizale elkarteko babesle izan nahi badu, jar zaitez gurekin harremanetan. Elkarrekin, mendizaletasuna bultzatu eta naturaren kultura zabal dezakegu.':
 			'Si tu empresa o entidad quiere ser patrocinador de nuestra asociación de montañismo, ponte en contacto con nosotros. Juntos, podemos promover el montañismo y difundir la cultura de la naturaleza.',
 		'nav.besaide': 'Besaide',
+		'nav.historia': 'Historia',
+		'nav.membership-federation': 'Ser socio / Federarse',
 		'nav.services': 'Servicios',
 		'nav.routes': 'Rutas',
+		'nav.leixagarate-aterpea': 'Refugio de Leixagarate',
+		'nav.material-rent': 'Alquiler de material',
+		'nav.library-maps': 'Biblioteca / Mapas',
 		'Babeslea izan nahi duzu?': '¿Quieres ser patrocinador?',
 		// 404 Page
 		'404.page-title': 'Besaide Mendizale Elkartea - Página no encontrada',
@@ -51,8 +56,17 @@ export const ui = {
 		'404.link-news': 'Noticias',
 		'404.link-agenda': 'Agenda',
 		'404.link-membership': 'Ser socio',
-		'Bazkidetza / Federatzea': 'Ser socio / Federarse',
 		Kontaktua: 'Contacto',
+		// In Progress Page
+		'in-progress.page-title':
+			'Besaide Mendizale Elkartea - Página en construcción',
+		'in-progress.heading': 'En construcción',
+		'in-progress.description': 'Esta sección estará disponible pronto.',
+		'in-progress.home-button': 'Volver al inicio',
+		'in-progress.agenda-button': 'Ver agenda',
+		'in-progress.badge-adventure': 'Aventura',
+		'in-progress.badge-coming-soon': 'Próximamente',
+		'in-progress.badge-exciting': 'Emocionante',
 		// Hero
 		'hero.membership.title': '¿Quieres ser socio?',
 		'hero.membership.description':
@@ -89,7 +103,6 @@ export const ui = {
 		'event.type.ski-alpino': 'Esquí Alpino',
 		'event.type.ski-fondo': 'Esquí de Fondo',
 		'event.type.trekking': 'Trekking',
-		'nav.membership-federation': 'Ser socio / Federarse',
 		'nav.contact': 'Contacto',
 		'Azken berriak': 'Últimas noticias',
 		'Hurrengo irteerak': 'Próximas salidas',
@@ -114,7 +127,12 @@ export const ui = {
 			'En esta sección puedes ver todas las noticias.',
 		// Besaide page - Functioning section
 		Funtzionamendua: 'Funcionamiento',
-		Historia: 'Historia'
+		Historia: 'Historia',
+		// Office Hours Card
+		'office-hours.title': 'SERVICIO DE ATENCIÓN AL PÚBLICO',
+		'office-hours.schedule': 'Martes y miércoles de 19:30 a 20:30',
+		'office-hours.directions': 'Haz clic aquí para saber cómo llegar',
+		'Arreta zerbitzua': 'Servicio de atención'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -145,8 +163,13 @@ export const ui = {
 		'nav.home': 'Hasiera',
 		'nav.agenda': 'Agenda',
 		'nav.besaide': 'Besaide',
+		'nav.historia': 'Historia',
+		'nav.membership-federation': 'Bazkidetza / Federatzea',
 		'nav.services': 'Zerbitzuak',
 		'nav.routes': 'Ibilbideak',
+		'nav.leixagarate-aterpea': 'Leixargarate aterpea',
+		'nav.material-rent': 'Material alokairua',
+		'nav.library-maps': 'Liburutegia / Mapak',
 		// 404 Page
 		'404.page-title': 'Besaide Mendizale Elkartea - Orrialdea ez da aurkitu',
 		'404.heading': '404 - Orrialdea ez da aurkitu',
@@ -158,6 +181,16 @@ export const ui = {
 		'404.link-news': 'Berriak',
 		'404.link-agenda': 'Agenda',
 		'404.link-membership': 'Bazkidetza',
+		// In Progress Page
+		'in-progress.page-title':
+			'Besaide Mendizale Elkartea - Orrialdea eraikitzen',
+		'in-progress.heading': 'Eraikitzen',
+		'in-progress.description': 'Atal hau laster egongo da eskuragarri.',
+		'in-progress.home-button': 'Hasierara itzuli',
+		'in-progress.agenda-button': 'Agenda ikusi',
+		'in-progress.badge-adventure': 'Abentura',
+		'in-progress.badge-coming-soon': 'Laster',
+		'in-progress.badge-exciting': 'Zirraragarria',
 		// Hero
 		'hero.membership.title': 'Bazkide izan nahi duzu?',
 		'hero.membership.description':
@@ -191,7 +224,6 @@ export const ui = {
 		'event.type.ski-alpino': 'Eski Alpinoa',
 		'event.type.ski-fondo': 'Eski Fondoa',
 		'event.type.trekking': 'Trekkinga',
-		'nav.membership-federation': 'Bazkidetza / Federatzea',
 		'nav.contact': 'Kontaktua',
 		Partekatu: 'Partekatu',
 		'Informazio gehiago': 'Informazio gehiago',
@@ -200,7 +232,12 @@ export const ui = {
 			'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.',
 		// Besaide page - Functioning section
 		Funtzionamendua: 'Funtzionamendua',
-		Historia: 'Historia'
+		Historia: 'Historia',
+		// Office Hours Card
+		'office-hours.title': 'JENDE AURREKO ARRETA ZERBITZUA',
+		'office-hours.schedule':
+			'Astearte eta asteazkenetan 19:30-tatik 20:30-tara',
+		'office-hours.directions': 'Nola heldu jakiteko sakatu hemen'
 	}
 } as const;
 

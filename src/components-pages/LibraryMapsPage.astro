@@ -1,0 +1,24 @@
+---
+import PageHeader from '@/components/PageHeader.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Page from '@/layouts/Page.astro';
+import { getEntry, render } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const entry = await getEntry('libraryMaps', 'content' + lang);
+
+if (!entry) {
+	throw new Error(`Content not found for libraryMaps content ${lang}`);
+}
+
+const { Content: LibraryMapsContent } = await render(entry);
+---
+
+<Page
+	seo={{ title: t('nav.library-maps') + ' - Besaide Mendizale Elkartea' }}
+	pageClass="content__container besaide-page"
+>
+	<PageHeader title="Besaide Mendizale Elkartea" />
+	<LibraryMapsContent />
+</Page>
