@@ -27,6 +27,17 @@ const functioning = defineCollection({
 	schema: functioningSchema
 });
 
+const libraryMaps = defineCollection({
+	loader: glob({ pattern: '**/*.mdoc', base: './src/data/library-maps' })
+});
+
 // Expose your defined collection to Astro
 // with the `collections` export
-export const collections = { news, newsContent, events, history, functioning };
+export const collections = {
+	news,
+	newsContent,
+	events,
+	history,
+	functioning,
+	libraryMaps
+};
