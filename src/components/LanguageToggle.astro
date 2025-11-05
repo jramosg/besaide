@@ -30,27 +30,26 @@ const switchHref = langHref(switchLang.code);
 
 {
 	switchHref && (
-		<div class="language-toggle button-text">
+		<nav class="language-toggle button-text" aria-label="Language selector">
 			{languages.map(language => (
-				<a href={langHref(language.code)} class="lang-toggle-link">
-					<button
-						type="button"
-						class={`lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
-						role="option"
-						aria-selected={language.code === lang}
-						data-lang={language.code}
-					>
-						{language.nativeName}
-					</button>
+				<a
+					href={langHref(language.code)}
+					aria-current={language.code === lang ? 'page' : undefined}
+					aria-label={language.name}
+					class={`lang-toggle-link lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
+				>
+					<span />
+					{language.nativeName}
 				</a>
 			))}
-		</div>
+		</nav>
 	)
 }
 
 <style>
 	.language-toggle {
 		display: flex;
+		position: relative;
 	}
 	.lang-toggle-link {
 		text-decoration: none;
@@ -60,9 +59,12 @@ const switchHref = langHref(switchLang.code);
 		&:first-child::after {
 			content: '';
 			display: block;
+			left: var(--s4);
 			width: 2px;
 			height: var(--s3);
 			background-color: var(--theme-primary-900);
+			position: absolute;
+			left: 48px;
 		}
 
 		&:hover {
@@ -74,12 +76,17 @@ const switchHref = langHref(switchLang.code);
 
 	.lang-option {
 		width: 100%;
-		padding: var(--s2) 0;
+		min-width: 48px;
+		min-height: 48px;
+		padding: var(--s3) var(--s4);
 		background: none;
 		border: none;
 		cursor: pointer;
 		color: var(--theme-primary-900);
 		transition: color 0.3s ease-in-out;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	.lang-option:hover,
 	.lang-option.selected {
