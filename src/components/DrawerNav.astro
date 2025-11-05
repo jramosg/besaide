@@ -14,9 +14,16 @@ const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 ---
 
-<aside id="menu-overlay" class="menu-overlay">
-	<nav class="drawer-menu-nav">
-		<ul class="main-list">
+<aside
+	id="menu-overlay"
+	class="menu-overlay"
+	role="dialog"
+	aria-modal="true"
+	aria-label={t('Menua')}
+	aria-hidden="true"
+>
+	<nav class="drawer-menu-nav" aria-label={t('Nabigazio nagusia')}>
+		<ul class="main-list" role="list">
 			{
 				navData?.map((navItem, i) => {
 					const hasChildren = navItem.children && navItem.children.length > 0;
@@ -27,15 +34,31 @@ const t = useTranslations(lang);
 						>
 							{hasChildren ? (
 								<>
-									<button class="drawer-menu-toggle" data-slug={navItem.slug}>
+									<button
+										class="drawer-menu-toggle"
+										data-slug={navItem.slug}
+										aria-expanded="false"
+										aria-controls={`drawer-submenu-${i}`}
+									>
 										{t(navItem.title)}
-										<ChevronDown class="chevron-icon" size="16" />
-										
+										<ChevronDown
+											class="chevron-icon"
+											size="16"
+											aria-hidden="true"
+										/>
 									</button>
-									<ul class="drawer-submenu">
+									<ul
+										class="drawer-submenu"
+										id={`drawer-submenu-${i}`}
+										role="list"
+									>
 										{navItem.children.map(child => (
 											<li>
-												<a href={getUrlFromID(child.slug, lang)}>
+												<a
+													href={getUrlFromID(child.slug, lang)}
+													tabindex="-1"
+													class="drawer-submenu-link"
+												>
 													{t(child.title)}
 												</a>
 											</li>
@@ -164,10 +187,18 @@ const t = useTranslations(lang);
 	}
 
 	.drawer-menu-item a:hover,
+	.drawer-menu-item a:hover,
 	.drawer-menu-toggle:hover {
 		text-shadow:
 			0 2px 32px #fff,
 			0 0 2px #fff;
+	}
+
+	.drawer-menu-item a:focus-visible,
+	.drawer-menu-toggle:focus-visible {
+		outline: 2px solid var(--theme-on-primary);
+		outline-offset: 4px;
+		border-radius: 4px;
 	}
 
 	/* Accordion styles for mobile */
@@ -215,6 +246,12 @@ const t = useTranslations(lang);
 		font-weight: 400;
 		font-size: 0.9em;
 		transition: text-shadow 0.2s;
+	}
+
+	.drawer-submenu a:focus-visible {
+		outline: 2px solid var(--theme-on-primary);
+		outline-offset: 2px;
+		border-radius: 4px;
 	}
 
 	.logo-menu-item {
@@ -266,11 +303,18 @@ const t = useTranslations(lang);
 		const { openLabel, closeLabel } = menuButton.dataset;
 
 		let hideTimeout: null | ReturnType<typeof setTimeout>;
+		let previouslyFocusedElement: HTMLElement | null = null;
+
 		function openMenu() {
 			if (!menuOverlay || !menuButton || !drawerBackdrop) return;
+
+			// Store currently focused element
+			previouslyFocusedElement = document.activeElement as HTMLElement;
+
 			header?.setAttribute('drawer-open', '');
 			menuOverlay.classList.remove('open');
 			menuOverlay.style.display = 'flex';
+			menuOverlay.setAttribute('aria-hidden', 'false');
 
 			if (hideTimeout) {
 				clearTimeout(hideTimeout);
@@ -281,8 +325,14 @@ const t = useTranslations(lang);
 			menuOverlay.classList.add('open');
 			drawerBackdrop.classList.add('open');
 			menuButton.setAttribute('aria-label', closeLabel || 'Close menu');
+			menuButton.setAttribute('aria-expanded', 'true');
 			setTimeout(() => {
 				menuButton.setAttribute('open', '');
+				// Focus first interactive element in menu
+				const firstLink = menuOverlay.querySelector(
+					'a, button:not(#menuButton)'
+				) as HTMLElement;
+				firstLink?.focus();
 			}, 100);
 			document.body.style.overflow = 'hidden'; // Disable scroll
 		}
@@ -290,10 +340,18 @@ const t = useTranslations(lang);
 			if (!menuOverlay || !menuButton || !drawerBackdrop) return;
 			header?.removeAttribute('drawer-open');
 			menuOverlay.classList.remove('open');
+			menuOverlay.setAttribute('aria-hidden', 'true');
 			drawerBackdrop.classList.remove('open');
 			menuButton.removeAttribute('open');
+			menuButton.setAttribute('aria-expanded', 'false');
 			document.body.style.overflow = ''; // Restore scroll
-			menuButton.setAttribute('aria-label', openLabel || 'Close menu');
+			menuButton.setAttribute('aria-label', openLabel || 'Open menu');
+
+			// Restore focus to previously focused element
+			if (previouslyFocusedElement) {
+				previouslyFocusedElement.focus();
+				previouslyFocusedElement = null;
+			}
 
 			if (hideTimeout) {
 				clearTimeout(hideTimeout);
@@ -334,13 +392,62 @@ const t = useTranslations(lang);
 		// Accordion functionality for mobile menu
 		const toggleButtons = document.querySelectorAll('.drawer-menu-toggle');
 		toggleButtons.forEach(button => {
-			button.addEventListener('click', e => {
+			button.addEventListener('click', event => {
+				const e = event as MouseEvent;
 				e.preventDefault();
 				const parent = button.closest('.drawer-menu-item.has-submenu');
-				if (parent) {
+				const submenu = button.nextElementSibling;
+				const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+				if (parent && submenu) {
 					parent.classList.toggle('expanded');
+					button.setAttribute('aria-expanded', (!isExpanded).toString());
+
+					// Enable/disable tab navigation for submenu items
+					const submenuLinks = submenu.querySelectorAll('a');
+					submenuLinks.forEach(link => {
+						link.setAttribute('tabindex', isExpanded ? '-1' : '0');
+					});
 				}
 			});
+
+			// Keyboard navigation for accordion
+			button.addEventListener('keydown', event => {
+				const e = event as KeyboardEvent;
+				const submenu = button.nextElementSibling;
+				const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					(button as HTMLElement).click();
+				} else if (e.key === 'ArrowDown' && isExpanded && submenu) {
+					e.preventDefault();
+					const firstLink = submenu.querySelector('a') as HTMLElement;
+					firstLink?.focus();
+				}
+			});
+		});
+
+		// Trap focus within drawer when open
+		const focusableElements = 'a, button, [tabindex]:not([tabindex="-1"])';
+
+		menuOverlay?.addEventListener('keydown', event => {
+			const e = event as KeyboardEvent;
+			if (e.key !== 'Tab') return;
+
+			const focusables = Array.from(
+				menuOverlay.querySelectorAll(focusableElements)
+			) as HTMLElement[];
+			const firstFocusable = focusables[0];
+			const lastFocusable = focusables[focusables.length - 1];
+
+			if (e.shiftKey && document.activeElement === firstFocusable) {
+				e.preventDefault();
+				lastFocusable?.focus();
+			} else if (!e.shiftKey && document.activeElement === lastFocusable) {
+				e.preventDefault();
+				firstFocusable?.focus();
+			}
 		});
 	});
 </script>

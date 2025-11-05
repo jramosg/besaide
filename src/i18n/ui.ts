@@ -132,7 +132,9 @@ export const ui = {
 		'office-hours.title': 'SERVICIO DE ATENCIÓN AL PÚBLICO',
 		'office-hours.schedule': 'Martes y miércoles de 19:30 a 20:30',
 		'office-hours.directions': 'Haz clic aquí para saber cómo llegar',
-		'Arreta zerbitzua': 'Servicio de atención'
+		'Arreta zerbitzua': 'Servicio de atención',
+		Menua: 'Menú',
+		'Nabigazio nagusia': 'Navegación principal'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
