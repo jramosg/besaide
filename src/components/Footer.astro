@@ -30,33 +30,34 @@ const lang = getLangFromUrl(url);
 				</div>
 			</div>
 
-			<div class="footer-section">
-				<h4>Zerbitzuak</h4>
+			<nav class="footer-section" aria-label="Zerbitzuak">
+				<h2>Zerbitzuak</h2>
 				<ul class="footer-links">
 					<li><a href="/">Materialen alokairua</a></li>
 					<li><a href="/">Leixargarate Aterpea</a></li>
 					<li><a href="/">Liburutegia eta mapak</a></li>
 					<li><a href="/">Ikastaroak</a></li>
 				</ul>
-			</div>
+			</nav>
 
-			<div class="footer-section">
-				<h4>Elkartea</h4>
+			<nav class="footer-section" aria-label="Elkartea">
+				<h2>Elkartea</h2>
 				<ul class="footer-links">
 					<li><a href="/">Gure historia</a></li>
 					<li><a href="/">Bazkidetza</a></li>
 					<li><a href="/">Agenda</a></li>
 					<li><a href={getUrlFromID('news', lang)}>Berriak</a></li>
 				</ul>
-			</div>
+			</nav>
 
 			<div class="footer-section">
-				<h4>Jarraitu gaitzazu</h4>
+				<h2>Jarraitu gaitzazu</h2>
 				<div class="social-media">
 					<a
 						href="https://www.facebook.com/besaideme"
 						target="_blank"
 						class="social-link"
+						aria-label="Besaide Facebook"
 					>
 						<FacebookIcon width={24} height={24} />
 						Facebook
@@ -65,6 +66,7 @@ const lang = getLangFromUrl(url);
 						href="https://x.com/#/Besaideme"
 						target="_blank"
 						class="social-link"
+						aria-label="Besaide X"
 					>
 						<XIcon width={24} height={24} /> X
 					</a>
@@ -72,6 +74,7 @@ const lang = getLangFromUrl(url);
 						href="https://www.youtube.com/channel/UChcnKpJIpY-U1NaiIw09nNg"
 						target="_blank"
 						class="social-link"
+						aria-label="Besaide YouTube"
 					>
 						<YoutubeIcon width={24} height={24} /> YouTube
 					</a>
@@ -79,11 +82,13 @@ const lang = getLangFromUrl(url);
 						href="https://www.instagram.com/besaide_mendizale_elkartea"
 						target="_blank"
 						class="social-link"
+						aria-label="Besaide Instagram"
+
 					>
 						<span class="social-icon">
 							<Image
 								src={InstagramIcon}
-								alt="Instagram"
+								alt="Instagram icon"
 								width={24}
 								height={24}
 							/>
@@ -93,7 +98,7 @@ const lang = getLangFromUrl(url);
 				</div>
 
 				<div class="office-hours-footer">
-					<h5>Jende aurreko arreta:</h5>
+					<h3>Jende aurreko arreta:</h3>
 					<p>Astearte eta asteazkenetan<br />19:30-20:30</p>
 				</div>
 			</div>
@@ -211,21 +216,14 @@ const lang = getLangFromUrl(url);
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
-	.footer-section h3 {
-		font-size: 1.5rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-		color: white;
-	}
-
-	.footer-section h4 {
+	.footer-section h2 {
 		font-size: 1.2rem;
 		font-weight: 600;
 		margin-bottom: 1.5rem;
 		color: var(--theme-primary-300);
 	}
 
-	.footer-section h5 {
+	.footer-section h3 {
 		font-size: 1rem;
 		font-weight: 600;
 		margin-bottom: 0.5rem;
