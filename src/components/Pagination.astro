@@ -218,9 +218,8 @@ const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
 	}
 
 	.pagination__link--disabled {
-		opacity: 0.5;
+		color: var(--theme-text-secondary);
 		cursor: not-allowed;
-		pointer-events: none;
 	}
 
 	.pagination__link--prev,
