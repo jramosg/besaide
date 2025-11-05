@@ -20,7 +20,7 @@ const slug = slugify(item.id);
 	<a href={item.slug} class="news-card__link">
 		<div class="news-card__image">
 			<Image
-				src={item.processedImage}
+				src={item.data.image}
 				style={`view-transition-name: image-${slug}`}
 				alt={item.title}
 			/>

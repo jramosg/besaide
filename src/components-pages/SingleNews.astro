@@ -9,15 +9,15 @@ import {
 import { slugify } from '@/utils/string';
 import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
-import { processNewsItem } from '@/staticPathsHelper';
 import { ArrowLeft, Share2 } from '@lucide/astro';
+import { processNewsItem } from '@/utils/news';
 
 const { post } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const newsSection = getUrlFromID('news', lang);
-const processedPost = await processNewsItem(post, lang, newsSection);
+const processedPost = processNewsItem(post, lang, newsSection);
 
 // Get the content
 const contentId = post.id + '/content' + lang;
@@ -39,18 +39,13 @@ const slug = slugify(post.id);
 			<ArrowLeft />
 			{t('Atzera itzuli')}
 		</a>
-
-		{
-			processedPost.processedImage ? (
-				<header class="hero">
-					<Image
-						src={processedPost.processedImage}
-						style={`view-transition-name: image-${slug}`}
-						alt={processedPost.title}
-					/>
-				</header>
-			) : null
-		}
+		<header class="hero">
+			<Image
+				src={processedPost.data.image}
+				style={`view-transition-name: image-${slug}`}
+				alt={processedPost.title}
+			/>
+		</header>
 
 		<div class="content__container content__container--narrow">
 			<div class="header-row">

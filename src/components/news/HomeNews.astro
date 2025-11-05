@@ -1,19 +1,16 @@
 ---
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
-import {
-	sortedAndFilteredNewsPosts,
-	processNewsItems
-} from '@/staticPathsHelper';
 import HomeSectionHeader from '@/components/HomeSectionHeader.astro';
 import NewsCard from '@/components/news/NewsCard.astro';
+import { processNewsItems, sortedNewsPosts } from '@/utils/news';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const news = await sortedAndFilteredNewsPosts();
+const news = await sortedNewsPosts();
 const limitedNews = news.slice(0, 3); // Limit to 3 news items for the component
 
-const processedNews = await processNewsItems(limitedNews, lang);
+const processedNews = processNewsItems(limitedNews, lang);
 
 const newsSection = getUrlFromID('news', lang);
 ---

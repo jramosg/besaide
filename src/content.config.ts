@@ -6,7 +6,7 @@ import { functioningSchema } from '@/schemas/functioning';
 
 const news = defineCollection({
 	loader: glob({ pattern: '**/*.yaml', base: './src/data/news' }),
-	schema: newsSchema
+	schema: ({ image }) => newsSchema(image)
 });
 
 const newsContent = defineCollection({

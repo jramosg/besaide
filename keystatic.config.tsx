@@ -36,7 +36,9 @@ export default config({
 				}),
 				image: fields.image({
 					label: 'Irudia / Imagen',
-					directory: 'src/assets/images/news'
+					directory: 'src/assets/images/news',
+					publicPath: '@/assets/images/news',
+					validation: { isRequired: true }
 				}),
 				summaryEu: fields.text({
 					label: 'Laburpena euskeraz',
