@@ -40,6 +40,73 @@ pnpm preview
 
 If you add new content manually, follow the existing files in the respective data folders for frontmatter keys and filename conventions.
 
+## Internationalization (i18n)
+
+This project implements a custom multilingual URL system supporting Basque (eu) and Spanish (es). The implementation includes:
+
+### Multilingual URL Architecture
+
+The site uses **language-specific URLs** rather than query parameters or subdomains:
+
+- **Basque (default):** `/` → `/ibilbideak` → `/berriak`
+- **Spanish:** `/es` → `/rutas` → `/noticias`
+
+Each page has a unique slug per language that maps to a shared page ID internally. This approach provides:
+
+- SEO-friendly URLs in each language
+- Clear language context for users and search engines
+- No confusion between language variants
+
+### How It Works
+
+The i18n system is built on three core utilities in `src/i18n/utils.ts`:
+
+1. **`getLangFromUrl(url)`** — Detects the current language from the URL path
+2. **`getUrlFromID(slug, lang)`** — Generates the correct URL for a page ID in a specific language
+3. **`switchLanguage(url)`** — Creates the alternate language URL for the current page
+
+A central `langMapping` object maintains the relationship between URL slugs, languages, and page IDs:
+
+```typescript
+const langMapping = {
+  'agenda': { lang: 'eu', id: 'agenda' },
+  'agenda-es': { lang: 'es', id: 'agenda' },
+  'berriak': { lang: 'eu', id: 'news' },
+  'noticias': { lang: 'es', id: 'news' },
+  // ... more mappings
+};
+```
+
+### Usage in Components
+
+```astro
+---
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
+
+const url = Astro.url;
+const lang = getLangFromUrl(url);
+const t = useTranslations(lang);
+---
+
+<!-- Get translated text -->
+<h1>{t('Welcome')}</h1>
+
+<!-- Generate language-specific URLs -->
+<a href={getUrlFromID('news', lang)}>{t('News')}</a>
+```
+
+### Adding New Translated Pages
+
+1. Create the page files with language-specific slugs (e.g., `my-page.astro` and `my-page-es.astro`)
+2. Add entries to the `langMapping` in `src/i18n/utils.ts`:
+   ```typescript
+   'my-page': { lang: 'eu', id: 'my-page' },
+   'my-page-es': { lang: 'es', id: 'my-page' },
+   ```
+3. Add translations to `src/i18n/ui.ts` if needed
+
+The language switcher and navigation will automatically work with the new pages.
+
 ## Content management
 
 ### Using Keystatic (recommended for events)
