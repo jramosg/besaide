@@ -3,6 +3,9 @@ import { navActions, type Nav } from '@/config/nav';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import Button from './buttons/Button.astro';
 import { ChevronDown } from '@lucide/astro';
+import FacebookF from '@/assets/icons/facebook-f.svg';
+import InstagramSvg from '@/assets/icons/instagram-svg.svg';
+import { Socials } from '@/config/company';
 
 type Props = {
 	navData: Nav;
@@ -93,6 +96,14 @@ const t = useTranslations(lang);
 			}
 		</ul>
 	</nav>
+	<div class="drawer-socials">
+		<a href={Socials.facebook} target="_blank" rel="noopener noreferrer">
+			<FacebookF fill="currentColor" />
+		</a>
+		<a href={Socials.instagram} target="_blank" rel="noopener noreferrer">
+			<InstagramSvg fill="currentColor" />
+		</a>
+	</div>
 </aside>
 <div id="drawer-backdrop" class="drawer-backdrop"></div>
 <style>
@@ -100,10 +111,15 @@ const t = useTranslations(lang);
 		--drawer-animation: 0.3s cubic-bezier(0.4, 2, 0.6, 1);
 	}
 	.menu-overlay {
+		padding-top: var(--header-height);
+		padding-bottom: var(--s6);
 		position: fixed;
+		display: flex;
+		flex-direction: column;
 		inset: 0;
 		z-index: var(--z-index-drawer);
 		background: var(--theme-primary-900);
+		color: var(--theme-on-primary, #fff);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -118,6 +134,7 @@ const t = useTranslations(lang);
 		width: 100vw;
 		max-width: 100vw;
 		min-height: 100vh;
+		height: 100%;
 	}
 	.menu-overlay.open {
 		opacity: 1;
@@ -142,7 +159,7 @@ const t = useTranslations(lang);
 	}
 
 	.drawer-menu-nav {
-		height: 100%;
+		flex: 1;
 		ul {
 			list-style: none;
 			padding: 0;
@@ -154,7 +171,6 @@ const t = useTranslations(lang);
 
 			&.main-list {
 				gap: var(--s5);
-				padding-top: var(--header-height);
 			}
 		}
 	}
@@ -286,6 +302,27 @@ const t = useTranslations(lang);
 	.drawer-backdrop.open {
 		opacity: 1;
 		pointer-events: auto;
+	}
+
+	.drawer-socials {
+		display: flex;
+		gap: var(--s6);
+		margin-top: var(--s6);
+		a {
+			padding: var(--s4);
+			border-radius: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition:
+				background-color 0.2s,
+				color 0.2s;
+		}
+		a:hover {
+			opacity: 0.8;
+			color: var(--theme-primary-100, #fff);
+			background-color: rgba(0, 0, 0, 0.12);
+		}
 	}
 </style>
 

@@ -14,3 +14,8 @@ export const Email = {
 	name: email,
 	url: `mailto:${email}`
 };
+
+export const Socials = {
+	facebook: 'https://www.facebook.com/besaideme',
+	instagram: 'https://www.instagram.com/besaide_mendizale_elkartea'
+};

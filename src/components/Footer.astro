@@ -1,5 +1,5 @@
 ---
-import { Address } from '@/config/company';
+import { Address, Socials } from '@/config/company';
 import Logo from '@/components/Logo.astro';
 import YoutubeIcon from '@/assets/icons/youtube.svg';
 import XIcon from '@/assets/icons/x.svg';
@@ -54,7 +54,7 @@ const lang = getLangFromUrl(url);
 				<h2>Jarraitu gaitzazu</h2>
 				<div class="social-media">
 					<a
-						href="https://www.facebook.com/besaideme"
+						href={Socials.facebook}
 						target="_blank"
 						class="social-link"
 						aria-label="Besaide Facebook"
@@ -79,7 +79,7 @@ const lang = getLangFromUrl(url);
 						<YoutubeIcon width={24} height={24} /> YouTube
 					</a>
 					<a
-						href="https://www.instagram.com/besaide_mendizale_elkartea"
+						href={Socials.instagram}
 						target="_blank"
 						class="social-link"
 						aria-label="Besaide Instagram"

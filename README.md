@@ -53,7 +53,7 @@ Perfect for developers looking to build **SEO-friendly multilingual websites** w
 
 ### 🌍 Advanced Internationalization
 
-- **Custom multilingual URL routing** with language-specific slugs (`/agenda` vs `/agenda-es`)
+- **Custom multilingual URL routing** with language-specific slugs (`/berriak` vs `/noticias`)
 - **Type-safe translation system** with TypeScript
 - **SEO-optimized** with proper `hreflang` tags and language meta tags
 - **No query parameters** - clean URLs for better UX and SEO
