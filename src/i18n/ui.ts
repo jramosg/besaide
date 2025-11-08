@@ -150,6 +150,27 @@ export const ui = {
 			'Hacerse Socio y Federarse - Besaide Mendi Elkartea',
 		'membership.seo.description':
 			'Cuotas de socio de Besaide Mendi Elkartea y beneficios. Alquila material, obtén descuentos en refugios y estaciones de esquí.',
+		// Home page SEO
+		'home.seo.description':
+			'Asociación de montañismo Besaide en Arrasate - Mondragón. Descubre nuestras actividades, eventos, servicios y únete a nuestra comunidad de amantes de la montaña.',
+		// Contact page SEO
+		'contact.seo.title': 'Contacto - Besaide Mendizale Elkartea',
+		'contact.seo.description':
+			'Ponte en contacto con Besaide Mendizale Elkartea. Horario de atención, ubicación y formas de contacto.',
+		// Agenda page SEO
+		'agenda.seo.description':
+			'Calendario de actividades y eventos de montañismo de Besaide. Excursiones, cursos, actividades y eventos para todos los niveles.',
+		// News page SEO
+		'news.seo.description':
+			'Últimas noticias y novedades de Besaide Mendizale Elkartea. Mantente informado sobre nuestras actividades y eventos.',
+		// Besaide page SEO
+		'besaide.seo.description':
+			'Conoce la historia de Besaide Mendizale Elkartea, nuestra misión y el funcionamiento de la asociación.',
+		// Library/Maps page SEO
+		'library-maps.seo.description':
+			'Biblioteca y mapoteca de Besaide. Consulta nuestra colección de libros, guías y mapas de montaña disponibles para socios.',
+		// Event SEO
+		'event.seo.title-prefix': 'Evento',
 		'Bisitatu Besaideren Facebook orria': 'Visitar la página de Facebook de Besaide',
 		'Bisitatu Besaideren X orria': 'Visitar la página de X de Besaide',
 		'Bisitatu Besaideren YouTube kanala': 'Visitar el canal de YouTube de Besaide',
@@ -262,7 +283,28 @@ export const ui = {
 		'membership.seo.title':
 			'Bazkidetza eta Federatzea - Besaide Mendi Elkartea',
 		'membership.seo.description':
-			'Besaide Mendizale Elkarteko bazkidetza kuotak eta abantailak. Materiala alokatu, aterpe eta eski-estazio deskontuak eskuratu.'
+			'Besaide Mendizale Elkarteko bazkidetza kuotak eta abantailak. Materiala alokatu, aterpe eta eski-estazio deskontuak eskuratu.',
+		// Home page SEO
+		'home.seo.description':
+			'Besaide mendizale elkartea - Arrasate. Gure berriak, ekitaldiak, irteerak eta zerbitzuak ezagutu eta elkartu gure mendizaleen komunitatera.',
+		// Contact page SEO
+		'contact.seo.title': 'Kontaktua - Besaide Mendizale Elkartea',
+		'contact.seo.description':
+			'Jarri harremanetan Besaide Mendizale Elkartearekin. Arreta ordutegia, kokapena eta kontaktu modu desberdinak ezagutu.',
+		// Agenda page SEO
+		'agenda.seo.description':
+			'Besaideko mendizale jarduera eta ekitaldien egutegia. Ibilaldiak, ikastaroak eta ekitaldiak maila guztietarako.',
+		// News page SEO
+		'news.seo.description':
+			'Besaide Mendizale Elkarteko azken berriak eta albisteak. Jarraitu gure jarduera eta ekitaldiei buruzko informazioa.',
+		// Besaide page SEO
+		'besaide.seo.description':
+			'Ezagutu Besaide Mendizale Elkarteko historia, helburua eta elkarteko funtzionamendua.',
+		// Library/Maps page SEO
+		'library-maps.seo.description':
+			'Besaideko liburutegia eta mapa bilduma. Bazkideentzat eskuragarri dauden mendiko liburu, gida eta mapen bilduma.',
+		// Event SEO
+		'event.seo.title-prefix': 'Ekitaldia',
 	}
 } as const;
 

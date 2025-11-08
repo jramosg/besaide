@@ -62,7 +62,12 @@ const eventType = eventTypeMap[discriminant];
 const isFinished = new Date() > eventDate;
 ---
 
-<Page seo={{ title: 'Besaide - Agenda ' + ' - ' + event.data.title }}>
+<Page
+	seo={{
+		title: event.data.title + ' - Besaide Mendizale Elkartea',
+		description: `${event.data.title}. ${formattedDate}.`
+	}}
+>
 	<article>
 		<header class="event-hero">
 			<Image

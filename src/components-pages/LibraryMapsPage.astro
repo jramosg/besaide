@@ -16,7 +16,10 @@ const { Content: LibraryMapsContent } = await render(entry);
 ---
 
 <Page
-	seo={{ title: t('nav.library-maps') + ' - Besaide Mendizale Elkartea' }}
+	seo={{ 
+		title: t('nav.library-maps') + ' - Besaide Mendizale Elkartea',
+		description: t('library-maps.seo.description')
+	}}
 	pageClass="content__container besaide-page"
 >
 	<PageHeader title="Besaide Mendizale Elkartea" />

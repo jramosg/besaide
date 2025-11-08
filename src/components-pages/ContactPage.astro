@@ -1,0 +1,21 @@
+---
+import ContactCard from '@/components/ContactCard.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Page from '@/layouts/Page.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Page
+	seo={{
+		title: t('contact.seo.title'),
+		description: t('contact.seo.description')
+	}}
+>
+	<section class="content__container">
+		<PageHeader title={t('nav.contact')} />
+		<ContactCard />
+	</section>
+</Page>

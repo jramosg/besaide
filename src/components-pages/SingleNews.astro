@@ -28,11 +28,15 @@ if (!entry) {
 const { Content } = await render(entry);
 
 const slug = slugify(post.id);
+const summary = processedPost.summary;
 ---
 
 <Page
 	pageClass="content__container single-news"
-	seo={{ title: 'Besaide Mendizale elkartea - ' + processedPost.title }}
+	seo={{
+		title: processedPost.title + ' - Besaide Mendizale Elkartea',
+		description: summary || t('news.seo.description')
+	}}
 >
 	<article class="single-article">
 		<a href={newsSection} class="back-link">
@@ -57,7 +61,7 @@ const slug = slugify(post.id);
 					class="share-button"
 					aria-label={t('Partekatu')}
 					data-share-title={processedPost.title}
-					data-share-text={processedPost.summary}
+					data-share-text={summary}
 					data-share-url={Astro.url.href}
 				>
 					<Share2 />
