@@ -20,6 +20,6 @@ export default defineConfig({
 	integrations: [react(), markdoc(), keystatic()],
 	adapter: vercel(),
 	image: {
-		layout: 'constrained',
+		layout: 'constrained'
 	}
 });
