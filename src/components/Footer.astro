@@ -165,7 +165,12 @@ const organizationSchema = {
 						class="footer__social-link"
 						aria-label="Bisitatu Besaide-ren X (Twitter) orria"
 					>
-						<XIcon width={24} height={24} aria-hidden="true" />
+						<XIcon
+							fill="currentColor"
+							width={24}
+							height={24}
+							aria-hidden="true"
+						/>
 						<span>X</span>
 					</a>
 				</li>
@@ -206,9 +211,7 @@ const organizationSchema = {
 
 	<div class="footer__bottom">
 		<Container class="footer__bottom-container">
-			<p class="footer__copyright">
-				&copy; 2025 Besaide Mendizale Elkartea. Eskubide guztiak erreserbatuta.
-			</p>
+			<p class="footer__copyright">&copy; Besaide Mendizale Elkartea ©2025</p>
 			<nav class="footer__legal" aria-label="Legal navigation">
 				<a
 					href={getUrlFromID('cookies-policy', lang)}
@@ -251,7 +254,7 @@ const organizationSchema = {
 	/* Footer Branding */
 	.footer__branding {
 		height: fit-content;
-		padding-bottom: var(--s5);
+		padding-bottom: var(--s2);
 	}
 
 	/* Footer Sections */
@@ -317,7 +320,14 @@ const organizationSchema = {
 	}
 
 	/* Navigation Section */
-	.footer__nav-list,
+	.footer__nav-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		column-count: 2;
+		column-gap: var(--s4);
+	}
+
 	.footer__nav-sublist {
 		list-style: none;
 		padding: 0;
@@ -325,6 +335,12 @@ const organizationSchema = {
 	}
 
 	.footer__nav-item {
+		margin-bottom: var(--s3);
+		break-inside: avoid;
+		page-break-inside: avoid;
+	}
+
+	.footer__nav-subitem {
 		margin-bottom: var(--s2);
 	}
 
@@ -335,7 +351,7 @@ const organizationSchema = {
 	}
 
 	.footer__nav-sublist {
-		margin-left: var(--s6);
+		margin-left: var(--s4);
 	}
 
 	.footer__nav-link {
@@ -389,23 +405,25 @@ const organizationSchema = {
 
 	/* Footer Bottom */
 	.footer__bottom {
-		padding-block: var(--s6);
-		background: rgba(0, 0, 0, 0.2);
+		padding-block: var(--s2);
+		background: var(--theme-on-bg);
+		color: var(--theme-bg);
 		margin-top: var(--s4);
 	}
 
 	.footer__bottom-container {
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
 		gap: var(--s4);
+		text-size: var(--font-size-sm);
 	}
 
 	.footer__copyright {
-		color: rgba(255, 255, 255, 0.7);
-		font-size: 0.9rem;
 		margin: 0;
+		border-right: 1px solid var(--theme-bg);
+		padding: 0 var(--s4);
 	}
 
 	.footer__legal {
@@ -414,9 +432,7 @@ const organizationSchema = {
 	}
 
 	.footer__legal-link {
-		color: rgba(255, 255, 255, 0.7);
 		text-decoration: none;
-		font-size: 0.9rem;
 		transition: color var(--theme-transition);
 		padding: var(--s1);
 		border-radius: 4px;
@@ -433,6 +449,10 @@ const organizationSchema = {
 			grid-template-columns: 1fr;
 			grid-template-rows: auto;
 			gap: 0;
+		}
+
+		.footer__nav-list {
+			column-count: 1;
 		}
 
 		.footer__section,
@@ -454,6 +474,11 @@ const organizationSchema = {
 		.footer__bottom-container {
 			flex-direction: column;
 			text-align: center;
+		}
+
+		.footer__copyright {
+			border-right: none;
+			padding: 0;
 		}
 
 		.footer__legal {

@@ -182,7 +182,7 @@
 	--theme-secondary-container-alt: var(--theme-secondary-900);
 	--theme-on-accent-container: #fff;
 
-	--theme-footer-bg: #121214;
+	--theme-footer-bg: var(--grey-900);
 
 	/* Text Colors (Dark) */
 	--theme-text-secondary: #b3b3b4;
