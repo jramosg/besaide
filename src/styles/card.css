@@ -26,11 +26,14 @@
 	border: 1px solid;
 	border-color: var(--theme-outline);
 	background-color: var(--theme-bg);
-	transition: border-color 200ms ease;
+	transition:
+		border-color 200ms ease,
+		background-color 200ms ease;
 }
 .card--outlined:hover,
 .card--outlined:focus-visible {
 	border-color: var(--theme-primary);
+	background-color: rgba(0, 0, 0, 0.04);
 }
 
 /* Flat card */

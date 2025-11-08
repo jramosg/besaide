@@ -1,6 +1,6 @@
 ---
 import BesaideLandscape from '@/assets/images/besaide.webp';
-import OfficeHoursCard from '@/components/OfficeHoursCard.astro';
+import OfficeHours from '@/components/contact-card/OfficeHours.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
@@ -26,7 +26,7 @@ const { Content: HistoryContent } = await render(entry);
 ---
 
 <Page
-	seo={{ 
+	seo={{
 		title: 'Historia - Besaide Mendizale Elkartea',
 		description: t('besaide.seo.description')
 	}}
@@ -76,7 +76,7 @@ const { Content: HistoryContent } = await render(entry);
 	</section>
 	<section>
 		<h2 class="h4">{t('Arreta zerbitzua')}</h2>
-		<OfficeHoursCard />
+		<OfficeHours />
 	</section>
 </Page>
 

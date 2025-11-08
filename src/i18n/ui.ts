@@ -171,10 +171,16 @@ export const ui = {
 			'Biblioteca y mapoteca de Besaide. Consulta nuestra colección de libros, guías y mapas de montaña disponibles para socios.',
 		// Event SEO
 		'event.seo.title-prefix': 'Evento',
-		'Bisitatu Besaideren Facebook orria': 'Visitar la página de Facebook de Besaide',
+		'Bisitatu Besaideren Facebook orria':
+			'Visitar la página de Facebook de Besaide',
 		'Bisitatu Besaideren X orria': 'Visitar la página de X de Besaide',
-		'Bisitatu Besaideren YouTube kanala': 'Visitar el canal de YouTube de Besaide',
-		'Bisitatu Besaideren Instagram orria': 'Visitar la página de Instagram de Besaide',
+		'Bisitatu Besaideren YouTube kanala':
+			'Visitar el canal de YouTube de Besaide',
+		'Bisitatu Besaideren Instagram orria':
+			'Visitar la página de Instagram de Besaide',
+		EMAILA: 'EMAIL',
+		TELEFONOA: 'TELÉFONO',
+		'Harremanetan jarri': 'Contactar'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -304,7 +310,7 @@ export const ui = {
 		'library-maps.seo.description':
 			'Besaideko liburutegia eta mapa bilduma. Bazkideentzat eskuragarri dauden mendiko liburu, gida eta mapen bilduma.',
 		// Event SEO
-		'event.seo.title-prefix': 'Ekitaldia',
+		'event.seo.title-prefix': 'Ekitaldia'
 	}
 } as const;
 

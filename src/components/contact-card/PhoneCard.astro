@@ -1,0 +1,14 @@
+---
+import PhoneIcon from '@lucide/astro/icons/phone';
+import ContactCard from './ContactCard.astro';
+import { Phone } from '@/config/company';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<ContactCard title={t('TELEFONOA')} href={Phone.url} newTab>
+	<PhoneIcon slot="icon" size={28} />
+	<p>{Phone.name}</p>
+</ContactCard>

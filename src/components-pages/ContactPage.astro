@@ -1,5 +1,9 @@
 ---
-import ContactCard from '@/components/ContactCard.astro';
+import EmailCard from '@/components/contact-card/EmailCard.astro';
+import OfficeHours from '@/components/contact-card/OfficeHours.astro';
+import PhoneCard from '@/components/contact-card/PhoneCard.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import Container from '@/components/Container.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Page from '@/layouts/Page.astro';
@@ -16,6 +20,39 @@ const t = useTranslations(lang);
 >
 	<section class="content__container">
 		<PageHeader title={t('nav.contact')} />
-		<ContactCard />
+		<div class="contact-layout">
+			<OfficeHours />
+
+			<PhoneCard />
+			<EmailCard />
+			<div class="map-container">MAPAAA</div>
+		</div>
+	</section>
+	<section class="form-section">
+		<Container>
+			<PageHeader title={t('Harremanetan jarri')} />
+
+			<ContactForm />
+		</Container>
 	</section>
 </Page>
+
+<style>
+	.contact-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: var(--s6);
+		row-gap: var(--s4);
+	}
+
+	.map-container {
+		grid-row: 1 / 4;
+		grid-column: 2;
+	}
+
+	.form-section {
+		background-color: var(--theme-primary-container-alt);
+		margin-top: var(--s6);
+		padding: var(--s6) 0;
+	}
+</style>

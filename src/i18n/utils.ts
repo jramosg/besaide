@@ -38,6 +38,8 @@ const langMapping: LangMapping = {
 	'alquiler-de-material': { lang: 'es', id: 'material-rent' },
 	'liburutegia-mapak': { lang: 'eu', id: 'library-maps' },
 	'biblioteca-mapas': { lang: 'es', id: 'library-maps' },
+	kontaktua: { lang: 'eu', id: 'contact' },
+	contacto: { lang: 'es', id: 'contact' }
 };
 
 export function getLangFromUrl(url: URL): Langs {

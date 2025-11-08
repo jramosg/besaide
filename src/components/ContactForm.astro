@@ -1,0 +1,100 @@
+---
+import Button from '@/components/buttons/Button.astro';
+---
+
+<form class="contact-form-fields">
+	<div class="form-group">
+		<label for="name">Izena *</label>
+		<input type="text" id="name" name="name" required />
+	</div>
+
+	<div class="form-group">
+		<label for="email">Emaila *</label>
+		<input type="email" id="email" name="email" required />
+	</div>
+
+	<div class="form-group">
+		<label for="phone">Telefonoa</label>
+		<input type="tel" id="phone" name="phone" />
+	</div>
+
+	<div class="form-group">
+		<label for="subject">Gaia *</label>
+		<select id="subject" name="subject" required>
+			<option value="">Aukeratu gai bat...</option>
+			<option value="bazkidetza">Bazkidetza</option>
+			<option value="zerbitzuak">Zerbitzuak</option>
+			<option value="ekintzak">Ekintzak</option>
+			<option value="materiala">Material alokairua</option>
+			<option value="aterpea">Aterpea</option>
+			<option value="beste">Beste bat</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="message">Mezua *</label>
+		<textarea
+			id="message"
+			name="message"
+			rows="5"
+			required
+			placeholder="Idatzi hemen zure mezua..."></textarea>
+	</div>
+
+	<Button class="btn" type="submit">Mezua bidali</Button>
+</form>
+
+<style>
+	/* Contact Form */
+	.contact-form {
+		border-radius: 12px;
+		border: 1px solid #e5e7eb;
+	}
+
+	.form-group {
+		margin-bottom: var(--s5);
+	}
+
+	.form-group label {
+		display: block;
+		margin-bottom: 0.5rem;
+		font-weight: 500;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		width: 100%;
+		padding: var(--s3);
+		border: 1px solid var(--theme-outline);
+		border-radius: 6px;
+		transition:
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
+		background: transparent;
+		color: var(--theme-on-bg);
+	}
+
+	:global([data-theme='dark']) .form-group input,
+	:global([data-theme='dark']) .form-group select,
+	:global([data-theme='dark']) .form-group textarea {
+		background-color: var(--theme-card);
+	}
+
+	.form-group textarea:focus,
+	.form-group input:focus,
+	.form-group select:focus {
+		outline: none;
+		border-color: var(--theme-primary);
+		box-shadow: 0 0 0 3px var(--theme-primary-hover-bg);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+		font-family: inherit;
+	}
+
+	.btn {
+		width: 100%;
+	}
+</style>

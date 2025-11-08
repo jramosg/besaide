@@ -24,7 +24,7 @@ function formatPriceLabel(label: string, price: number) {
 ---
 
 <Page
-	seo={{ 
+	seo={{
 		title: t('membership.seo.title'),
 		description: t('membership.seo.description')
 	}}
@@ -43,7 +43,7 @@ function formatPriceLabel(label: string, price: number) {
 					membership.data.prices.map(item => {
 						const label = lang === 'eu' ? item.labelEu : item.labelEs;
 						const formatted = formatPriceLabel(label, item.price);
-						
+
 						return (
 							<li class="price-item">
 								<h3 class="price-category">
@@ -58,9 +58,14 @@ function formatPriceLabel(label: string, price: number) {
 					})
 				}
 			</ul>
-			
-			<aside class="card__membership--benefits" aria-labelledby="benefits-title">
-				<h2 id="benefits-title" class="benefits-title h3">{t('Bazkide izatearen abantailak')}</h2>
+
+			<aside
+				class="card__membership--benefits"
+				aria-labelledby="benefits-title"
+			>
+				<h2 id="benefits-title" class="benefits-title h3">
+					{t('Bazkide izatearen abantailak')}
+				</h2>
 				<p class="benefits-description">
 					{
 						lang === 'eu'
@@ -115,7 +120,7 @@ function formatPriceLabel(label: string, price: number) {
 		justify-content: space-between;
 		align-items: center;
 		padding-bottom: var(--s3);
-		border-bottom: 1px solid #92949C;
+		border-bottom: 1px solid #92949c;
 		gap: var(--s4);
 	}
 
@@ -145,7 +150,7 @@ function formatPriceLabel(label: string, price: number) {
 	.price-currency {
 		font-size: var(--font-size-sm);
 		font-weight: 600;
-s	}
+	}
 
 	.card__membership--benefits {
 		background-color: var(--theme-primary-900);
@@ -162,7 +167,6 @@ s	}
 			margin-left: var(--s6);
 		}
 	}
-
 
 	.benefits-description {
 		margin: 0;

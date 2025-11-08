@@ -1,0 +1,15 @@
+---
+import User from '@lucide/astro/icons/user';
+import ContactCard from './ContactCard.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { Address } from '@/config/company';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<ContactCard href={Address.url} title={t('office-hours.title')} newTab>
+	<User slot="icon" size={28} />
+	<p>{t('office-hours.schedule') + ', ' + Address.name}</p>
+	<span class="link">{t('office-hours.directions')}</span>
+</ContactCard>

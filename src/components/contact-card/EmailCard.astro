@@ -1,0 +1,14 @@
+---
+import Mail from '@lucide/astro/icons/mail';
+import ContactCard from './ContactCard.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { Email } from '@/config/company';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<ContactCard title={t('EMAILA')} href={Email.url} newTab>
+	<Mail slot="icon" size={28} />
+	<p>{Email.name}</p>
+</ContactCard>
