@@ -142,12 +142,18 @@ export const ui = {
 			'Servicio de atención al público los martes y miércoles de 19:30 a 20:30.',
 		Nabigazioa: 'Navegación',
 		'Sare sozialak': 'Redes sociales',
-		'Bazkidetza': 'Ser socio',
+		Bazkidetza: 'Ser socio',
 		'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira':
 			'Las cuotas de socio de la Asociación de Montañismo Besaide para 2025 son las siguientes',
 		'Bazkide izatearen abantailak': 'Ventajas de ser socio',
-		'membership.seo.title': 'Hacerse Socio y Federarse - Besaide Mendi Elkartea',
-		'membership.seo.description': 'Cuotas de socio de Besaide Mendi Elkartea y beneficios. Alquila material, obtén descuentos en refugios y estaciones de esquí.',
+		'membership.seo.title':
+			'Hacerse Socio y Federarse - Besaide Mendi Elkartea',
+		'membership.seo.description':
+			'Cuotas de socio de Besaide Mendi Elkartea y beneficios. Alquila material, obtén descuentos en refugios y estaciones de esquí.',
+		'Bisitatu Besaideren Facebook orria': 'Visitar la página de Facebook de Besaide',
+		'Bisitatu Besaideren X orria': 'Visitar la página de X de Besaide',
+		'Bisitatu Besaideren YouTube kanala': 'Visitar el canal de YouTube de Besaide',
+		'Bisitatu Besaideren Instagram orria': 'Visitar la página de Instagram de Besaide',
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -253,8 +259,10 @@ export const ui = {
 		'office-hours.schedule':
 			'Astearte eta asteazkenetan 19:30-tatik 20:30-tara',
 		'office-hours.directions': 'Nola heldu jakiteko sakatu hemen',
-		'membership.seo.title': 'Bazkidetza eta Federatzea - Besaide Mendi Elkartea',
-		'membership.seo.description': 'Besaide Mendizale Elkarteko bazkidetza kuotak eta abantailak. Materiala alokatu, aterpe eta eski-estazio deskontuak eskuratu.',
+		'membership.seo.title':
+			'Bazkidetza eta Federatzea - Besaide Mendi Elkartea',
+		'membership.seo.description':
+			'Besaide Mendizale Elkarteko bazkidetza kuotak eta abantailak. Materiala alokatu, aterpe eta eski-estazio deskontuak eskuratu.'
 	}
 } as const;
 
