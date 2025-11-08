@@ -34,6 +34,7 @@ const organizationSchema = {
 ---
 
 <script
+	is:inline
 	type="application/ld+json"
 	set:html={JSON.stringify(organizationSchema)}
 />
@@ -378,8 +379,7 @@ const organizationSchema = {
 		gap: var(--s2);
 		color: inherit;
 		text-decoration: none;
-		transition:
-			opacity var(--theme-transition);
+		transition: opacity var(--theme-transition);
 		padding: var(--s1);
 		margin-left: calc(var(--s1) * -1);
 		border-radius: 100%;
