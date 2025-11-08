@@ -141,7 +141,13 @@ export const ui = {
 		'Jende aurreko arreta zerbitzua astearte eta asteazkenetan 19:30-tatik 20:30-tara.':
 			'Servicio de atención al público los martes y miércoles de 19:30 a 20:30.',
 		Nabigazioa: 'Navegación',
-		'Sare sozialak': 'Redes sociales'
+		'Sare sozialak': 'Redes sociales',
+		'Bazkidetza': 'Ser socio',
+		'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira':
+			'Las cuotas de socio de la Asociación de Montañismo Besaide para 2025 son las siguientes',
+		'Bazkide izatearen abantailak': 'Ventajas de ser socio',
+		'membership.seo.title': 'Hacerse Socio y Federarse - Besaide Mendi Elkartea',
+		'membership.seo.description': 'Cuotas de socio de Besaide Mendi Elkartea y beneficios. Alquila material, obtén descuentos en refugios y estaciones de esquí.',
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -246,7 +252,9 @@ export const ui = {
 		'office-hours.title': 'JENDE AURREKO ARRETA ZERBITZUA',
 		'office-hours.schedule':
 			'Astearte eta asteazkenetan 19:30-tatik 20:30-tara',
-		'office-hours.directions': 'Nola heldu jakiteko sakatu hemen'
+		'office-hours.directions': 'Nola heldu jakiteko sakatu hemen',
+		'membership.seo.title': 'Bazkidetza eta Federatzea - Besaide Mendi Elkartea',
+		'membership.seo.description': 'Besaide Mendizale Elkarteko bazkidetza kuotak eta abantailak. Materiala alokatu, aterpe eta eski-estazio deskontuak eskuratu.',
 	}
 } as const;
 

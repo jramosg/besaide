@@ -54,7 +54,7 @@ export type NavItem = {
 export const navActions = [
 	{
 		title: 'nav.membership-federation',
-		slug: 'membership'
+		slug: 'membership-federation'
 	},
 	{
 		title: 'nav.contact',

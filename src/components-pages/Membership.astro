@@ -1,0 +1,182 @@
+---
+import Container from '@/components/Container.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Page from '@/layouts/Page.astro';
+import { getEntry } from 'astro:content';
+import { Wand } from '@lucide/astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const membership = await getEntry('membership', 'membership');
+if (!membership) {
+	throw new Error('Membership content not found');
+}
+
+// Helper function to split label and make first word bold
+function formatPriceLabel(label: string, price: number) {
+	const parts = label.split(' ');
+	const firstWord = parts[0];
+	const rest = parts.slice(1).join(' ');
+	return { firstWord, rest, price };
+}
+---
+
+<Page
+	seo={{ 
+		title: t('membership.seo.title'),
+		description: t('membership.seo.description')
+	}}
+>
+	<section class="section__membership" aria-labelledby="membership-title">
+		<Container class="container__membership">
+			<PageHeader
+				title={t('Bazkidetza')}
+				subtitle={t(
+					'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira'
+				) + ':'}
+			/>
+
+			<ul class="prices-list">
+				{
+					membership.data.prices.map(item => {
+						const label = lang === 'eu' ? item.labelEu : item.labelEs;
+						const formatted = formatPriceLabel(label, item.price);
+						
+						return (
+							<li class="price-item">
+								<h3 class="price-category">
+									<strong>{formatted.firstWord}</strong> {formatted.rest}
+								</h3>
+								<p class="price-amount">
+									<span class="price-value">{formatted.price}</span>
+									<span class="price-currency">€</span>
+								</p>
+							</li>
+						);
+					})
+				}
+			</ul>
+			
+			<aside class="card__membership--benefits" aria-labelledby="benefits-title">
+				<h2 id="benefits-title" class="benefits-title h3">{t('Bazkide izatearen abantailak')}</h2>
+				<p class="benefits-description">
+					{
+						lang === 'eu'
+							? membership.data.benefitsEu
+							: membership.data.benefitsEs
+					}
+				</p>
+				<Wand size={36} aria-hidden="true" />
+			</aside>
+		</Container>
+	</section>
+</Page>
+
+<style>
+	.section__membership {
+		background-color: var(--theme-primary-container-alt);
+	}
+
+	.container__membership {
+		padding-top: var(--s6);
+		padding-bottom: var(--s6);
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--s4);
+
+		.page-title {
+			grid-column: 1 / -1;
+			grid-row: 1;
+		}
+
+		.page-subtitle {
+			grid-column: 1;
+			grid-row: 2;
+		}
+
+		@media (min-width: 768px) {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.prices-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s3);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.price-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: var(--s3);
+		border-bottom: 1px solid #92949C;
+		gap: var(--s4);
+	}
+
+	.price-category {
+		font-size: var(--font-size-base);
+		font-weight: 400;
+		margin: 0;
+
+		strong {
+			font-weight: 700;
+			font-size: 1.125rem;
+		}
+	}
+
+	.price-amount {
+		display: flex;
+		align-items: baseline;
+		gap: 0.25rem;
+		margin: 0;
+		white-space: nowrap;
+	}
+
+	.price-value {
+		font-weight: 700;
+	}
+
+	.price-currency {
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+s	}
+
+	.card__membership--benefits {
+		background-color: var(--theme-primary-900);
+		color: var(--theme-on-primary);
+		padding: var(--s6);
+		padding-bottom: var(--s8);
+		border-radius: var(--theme-shape-radius);
+		max-width: 560px;
+		position: relative;
+
+		@media (min-width: 768px) {
+			grid-column: 2;
+			grid-row: 2 / span 5;
+			margin-left: var(--s6);
+		}
+	}
+
+
+	.benefits-description {
+		margin: 0;
+		line-height: 1.6;
+		font-size: 1rem;
+	}
+
+	.card__membership--benefits svg {
+		--size: 36px;
+		width: var(--size);
+		height: var(--size);
+		position: absolute;
+		bottom: var(--s6);
+		right: calc(var(--size) / 2 + var(--s6));
+		transform: rotate(270deg);
+	}
+</style>

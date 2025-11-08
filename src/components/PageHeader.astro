@@ -4,11 +4,11 @@ type Props = {
 	subtitle?: string;
 };
 
-const { title, subtitle } = Astro.props;
+const { title, subtitle }: Props = Astro.props;
 ---
 
 <>
-	<h1 class:list={['h2', subtitle && 'has-subtitle']}>{title}</h1>
+	<h1 class:list={['page-title', 'h2', subtitle && 'has-subtitle']}>{title}</h1>
 	{subtitle && <p class="page-subtitle">{subtitle}</p>}
 </>
 

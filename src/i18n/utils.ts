@@ -30,14 +30,14 @@ const langMapping: LangMapping = {
 	zerbitzuak: { lang: 'eu', id: 'services' },
 	rutas: { lang: 'es', id: 'routes' },
 	ibilbideak: { lang: 'eu', id: 'routes' },
-	'socio-federarse': { lang: 'es', id: 'membership-federation' },
+	'hacerse-socio-federarse': { lang: 'es', id: '' },
 	'bazkidetza-federatzea': { lang: 'eu', id: 'membership-federation' },
 	'leixagarate-aterpea': { lang: 'eu', id: 'leixagarate' },
 	'refugio-de-leixagarate': { lang: 'es', id: 'leixagarate' },
 	'material-alokairua': { lang: 'eu', id: 'material-rent' },
 	'alquiler-de-material': { lang: 'es', id: 'material-rent' },
 	'liburutegia-mapak': { lang: 'eu', id: 'library-maps' },
-	'biblioteca-mapas': { lang: 'es', id: 'library-maps' }
+	'biblioteca-mapas': { lang: 'es', id: 'library-maps' },
 };
 
 export function getLangFromUrl(url: URL): Langs {

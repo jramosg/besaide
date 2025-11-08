@@ -1,6 +1,6 @@
 ---
 import Button from 'components/buttons/Button.astro';
-import { getLangFromUrl, useTranslations } from 'i18n/utils';
+import { getLangFromUrl, getUrlFromID, useTranslations } from 'i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,7 +10,7 @@ const shortcuts = [
 		title: t('hero.membership.title'),
 		description: t('hero.membership.description'),
 		cta: t('hero.membership.cta'),
-		href: '#' // TODO: Add actual link
+		href: getUrlFromID('membership-federation', lang)
 	},
 	{
 		title: t('hero.federation.title'),

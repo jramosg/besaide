@@ -109,7 +109,10 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 	<div class="header-action-item__container">
 		{
 			navActions.map((action, i) => (
-				<Button outlined={i !== navActions.length - 1}>
+				<Button
+					outlined={i !== navActions.length - 1}
+					href={getUrlFromID(action.slug, lang)}
+				>
 					{t(action.title)}
 				</Button>
 			))
