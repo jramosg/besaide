@@ -1,0 +1,23 @@
+benefitsEu: >-
+  Bazkideek Besaideko materiala alokatzeko aukera izango dute. Horrez gain,
+  beherapenak izango dituzte Leixargarateko aterpetxea hartzerako orduan,
+  ekintzetan edo ikastaroetan parte hartzerako orduan eta Formigal, Panticosa,
+  Astun eta Candanchu eski estaziotako forfaitak erosterako orduan.
+benefitsEs: >
+  Los socios tendrán la oportunidad de alquilar material en Besaide. También
+  disfrutarán de descuentos al alquilar el albergue Leixargarate, al participar
+  en actividades o cursos y al comprar forfaits para las estaciones de esquí de
+  Formigal, Panticosa, Astun y Candanchu.
+prices:
+  - labelEu: Haurrak (13 urtetik beherakoak)
+    labelEs: Niños (menores de 13 años)
+    price: 8
+  - labelEu: 'Gazteak (14-17 urte) '
+    labelEs: 'Jóvenes (14 - 17 años) '
+    price: 10
+  - labelEu: Nagusiak (18-64 urte)
+    labelEs: Adultos (18-64 años)
+    price: 15
+  - labelEu: Nagusiak (>65)
+    labelEs: Adultos (>65)
+    price: 15
