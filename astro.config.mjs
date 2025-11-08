@@ -18,5 +18,8 @@ export default defineConfig({
 	},
 
 	integrations: [react(), markdoc(), keystatic()],
-	adapter: vercel()
+	adapter: vercel(),
+	image: {
+		layout: 'constrained',
+	}
 });
