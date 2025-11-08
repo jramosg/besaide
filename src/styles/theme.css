@@ -64,6 +64,8 @@
 	--theme-on-error: #fff;
 	--theme-on-error-container: #410e0b;
 
+	--theme-footer-bg: #f4f5f8;
+
 	--theme-bg: #fff;
 	--theme-on-bg: #000;
 
@@ -179,6 +181,8 @@
 	--theme-secondary-container: var(--theme-secondary-800);
 	--theme-secondary-container-alt: var(--theme-secondary-900);
 	--theme-on-accent-container: #fff;
+
+	--theme-footer-bg: #121214;
 
 	/* Text Colors (Dark) */
 	--theme-text-secondary: #b3b3b4;

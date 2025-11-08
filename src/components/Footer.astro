@@ -1,498 +1,504 @@
 ---
-import { Address, Socials } from '@/config/company';
+import { Address, Email, Phone, Socials } from '@/config/company';
 import Logo from '@/components/Logo.astro';
 import YoutubeIcon from '@/assets/icons/youtube.svg';
 import XIcon from '@/assets/icons/x.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 import InstagramIcon from '@/assets/icons/instagram.png';
 import { Image } from 'astro:assets';
-import { getLangFromUrl, getUrlFromID } from '@/i18n/utils';
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
+import Container from './Container.astro';
+import { nav } from '@/config/nav';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
+const t = useTranslations(lang);
+
+// Schema.org structured data for organization
+const organizationSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: 'Besaide Mendi Elkartea',
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: Address.name
+	},
+	contactPoint: {
+		'@type': 'ContactPoint',
+		telephone: Phone.name,
+		email: Email.name,
+		contactType: 'customer service'
+	},
+	sameAs: [Socials.facebook, Socials.instagram]
+};
 ---
 
-<footer class="footer">
-	<div class="container">
-		<div class="footer-content">
-			<div class="footer-section">
-				<div class="footer-logo">
-					<Logo />
-				</div>
-				<div class="footer-contact">
-					<a class="address-link" href={Address.url}>
-						{Address.name}
-					</a>
-					<p>
-						Tel: <a href="tel:+34943773066">+34 943 77 30 66</a><br />
-						Email: <a href="mailto:besaide@besaide.eus">besaide@besaide.eus</a>
-					</p>
-				</div>
+<script
+	type="application/ld+json"
+	set:html={JSON.stringify(organizationSchema)}
+/>
+
+<footer
+	class="footer"
+	role="contentinfo"
+	itemscope
+	itemtype="https://schema.org/Organization"
+>
+	<Container class="footer__container">
+		<div class="footer__branding">
+			<Logo />
+		</div>
+
+		<section
+			class="footer__section footer__section--address"
+			aria-labelledby="footer-address-heading"
+		>
+			<h2 class="subtitle" id="footer-address-heading">{t('Helbidea')}</h2>
+			<a
+				href={Address.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="footer__link footer__link--address"
+				itemprop="url"
+			>
+				<p class="footer__organization" itemprop="name">
+					Besaide Mendi Elkartea
+				</p>
+				<address
+					class="footer__address"
+					itemprop="address"
+					itemscope
+					itemtype="https://schema.org/PostalAddress"
+				>
+					<span itemprop="streetAddress">{Address.name}</span>
+				</address>
+			</a>
+		</section>
+
+		<section
+			class="footer__section footer__section--contact"
+			aria-labelledby="footer-contact-heading"
+		>
+			<h2 class="subtitle" id="footer-contact-heading">
+				{t('Kontaktua')}
+			</h2>
+			<div class="footer__contact-info">
+				<a href={Phone.url} class="footer__link" itemprop="telephone">
+					{t('Telefonoa') + ': ' + Phone.name}
+				</a>
+				<a href={Email.url} class="footer__link" itemprop="email">
+					{t('Emaila') + ': ' + Email.name}
+				</a>
+				<p class="footer__office-hours">
+					{
+						t(
+							'Jende aurreko arreta zerbitzua astearte eta asteazkenetan 19:30-tatik 20:30-tara.'
+						)
+					}
+				</p>
 			</div>
+		</section>
 
-			<nav class="footer-section" aria-label="Zerbitzuak">
-				<h2>Zerbitzuak</h2>
-				<ul class="footer-links">
-					<li><a href="/">Materialen alokairua</a></li>
-					<li><a href="/">Leixargarate Aterpea</a></li>
-					<li><a href="/">Liburutegia eta mapak</a></li>
-					<li><a href="/">Ikastaroak</a></li>
-				</ul>
-			</nav>
+		<nav
+			class="footer__section footer__section--nav"
+			aria-labelledby="footer-nav-heading"
+		>
+			<h2 class="subtitle" id="footer-nav-heading">{t('Nabigazioa')}</h2>
+			<ul class="footer__nav-list">
+				{
+					nav.map(item =>
+						item.children.length === 0 ? (
+							<li class="footer__nav-item">
+								<a
+									href={getUrlFromID(item.slug, lang)}
+									class="footer__nav-link"
+								>
+									{t(item.title)}
+								</a>
+							</li>
+						) : (
+							<li class="footer__nav-item footer__nav-item--has-children">
+								<h3 class="footer__nav-subtitle">{t(item.title)}</h3>
+								<ul class="footer__nav-sublist">
+									{item.children.map(child => (
+										<li class="footer__nav-subitem">
+											<a
+												href={getUrlFromID(child.slug, lang)}
+												class="footer__nav-link"
+											>
+												{t(child.title)}
+											</a>
+										</li>
+									))}
+								</ul>
+							</li>
+						)
+					)
+				}
+			</ul>
+		</nav>
 
-			<nav class="footer-section" aria-label="Elkartea">
-				<h2>Elkartea</h2>
-				<ul class="footer-links">
-					<li><a href="/">Gure historia</a></li>
-					<li><a href="/">Bazkidetza</a></li>
-					<li><a href="/">Agenda</a></li>
-					<li><a href={getUrlFromID('news', lang)}>Berriak</a></li>
-				</ul>
-			</nav>
-
-			<div class="footer-section">
-				<h2>Jarraitu gaitzazu</h2>
-				<div class="social-media">
+		<section
+			class="footer__section footer__section--social"
+			aria-labelledby="footer-social-heading"
+		>
+			<h2 class="subtitle" id="footer-social-heading">Sare sozialak</h2>
+			<ul class="footer__social-list">
+				<li class="footer__social-item">
 					<a
 						href={Socials.facebook}
 						target="_blank"
-						class="social-link"
-						aria-label="Besaide Facebook"
+						rel="noopener noreferrer"
+						class="footer__social-link"
+						aria-label="Bisitatu Besaide-ren Facebook orria"
+						itemprop="sameAs"
 					>
-						<FacebookIcon width={24} height={24} />
-						Facebook
+						<FacebookIcon width={24} height={24} aria-hidden="true" />
+						<span>Facebook</span>
 					</a>
+				</li>
+				<li class="footer__social-item">
 					<a
-						href="https://x.com/#/Besaideme"
+						href="https://x.com/Besaideme"
 						target="_blank"
-						class="social-link"
-						aria-label="Besaide X"
+						rel="noopener noreferrer"
+						class="footer__social-link"
+						aria-label="Bisitatu Besaide-ren X (Twitter) orria"
 					>
-						<XIcon width={24} height={24} /> X
+						<XIcon width={24} height={24} aria-hidden="true" />
+						<span>X</span>
 					</a>
+				</li>
+				<li class="footer__social-item">
 					<a
 						href="https://www.youtube.com/channel/UChcnKpJIpY-U1NaiIw09nNg"
 						target="_blank"
-						class="social-link"
-						aria-label="Besaide YouTube"
+						rel="noopener noreferrer"
+						class="footer__social-link"
+						aria-label="Bisitatu Besaide-ren YouTube kanala"
 					>
-						<YoutubeIcon width={24} height={24} /> YouTube
+						<YoutubeIcon width={24} height={24} aria-hidden="true" />
+						<span>YouTube</span>
 					</a>
+				</li>
+				<li class="footer__social-item">
 					<a
 						href={Socials.instagram}
 						target="_blank"
-						class="social-link"
-						aria-label="Besaide Instagram"
+						rel="noopener noreferrer"
+						class="footer__social-link"
+						aria-label="Bisitatu Besaide-ren Instagram orria"
+						itemprop="sameAs"
 					>
-						<span class="social-icon">
-							<Image
-								src={InstagramIcon}
-								alt="Instagram icon"
-								width={24}
-								height={24}
-							/>
-						</span>
-						Instagram
+						<Image
+							src={InstagramIcon}
+							alt=""
+							width={24}
+							height={24}
+							aria-hidden="true"
+						/>
+						<span>Instagram</span>
 					</a>
-				</div>
+				</li>
+			</ul>
+		</section>
+	</Container>
 
-				<div class="office-hours-footer">
-					<h3>Jende aurreko arreta:</h3>
-					<p>Astearte eta asteazkenetan<br />19:30-20:30</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="footer-bottom">
-			<div class="footer-bottom-content">
-				<div class="copyright">
-					<p>
-						&copy; 2025 Besaide Mendizale Elkartea. Eskubide guztiak
-						erreserbatuta.
-					</p>
-				</div>
-				<div class="legal-links">
-					<a href={getUrlFromID('cookies-policy', lang)}
-						>Lege oharra / Pribatutasun politika</a
-					>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Cookie Notice -->
-	<!-- <div
-		class="cookie-notice"
-		id="cookie-notice"
-		data-visible="false"
-		aria-hidden="true"
-	>
-		<div class="cookie-content">
-			<p>
-				Gure webguneak cookie propioak eta hirugarrenenak erabiltzen ditu
-				nabigazioaren erabilgarritasuna hobetzeko eta informazioa biltzeko.
-				Cookie-ak ez dira erabiliko informazio pertsonala biltzeko.
+	<div class="footer__bottom">
+		<Container class="footer__bottom-container">
+			<p class="footer__copyright">
+				&copy; 2025 Besaide Mendizale Elkartea. Eskubide guztiak erreserbatuta.
 			</p>
-			<div class="cookie-actions">
-				<button class="btn btn-accept" id="cookie-accept"
-					>Cookie-ak onartu</button
+			<nav class="footer__legal" aria-label="Legal navigation">
+				<a
+					href={getUrlFromID('cookies-policy', lang)}
+					class="footer__legal-link"
 				>
-				<button class="btn btn-reject" id="cookie-reject"
-					>Cookie-ak ezezatu</button
-				>
-				<a href="/cookien-politika" class="cookie-policy-link"
-					>Cookien politika</a
-				>
-			</div>
-		</div>
-	</div> -->
+					Lege oharra / Pribatutasun politika
+				</a>
+			</nav>
+		</Container>
+	</div>
 </footer>
 
 <script>
 	document.addEventListener('astro:page-load', () => {
-		function acceptCookies() {
-			localStorage.setItem('cookies-accepted', 'true');
-			hideCookieNotice();
-		}
-
-		function rejectCookies() {
-			localStorage.setItem('cookies-accepted', 'false');
-			hideCookieNotice();
-		}
-		document
-			.getElementById('cookie-accept')
-			?.addEventListener('click', acceptCookies);
-		document
-			.getElementById('cookie-reject')
-			?.addEventListener('click', rejectCookies);
-
-		// Cookie management
-
-		function hideCookieNotice() {
-			const notice = document.getElementById('cookie-notice');
-			if (notice) {
-				notice.classList.remove('show');
-				notice.setAttribute('aria-hidden', 'true');
-				notice.dataset.visible = 'false';
-			}
-		}
-
-		/* function showCookieNotice() {
-			const notice = document.getElementById('cookie-notice');
-			if (notice && notice.dataset.visible !== 'true') {
-				notice.classList.add('show');
-				notice.setAttribute('aria-hidden', 'false');
-				notice.dataset.visible = 'true';
-			}
-		} */
-
 		const cookiesAccepted = localStorage.getItem('cookies-accepted');
-		if (cookiesAccepted !== 'true') {
-			//showCookieNotice();
-		}
+		// Cookie notice functionality removed - currently not in use
 	});
 </script>
 
 <style>
+	/* Base Footer Styles */
 	.footer {
-		background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-		color: white;
-		padding: 3rem 0 0;
+		background: var(--theme-footer-bg);
 		position: relative;
 		margin-top: var(--s6);
 	}
 
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-
-	.footer-content {
+	.footer__container {
 		display: grid;
-		grid-template-columns: 2fr 1fr 1fr 1.5fr;
-		gap: 3rem;
-		padding-bottom: 2rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: auto auto;
+		padding-block: var(--s6);
+		section,
+		nav,
+		.footer__branding {
+			padding: var(--s4) var(--s4);
+		}
 	}
 
-	.footer-section h2 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin-bottom: 1.5rem;
-		color: var(--theme-primary-300);
-	}
-
-	.footer-section h3 {
-		font-size: 1rem;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
-		color: var(--theme-primary-300);
-	}
-
-	.footer-logo {
+	/* Footer Branding */
+	.footer__branding {
 		height: fit-content;
 		padding-bottom: var(--s5);
 	}
 
-	.footer-contact p {
-		color: rgba(255, 255, 255, 0.8);
-		line-height: 1.6;
-		margin-bottom: 1rem;
+	/* Footer Sections */
+	.footer__section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s3);
 	}
 
-	.footer-contact a {
-		color: var(--theme-primary-300);
+	.footer__section--nav {
+		grid-column: 2;
+		grid-row: 2;
+		a {
+			text-decoration: underline;
+		}
+	}
+
+	.footer__section--social {
+		grid-column: 3;
+		grid-row: 2;
+	}
+
+	.footer__section--address,
+	.footer__section--contact {
+		border-bottom: 1px solid var(--theme-outline);
+	}
+
+	/* Footer Links */
+	.footer__link {
 		text-decoration: none;
-		transition: color var(--theme-transition);
+		color: inherit;
+		transition:
+			color var(--theme-transition),
+			text-decoration var(--theme-transition);
 	}
 
-	.footer-contact a.address-link {
-		color: inherit;
+	.footer__link:hover,
+	.footer__link:focus-visible {
+		color: var(--theme-primary-800);
 		text-decoration: underline;
 	}
 
-	.footer-contact a:hover {
-		color: white;
+	/* Address Section */
+	.footer__organization,
+	.footer__address {
+		margin: 0;
+		line-height: 1.6;
 	}
 
-	.footer-links {
+	.footer__address {
+		font-style: normal;
+	}
+
+	/* Contact Section */
+	.footer__contact-info {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+	}
+
+	.footer__office-hours {
+		margin: 0;
+	}
+
+	/* Navigation Section */
+	.footer__nav-list,
+	.footer__nav-sublist {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
 
-	.footer-links li {
-		margin-bottom: 0.75rem;
+	.footer__nav-item {
+		margin-bottom: var(--s2);
 	}
 
-	.footer-links a {
-		color: rgba(255, 255, 255, 0.8);
-		text-decoration: none;
-		transition: all var(--theme-transition);
-		font-size: 0.95rem;
-		display: inline-block;
-	}
-
-	.footer-links a:hover {
-		color: var(--theme-primary-300);
-		transform: translateX(0.5rem);
-	}
-
-	.social-media {
-		display: grid;
-		gap: 0.75rem;
-		margin-bottom: 2rem;
-	}
-
-	.social-link {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		color: rgba(255, 255, 255, 0.8);
-		text-decoration: none;
-		transition: all 0.3s ease;
-		font-size: 0.95rem;
-	}
-
-	.social-link:hover {
-		color: var(--theme-primary-300);
-		transform: translateX(0.5rem);
-	}
-
-	.office-hours-footer p {
-		color: rgba(255, 255, 255, 0.8);
-		font-size: 0.9rem;
-		line-height: 1.4;
-		margin: 0;
-	}
-
-	.footer-bottom {
-		padding: var(--s6) var(--s4);
-		background: rgba(0, 0, 0, 0.2);
-		margin-top: 2rem;
-	}
-
-	.footer-bottom-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 1rem;
-	}
-
-	.copyright p {
-		color: rgba(255, 255, 255, 0.6);
-		font-size: 0.9rem;
-		margin: 0;
-	}
-
-	.legal-links {
-		display: flex;
-		gap: 2rem;
-	}
-
-	.legal-links a {
-		color: rgba(255, 255, 255, 0.6);
-		text-decoration: none;
-		font-size: 0.9rem;
-		transition: color 0.3s ease;
-	}
-
-	.legal-links a:hover {
-		color: var(--theme-primary-300);
-	}
-
-	/* Cookie Notice */
-	.cookie-notice {
-		position: fixed;
-		bottom: -200px;
-		left: 0;
-		right: 0;
-		background: #1f2937;
-		color: white;
-		padding: 1.5rem;
-		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-		z-index: 10000;
-		border-top: 3px solid var(--theme-primary);
-		pointer-events: none;
-		visibility: hidden;
-		opacity: 0;
-		transition:
-			bottom 0.5s ease,
-			opacity 0.5s ease,
-			visibility 0.5s ease;
-	}
-
-	.cookie-notice.show {
-		height: fit-content;
-		pointer-events: auto;
-		visibility: visible;
-		opacity: 1;
-		bottom: 0;
-	}
-
-	.cookie-content {
-		max-width: 1200px;
-		margin: 0 auto;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 2rem;
-		flex-wrap: wrap;
-	}
-
-	.cookie-content p {
-		flex: 1;
-		margin: 0;
-		font-size: 0.9rem;
-		line-height: 1.5;
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.cookie-actions {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
-		flex-wrap: wrap;
-	}
-
-	.btn {
-		padding: 0.5rem 1rem;
-		border: none;
-		border-radius: 4px;
+	.footer__nav-subtitle {
+		margin: 0 0 var(--s1) 0;
+		font-size: 1rem;
 		font-weight: 500;
-		font-size: 0.9rem;
-		cursor: pointer;
-		transition: all 0.3s ease;
+	}
+
+	.footer__nav-sublist {
+		margin-left: var(--s6);
+	}
+
+	.footer__nav-link {
+		color: inherit;
 		text-decoration: none;
+		transition:
+			transform var(--theme-transition),
+			color var(--theme-transition);
 		display: inline-block;
 	}
 
-	.btn-accept {
-		background: var(--theme-primary);
-		color: white;
+	.footer__nav-link:hover,
+	.footer__nav-link:focus-visible {
+		color: var(--theme-primary-800);
+		transform: translateX(0.5rem);
 	}
 
-	.btn-accept:hover {
-		background: var(--theme-primary-600);
+	/* Social Media Section */
+	.footer__social-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s3);
+		list-style: none;
+		padding: 0;
+		margin: 0;
 	}
 
-	.btn-reject {
-		background: transparent;
-		color: rgba(255, 255, 255, 0.8);
-		border: 1px solid rgba(255, 255, 255, 0.3);
+	.footer__social-item {
+		margin: 0;
 	}
 
-	.btn-reject:hover {
-		background: rgba(255, 255, 255, 0.1);
-		color: white;
-	}
-
-	.cookie-policy-link {
-		color: var(--theme-primary-300);
+	.footer__social-link {
+		display: flex;
+		align-items: center;
+		gap: var(--s2);
+		color: inherit;
 		text-decoration: none;
-		font-size: 0.85rem;
+		transition:
+			color var(--theme-transition),
+			transform var(--theme-transition);
+		padding: var(--s1);
+		margin-left: calc(var(--s1) * -1);
+		border-radius: 4px;
+	}
+
+	.footer__social-link:hover,
+	.footer__social-link:focus-visible {
+		color: var(--theme-primary-800);
+		transform: translateX(0.5rem);
+	}
+
+	/* Footer Bottom */
+	.footer__bottom {
+		padding-block: var(--s6);
+		background: rgba(0, 0, 0, 0.2);
+		margin-top: var(--s4);
+	}
+
+	.footer__bottom-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--s4);
+	}
+
+	.footer__copyright {
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 0.9rem;
+		margin: 0;
+	}
+
+	.footer__legal {
+		display: flex;
+		gap: var(--s4);
+	}
+
+	.footer__legal-link {
+		color: rgba(255, 255, 255, 0.7);
+		text-decoration: none;
+		font-size: 0.9rem;
 		transition: color var(--theme-transition);
+		padding: var(--s1);
+		border-radius: 4px;
 	}
 
-	.cookie-policy-link:hover {
-		color: white;
+	.footer__legal-link:hover,
+	.footer__legal-link:focus-visible {
+		color: var(--theme-primary-800);
 	}
 
-	/* Mobile Styles */
+	/* Responsive Design */
 	@media (max-width: 768px) {
-		.footer-content {
+		.footer__container {
 			grid-template-columns: 1fr;
-			gap: 2rem;
+			grid-template-rows: auto;
+			gap: 0;
 		}
 
-		.footer-bottom-content {
+		.footer__section,
+		.footer__branding {
+			padding: var(--s5) 0;
+		}
+
+		.footer__section:not(:last-child),
+		.footer__section--nav {
+			border-bottom: 1px solid var(--theme-outline);
+		}
+
+		.footer__section--nav,
+		.footer__section--social {
+			grid-column: 1;
+			grid-row: auto;
+		}
+
+		.footer__bottom-container {
 			flex-direction: column;
 			text-align: center;
 		}
 
-		.legal-links {
+		.footer__legal {
 			flex-direction: column;
-			gap: 0.5rem;
-		}
-
-		.cookie-content {
-			flex-direction: column;
-			align-items: stretch;
-			text-align: center;
-		}
-
-		.cookie-actions {
-			justify-content: center;
+			align-items: center;
+			gap: var(--s2);
 		}
 	}
 
 	@media (max-width: 480px) {
 		.footer {
-			padding: 2rem 0 0;
+			margin-top: var(--s5);
 		}
 
-		.footer-content {
-			gap: 1.5rem;
+		.footer__container {
+			gap: 0;
 		}
 
-		.social-media {
-			gap: 0.5rem;
+		.footer__social-list {
+			gap: var(--s2);
 		}
 
-		.cookie-notice {
-			padding: 1rem;
+		.footer__nav-sublist {
+			margin-left: var(--s4);
 		}
+	}
 
-		.cookie-actions {
-			flex-direction: column;
-			gap: 0.75rem;
+	/* High Contrast Mode Support */
+	@media (prefers-contrast: high) {
+		.footer__link:focus-visible,
+		.footer__nav-link:focus-visible,
+		.footer__social-link:focus-visible,
+		.footer__legal-link:focus-visible {
+			outline: 2px solid var(--theme-primary-800);
+			outline-offset: 2px;
 		}
+	}
 
-		.btn {
-			width: 100%;
-			max-width: 200px;
+	/* Reduced Motion Support */
+	@media (prefers-reduced-motion: reduce) {
+		.footer__link,
+		.footer__nav-link,
+		.footer__social-link,
+		.footer__legal-link {
+			transition: none;
 		}
 	}
 </style>

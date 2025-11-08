@@ -134,7 +134,14 @@ export const ui = {
 		'office-hours.directions': 'Haz clic aquí para saber cómo llegar',
 		'Arreta zerbitzua': 'Servicio de atención',
 		Menua: 'Menú',
-		'Nabigazio nagusia': 'Navegación principal'
+		'Nabigazio nagusia': 'Navegación principal',
+		Helbidea: 'Dirección',
+		Telefonoa: 'Teléfono',
+		Emaila: 'Email',
+		'Jende aurreko arreta zerbitzua astearte eta asteazkenetan 19:30-tatik 20:30-tara.':
+			'Servicio de atención al público los martes y miércoles de 19:30 a 20:30.',
+		Nabigazioa: 'Navegación',
+		'Sare sozialak': 'Redes sociales'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
