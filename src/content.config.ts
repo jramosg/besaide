@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders';
 import { eventsSchema } from '@/schemas/events';
 import { newsSchema } from '@/schemas/news';
 import { functioningSchema } from '@/schemas/functioning';
+import { membershipSchema } from '@/schemas/membership';
 
 const news = defineCollection({
 	loader: glob({ pattern: '**/*.yaml', base: './src/data/news' }),
@@ -31,6 +32,11 @@ const libraryMaps = defineCollection({
 	loader: glob({ pattern: '**/*.mdoc', base: './src/data/library-maps' })
 });
 
+const membership = defineCollection({
+	loader: glob({ pattern: '**/*.yaml', base: './src/data/membership' }),
+	schema: membershipSchema
+});
+
 // Expose your defined collection to Astro
 // with the `collections` export
 export const collections = {
@@ -39,5 +45,6 @@ export const collections = {
 	events,
 	history,
 	functioning,
-	libraryMaps
+	libraryMaps,
+	membership
 };

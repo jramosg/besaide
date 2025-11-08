@@ -249,6 +249,46 @@ export default config({
 					description: 'Liburutegia gaztelaniaz'
 				})
 			}
+		}),
+		membership: singleton({
+			label: 'Bazkidetza / Membresía',
+			path: 'src/data/membership/membership',
+			schema: {
+				benefitsEu: fields.text({
+					label: 'Bazkide izatearen onurak',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				benefitsEs: fields.text({
+					label: 'Beneficios de ser miembro',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				prices: fields.array(
+					fields.object({
+						labelEu: fields.text({
+							label: 'Prezioaren izena',
+							validation: { isRequired: true }
+						}),
+						labelEs: fields.text({
+							label: 'Nombre del precio',
+							validation: { isRequired: true }
+						}),
+						price: fields.number({
+							label: 'Prezioa (€) / Precio (€)',
+							validation: { isRequired: true, min: 0 }
+						})
+					}),
+					{
+						label: 'Prezioak / Precios',
+						itemLabel: props =>
+							props.fields.labelEu.value +
+								': ' +
+								props.fields.price.value +
+								'€' || 'Prezioa / Precio'
+					}
+				)
+			}
 		})
 	}
 });
