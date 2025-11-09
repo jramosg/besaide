@@ -171,6 +171,9 @@ export const ui = {
 			'Biblioteca y mapoteca de Besaide. Consulta nuestra colección de libros, guías y mapas de montaña disponibles para socios.',
 		// Event SEO
 		'event.seo.title-prefix': 'Evento',
+		// Leixagarate page SEO
+		'leixagarate-aterpea.seo.description':
+			'Información sobre el refugio de Leixagarate de Besaide Mendizale Elkartea.',
 		'Bisitatu Besaideren Facebook orria':
 			'Visitar la página de Facebook de Besaide',
 		'Bisitatu Besaideren X orria': 'Visitar la página de X de Besaide',
@@ -306,6 +309,9 @@ export const ui = {
 		// Besaide page SEO
 		'besaide.seo.description':
 			'Ezagutu Besaide Mendizale Elkarteko historia, helburua eta elkarteko funtzionamendua.',
+		// Leixagarate page SEO
+		'leixagarate-aterpea.seo.description':
+			'Besaide Mendizale Elkarteko Leixargarate aterpeari buruzko informazioa.',
 		// Library/Maps page SEO
 		'library-maps.seo.description':
 			'Besaideko liburutegia eta mapa bilduma. Bazkideentzat eskuragarri dauden mendiko liburu, gida eta mapen bilduma.',

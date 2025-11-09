@@ -8,10 +8,10 @@ import {
 } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
 import { getEntry, render } from 'astro:content';
-import { Image } from 'astro:assets';
 import { ArrowLeft, Share2 } from '@lucide/astro';
 import { processNewsItem } from '@/utils/news';
 import { CompanyName } from '@/config/company';
+import HeroImage from '@/components/HeroImage.astro';
 
 const { post } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
@@ -44,14 +44,11 @@ const summary = processedPost.summary;
 			<ArrowLeft />
 			{t('Atzera itzuli')}
 		</a>
-		<header class="hero">
-			<Image
-				src={processedPost.data.image}
-				style={`view-transition-name: image-${slug}`}
-				alt={processedPost.title}
-				layout="full-width"
-			/>
-		</header>
+		<HeroImage
+			src={processedPost.data.image}
+			alt={processedPost.title}
+			slug={slug}
+		/>
 
 		<div class="content__container content__container--narrow">
 			<div class="header-row">
@@ -99,19 +96,6 @@ const summary = processedPost.summary;
 	.back-link svg {
 		width: 20px;
 		height: 20px;
-	}
-
-	.single-article .hero {
-		border-radius: var(--theme-shape-radius);
-		overflow: hidden;
-	}
-
-	.hero img {
-		width: 100%;
-		height: auto;
-		display: block;
-		object-fit: cover;
-		max-height: 420px;
 	}
 
 	.header-row {
@@ -164,9 +148,6 @@ const summary = processedPost.summary;
 	@media (max-width: 768px) {
 		.title {
 			font-size: 1.5rem;
-		}
-		.single-article .hero img {
-			max-height: 240px;
 		}
 		.header-row {
 			margin-top: var(--s3);
