@@ -30,7 +30,7 @@ const langMapping: LangMapping = {
 	zerbitzuak: { lang: 'eu', id: 'services' },
 	rutas: { lang: 'es', id: 'routes' },
 	ibilbideak: { lang: 'eu', id: 'routes' },
-	'hacerse-socio-federarse': { lang: 'es', id: '' },
+	'hacerse-socio-federarse': { lang: 'es', id: 'membership-federation' },
 	'bazkidetza-federatzea': { lang: 'eu', id: 'membership-federation' },
 	'leixagarate-aterpea': { lang: 'eu', id: 'leixagarate' },
 	'refugio-de-leixagarate': { lang: 'es', id: 'leixagarate' },
