@@ -28,6 +28,7 @@ const { latitude, longitude, zoom, tileLayer } = Astro.props;
 </div>
 
 <script>
+	import { Address, CompanyName } from '@/config/company';
 	import L, { type LatLngTuple } from 'leaflet';
 
 	class LeafletMap extends HTMLElement {
@@ -64,7 +65,9 @@ const { latitude, longitude, zoom, tileLayer } = Astro.props;
 
 			L.marker(latlng, { icon: myIcon })
 				.addTo(map)
-				.bindPopup('Laguntza fisioterapia');
+				.bindPopup(
+					`<a href=${Address.url} target="_blank" rel="noopener noreferrer">${CompanyName}</a>`
+				);
 		}
 	}
 

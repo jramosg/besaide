@@ -1,3 +1,5 @@
+export const CompanyName = 'Besaide Mendizale Elkartea';
+
 export const Address = {
 	name: 'Garibai 3 bis, 20500 Arrasate - Gipuzkoa',
 	url: 'https://maps.app.goo.gl/aqZ4WuhCtFtAShN46'
