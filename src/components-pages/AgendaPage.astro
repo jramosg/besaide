@@ -5,6 +5,7 @@ import { sortedAndFilteredEvents } from '@/utils/events';
 import EventListCard from '@/components/events/EventListCard.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import type { ProcessedEvent } from '@/types/Events';
+import { CompanyName } from '@/config/company';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -41,7 +42,7 @@ const futureCount = processedFutureEvents.length;
 
 <Page
 	seo={{
-		title: t('nav.agenda') + ' - Besaide Mendizale Elkartea',
+		title: t('nav.agenda') + ' - ' + CompanyName,
 		description: t('agenda.seo.description')
 	}}
 	pageClass="content__container"

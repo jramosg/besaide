@@ -2,6 +2,7 @@
 import BesaideLandscape from '@/assets/images/besaide.webp';
 import OfficeHours from '@/components/contact-card/OfficeHours.astro';
 import PageHeader from '@/components/PageHeader.astro';
+import { CompanyName } from '@/config/company';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 import Page from '@/layouts/Page.astro';
@@ -27,12 +28,12 @@ const { Content: HistoryContent } = await render(entry);
 
 <Page
 	seo={{
-		title: 'Historia - Besaide Mendizale Elkartea',
+		title: 'Historia - ' + CompanyName,
 		description: t('besaide.seo.description')
 	}}
 	pageClass="content__container besaide-page"
 >
-	<PageHeader title="Besaide Mendizale Elkartea" />
+	<PageHeader title={CompanyName} />
 	<Image src={BesaideLandscape} alt="Besaide" class="besaide-image" />
 
 	<section class="history-section">

@@ -11,6 +11,7 @@ import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import HomeNews from '@/components/news/HomeNews.astro';
 import HomeAgenda from '@/components/HomeAgenda.astro';
 import HomeShortcuts from '@/components/HomeShortcuts.astro';
+import { CompanyName } from '@/config/company';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -19,7 +20,7 @@ const t = useTranslations(lang);
 
 <Page
 	seo={{
-		title: t('nav.home') + ' - Besaide Mendizale Elkartea',
+		title: t('nav.home') + ' - ' + CompanyName,
 		description: t('home.seo.description')
 	}}
 	pageClass="home-page"

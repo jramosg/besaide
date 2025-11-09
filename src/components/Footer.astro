@@ -1,5 +1,5 @@
 ---
-import { Address, Email, Phone, Socials } from '@/config/company';
+import { Address, Email, Phone, Socials, CompanyName } from '@/config/company';
 import Logo from '@/components/Logo.astro';
 import YoutubeIcon from '@/assets/icons/youtube.svg';
 import XIcon from '@/assets/icons/x.svg';
@@ -208,7 +208,9 @@ const organizationSchema = {
 
 	<div class="footer__bottom">
 		<Container class="footer__bottom-container">
-			<p class="footer__copyright">&copy; Besaide Mendizale Elkartea ©2025</p>
+			<p class="footer__copyright">
+				&copy; {CompanyName} ©{new Date().getFullYear()}
+			</p>
 			<nav class="footer__legal" aria-label="Legal navigation">
 				<a
 					href={getUrlFromID('cookies-policy', lang)}

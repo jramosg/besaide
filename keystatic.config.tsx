@@ -1,10 +1,11 @@
 // keystatic.config.ts
+import { CompanyName } from '@/config/company';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
 	ui: {
 		brand: {
-			name: 'Besaide Mendizale Elkartea',
+			name: CompanyName,
 			mark: ({}) => {
 				return <img src={'/favicon.png'} height={24} />;
 			}

@@ -28,6 +28,7 @@ const canonicalURL =
 const keywords = Astro.props.keywords;
 
 // Generate alternate language URLs
+// konpondu!!!
 const currentPath = Astro.url.pathname.replace(`/${lang}`, '');
 const alternateLanguages = Astro.props.alternateLanguages || [
 	{ hreflang: 'es', href: new URL(`/es${currentPath}`, Astro.site).toString() },
@@ -62,8 +63,8 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 }
 
 <!-- Author and Business Info -->
-<meta name="author" content="Jon Ramos" />
-<meta name="publisher" content="Laguntza Fisioterapia" />
+<meta name="author" content="Nerea Dorronsoro & Jon Ramos" />
+<meta name="publisher" content="Besaide Mendizale Elkartea" />
 
 <!-- Enhanced Keywords for SEO -->
 <meta
@@ -141,4 +142,4 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="Laguntza Fisio" />
+<meta name="apple-mobile-web-app-title" content="Besaide Mendizale Elkartea" />
