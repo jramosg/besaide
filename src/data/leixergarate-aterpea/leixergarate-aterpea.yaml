@@ -1,0 +1,62 @@
+descriptionEu: >-
+  Leixargarateko aterpea Aizkorriko parke naturaleko inguru paregabe baten
+  kokatuta dago, Alabita aldamenean hain zuzen ere. Bertan, gure inguruan hain
+  urriak diren pagadiez gozatu ahal izango dugu, baita mendi ibilaldi ederrez
+  ere. Degurixako zelai paregabeak esku eskura izango ditugu, baita mendi itzuli
+  eder bat eginaz Kurtzeberri, Aitzorrotz edo Elgeako inguruak, eta urrunago
+  Urbia-Aitzgorri ingurua.
+
+  Leixargarateko aterpea Besaideko bazkide denen eskura dago nahi duenak erabili
+  dezan. Aterpean 12 pertsonentzako literak, sukalde bat, su baxua, komuna…
+  daude. Aterpea erreserbatzeko, zuzendu Besaideko egoitzara asteartetan
+  19.30-20.30 bitartean.
+descriptionEs: >-
+  El refugio de Leixargarate está ubicado en un entorno único del parque natural
+  de Aizkorri, justo al lado de Alabita. Allí podremos disfrutar de hayedos tan
+  escasos en nuestro entorno, así como de hermosas rutas de montaña. Tendremos a
+  mano los únicos prados de Degurixa, además de hacer una bonita vuelta por las
+  zonas de Kurtzeberri, Aitzorrotz o Elgea, y más lejos la zona de
+  Urbia-Aitzgorri.
+
+  El refugio de Leixargarate está a disposición de todos los socios de Besaide
+  para que lo use quien quiera. En el refugio hay literas para 12 personas, una
+  cocina, un fuego bajo, aseos… Para reservar, dirígete a la sede de Besaide los
+  martes entre las 19:30 y las 20:30.
+contributionEu: >-
+  Besaide Mendizale Elkarteak Leixargarateko aterpetxean hobekuntza lan batzuk
+  burutu ditu. Besteak beste, sarrerako sapaia konpondu da, teilatuan zenbait
+  teila ordezkatu dira eta bi ate berri jarri dira. Barrutik berriz, sapaia
+  jetsi eta aislamendua jarri zaio eta zoru berria du. Azken finean, txukunago
+  eta erosoago dugu aterpea.
+
+  Gauzak horrela eta jakinaren gainean zaudela, gonbidatzen zaitugu aterpea bera
+  erabiltzera, erabilpenak ematen baitio bizia eta zentzua Leixargarateko
+  aterpeari.
+contributionEs: >-
+  Besaide Mendizale Elkartea ha realizado algunas obras de mejora en el refugio
+  de Leixargarate. Entre otras cosas, se ha reparado el suelo de la entrada, se
+  han reemplazado algunas tejas en el techo y se han instalado dos puertas
+  nuevas. Por dentro, se ha lijado el suelo y se le ha puesto aislamiento,
+  además de tener un suelo nuevo. En definitiva, tenemos el refugio más limpio y
+  cómodo.
+
+
+  Dado que las cosas están así y que estás al tanto, te invitamos a utilizar el
+  refugio en sí, ya que el uso le da vida y sentido al refugio de Leixargarate.
+prices:
+  - labelEu: Gastu minimoa
+    labelEs: Gasto mínimo
+    price: 25
+  - labelEu: Bazkideak
+    labelEs: Socios
+    price: 8
+    descriptionEu: gaua
+    descriptionEs: noche
+  - labelEu: ' Ez bazkideak'
+    labelEs: No socios
+    price: 8
+    descriptionEu: gaua
+    descriptionEs: gaua
+  - labelEu: Haurrak (5-12 urtea, biak barne)
+    labelEs: Niños (5-12, ambos incluidos)
+    price: 5
