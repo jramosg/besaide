@@ -45,9 +45,7 @@ imageEntries.sort((a, b) => {
 						src={image}
 						alt={`${alt} ${index + 1}`}
 						class="gallery__image"
-						loading="lazy"
-						widths={[400, 600, 800]}
-						sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+						style={`view-transition-name: image-leixegarate-${index}`}
 					/>
 					<div class="gallery__overlay">
 						<ZoomIn size={48} />
@@ -79,6 +77,7 @@ imageEntries.sort((a, b) => {
 			class="lightbox__image"
 			id="lightbox-image"
 			layout="full-width"
+			style={`view-transition-name: image-leixegarate-0`}
 		/>
 		<div class="lightbox__counter"></div>
 	</div>
@@ -277,103 +276,106 @@ imageEntries.sort((a, b) => {
 </style>
 
 <script>
-	const galleryButtons = document.querySelectorAll('.gallery__button');
-	const lightbox = document.getElementById('lightbox');
-	const lightboxImage = lightbox?.querySelector(
-		'#lightbox-image'
-	) as HTMLImageElement;
-	const lightboxCounter = lightbox?.querySelector('.lightbox__counter');
-	const closeBtn = lightbox?.querySelector('.lightbox__close');
-	const prevBtn = lightbox?.querySelector('.lightbox__prev');
-	const nextBtn = lightbox?.querySelector('.lightbox__next');
+	document.addEventListener('astro:page-load', () => {
+		const galleryButtons = document.querySelectorAll('.gallery__button');
+		const lightbox = document.getElementById('lightbox');
+		const lightboxImage = lightbox?.querySelector(
+			'#lightbox-image'
+		) as HTMLImageElement;
+		const lightboxCounter = lightbox?.querySelector('.lightbox__counter');
+		const closeBtn = lightbox?.querySelector('.lightbox__close');
+		const prevBtn = lightbox?.querySelector('.lightbox__prev');
+		const nextBtn = lightbox?.querySelector('.lightbox__next');
 
-	let currentIndex = 0;
-	const images: {
-		src: string;
-		srcset: string;
-		alt: string;
-		width: number;
-		height: number;
-	}[] = [];
+		let currentIndex = 0;
+		const images: {
+			src: string;
+			srcset: string;
+			alt: string;
+			width: number;
+			height: number;
+		}[] = [];
 
-	// Collect all images with their optimized sources
-	galleryButtons.forEach((btn, index) => {
-		const img = btn.querySelector('img') as HTMLImageElement;
-		const button = btn as HTMLButtonElement;
+		// Collect all images with their optimized sources
+		galleryButtons.forEach((btn, index) => {
+			const img = btn.querySelector('img') as HTMLImageElement;
+			const button = btn as HTMLButtonElement;
 
-		if (img) {
-			images.push({
-				src: img.currentSrc || img.src,
-				srcset: img.srcset || img.src,
-				alt: img.alt,
-				width: parseInt(button.dataset.fullWidth || '1200'),
-				height: parseInt(button.dataset.fullHeight || '800')
+			if (img) {
+				images.push({
+					src: img.currentSrc || img.src,
+					srcset: img.srcset || img.src,
+					style: {`view-transition-name: image-leixegarate-${index}`},
+					alt: img.alt,
+					width: parseInt(button.dataset.fullWidth || '1200'),
+					height: parseInt(button.dataset.fullHeight || '800')
+				});
+			}
+
+			btn.addEventListener('click', () => {
+				openLightbox(index);
 			});
-		}
-
-		btn.addEventListener('click', () => {
-			openLightbox(index);
 		});
-	});
 
-	function openLightbox(index: number) {
-		currentIndex = index;
-		updateLightboxImage();
-		if (lightbox) {
-			lightbox.setAttribute('aria-hidden', 'false');
-			document.body.style.overflow = 'hidden';
+		function openLightbox(index: number) {
+			currentIndex = index;
+			updateLightboxImage();
+			if (lightbox) {
+				lightbox.setAttribute('aria-hidden', 'false');
+				document.body.style.overflow = 'hidden';
+			}
 		}
-	}
 
-	function closeLightbox() {
-		if (lightbox) {
-			lightbox.setAttribute('aria-hidden', 'true');
-			document.body.style.overflow = '';
+		function closeLightbox() {
+			if (lightbox) {
+				lightbox.setAttribute('aria-hidden', 'true');
+				document.body.style.overflow = '';
+			}
 		}
-	}
 
-	function updateLightboxImage() {
-		if (lightboxImage && images[currentIndex]) {
-			const currentImage = images[currentIndex];
-			lightboxImage.src = currentImage.src;
-			lightboxImage.srcset = currentImage.srcset;
-			lightboxImage.alt = currentImage.alt;
-			lightboxImage.width = currentImage.width;
-			lightboxImage.height = currentImage.height;
+		function updateLightboxImage() {
+			if (lightboxImage && images[currentIndex]) {
+				const currentImage = images[currentIndex];
+				lightboxImage.src = currentImage.src;
+				lightboxImage.srcset = currentImage.srcset;
+				lightboxImage.alt = currentImage.alt;
+				lightboxImage.width = currentImage.width;
+				lightboxImage.height = currentImage.height;
+			}
+			if (lightboxCounter) {
+				lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+			}
 		}
-		if (lightboxCounter) {
-			lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+
+		function showNext() {
+			currentIndex = (currentIndex + 1) % images.length;
+			updateLightboxImage();
 		}
-	}
 
-	function showNext() {
-		currentIndex = (currentIndex + 1) % images.length;
-		updateLightboxImage();
-	}
-
-	function showPrev() {
-		currentIndex = (currentIndex - 1 + images.length) % images.length;
-		updateLightboxImage();
-	}
-
-	// Event listeners
-	closeBtn?.addEventListener('click', closeLightbox);
-	nextBtn?.addEventListener('click', showNext);
-	prevBtn?.addEventListener('click', showPrev);
-
-	// Close on background click
-	lightbox?.addEventListener('click', e => {
-		if (e.target === lightbox) {
-			closeLightbox();
+		function showPrev() {
+			currentIndex = (currentIndex - 1 + images.length) % images.length;
+			updateLightboxImage();
 		}
-	});
 
-	// Keyboard navigation
-	document.addEventListener('keydown', e => {
-		if (lightbox?.getAttribute('aria-hidden') === 'false') {
-			if (e.key === 'Escape') closeLightbox();
-			if (e.key === 'ArrowRight') showNext();
-			if (e.key === 'ArrowLeft') showPrev();
-		}
+		// Event listeners
+		closeBtn?.addEventListener('click', closeLightbox);
+		nextBtn?.addEventListener('click', showNext);
+		prevBtn?.addEventListener('click', showPrev);
+
+		// Close on background click
+		lightbox?.addEventListener('click', e => {
+			if (e.target === lightbox) {
+				closeLightbox();
+			}
+		});
+
+		// Keyboard navigation
+		document.addEventListener('keydown', e => {
+			if (lightbox?.getAttribute('aria-hidden') === 'false') {
+				if (e.key === 'Escape') closeLightbox();
+				if (e.key === 'ArrowRight') showNext();
+				if (e.key === 'ArrowLeft') showPrev();
+			}
+		});
 	});
 </script>
