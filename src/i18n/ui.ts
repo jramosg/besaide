@@ -183,7 +183,10 @@ export const ui = {
 			'Visitar la página de Instagram de Besaide',
 		EMAILA: 'EMAIL',
 		TELEFONOA: 'TELÉFONO',
-		'Harremanetan jarri': 'Contactar'
+		'Harremanetan jarri': 'Contactar',
+		'Deskribapena': 'Descripción',
+		'Besaidek egindako ekarpena': 'Contribución de Besaide',
+		'Argazki galeria': 'Galería de fotos'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

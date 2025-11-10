@@ -290,6 +290,69 @@ export default config({
 					}
 				)
 			}
+		}),
+		leixergarateAterpea: singleton({
+			label: 'Leixergarate Aterpea / Refugio Leixergarate',
+			path: 'src/data/leixergarate-aterpea/leixergarate-aterpea',
+			schema: {
+				descriptionEu: fields.text({
+					label: 'Deskribapena euskeraz',
+					description: 'Aterpearen deskribapena',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				descriptionEs: fields.text({
+					label: 'Descripción en español',
+					description: 'Descripción del refugio',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				contributionEu: fields.text({
+					label: 'Besaidek egindako ekarpena euskeraz',
+					description: 'Besaide elkarteak aterpeari egindako ekarpena',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				contributionEs: fields.text({
+					label: 'Contribución de Besaide en español',
+					description:
+						'Contribución que ha hecho la asociación Besaide al refugio',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				prices: fields.array(
+					fields.object({
+						labelEu: fields.text({
+							label: 'Prezioaren izena euskeraz',
+							validation: { isRequired: true }
+						}),
+						labelEs: fields.text({
+							label: 'Nombre del precio en español',
+							validation: { isRequired: true }
+						}),
+						price: fields.number({
+							label: 'Prezioa (€) / Precio (€)',
+							validation: { isRequired: true, min: 0 }
+						}),
+						descriptionEu: fields.text({
+							label: 'Deskribapena euskeraz (aukerakoa)',
+							description: 'Adib: gaua, biak barne, etab.'
+						}),
+						descriptionEs: fields.text({
+							label: 'Descripción en español (opcional)',
+							description: 'Ej: noche, ambos inclusive, etc.'
+						})
+					}),
+					{
+						label: 'Prezioak / Precios',
+						itemLabel: props =>
+							props.fields.labelEu.value +
+								': ' +
+								props.fields.price.value +
+								'€' || 'Prezioa / Precio'
+					}
+				)
+			}
 		})
 	}
 });

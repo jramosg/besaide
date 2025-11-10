@@ -4,6 +4,7 @@ import { eventsSchema } from '@/schemas/events';
 import { newsSchema } from '@/schemas/news';
 import { functioningSchema } from '@/schemas/functioning';
 import { membershipSchema } from '@/schemas/membership';
+import { leixergarateAterpeaSchema } from '@/schemas/leixergarateAterpea';
 
 const news = defineCollection({
 	loader: glob({ pattern: '**/*.yaml', base: './src/data/news' }),
@@ -37,6 +38,11 @@ const membership = defineCollection({
 	schema: membershipSchema
 });
 
+const leixergarateAterpea = defineCollection({
+	loader: glob({ pattern: '**/*.yaml', base: './src/data/leixergarate-aterpea' }),
+	schema: leixergarateAterpeaSchema
+});
+
 // Expose your defined collection to Astro
 // with the `collections` export
 export const collections = {
@@ -46,5 +52,6 @@ export const collections = {
 	history,
 	functioning,
 	libraryMaps,
-	membership
+	membership,
+	leixergarateAterpea
 };
