@@ -33,6 +33,7 @@
 	);
 	--theme-on-container-gradient: hsl(0, 0%, 100%);
 	--theme-outline: hsl(240 5.9% 90%);
+	--theme-separator: #92949c;
 
 	/* Theme Secondary Colors */
 	--theme-secondary: #e8944a;
@@ -196,4 +197,5 @@
 	);
 
 	--theme-outline: hsl(240 3.7% 15.9%);
+	--theme-separator: #92949c;
 }

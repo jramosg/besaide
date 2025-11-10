@@ -186,7 +186,9 @@ export const ui = {
 		'Harremanetan jarri': 'Contactar',
 		Deskribapena: 'Descripción',
 		'Besaidek egindako ekarpena': 'Contribución de Besaide',
-		'Argazki galeria': 'Galería de fotos'
+		'Argazki galeria': 'Galería de fotos',
+		Kokapena: 'Ubicación',
+		Prezioak: 'Precios'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

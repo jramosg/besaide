@@ -9,6 +9,7 @@ import HeroImage from '@/components/HeroImage.astro';
 import ImageGallery from '@/components/ImageGallery.astro';
 import { getEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
+import LeafletMap from '@/components/LeafletMap.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -21,6 +22,9 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 if (!entry) {
 	throw new Error(`Content not found for leixergarateAterpea content ${lang}`);
 }
+
+const coordinates = { lat: 42.97275, lon: -2.520117, elevation: 978 };
+const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation}m`;
 ---
 
 <Page
@@ -37,22 +41,76 @@ if (!entry) {
 		alt={t('nav.leixagarate-aterpea')}
 		slug="leixagarate-aterpea"
 	/>
-	<section>
-		<h2 class="h4">{t('Deskribapena')}</h2>
-		<p>
-			{lang === 'eu' ? entry.data.descriptionEu : entry.data.descriptionEs}
-		</p>
-	</section>
-	<section>
-		<h2 class="h4">{t('Besaidek egindako ekarpena')}</h2>
-		<p>
-			{lang === 'eu' ? entry.data.contributionEu : entry.data.contributionEs}
-		</p>
-	</section>
-	<section>
-		<h2 class="h4">{t('Argazki galeria')}</h2>
-		<ImageGallery images={images} alt={t('nav.leixagarate-aterpea')} />
-	</section>
+
+	<article>
+		<section>
+			<h2 class="h4">{t('Deskribapena')}</h2>
+			<p>
+				{lang === 'eu' ? entry.data.descriptionEu : entry.data.descriptionEs}
+			</p>
+		</section>
+
+		<section>
+			<h2 class="h4">{t('Besaidek egindako ekarpena')}</h2>
+			<p>
+				{lang === 'eu' ? entry.data.contributionEu : entry.data.contributionEs}
+			</p>
+		</section>
+
+		<section>
+			<h2 class="h4">{t('Argazki galeria')}</h2>
+			<ImageGallery images={images} alt={t('nav.leixagarate-aterpea')} />
+		</section>
+
+		<section>
+			<h2 class="h4">{t('Kokapena')}</h2>
+			<p>
+				<data value={`${coordinates.lat},${coordinates.lon}`}>
+					{coordinatesText}
+				</data>
+			</p>
+			<div
+				class="leaflet-map-container"
+				role="region"
+				aria-label={t('Kokapena')}
+			>
+				<LeafletMap
+					latitude={coordinates.lat}
+					longitude={coordinates.lon}
+					zoom={15}
+					markerComponent=`<a href="https://www.google.com/maps/@${coordinates.lat},${coordinates.lon},16z" target="_blank" rel="noopener noreferrer">Leixegarate Aterpea</a>`
+				/>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="h4">{t('Prezioak')}</h2>
+			<dl class="price-list">
+				{
+					entry.data.prices.map(price => (
+						<div
+							class="price-item"
+							itemscope
+							itemtype="https://schema.org/Offer"
+						>
+							<dt class="price-label">
+								{`${lang === 'eu' ? price.labelEu : price.labelEs}: `}
+							</dt>
+							<dd class="price-value">
+								<span class="price-amount" itemprop="price">
+									{price.price} €
+								</span>
+								<meta itemprop="priceCurrency" content="EUR" />
+								{((price.descriptionEu && lang === 'eu') ||
+									(price.descriptionEs && lang === 'es')) &&
+									(lang === 'eu' ? price.descriptionEu : price.descriptionEs)}
+							</dd>
+						</div>
+					))
+				}
+			</dl>
+		</section>
+	</article>
 
 	<style>
 		.leixagarate-image {
@@ -64,6 +122,56 @@ if (!entry) {
 
 		section:not(:last-of-type) {
 			margin-bottom: var(--s6);
+		}
+
+		.leaflet-map-container {
+			width: 100%;
+			height: 400px;
+			border-radius: var(--theme-shape-radius);
+			overflow: hidden;
+		}
+
+		.price-list {
+			display: flex;
+			flex-direction: column;
+			gap: var(--s3, 1rem);
+		}
+
+		.price-item {
+			display: flex;
+			gap: var(--s, 1rem);
+			padding-bottom: var(--s2, 0.5rem);
+			font-weight: var(--font-weight-medium);
+			border-bottom: 1px solid var(--theme-separator);
+		}
+
+		.price-label {
+			min-width: fit-content;
+			font-weight: var(--font-weight-medium);
+		}
+
+		.price-value {
+			display: flex;
+			gap: var(--s, 0.5rem);
+			align-items: baseline;
+			margin: 0;
+			color: var(--theme-primary-900);
+		}
+
+		.price-amount {
+			font-weight: 500;
+		}
+
+		.price-description {
+			color: var(--theme-text-lighter, #666);
+			font-size: 0.9em;
+			font-weight: 400;
+		}
+
+		@media (max-width: 600px) {
+			.leaflet-map-container {
+				height: 300px;
+			}
 		}
 	</style>
 </Page>
