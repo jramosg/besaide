@@ -39,7 +39,10 @@ const membership = defineCollection({
 });
 
 const leixergarateAterpea = defineCollection({
-	loader: glob({ pattern: '**/*.yaml', base: './src/data/leixergarate-aterpea' }),
+	loader: glob({
+		pattern: '**/*.yaml',
+		base: './src/data/leixergarate-aterpea'
+	}),
 	schema: leixergarateAterpeaSchema
 });
 

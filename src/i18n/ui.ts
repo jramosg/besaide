@@ -184,7 +184,7 @@ export const ui = {
 		EMAILA: 'EMAIL',
 		TELEFONOA: 'TELÉFONO',
 		'Harremanetan jarri': 'Contactar',
-		'Deskribapena': 'Descripción',
+		Deskribapena: 'Descripción',
 		'Besaidek egindako ekarpena': 'Contribución de Besaide',
 		'Argazki galeria': 'Galería de fotos'
 	},

@@ -78,7 +78,7 @@ imageEntries.sort((a, b) => {
 			alt={alt || 'Gallery image'}
 			class="lightbox__image"
 			id="lightbox-image"
-            layout="full-width"
+			layout="full-width"
 		/>
 		<div class="lightbox__counter"></div>
 	</div>
@@ -105,7 +105,8 @@ imageEntries.sort((a, b) => {
 		aspect-ratio: 4 / 3;
 		background: var(--theme-card, #f5f5f5);
 		box-shadow: var(--shadow-card, 0 2px 8px rgba(0, 0, 0, 0.1));
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		transition:
+			transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 			box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
@@ -166,7 +167,9 @@ imageEntries.sort((a, b) => {
 		justify-content: center;
 		opacity: 0;
 		visibility: hidden;
-		transition: opacity 0.3s ease, visibility 0.3s ease;
+		transition:
+			opacity 0.3s ease,
+			visibility 0.3s ease;
 	}
 
 	.lightbox[aria-hidden='false'] {
@@ -275,20 +278,28 @@ imageEntries.sort((a, b) => {
 <script>
 	const galleryButtons = document.querySelectorAll('.gallery__button');
 	const lightbox = document.getElementById('lightbox');
-	const lightboxImage = lightbox?.querySelector('#lightbox-image') as HTMLImageElement;
+	const lightboxImage = lightbox?.querySelector(
+		'#lightbox-image'
+	) as HTMLImageElement;
 	const lightboxCounter = lightbox?.querySelector('.lightbox__counter');
 	const closeBtn = lightbox?.querySelector('.lightbox__close');
 	const prevBtn = lightbox?.querySelector('.lightbox__prev');
 	const nextBtn = lightbox?.querySelector('.lightbox__next');
 
 	let currentIndex = 0;
-	const images: { src: string; srcset: string; alt: string; width: number; height: number }[] = [];
+	const images: {
+		src: string;
+		srcset: string;
+		alt: string;
+		width: number;
+		height: number;
+	}[] = [];
 
 	// Collect all images with their optimized sources
 	galleryButtons.forEach((btn, index) => {
 		const img = btn.querySelector('img') as HTMLImageElement;
 		const button = btn as HTMLButtonElement;
-		
+
 		if (img) {
 			images.push({
 				src: img.currentSrc || img.src,
@@ -350,14 +361,14 @@ imageEntries.sort((a, b) => {
 	prevBtn?.addEventListener('click', showPrev);
 
 	// Close on background click
-	lightbox?.addEventListener('click', (e) => {
+	lightbox?.addEventListener('click', e => {
 		if (e.target === lightbox) {
 			closeLightbox();
 		}
 	});
 
 	// Keyboard navigation
-	document.addEventListener('keydown', (e) => {
+	document.addEventListener('keydown', e => {
 		if (lightbox?.getAttribute('aria-hidden') === 'false') {
 			if (e.key === 'Escape') closeLightbox();
 			if (e.key === 'ArrowRight') showNext();
