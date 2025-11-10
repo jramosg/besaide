@@ -222,7 +222,7 @@ export default config({
 					{
 						label: 'Zuzendaritza Taldea / Equipo Directivo',
 						itemLabel: props =>
-							props.fields.positionEu.value || 'Kidea / Miembro'
+							props.fields.positionEu.value + ': ' + props.fields.name.value
 					}
 				),
 				closingTextEu: fields.text({
