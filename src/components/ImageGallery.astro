@@ -45,7 +45,9 @@ imageEntries.sort((a, b) => {
 						src={image}
 						alt={`${alt} ${index + 1}`}
 						class="gallery__image"
-						style={`view-transition-name: image-leixegarate-${index}`}
+						loading="lazy"
+						widths={[400, 600, 800]}
+						sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
 					/>
 					<div class="gallery__overlay">
 						<ZoomIn size={48} />
@@ -76,8 +78,8 @@ imageEntries.sort((a, b) => {
 			alt={alt || 'Gallery image'}
 			class="lightbox__image"
 			id="lightbox-image"
-			layout="full-width"
-			style={`view-transition-name: image-leixegarate-0`}
+			widths={[1200, 1600, 2000]}
+			sizes="90vw"
 		/>
 		<div class="lightbox__counter"></div>
 	</div>
@@ -159,7 +161,7 @@ imageEntries.sort((a, b) => {
 	.lightbox {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.95);
+		background: rgba(0, 0, 0, 0);
 		z-index: 1000;
 		display: flex;
 		align-items: center;
@@ -167,11 +169,13 @@ imageEntries.sort((a, b) => {
 		opacity: 0;
 		visibility: hidden;
 		transition:
-			opacity 0.3s ease,
-			visibility 0.3s ease;
+			background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.lightbox[aria-hidden='false'] {
+		background: rgba(0, 0, 0, 0.95);
 		opacity: 1;
 		visibility: visible;
 	}
@@ -184,6 +188,16 @@ imageEntries.sort((a, b) => {
 		flex-direction: column;
 		align-items: center;
 		gap: var(--s3, 1rem);
+		opacity: 0;
+		transform: scale(0.9);
+		transition:
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.lightbox[aria-hidden='false'] .lightbox__content {
+		opacity: 1;
+		transform: scale(1);
 	}
 
 	.lightbox__image {
@@ -192,6 +206,7 @@ imageEntries.sort((a, b) => {
 		height: auto;
 		border-radius: var(--border-radius-md, 8px);
 		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+		transition: opacity 0.3s ease;
 	}
 
 	.lightbox__counter {
@@ -201,6 +216,14 @@ imageEntries.sort((a, b) => {
 		background: rgba(0, 0, 0, 0.6);
 		border-radius: var(--border-radius-md, 8px);
 		backdrop-filter: blur(8px);
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+	}
+
+	.lightbox[aria-hidden='true'] .lightbox__counter {
+		opacity: 0;
+		transform: translateY(10px);
 	}
 
 	.lightbox__close,
@@ -214,13 +237,22 @@ imageEntries.sort((a, b) => {
 		padding: var(--s2, 0.5rem);
 		border-radius: 50%;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition:
+			all 0.2s ease,
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 48px;
 		height: 48px;
 		z-index: 1001;
+		opacity: 0;
+	}
+
+	.lightbox[aria-hidden='false'] .lightbox__close,
+	.lightbox[aria-hidden='false'] .lightbox__prev,
+	.lightbox[aria-hidden='false'] .lightbox__next {
+		opacity: 1;
 	}
 
 	.lightbox__close:hover,
@@ -305,7 +337,6 @@ imageEntries.sort((a, b) => {
 				images.push({
 					src: img.currentSrc || img.src,
 					srcset: img.srcset || img.src,
-					style: {`view-transition-name: image-leixegarate-${index}`},
 					alt: img.alt,
 					width: parseInt(button.dataset.fullWidth || '1200'),
 					height: parseInt(button.dataset.fullHeight || '800')
@@ -335,12 +366,22 @@ imageEntries.sort((a, b) => {
 
 		function updateLightboxImage() {
 			if (lightboxImage && images[currentIndex]) {
-				const currentImage = images[currentIndex];
-				lightboxImage.src = currentImage.src;
-				lightboxImage.srcset = currentImage.srcset;
-				lightboxImage.alt = currentImage.alt;
-				lightboxImage.width = currentImage.width;
-				lightboxImage.height = currentImage.height;
+				// Fade out
+				lightboxImage.style.opacity = '0';
+				
+				setTimeout(() => {
+					const currentImage = images[currentIndex];
+					lightboxImage.src = currentImage.src;
+					lightboxImage.srcset = currentImage.srcset;
+					lightboxImage.alt = currentImage.alt;
+					lightboxImage.width = currentImage.width;
+					lightboxImage.height = currentImage.height;
+					
+					// Fade in
+					requestAnimationFrame(() => {
+						lightboxImage.style.opacity = '1';
+					});
+				}, 150);
 			}
 			if (lightboxCounter) {
 				lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
