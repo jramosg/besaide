@@ -9,13 +9,17 @@
 		"build": "astro check && astro build",
 		"preview": "pnpm run build && astro preview",
 		"astro": "astro",
-		"format": "npx prettier -w ."
+		"format": "npx prettier -w .",
+		"docker:build": "docker build -t besaide .",
+		"docker:run": "docker run -p 4321:4321 besaide",
+		"docker:compose:build": "docker-compose up -d --build",
+		"docker:stop": "docker-compose down"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.4",
 		"@astrojs/markdoc": "^0.15.8",
+		"@astrojs/node": "^9.5.0",
 		"@astrojs/react": "^4.4.0",
-		"@astrojs/vercel": "^8.2.10",
 		"@fontsource-variable/roboto": "^5.2.8",
 		"@keystatic/astro": "^5.0.6",
 		"@keystatic/core": "^0.5.48",
@@ -23,7 +27,7 @@
 		"@types/leaflet": "^1.9.21",
 		"@types/react": "^19.2.2",
 		"@types/react-dom": "^19.2.2",
-		"astro": "^5.14.5",
+		"astro": "^5.15.4",
 		"leaflet": "^1.9.4",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",

@@ -1,0 +1,16 @@
+node_modules
+dist
+.astro
+.git
+.github
+.vscode
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+README.md
+.prettierrc
+.editorconfig
+coverage
+.cache

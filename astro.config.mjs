@@ -5,7 +5,7 @@ import react from '@astrojs/react';
 import markdoc from '@astrojs/markdoc';
 import keystatic from '@keystatic/astro';
 
-import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,8 +18,17 @@ export default defineConfig({
 	},
 
 	integrations: [react(), markdoc(), keystatic()],
-	adapter: vercel(),
+	adapter: node({
+		mode: 'standalone'
+	}),
+	output: 'server',
 	image: {
 		layout: 'constrained'
+	},
+	vite: {
+		build: {
+			minify: 'esbuild',
+			cssMinify: true
+		}
 	}
 });

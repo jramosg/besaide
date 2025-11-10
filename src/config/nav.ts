@@ -11,7 +11,7 @@ export const nav = [
 	},
 	{
 		title: 'nav.news',
-		slug: 'news',
+		slug: 'news-page',
 		children: []
 	},
 	{
