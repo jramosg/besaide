@@ -69,7 +69,6 @@ const {
 	.section-header__action__mobile {
 		display: none;
 		margin-top: var(--s5);
-		justify-self: center;
 	}
 
 	@media (max-width: 768px) {
@@ -83,7 +82,8 @@ const {
 			display: none;
 		}
 		.section-header__action__mobile {
-			display: block;
+			display: flex;
+			justify-content: center;
 		}
 	}
 </style>
