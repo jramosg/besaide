@@ -1,0 +1,19 @@
+pricingTable:
+  - regionEu: Hego Euskal Herria,  Espainiar estatua
+    regionEs: País Vasco sur, Estado Español
+    priceChildren: 23.87
+    priceYouth: 29.59
+    priceAdults: 89.78
+    priceSeniors: 69.76
+  - regionEu: Hego Euskal Herria, Espainiar estatua, Pirinioak
+    regionEs: País Vasco sur, Estado Español, Pirineos
+    priceChildren: 42.86
+    priceYouth: 48.58
+    priceAdults: 113.1
+    priceSeniors: 85.75
+  - regionEu: Mundiala
+    regionEs: Mundial
+    priceChildren: 89.78
+    priceYouth: 95.5
+    priceAdults: 160.02
+    priceSeniors: 135.67
