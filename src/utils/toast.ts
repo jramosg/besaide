@@ -25,18 +25,19 @@ class ToastManager {
 	}
 
 	private ensureContainer(): void {
-		if (!this.container) {
-			this.container = document.getElementById('toast-container');
-
-			if (!this.container) {
-				// Create container if it doesn't exist
-				this.container = document.createElement('div');
-				this.container.id = 'toast-container';
-				this.container.className = 'toast-container';
-				this.container.setAttribute('aria-live', 'polite');
-				this.container.setAttribute('aria-label', 'Notifications');
-				document.body.appendChild(this.container);
-			}
+		// Always check if container exists in DOM, not just if we have a reference
+		let existingContainer = document.getElementById('toast-container');
+		
+		if (existingContainer) {
+			this.container = existingContainer;
+		} else if (!this.container || !document.body.contains(this.container)) {
+			// Create container if it doesn't exist or was removed from DOM
+			this.container = document.createElement('div');
+			this.container.id = 'toast-container';
+			this.container.className = 'toast-container';
+			this.container.setAttribute('aria-live', 'polite');
+			this.container.setAttribute('aria-label', 'Notifications');
+			document.body.appendChild(this.container);
 		}
 	}
 
