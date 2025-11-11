@@ -31,7 +31,7 @@ imageEntries.sort((a, b) => {
 
 <div class="gallery">
 	{
-		imageEntries.map(({ image, path }, index) => (
+		imageEntries.map(({ image }, index) => (
 			<div class="gallery__item">
 				<button
 					class="gallery__button"
@@ -368,7 +368,7 @@ imageEntries.sort((a, b) => {
 			if (lightboxImage && images[currentIndex]) {
 				// Fade out
 				lightboxImage.style.opacity = '0';
-				
+
 				setTimeout(() => {
 					const currentImage = images[currentIndex];
 					lightboxImage.src = currentImage.src;
@@ -376,7 +376,7 @@ imageEntries.sort((a, b) => {
 					lightboxImage.alt = currentImage.alt;
 					lightboxImage.width = currentImage.width;
 					lightboxImage.height = currentImage.height;
-					
+
 					// Fade in
 					requestAnimationFrame(() => {
 						lightboxImage.style.opacity = '1';
