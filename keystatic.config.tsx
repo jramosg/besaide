@@ -353,6 +353,59 @@ export default config({
 					}
 				)
 			}
+		}),
+		federation: singleton({
+			label: 'Federatzea / Federación',
+			path: 'src/data/federation',
+			schema: {
+				contentEu: fields.markdoc({
+					label: 'Edukia euskeraz',
+					description: 'Federazioari buruzko informazioa euskeraz'
+				}),
+				contentEs: fields.markdoc({
+					label: 'Contenido en español',
+					description: 'Información sobre la federación en español'
+				}),
+				pricingTable: fields.array(
+					fields.object({
+						regionEu: fields.text({
+							label: 'Eskualdea euskeraz',
+							description: 'Adib: Hego Euskal Herria',
+							validation: { isRequired: true }
+						}),
+						regionEs: fields.text({
+							label: 'Región en español',
+							description: 'Ej: País Vasco Sur',
+							validation: { isRequired: true }
+						}),
+						priceChildren: fields.number({
+							label: 'Haurrak / Niños (€)',
+							description: 'Haurrak',
+							validation: { isRequired: true, min: 0 }
+						}),
+						priceYouth: fields.number({
+							label: 'Gazteak / Jóvenes (€)',
+							description: 'Gazteak',
+							validation: { isRequired: true, min: 0 }
+						}),
+						priceAdults: fields.number({
+							label: 'Nagusiak / Adultos (€)',
+							description: 'Nagusiak',
+							validation: { isRequired: true, min: 0 }
+						}),
+						priceSeniors: fields.number({
+							label: 'Nagusiak >65 / Adultos >65 (€)',
+							description: 'Nagusiak >65',
+							validation: { isRequired: true, min: 0 }
+						})
+					}),
+					{
+						label: 'Prezioen taula / Tabla de precios',
+						itemLabel: props =>
+							props.fields.regionEu.value || 'Eskualdea / Región'
+					}
+				)
+			}
 		})
 	}
 });

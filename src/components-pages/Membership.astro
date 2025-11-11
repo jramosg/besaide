@@ -10,8 +10,15 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const membership = await getEntry('membership', 'membership');
+
 if (!membership) {
 	throw new Error('Membership content not found');
+}
+
+const federation = await getEntry('federation', 'federation');
+
+if (!federation) {
+	throw new Error('Federation content not found');
 }
 
 // Helper function to split label and make first word bold
@@ -21,6 +28,17 @@ function formatPriceLabel(label: string, price: number) {
 	const rest = parts.slice(1).join(' ');
 	return { firstWord, rest, price };
 }
+
+// Age category headers
+const ageCategories = [
+	{ eu: 'Haurrak', es: 'Niños', key: 'priceChildren' },
+	{ eu: 'Gazteak', es: 'Jóvenes', key: 'priceYouth' },
+	{ eu: 'Nagusiak', es: 'Adultos', key: 'priceAdults' },
+	{ eu: 'Nagusiak >65', es: 'Adultos >65', key: 'priceSeniors' }
+] as const;
+
+const pricingTable = federation.data.pricingTable;
+const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 ---
 
 <Page
@@ -77,6 +95,84 @@ function formatPriceLabel(label: string, price: number) {
 			</aside>
 		</Container>
 	</section>
+
+	{
+		pricingTable && (
+			<section class="section__federation content__container" aria-labelledby="federation-title">
+				<h1 id="federation-title" class="h2">
+						{t('Federatzea')}
+					</h1>
+					{/* Desktop Table View */}
+					<div class="table-wrapper" role="region" tabindex={0}>
+						<table
+							class="federation-table"
+							itemscope
+							itemtype="https://schema.org/Table"
+						>
+							<thead>
+								<tr>
+									<th scope="col">{lang === 'eu' ? 'Eskualdea' : 'Región'}</th>
+									{ageCategories.map(cat => (
+										<th scope="col">{lang === 'eu' ? cat.eu : cat.es}</th>
+									))}
+								</tr>
+							</thead>
+							<tbody>
+								{pricingTable.map((row, index) => (
+									<tr itemscope itemtype="https://schema.org/Offer">
+										<th scope="row" itemprop="category">
+											{lang === 'eu' ? row.regionEu : row.regionEs}
+										</th>
+										{ageCategories.map(cat => (
+											<td
+												class={
+													index === pricingNumberOfRows - 1
+														? 'price-latest'
+														: ''
+												}
+											>
+												<span itemprop="price">{row[cat.key]}</span>{' '}
+												<span class="currency">€</span>
+												<meta itemprop="priceCurrency" content="EUR" />
+											</td>
+										))}
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+
+					{/* Mobile Card View */}
+					<div class="federation-cards">
+						{pricingTable.map(row => (
+							<article
+								class="federation-card"
+								itemscope
+								itemtype="https://schema.org/Offer"
+							>
+								<h3 class="card-region" itemprop="category">
+									{lang === 'eu' ? row.regionEu : row.regionEs}
+								</h3>
+								<dl class="card-prices">
+									{ageCategories.map(cat => (
+										<div class="price-row">
+											<dt class="price-label">
+												{lang === 'eu' ? cat.eu : cat.es}
+											</dt>
+											<dd class="price-value">
+												///
+												<span itemprop="price">{row[cat.key]}</span> €
+												<meta itemprop="priceCurrency" content="EUR" />
+											</dd>
+										</div>
+									))}
+								</dl>
+							</article>
+						))}
+					</div>
+			</section>
+		)
+	}
 </Page>
 
 <style>
@@ -149,7 +245,7 @@ function formatPriceLabel(label: string, price: number) {
 
 	.price-currency {
 		font-size: var(--font-size-sm);
-		font-weight: 600;
+		font-weight: var(--font-weight-semibold);
 	}
 
 	.card__membership--benefits {
@@ -182,5 +278,126 @@ function formatPriceLabel(label: string, price: number) {
 		bottom: var(--s6);
 		right: calc(var(--size) / 2 + var(--s6));
 		transform: rotate(270deg);
+	}
+
+	/* Federation Section */
+	.section__federation {
+		margin-top: var(--s6);
+	}
+
+	/* Desktop Table */
+	.table-wrapper {
+		overflow-x: auto;
+		border-radius: var(--theme-shape-radius);
+		box-shadow: var(--shadow-card);
+		margin-bottom: var(--s4);
+	}
+
+	.federation-table {
+		width: 100%;
+		border-collapse: collapse;
+		background: var(--theme-card);
+		font-size: 1rem;
+
+		thead {
+			background: var(--theme-primary-900);
+			color: var(--theme-on-primary);
+		}
+
+		th {
+			padding: var(--s4);
+			text-align: left;
+			font-weight: var(--font-weight-semibold);
+			white-space: nowrap;
+		}
+
+		th[scope='col'] {
+			text-align: center;
+		}
+
+		th[scope='row'] {
+			font-weight: var(--font-weight-semibold);
+			background: var(--theme-primary-container);
+		}
+
+		td {
+			padding: var(--s4);
+			text-align: center;
+			border-bottom: 1px solid var(--theme-separator);
+			font-weight: var(--font-weight-medium);
+			&.price-latest {
+				border-bottom: none;
+			}
+		}
+
+		tbody tr:hover {
+			background: var(--theme-primary-container-alt);
+		}
+
+		.currency {
+			font-size: 0.875em;
+			opacity: 0.8;
+		}
+	}
+
+	/* Mobile Cards */
+	.federation-cards {
+		display: none;
+	}
+
+	@media (max-width: 768px) {
+		.table-wrapper {
+			display: none;
+		}
+
+		.federation-cards {
+			display: grid;
+			gap: var(--s4);
+		}
+
+		.federation-card {
+			background: var(--theme-card);
+			border-radius: var(--theme-shape-radius);
+			padding: var(--s4);
+			box-shadow: var(--shadow-card);
+		}
+
+		.card-region {
+			margin: 0 0 var(--s3) 0;
+			padding-bottom: var(--s2);
+			border-bottom: 2px solid var(--theme-primary-900);
+			font-size: 1.25rem;
+			font-weight: var(--font-weight-semibold);
+			color: var(--theme-primary-900);
+		}
+
+		.card-prices {
+			display: grid;
+			gap: var(--s2);
+			margin: 0;
+		}
+
+		.price-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: var(--s2) 0;
+			border-bottom: 1px solid var(--theme-separator);
+		}
+
+		.price-row:last-child {
+			border-bottom: none;
+		}
+
+		.price-label {
+			font-weight: var(--font-weight-medium);
+			margin: 0;
+		}
+
+		.price-value {
+			font-weight: var(--font-weight-semibold);
+			color: var(--theme-primary-900);
+			margin: 0;
+		}
 	}
 </style>

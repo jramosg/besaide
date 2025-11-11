@@ -188,7 +188,8 @@ export const ui = {
 		'Besaidek egindako ekarpena': 'Contribución de Besaide',
 		'Argazki galeria': 'Galería de fotos',
 		Kokapena: 'Ubicación',
-		Prezioak: 'Precios'
+		Prezioak: 'Precios',
+		Federatzea: 'Federarse'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

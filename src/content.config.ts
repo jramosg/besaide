@@ -5,6 +5,7 @@ import { newsSchema } from '@/schemas/news';
 import { functioningSchema } from '@/schemas/functioning';
 import { membershipSchema } from '@/schemas/membership';
 import { leixergarateAterpeaSchema } from '@/schemas/leixergarateAterpea';
+import { federationCollectionSchema } from '@/schemas/federation';
 
 const news = defineCollection({
 	loader: glob({ pattern: '**/*.yaml', base: './src/data/news' }),
@@ -38,6 +39,18 @@ const membership = defineCollection({
 	schema: membershipSchema
 });
 
+const federation = defineCollection({
+	loader: glob({
+		pattern: '**/*.yaml',
+		base: './src/data/federation'
+	}),
+	schema: federationCollectionSchema
+});
+
+const federationContent = defineCollection({
+	loader: glob({ pattern: '**/*.mdoc', base: './src/data/federation' })
+});
+
 const leixergarateAterpea = defineCollection({
 	loader: glob({
 		pattern: '**/*.yaml',
@@ -56,5 +69,7 @@ export const collections = {
 	functioning,
 	libraryMaps,
 	membership,
-	leixergarateAterpea
+	leixergarateAterpea,
+	federation,
+	federationContent
 };

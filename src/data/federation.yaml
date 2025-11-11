@@ -1,0 +1,7 @@
+pricingTable:
+  - regionEu: ss
+    regionEs: s
+    priceChildren: 1
+    priceYouth: 6
+    priceAdults: 3
+    priceSeniors: 4
