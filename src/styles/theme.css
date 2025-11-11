@@ -72,7 +72,6 @@
 
 	--theme-card: #fff;
 
-	--theme-card: #fff;
 	--theme-on-surface-1: var(--theme-on-bg);
 
 	--theme-surface-2: #800080;
@@ -161,7 +160,6 @@
 	--theme-bg: hsl(0, 0%, 2%);
 	--theme-on-bg: hsl(0, 0%, 100%);
 
-	--theme-card: oklch(20.5% 0 0);
 	--theme-card: hsl(0, 0%, 20%);
 
 	--theme-surface-2: #203422;

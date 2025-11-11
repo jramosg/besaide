@@ -16,9 +16,16 @@ const Tag = href ? 'a' : 'button';
 ---
 
 <Tag
-	class={`btn button-text ${unelevated && `btn--unelevated`} ${
-		outlined && `btn--outlined`
-	} ${tonal && `btn--tonal`} ${bordered && `btn--bordered`} ${onPrimary && `btn--on-primary`} ${className}`}
+	class:list={[
+		'btn',
+		'button-text',
+		unelevated && 'btn--unelevated',
+		outlined && 'btn--outlined',
+		tonal && 'btn--tonal',
+		bordered && 'btn--bordered',
+		onPrimary && 'btn--on-primary',
+		className
+	]}
 	href={href}
 	target={`${newTab ? '_blank' : ``}`}
 	rel={`${newTab ? 'noopener noreferrer' : ``}`}
@@ -81,10 +88,15 @@ const Tag = href ? 'a' : 'button';
 	}
 	.btn--tonal:hover {
 		opacity: 0.72;
+		background-color: var(--theme-card);
 	}
 	.btn--bordered {
 		border: 1px solid white;
 		background-color: transparent;
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.1);
+			border: 1px solid white;
+		}
 	}
 	.custom-icon__span {
 		margin-left: 0.25rem;

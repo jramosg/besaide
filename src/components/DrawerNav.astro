@@ -82,10 +82,12 @@ const t = useTranslations(lang);
 			}
 			{
 				navActions.map((action, i) => (
-					<li>
+					<li
+						style={`transition-delay: ${(i + navData.length + 1) * 100 + 200}ms`}
+						class="drawer-menu-item"
+					>
 						<Button
-							class="drawer-menu-item"
-							style={`transition-delay: ${(i + navData.length + 1) * 100 + 200}ms`}
+							class="drawer-menu-item-button"
 							bordered={i === 0}
 							tonal={i === 1}
 							href={getUrlFromID(action.slug, lang)}
@@ -197,7 +199,7 @@ const t = useTranslations(lang);
 		z-index: calc(var(--z-index-header-drawer) + 1);
 	}
 
-	.drawer-menu-item a {
+	.drawer-menu-item a:not(.drawer-menu-item-button) {
 		color: var(--theme-on-primary, #fff);
 		text-decoration: none;
 		letter-spacing: 0.08em;
@@ -211,9 +213,11 @@ const t = useTranslations(lang);
 	.drawer-menu-item a:hover,
 	.drawer-menu-item a:hover,
 	.drawer-menu-toggle:hover {
-		text-shadow:
-			0 2px 32px #fff,
-			0 0 2px #fff;
+		&:not(.drawer-menu-item-button) {
+			text-shadow:
+				0 2px 32px #fff,
+				0 0 2px #fff;
+		}
 	}
 
 	.drawer-menu-item a:focus-visible,
