@@ -46,10 +46,14 @@ export const ui = {
 		'nav.library-maps': 'Biblioteca / Mapas',
 		'Babeslea izan nahi duzu?': '¿Quieres ser patrocinador?',
 		// Material Rental page
-		'material-rent.seo.title': 'Alquiler de Material - Besaide Mendizale Elkartea',
-		'material-rent.seo.description': 'Alquiler de material de montaña para socios de Besaide: piolets, crampones, palas y más. Consulta horarios y precios.',
-		'material-rent.intro': 'En Besaide hay material básico de montaña: piolets, crampones, palas... Si quieres hacer una salida de montaña y no tienes material, pásate por Besaide el martes o miércoles de 19:30 a 20:30 y alquila lo que necesites.',
-		'material-rent.request': 'Como no sabemos cuáles son las necesidades de material de los socios, si crees que deberíamos tener más material de alquiler, dínoslo y estudiaremos el tema en la asamblea.',
+		'material-rent.seo.title':
+			'Alquiler de Material - Besaide Mendizale Elkartea',
+		'material-rent.seo.description':
+			'Alquiler de material de montaña para socios de Besaide: piolets, crampones, palas y más. Consulta horarios y precios.',
+		'material-rent.intro':
+			'En Besaide hay material básico de montaña: piolets, crampones, palas... Si quieres hacer una salida de montaña y no tienes material, pásate por Besaide el martes o miércoles de 19:30 a 20:30 y alquila lo que necesites.',
+		'material-rent.request':
+			'Como no sabemos cuáles son las necesidades de material de los socios, si crees que deberíamos tener más material de alquiler, dínoslo y estudiaremos el tema en la asamblea.',
 		'material-rent.list-title': 'Material disponible',
 		'material-rent.price-unit': '€',
 		// 404 Page
@@ -197,7 +201,7 @@ export const ui = {
 		Kokapena: 'Ubicación',
 		Prezioak: 'Precios',
 		Federatzea: 'Federarse',
-		'material-rent.unavailable': 'No disponible',
+		'material-rent.unavailable': 'No disponible'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -236,10 +240,14 @@ export const ui = {
 		'nav.material-rent': 'Material alokairua',
 		'nav.library-maps': 'Liburutegia / Mapak',
 		// Material Rental page
-		'material-rent.seo.title': 'Material Alokairua - Besaide Mendizale Elkartea',
-		'material-rent.seo.description': 'Mendiko material alokairua Besaideko bazkideentzat: pioletak, kranpoiak, palak eta gehiago. Kontsultatu ordutegia eta prezioak.',
-		'material-rent.intro': 'Besaiden, oinarrizko mendiko materiala dago, pioletak, kranpoiak, palak… Mendi irteera bat egin nahi baduzu eta materialik ez baduzu, pasa zaitez Besaidetik asteartean edo asteazkenean 19.30-20.30 bitartean eta aloka ezazu behar duzun hori.',
-		'material-rent.request': 'Bazkideen material beharrak zeintzuk diren ezagutzen ez dugunez, alokairuko material gehiago eduki behar genukeela baderitzozu, adieraziguzu eta batzarrean aztertuko dugu gaia.',
+		'material-rent.seo.title':
+			'Material Alokairua - Besaide Mendizale Elkartea',
+		'material-rent.seo.description':
+			'Mendiko material alokairua Besaideko bazkideentzat: pioletak, kranpoiak, palak eta gehiago. Kontsultatu ordutegia eta prezioak.',
+		'material-rent.intro':
+			'Besaiden, oinarrizko mendiko materiala dago, pioletak, kranpoiak, palak… Mendi irteera bat egin nahi baduzu eta materialik ez baduzu, pasa zaitez Besaidetik asteartean edo asteazkenean 19.30-20.30 bitartean eta aloka ezazu behar duzun hori.',
+		'material-rent.request':
+			'Bazkideen material beharrak zeintzuk diren ezagutzen ez dugunez, alokairuko material gehiago eduki behar genukeela baderitzozu, adieraziguzu eta batzarrean aztertuko dugu gaia.',
 		'material-rent.list-title': 'Eskuragarri dagoen materiala',
 		'material-rent.price-unit': '€',
 		// 404 Page

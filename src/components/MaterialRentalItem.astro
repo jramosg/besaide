@@ -44,7 +44,10 @@ const t = useTranslations(lang);
 						{t('material-rent.unavailable')}
 					</Chip>
 				</dd>
-				<dd class="material-item__unavailable-mobile" aria-label={t('material-rent.unavailable')}>
+				<dd
+					class="material-item__unavailable-mobile"
+					aria-label={t('material-rent.unavailable')}
+				>
 					✕
 				</dd>
 			</>
@@ -125,7 +128,9 @@ const t = useTranslations(lang);
 		}
 
 		.material-item--unavailable {
-			.material-item__icon, .material-item__name, .material-item__price {
+			.material-item__icon,
+			.material-item__name,
+			.material-item__price {
 				opacity: 0.5;
 			}
 			.material-item__icon {
