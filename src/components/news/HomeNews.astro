@@ -21,18 +21,17 @@ const newsSection = getUrlFromID('news', lang);
 		subtitle={t('Azken albisteak eta eguneraketak')}
 		buttonText={t('Berri guztiak ikusi')}
 		buttonHref={newsSection}
-	/>
-
-	<div class="featured-news">
-		{processedNews.map(item => <NewsCard item={item} />)}
-	</div>
+	>
+		<div class="featured-news">
+			{processedNews.map(item => <NewsCard item={item} />)}
+		</div>
+	</HomeSectionHeader>
 </section>
 
 <style>
 	.featured-news {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
-		margin-bottom: 3rem;
 		justify-content: center;
 		gap: 2rem;
 	}

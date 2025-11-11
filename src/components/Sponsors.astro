@@ -46,24 +46,24 @@ const t = useTranslations(lang);
 ---
 
 <section class='id="babesleak"'>
-	<HomeSectionHeader title={t('Babesleak')} class="content__container" />
-
-	<div class="carousel">
-		<div class="group">
-			{
-				sponsors.map(sponsor => {
-					return <SponsorLink {...sponsor} />;
-				})
-			}
+	<HomeSectionHeader title={t('Babesleak')} class="content__container">
+		<div class="carousel">
+			<div class="group">
+				{
+					sponsors.map(sponsor => {
+						return <SponsorLink {...sponsor} />;
+					})
+				}
+			</div>
+			<div aria-hidden="true" class="group">
+				{
+					sponsors.map(sponsor => {
+						return <SponsorLink {...sponsor} />;
+					})
+				}
+			</div>
 		</div>
-		<div aria-hidden="true" class="group">
-			{
-				sponsors.map(sponsor => {
-					return <SponsorLink {...sponsor} />;
-				})
-			}
-		</div>
-	</div>
+	</HomeSectionHeader>
 </section>
 
 <style>

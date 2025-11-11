@@ -23,11 +23,11 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 		)}
 		buttonText={t('Agenda osoa ikusi')}
 		buttonHref={getUrlFromID('agenda', lang)}
-	/>
-
-	<div class="events-grid">
-		{events.map(item => <EventCard item={item} />)}
-	</div>
+	>
+		<div class="events-grid">
+			{events.map(item => <EventCard item={item} />)}
+		</div>
+	</HomeSectionHeader>
 </section>
 
 <style>
