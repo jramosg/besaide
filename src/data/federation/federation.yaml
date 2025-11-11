@@ -17,3 +17,7 @@ pricingTable:
     priceYouth: 95.5
     priceAdults: 160.02
     priceSeniors: 135.67
+infoCardEu : >
+    Urtarrilaren 1etik abenduaren 31rainoko indarra edo balioa du. Urtea amaitu baino lehen tramitatzea komenigarria da, baina, abuztua ezik, urteko edozein arotan tramita daiteke; beti ere urteko kuota osoa ordaindu behar da.
+infoCardEs : >
+    Tiene vigencia o validez desde el 1 de enero hasta el 31 de diciembre. Es conveniente tramitarla antes de que finalice el año, pero, salvo en agosto.

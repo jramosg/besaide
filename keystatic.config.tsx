@@ -13,11 +13,7 @@ export default config({
 	},
 
 	storage: {
-		kind: 'github',
-		repo: {
-			owner: 'jramosg',
-			name: 'besaide'
-		}
+		kind: 'local'
 	},
 	collections: {
 		news: collection({
@@ -356,7 +352,7 @@ export default config({
 		}),
 		federation: singleton({
 			label: 'Federatzea / Federación',
-			path: 'src/data/federation',
+			path: 'src/data/federation/federation',
 			schema: {
 				contentEu: fields.markdoc({
 					label: 'Edukia euskeraz',
@@ -367,14 +363,12 @@ export default config({
 					description: 'Información sobre la federación en español'
 				}),
 				infoCardEu: fields.text({
-					label: 'Informazio txartela euskeraz',
-					description: 'Federazioari buruzko informazio gehigarria',
+					label: 'Informazio gehigarria euskeraz',
 					multiline: true,
 					validation: { isRequired: true }
 				}),
 				infoCardEs: fields.text({
-					label: 'Tarjeta de información en español',
-					description: 'Información adicional sobre la federación',
+					label: 'Información en español',
 					multiline: true,
 					validation: { isRequired: true }
 				}),

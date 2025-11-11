@@ -48,7 +48,7 @@ const federation = defineCollection({
 });
 
 const federationContent = defineCollection({
-	loader: glob({ pattern: '**/*.mdoc', base: './src/data/federation' })
+	loader: glob({ pattern: '**/*.mdoc', base: './src/data/federation/federation' })
 });
 
 const leixergarateAterpea = defineCollection({
