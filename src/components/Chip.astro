@@ -4,10 +4,10 @@ interface Props {
 	class?: string;
 }
 
-const { variant = 'default', class: className = '' } = Astro.props;
+const { variant = 'default', class: className = '', ...rest } = Astro.props;
 ---
 
-<span class:list={['chip', 'button-text', `chip--${variant}`, className]}>
+<span class:list={['chip', 'button-text', `chip--${variant}`, className]} {...rest}>
 	<slot />
 </span>
 

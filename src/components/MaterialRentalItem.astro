@@ -1,0 +1,136 @@
+---
+import { Shovel, Pickaxe, HardHat } from '@lucide/astro';
+import SnowShoeIcon from '@/assets/icons/snowshoeing.svg';
+import ConstructIcon from '@/assets/icons/construct.svg';
+import Chip from './Chip.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+interface Props {
+	icon: string;
+	name: string;
+	price: number;
+	available?: boolean;
+}
+
+const { icon, name, price, available = true }: Props = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class:list={['material-item', !available && 'material-item--unavailable']}>
+	<div class="material-item__icon" aria-hidden="true">
+		{
+			icon === 'ice-axe' ? (
+				<Pickaxe size={24} />
+			) : icon === 'shovel' ? (
+				<Shovel size={24} />
+			) : icon === 'snowshoe' ? (
+				<SnowShoeIcon fill="currentColor" />
+			) : icon === 'helmet' ? (
+				<HardHat />
+			) : (
+				<ConstructIcon fill="currentColor" />
+			)
+		}
+	</div>
+	<dt class="material-item__name">{name}</dt>
+	<dd class="material-item__price">{price}€</dd>
+	{
+		!available && (
+			<>
+				<dd class="material-item__chip-wrapper">
+					<Chip class="material-item__chip" variant="error">
+						{t('material-rent.unavailable')}
+					</Chip>
+				</dd>
+				<dd class="material-item__unavailable-mobile" aria-label={t('material-rent.unavailable')}>
+					✕
+				</dd>
+			</>
+		)
+	}
+</div>
+
+<style>
+	.material-item {
+		display: flex;
+		align-items: center;
+		gap: var(--s2);
+		padding: var(--s4) var(--s3);
+		border-bottom: 1px solid var(--theme-separator);
+		transition: background-color 0.2s ease;
+	}
+
+	.material-item:hover {
+		background-color: var(--theme-primary-hover-bg);
+	}
+
+	.material-item--unavailable {
+		pointer-events: none;
+	}
+
+	.material-item__icon {
+		margin-right: var(--s5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--theme-primary-900);
+	}
+
+	.material-item__icon :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+
+	.material-item__name {
+		font-weight: 500;
+		color: var(--theme-on-bg);
+		margin: 0;
+	}
+
+	.material-item__price {
+		font-weight: 600;
+		color: var(--theme-primary-900);
+		margin: 0 0 0 auto;
+	}
+
+	.material-item__chip-wrapper {
+		margin: 0 0 0 var(--s4);
+	}
+
+	.material-item__chip {
+		margin: 0;
+	}
+
+	.material-item__unavailable-mobile {
+		display: none;
+		margin: 0 0 0 var(--s3);
+		font-size: 1.25rem;
+		color: var(--theme-error);
+		font-weight: 600;
+	}
+
+	@media (max-width: 768px) {
+		.material-item {
+			gap: var(--s);
+		}
+
+		.material-item__chip-wrapper {
+			display: none;
+		}
+
+		.material-item__unavailable-mobile {
+			display: block;
+		}
+
+		.material-item--unavailable {
+			.material-item__icon, .material-item__name, .material-item__price {
+				opacity: 0.5;
+			}
+			.material-item__icon {
+				color: var(--theme-on-bg);
+			}
+		}
+	}
+</style>

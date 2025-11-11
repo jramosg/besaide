@@ -1,0 +1,60 @@
+---
+import PageHeader from '@/components/PageHeader.astro';
+import MaterialRentalItem from '@/components/MaterialRentalItem.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Page from '@/layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Get material rental items and sort by availability (available first) then alphabetically by name
+const materialItems = await getCollection('materialRental');
+const sortedItems = materialItems.sort((a, b) => {
+	// First sort by availability (available items first)
+	if (a.data.available !== b.data.available) {
+		return a.data.available ? -1 : 1;
+	}
+	// Then sort alphabetically by name in the current language
+	const nameA = lang === 'eu' ? a.data.name_eu : a.data.name_es;
+	const nameB = lang === 'eu' ? b.data.name_eu : b.data.name_es;
+	return nameA.localeCompare(nameB, lang);
+});
+---
+
+<Page
+	seo={{
+		title: t('material-rent.seo.title'),
+		description: t('material-rent.seo.description')
+	}}
+	pageClass="content__container"
+>
+	<PageHeader title={t('nav.material-rent')} />
+
+	<p>{t('material-rent.intro')}</p>
+
+	<p class="request">{t('material-rent.request')}</p>
+
+	<dl class="material-list">
+		{
+			sortedItems.map(item => (
+				<MaterialRentalItem
+					icon={item.data.icon}
+					name={lang === 'eu' ? item.data.name_eu : item.data.name_es}
+					price={item.data.price}
+					available={item.data.available}
+				/>
+			))
+		}
+	</dl>
+</Page>
+
+<style>
+	.request {
+		color: var(--theme-primary-900);
+	}
+
+	.material-list {
+		margin: 0;
+	}
+</style>

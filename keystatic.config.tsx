@@ -13,7 +13,11 @@ export default config({
 	},
 
 	storage: {
-		kind: 'local'
+		kind: 'github',
+		repo: {
+			owner: 'jramosg',
+			name: 'besaide'
+		}
 	},
 	collections: {
 		news: collection({
@@ -165,6 +169,41 @@ export default config({
 				content: fields.markdoc({
 					label: 'Edukia / Contenido',
 					description: 'Gertaeraren deskribapen osoa'
+				})
+			}
+		}),
+		materialRental: collection({
+			label: 'Material alokairua / Alquiler de material',
+			slugField: 'name_eu',
+			path: 'src/data/material-rental/*',
+			schema: {
+				name_eu: fields.slug({
+					name: { label: 'Materiala (euskeraz)' }
+				}),
+				name_es: fields.text({
+					label: 'Material (español)',
+					validation: { isRequired: true }
+				}),
+				icon: fields.select({
+					label: 'Ikonoa / Icono',
+					description: 'Ikono izena ',
+					defaultValue: 'ice-axe',
+					options: [
+						{ label: 'Pioleta / Piolet', value: 'ice-axe' },
+						{ label: 'Pala / Pala', value: 'shovel' },
+						{ label: 'Kaskoa / Casco', value: 'helmet' },
+						{ label: 'Erraketa / Raquetas', value: 'snowshoe' },
+						{ label: 'Kaskoa / Casco', value: 'helmet' },
+						{ label: 'Beste bat / Otro', value: 'other' }
+					]
+				}),
+				price: fields.number({
+					label: 'Prezioa (€) / Precio (€)',
+					validation: { isRequired: true, min: 0 }
+				}),
+				available: fields.checkbox({
+					label: 'Eskuragarri / Disponible',
+					defaultValue: true
 				})
 			}
 		})
