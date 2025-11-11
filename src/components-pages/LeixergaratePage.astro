@@ -143,10 +143,13 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			padding-bottom: var(--s2, 0.5rem);
 			font-weight: var(--font-weight-medium);
 			border-bottom: 1px solid var(--theme-separator);
+			align-items: flex-start;
+			&:hover {
+				background-color: var(--theme-primary-hover-bg);
+			}
 		}
 
 		.price-label {
-			min-width: fit-content;
 			font-weight: var(--font-weight-medium);
 		}
 
@@ -154,8 +157,10 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			display: flex;
 			gap: var(--s, 0.5rem);
 			align-items: baseline;
-			margin: 0;
+			margin: 0 0 0 auto;
 			color: var(--theme-primary-900);
+			flex-shrink: 0;
+			white-space: nowrap;
 		}
 
 		.price-amount {
