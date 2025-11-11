@@ -366,6 +366,18 @@ export default config({
 					label: 'Contenido en español',
 					description: 'Información sobre la federación en español'
 				}),
+				infoCardEu: fields.text({
+					label: 'Informazio txartela euskeraz',
+					description: 'Federazioari buruzko informazio gehigarria',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				infoCardEs: fields.text({
+					label: 'Tarjeta de información en español',
+					description: 'Información adicional sobre la federación',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
 				pricingTable: fields.array(
 					fields.object({
 						regionEu: fields.text({

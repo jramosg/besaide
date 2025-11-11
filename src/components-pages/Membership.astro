@@ -3,8 +3,10 @@ import Container from '@/components/Container.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Page from '@/layouts/Page.astro';
-import { getEntry } from 'astro:content';
-import { Wand } from '@lucide/astro';
+import { getEntry, render } from 'astro:content';
+import { InfoIcon, Wand } from '@lucide/astro';
+import EuskalMendiFederazioaLogo from '@/assets/emf.webp';
+import { Image } from 'astro:assets';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -20,6 +22,17 @@ const federation = await getEntry('federation', 'federation');
 if (!federation) {
 	throw new Error('Federation content not found');
 }
+
+const federationContentEntry = await getEntry(
+	'federationContent',
+	'content' + lang
+);
+
+if (!federationContentEntry) {
+	throw new Error('Federation content not found in lang ' + lang);
+}
+
+const { Content: FederationContent } = await render(federationContentEntry);
 
 // Helper function to split label and make first word bold
 function formatPriceLabel(label: string, price: number) {
@@ -109,6 +122,20 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 				<h1 id="federation-title" class="h2">
 					{t('Federatzea')}
 				</h1>
+				<div class="federation-info-grid">
+					<FederationContent />
+					<div class="federation-info-card">
+						<InfoIcon size={24} aria-hidden="true" />
+						{lang === 'eu'
+							? federation.data.infoCardEu
+							: federation.data.infoCardEs}
+					</div>
+					<Image
+						class="euskal-mendi-federazioa-logo"
+						src={EuskalMendiFederazioaLogo}
+						alt="Euskal Mendi Federazioa Logo"
+					/>
+				</div>
 				{/* Desktop Table View */}
 				<div class="table-wrapper" role="region" tabindex={0}>
 					<table
@@ -258,13 +285,15 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		padding: var(--s6);
 		padding-bottom: var(--s8);
 		border-radius: var(--theme-shape-radius);
-		max-width: 560px;
+		max-width: 100%;
+		width: 100%;
 		position: relative;
 
 		@media (min-width: 768px) {
 			grid-column: 2;
 			grid-row: 2 / span 5;
 			margin-left: var(--s6);
+			max-width: 560px;
 		}
 	}
 
@@ -287,6 +316,50 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	/* Federation Section */
 	.section__federation {
 		margin-top: var(--s6);
+	}
+
+	.federation-info-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--s4);
+		margin-bottom: var(--s6);
+	}
+
+	.federation-info-card {
+		border-radius: var(--theme-shape-radius);
+		background-color: var(--theme-primary-container);
+		padding: var(--s4);
+		display: flex;
+		gap: var(--s4);
+		font-weight: var(--font-weight-medium);
+		svg {
+			fill: var(--theme-primary-900);
+			stroke: var(--theme-on-primary);
+			circle {
+				stroke: var(--theme-primary-900);
+			}
+		}
+	}
+	.euskal-mendi-federazioa-logo {
+		height: auto;
+		width: 200px;
+		align-self: center;
+		justify-self: center;
+		grid-column: 1;
+		grid-row: 1;
+	}
+	@media (min-width: 768px) {
+		.federation-info-grid {
+			grid-template-columns: auto 1fr;
+			row-gap: var(--s4);
+		}
+
+		.euskal-mendi-federazioa-logo {
+			width: 200px;
+			min-width: 200px;
+			grid-column: 2;
+			grid-row: 1 / span 2;
+		}
 	}
 
 	/* Desktop Table */
@@ -349,7 +422,7 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		display: none;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		.table-wrapper {
 			display: none;
 		}
