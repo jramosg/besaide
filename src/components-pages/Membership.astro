@@ -125,7 +125,9 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 				<div class="federation-info-grid">
 					<FederationContent />
 					<div class="federation-info-card">
-						<InfoIcon size={32} aria-hidden="true" />
+						<div class="info-icon-container">
+							<InfoIcon size={24} aria-hidden="true" />
+						</div>
 						{lang === 'eu'
 							? federation.data.infoCardEu
 							: federation.data.infoCardEs}
@@ -242,6 +244,15 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		padding: 0;
 	}
 
+	:global([data-theme='dark']) {
+		div {
+			.price-value,
+			.price-currency {
+				color: var(--theme-on-primary);
+			}
+		}
+	}
+
 	.price-item {
 		display: flex;
 		justify-content: space-between;
@@ -268,10 +279,12 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		gap: 0.25rem;
 		margin: 0;
 		white-space: nowrap;
+		color: var(--theme-primary-900);
 	}
 
 	.price-value {
 		font-weight: 700;
+		color: var(--theme-primary-900);
 	}
 
 	.price-currency {
@@ -332,6 +345,9 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		display: flex;
 		gap: var(--s4);
 		font-weight: var(--font-weight-medium);
+	}
+	.info-icon-container {
+		flex-shrink: 0;
 		svg {
 			fill: var(--theme-primary-900);
 			stroke: var(--theme-on-primary);
@@ -473,7 +489,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 
 		.price-value {
 			font-weight: var(--font-weight-semibold);
-			color: var(--theme-primary-900);
 			margin: 0;
 		}
 	}

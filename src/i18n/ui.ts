@@ -41,6 +41,7 @@ export const ui = {
 		'nav.membership-federation': 'Ser socio / Federarse',
 		'nav.services': 'Servicios',
 		'nav.routes': 'Rutas',
+		'nav.leixagarate-aterpea': 'Refugio de Leixagarate',
 		'Leixargarate aterpea': 'Refugio de Leixagarate',
 		'nav.material-rent': 'Alquiler de material',
 		'nav.library-maps': 'Biblioteca / Mapas',
