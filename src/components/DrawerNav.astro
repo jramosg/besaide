@@ -24,6 +24,7 @@ const t = useTranslations(lang);
 	aria-modal="true"
 	aria-label={t('Menua')}
 	aria-hidden="true"
+	inert
 >
 	<nav class="drawer-menu-nav" aria-label={t('Nabigazio nagusia')}>
 		<ul class="main-list" role="list">
@@ -42,6 +43,7 @@ const t = useTranslations(lang);
 										data-slug={navItem.slug}
 										aria-expanded="false"
 										aria-controls={`drawer-submenu-${i}`}
+										tabindex="-1"
 									>
 										{t(navItem.title)}
 										<ChevronDown
@@ -72,6 +74,7 @@ const t = useTranslations(lang);
 								<a
 									class="drawer-menu-item-link"
 									href={getUrlFromID(navItem.slug, lang)}
+									tabindex="-1"
 								>
 									{t(navItem.title)}
 								</a>
@@ -91,6 +94,7 @@ const t = useTranslations(lang);
 							bordered={i === 0}
 							tonal={i === 1}
 							href={getUrlFromID(action.slug, lang)}
+							tabindex="-1"
 						>
 							{t(action.title)}
 						</Button>
@@ -100,10 +104,10 @@ const t = useTranslations(lang);
 		</ul>
 	</nav>
 	<div class="drawer-socials">
-		<a href={Socials.facebook} target="_blank" rel="noopener noreferrer">
+		<a href={Socials.facebook} target="_blank" rel="noopener noreferrer" tabindex="-1">
 			<FacebookF fill="currentColor" />
 		</a>
-		<a href={Socials.instagram} target="_blank" rel="noopener noreferrer">
+		<a href={Socials.instagram} target="_blank" rel="noopener noreferrer" tabindex="-1">
 			<InstagramSvg fill="currentColor" />
 		</a>
 	</div>
@@ -362,6 +366,13 @@ const t = useTranslations(lang);
 			menuOverlay.classList.remove('open');
 			menuOverlay.style.display = 'flex';
 			menuOverlay.setAttribute('aria-hidden', 'false');
+			menuOverlay.removeAttribute('inert');
+
+			// Enable all interactive elements
+			const interactiveElements = menuOverlay.querySelectorAll('a, button');
+			interactiveElements.forEach(el => {
+				el.setAttribute('tabindex', '0');
+			});
 
 			if (hideTimeout) {
 				clearTimeout(hideTimeout);
@@ -388,6 +399,14 @@ const t = useTranslations(lang);
 			header?.removeAttribute('drawer-open');
 			menuOverlay.classList.remove('open');
 			menuOverlay.setAttribute('aria-hidden', 'true');
+			menuOverlay.setAttribute('inert', '');
+			
+			// Disable all interactive elements
+			const interactiveElements = menuOverlay.querySelectorAll('a, button');
+			interactiveElements.forEach(el => {
+				el.setAttribute('tabindex', '-1');
+			});
+
 			drawerBackdrop.classList.remove('open');
 			menuButton.removeAttribute('open');
 			menuButton.setAttribute('aria-expanded', 'false');
