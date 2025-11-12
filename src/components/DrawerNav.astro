@@ -104,10 +104,20 @@ const t = useTranslations(lang);
 		</ul>
 	</nav>
 	<div class="drawer-socials">
-		<a href={Socials.facebook} target="_blank" rel="noopener noreferrer" tabindex="-1">
+		<a
+			href={Socials.facebook}
+			target="_blank"
+			rel="noopener noreferrer"
+			tabindex="-1"
+		>
 			<FacebookF fill="currentColor" />
 		</a>
-		<a href={Socials.instagram} target="_blank" rel="noopener noreferrer" tabindex="-1">
+		<a
+			href={Socials.instagram}
+			target="_blank"
+			rel="noopener noreferrer"
+			tabindex="-1"
+		>
 			<InstagramSvg fill="currentColor" />
 		</a>
 	</div>
@@ -400,7 +410,7 @@ const t = useTranslations(lang);
 			menuOverlay.classList.remove('open');
 			menuOverlay.setAttribute('aria-hidden', 'true');
 			menuOverlay.setAttribute('inert', '');
-			
+
 			// Disable all interactive elements
 			const interactiveElements = menuOverlay.querySelectorAll('a, button');
 			interactiveElements.forEach(el => {

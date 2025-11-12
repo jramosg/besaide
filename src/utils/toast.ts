@@ -27,7 +27,7 @@ class ToastManager {
 	private ensureContainer(): void {
 		// Always check if container exists in DOM, not just if we have a reference
 		let existingContainer = document.getElementById('toast-container');
-		
+
 		if (existingContainer) {
 			this.container = existingContainer;
 		} else if (!this.container || !document.body.contains(this.container)) {
