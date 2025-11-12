@@ -17,6 +17,51 @@ pricingTable:
     priceYouth: 95.5
     priceAdults: 160.02
     priceSeniors: 135.67
+extras:
+  - nameEu: Espainia Mendi Federazioa
+    nameEs: Federación Española de Montaña
+    descriptionEu: FEDME txartela, refugiotarako
+    descriptionEs: Tarjeta FEDME, para refugios
+    pricing:
+      discriminant: fourColumn
+      value:
+        priceChildren: 5
+        priceYouth: 8
+        priceAdults: 12
+  - nameEu: Eski alpinoa
+    nameEs: Esquí alpino
+    pricing:
+      discriminant: twoColumn
+      value:
+        priceAll: 25
+  - nameEu: Snowboard
+    nameEs: Snowboard
+    pricing:
+      discriminant: twoColumn
+      value:
+        priceAll: 25
+  - nameEu: Mendi bizikleta - BTT
+    nameEs: Bicicleta de montaña - BTT
+    pricing:
+      discriminant: twoColumn
+      value:
+        priceAll: 20
+  - nameEu: Espedizioak
+    nameEs: Expediciones
+    descriptionEu: mundialarekin derrigorrez
+    descriptionEs: obligatorio con mundial
+    pricing:
+      discriminant: twoColumn
+      value:
+        priceAll: 30
+  - nameEu: Pyrenaica
+    nameEs: Pyrenaica
+    descriptionEu: etxe bakoitzean 1 derrigorez
+    descriptionEs: 1 obligatorio por hogar
+    pricing:
+      discriminant: twoColumn
+      value:
+        priceAll: 15
 infoCardEu : >
     Urtarrilaren 1etik abenduaren 31rainoko indarra edo balioa du. Urtea amaitu baino lehen tramitatzea komenigarria da, baina, abuztua ezik, urteko edozein arotan tramita daiteke; beti ere urteko kuota osoa ordaindu behar da.
 infoCardEs : >
