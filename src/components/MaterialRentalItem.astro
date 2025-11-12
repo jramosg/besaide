@@ -98,6 +98,10 @@ const t = useTranslations(lang);
 		margin: 0 0 0 auto;
 	}
 
+	:global([data-theme='dark']) .material-item__price {
+		color: var(--theme-on-primary);
+	}
+
 	.material-item__chip-wrapper {
 		margin: 0 0 0 var(--s4);
 	}
