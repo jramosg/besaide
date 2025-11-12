@@ -5,5 +5,5 @@
  * @returns Formatted number string
  */
 export function formatPrice(value: number, locale: string = 'es-ES'): string {
-	return Number(value).toLocaleString(locale);
+	return Number(value).toLocaleString(locale, { style: 'currency', currency: 'EUR' });
 }
