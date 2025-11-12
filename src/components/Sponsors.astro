@@ -86,11 +86,15 @@ const t = useTranslations(lang);
 		}
 	}
 	.group {
-		gap: var(--s2);
+		gap: var(--s7);
 		display: flex;
-		padding-right: var(--s2);
+		padding-right: var(--s7);
 		will-change: transform;
 		animation: scrolling 10s linear infinite;
+	}
+
+	:global([data-theme='dark']) .group {
+		background-color: var(--grey-500);
 	}
 	.group[aria-hidden='true'] {
 		display: flex;

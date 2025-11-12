@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 const { url, name, LogoComponent } = Astro.props;
+console.log(LogoComponent.src);
 ---
 
 <a
@@ -9,15 +10,22 @@ const { url, name, LogoComponent } = Astro.props;
 	rel="noopener noreferrer"
 	class="sponsor-container-link"
 >
-	<Image src={LogoComponent} alt={name} />;
+	{
+		LogoComponent.src.includes('.svg') ? (
+			<LogoComponent />
+		) : (
+			<Image src={LogoComponent} alt={name} />
+		)
+	}
 </a>
 
 <style>
 	.sponsor-container-link {
-		height: 200px;
+		height: 100px;
 		min-width: 200px;
 		flex: 1;
-		img {
+		img,
+		svg {
 			height: 100%;
 			width: 100%;
 			object-fit: contain;
