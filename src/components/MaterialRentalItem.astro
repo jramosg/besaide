@@ -4,6 +4,7 @@ import SnowShoeIcon from '@/assets/icons/snowshoeing.svg';
 import ConstructIcon from '@/assets/icons/construct.svg';
 import Chip from './Chip.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { formatPrice } from '@/utils/format';
 
 interface Props {
 	icon: string;
@@ -35,7 +36,7 @@ const t = useTranslations(lang);
 		}
 	</div>
 	<dt class="material-item__name">{name}</dt>
-	<dd class="material-item__price">{price}€</dd>
+	<dd class="material-item__price">{formatPrice(price)}€</dd>
 	{
 		!available && (
 			<>

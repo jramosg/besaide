@@ -1,5 +1,6 @@
 ---
 import { useTranslations } from '@/i18n/utils';
+import { formatPrice } from '@/utils/format';
 
 type PricingFourColumn = {
 	priceChildren?: number;
@@ -105,7 +106,7 @@ const t = useTranslations(lang);
 										pricing.priceChildren !== null &&
 										pricing.priceChildren !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceChildren}</span>{' '}
+												<span itemprop="price">{formatPrice(pricing.priceChildren)}</span>{' '}
 												<span class="currency">€</span>
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
@@ -118,7 +119,7 @@ const t = useTranslations(lang);
 										pricing.priceYouth !== null &&
 										pricing.priceYouth !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceYouth}</span>{' '}
+												<span itemprop="price">{formatPrice(pricing.priceYouth)}</span>{' '}
 												<span class="currency">€</span>
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
@@ -131,7 +132,7 @@ const t = useTranslations(lang);
 										pricing.priceAdults !== null &&
 										pricing.priceAdults !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceAdults}</span>{' '}
+												<span itemprop="price">{formatPrice(pricing.priceAdults)}</span>{' '}
 												<span class="currency">€</span>
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
@@ -177,7 +178,7 @@ const t = useTranslations(lang);
 										pricing.priceChildren !== null &&
 										pricing.priceChildren !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceChildren}</span> €
+												<span itemprop="price">{formatPrice(pricing.priceChildren)}</span> €
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
 										) : (
@@ -192,7 +193,7 @@ const t = useTranslations(lang);
 										pricing.priceYouth !== null &&
 										pricing.priceYouth !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceYouth}</span> €
+												<span itemprop="price">{formatPrice(pricing.priceYouth)}</span> €
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
 										) : (
@@ -207,7 +208,7 @@ const t = useTranslations(lang);
 										pricing.priceAdults !== null &&
 										pricing.priceAdults !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceAdults}</span> €
+												<span itemprop="price">{formatPrice(pricing.priceAdults)}</span> €
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
 										) : (
@@ -273,7 +274,7 @@ const t = useTranslations(lang);
 										pricing.priceAll !== null &&
 										pricing.priceAll !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceAll}</span>{' '}
+												<span itemprop="price">{formatPrice(pricing.priceAll)}</span>{' '}
 												<span class="currency">€</span>
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
@@ -319,7 +320,7 @@ const t = useTranslations(lang);
 										pricing.priceAll !== null &&
 										pricing.priceAll !== undefined ? (
 											<>
-												<span itemprop="price">{pricing.priceAll}</span> €
+												<span itemprop="price">{formatPrice(pricing.priceAll)}</span> €
 												<meta itemprop="priceCurrency" content="EUR" />
 											</>
 										) : (

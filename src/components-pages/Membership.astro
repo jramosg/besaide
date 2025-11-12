@@ -8,6 +8,7 @@ import { getEntry, render } from 'astro:content';
 import { InfoIcon, Wand } from '@lucide/astro';
 import EuskalMendiFederazioaLogo from '@/assets/emf.webp';
 import { Image } from 'astro:assets';
+import { formatPrice } from '@/utils/format';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -57,8 +58,6 @@ const ageCategories = [
 
 const pricingTable = federation.data.pricingTable;
 const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
-
-console.log('federation', federation);
 ---
 
 <Page
@@ -88,7 +87,9 @@ console.log('federation', federation);
 									<strong>{formatted.firstWord}</strong> {formatted.rest}
 								</h2>
 								<p class="price-amount">
-									<span class="price-value">{formatted.price}</span>
+									<span class="price-value">
+										{formatPrice(formatted.price)}
+									</span>
 									<span class="price-currency">€</span>
 								</p>
 							</li>
@@ -168,7 +169,7 @@ console.log('federation', federation);
 												index === pricingNumberOfRows - 1 ? 'price-latest' : ''
 											}
 										>
-											<span itemprop="price">{row[cat.key]}</span>{' '}
+											<span itemprop="price">{formatPrice(row[cat.key])}</span>{' '}
 											<span class="currency">€</span>
 											<meta itemprop="priceCurrency" content="EUR" />
 										</td>
@@ -197,7 +198,8 @@ console.log('federation', federation);
 											{lang === 'eu' ? cat.eu : cat.es}
 										</dt>
 										<dd class="price-value">
-											<span itemprop="price">{row[cat.key]}</span> €
+											<span itemprop="price">{formatPrice(row[cat.key])}</span>{' '}
+											€
 											<meta itemprop="priceCurrency" content="EUR" />
 										</dd>
 									</div>

@@ -10,6 +10,7 @@ import ImageGallery from '@/components/ImageGallery.astro';
 import { getEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import LeafletMap from '@/components/LeafletMap.astro';
+import { formatPrice } from '@/utils/format';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -98,7 +99,7 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 							</dt>
 							<dd class="price-value">
 								<span class="price-amount" itemprop="price">
-									{price.price} €
+									{formatPrice(price.price)} €
 								</span>
 								<meta itemprop="priceCurrency" content="EUR" />
 								{((price.descriptionEu && lang === 'eu') ||
