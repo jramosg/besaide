@@ -1,6 +1,16 @@
 ---
 import { useTranslations } from '@/i18n/utils';
 
+type PricingFourColumn = {
+	priceChildren?: number;
+	priceYouth?: number;
+	priceAdults?: number;
+};
+
+type PricingTwoColumn = {
+	priceAll?: number;
+};
+
 type Extra = {
 	nameEu: string;
 	nameEs: string;
@@ -9,17 +19,11 @@ type Extra = {
 	pricing:
 		| {
 				discriminant: 'fourColumn';
-				value: {
-					priceChildren?: number;
-					priceYouth?: number;
-					priceAdults?: number;
-				};
+				value: PricingFourColumn;
 		  }
 		| {
 				discriminant: 'twoColumn';
-				value: {
-					priceAll?: number;
-				};
+				value: PricingTwoColumn;
 		  };
 };
 
@@ -31,14 +35,20 @@ type Props = {
 const { extras, lang } = Astro.props;
 
 // Separate 4-column items from 2-column items
-const fourColumnItems = extras.filter(
-	item => item.pricing.discriminant === 'fourColumn'
+const { fourColumnItems, twoColumnItems } = extras.reduce<{
+	fourColumnItems: Extra[];
+	twoColumnItems: Extra[];
+}>(
+	(acc, item) => {
+		if (item.pricing.discriminant === 'fourColumn') {
+			acc.fourColumnItems.push(item);
+		} else if (item.pricing.discriminant === 'twoColumn') {
+			acc.twoColumnItems.push(item);
+		}
+		return acc;
+	},
+	{ fourColumnItems: [], twoColumnItems: [] }
 );
-const twoColumnItems = extras.filter(
-	item => item.pricing.discriminant === 'twoColumn'
-);
-
-console.log({ fourColumnItems, twoColumnItems });
 
 const t = useTranslations(lang);
 ---
@@ -74,18 +84,21 @@ const t = useTranslations(lang);
 							return (
 								<tr itemscope itemtype="https://schema.org/Offer">
 									<th scope="row" class="extras-concept">
-										<div>
+										<span>
 											<span class="extras-name" itemprop="name">
 												{lang === 'eu' ? item.nameEu : item.nameEs}
 											</span>
+
 											{(item.descriptionEu || item.descriptionEs) && (
 												<span class="extras-description">
+													{' ('}
 													{lang === 'eu'
 														? item.descriptionEu
 														: item.descriptionEs}
+													{')'}
 												</span>
 											)}
-										</div>
+										</span>
 									</th>
 									<td>
 										{pricing &&
@@ -215,7 +228,6 @@ const t = useTranslations(lang);
 	/* 2-Column Table (Guztiak) */
 	twoColumnItems.length > 0 && (
 		<>
-			<h3 class="extras-section-subtitle h3">{t('extras-table.all')}</h3>
 			<div
 				class="table-wrapper extras-table-wrapper"
 				role="region"
@@ -229,7 +241,7 @@ const t = useTranslations(lang);
 					<thead>
 						<tr>
 							<th scope="col">{t('concept')}</th>
-							<th scope="col">{t('all')}</th>
+							<th scope="col">{t('extras-table.all')}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -241,18 +253,20 @@ const t = useTranslations(lang);
 							return (
 								<tr itemscope itemtype="https://schema.org/Offer">
 									<th scope="row" class="extras-concept">
-										<div>
+										<span>
 											<span class="extras-name" itemprop="name">
 												{lang === 'eu' ? item.nameEu : item.nameEs}
 											</span>
 											{(item.descriptionEu || item.descriptionEs) && (
 												<span class="extras-description">
+													{' ('}
 													{lang === 'eu'
 														? item.descriptionEu
 														: item.descriptionEs}
+													{')'}
 												</span>
 											)}
-										</div>
+										</span>
 									</th>
 									<td>
 										{pricing &&
@@ -275,7 +289,7 @@ const t = useTranslations(lang);
 			</div>
 
 			{/* Mobile Cards for 2-column items */}
-			<div class="extras-cards">
+			<div class="extras-cards extras-cards--two-col">
 				{twoColumnItems.map(item => {
 					const pricing =
 						item.pricing.discriminant === 'twoColumn'
@@ -283,7 +297,7 @@ const t = useTranslations(lang);
 							: null;
 					return (
 						<article
-							class="extras-card"
+							class="extras-card "
 							itemscope
 							itemtype="https://schema.org/Offer"
 						>
@@ -299,7 +313,7 @@ const t = useTranslations(lang);
 							</h3>
 							<dl class="extras-card-prices">
 								<div class="price-row">
-									<dt>{t('all')}</dt>
+									<dt>{t('extras-table.all')}</dt>
 									<dd>
 										{pricing &&
 										pricing.priceAll !== null &&
@@ -324,13 +338,6 @@ const t = useTranslations(lang);
 
 <style>
 	/* Extras Section Styles */
-	.extras-section-subtitle {
-		margin-top: var(--s8);
-		margin-bottom: var(--s4);
-		padding-top: var(--s4);
-		border-top: 2px solid var(--theme-separator);
-		color: var(--theme-primary-900);
-	}
 
 	.extras-table-wrapper {
 		margin-bottom: var(--s6);
@@ -405,14 +412,12 @@ const t = useTranslations(lang);
 
 	.extras-name {
 		font-weight: var(--font-weight-semibold);
-		display: block;
 	}
 
 	.extras-description {
 		font-size: 0.875rem;
 		opacity: 0.8;
 		font-weight: var(--font-weight-regular);
-		display: block;
 	}
 
 	/* Extras Mobile Cards */
@@ -428,6 +433,10 @@ const t = useTranslations(lang);
 		.extras-cards {
 			display: grid;
 			gap: var(--s4);
+		}
+
+		.extras-cards--two-col {
+			margin-top: var(--s4);
 		}
 
 		.extras-card {

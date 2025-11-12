@@ -216,10 +216,9 @@ console.log('federation', federation);
 				class="section__extras content__container"
 				aria-labelledby="extras-title"
 			>
-				<h2 id="extras-title" class="h2">
+				<h2 id="extras-title" class="h3">
 					{t('Gehigarriak')}
 				</h2>
-
 				<ExtrasTable extras={federation.data.extras} lang={lang} />
 			</section>
 		)
@@ -345,7 +344,8 @@ console.log('federation', federation);
 	}
 
 	/* Federation Section */
-	.section__federation {
+	.section__federation,
+	.section__extras {
 		margin-top: var(--s6);
 	}
 
