@@ -1,0 +1,490 @@
+---
+import { useTranslations } from '@/i18n/utils';
+
+type Extra = {
+	nameEu: string;
+	nameEs: string;
+	descriptionEu?: string;
+	descriptionEs?: string;
+	pricing:
+		| {
+				discriminant: 'fourColumn';
+				value: {
+					priceChildren?: number;
+					priceYouth?: number;
+					priceAdults?: number;
+				};
+		  }
+		| {
+				discriminant: 'twoColumn';
+				value: {
+					priceAll?: number;
+				};
+		  };
+};
+
+type Props = {
+	extras: Extra[];
+	lang: 'eu' | 'es';
+};
+
+const { extras, lang } = Astro.props;
+
+// Separate 4-column items from 2-column items
+const fourColumnItems = extras.filter(
+	item => item.pricing.discriminant === 'fourColumn'
+);
+const twoColumnItems = extras.filter(
+	item => item.pricing.discriminant === 'twoColumn'
+);
+
+console.log({ fourColumnItems, twoColumnItems });
+
+const t = useTranslations(lang);
+---
+
+{
+	/* 4-Column Table */
+	fourColumnItems.length > 0 && (
+		<>
+			<div
+				class="table-wrapper extras-table-wrapper"
+				role="region"
+				tabindex={0}
+			>
+				<table
+					class="extras-table"
+					itemscope
+					itemtype="https://schema.org/Table"
+				>
+					<thead>
+						<tr>
+							<th scope="col">{t('concept')}</th>
+							<th scope="col">{t('children')}</th>
+							<th scope="col">{t('youth')}</th>
+							<th scope="col">{t('adults')}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{fourColumnItems.map(item => {
+							const pricing =
+								item.pricing.discriminant === 'fourColumn'
+									? item.pricing.value
+									: null;
+							return (
+								<tr itemscope itemtype="https://schema.org/Offer">
+									<th scope="row" class="extras-concept">
+										<div>
+											<span class="extras-name" itemprop="name">
+												{lang === 'eu' ? item.nameEu : item.nameEs}
+											</span>
+											{(item.descriptionEu || item.descriptionEs) && (
+												<span class="extras-description">
+													{lang === 'eu'
+														? item.descriptionEu
+														: item.descriptionEs}
+												</span>
+											)}
+										</div>
+									</th>
+									<td>
+										{pricing &&
+										pricing.priceChildren !== null &&
+										pricing.priceChildren !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceChildren}</span>{' '}
+												<span class="currency">€</span>
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</td>
+									<td>
+										{pricing &&
+										pricing.priceYouth !== null &&
+										pricing.priceYouth !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceYouth}</span>{' '}
+												<span class="currency">€</span>
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</td>
+									<td>
+										{pricing &&
+										pricing.priceAdults !== null &&
+										pricing.priceAdults !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceAdults}</span>{' '}
+												<span class="currency">€</span>
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			</div>
+
+			{/* Mobile Cards for 4-column items */}
+			<div class="extras-cards">
+				{fourColumnItems.map(item => {
+					const pricing =
+						item.pricing.discriminant === 'fourColumn'
+							? item.pricing.value
+							: null;
+					return (
+						<article
+							class="extras-card"
+							itemscope
+							itemtype="https://schema.org/Offer"
+						>
+							<h3 class="extras-card-title">
+								<span itemprop="name">
+									{lang === 'eu' ? item.nameEu : item.nameEs}
+								</span>
+								{(item.descriptionEu || item.descriptionEs) && (
+									<span class="extras-card-description">
+										{lang === 'eu' ? item.descriptionEu : item.descriptionEs}
+									</span>
+								)}
+							</h3>
+							<dl class="extras-card-prices">
+								<div class="price-row">
+									<dt>{t('children')}</dt>
+									<dd>
+										{pricing &&
+										pricing.priceChildren !== null &&
+										pricing.priceChildren !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceChildren}</span> €
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</dd>
+								</div>
+								<div class="price-row">
+									<dt>{t('youth')}</dt>
+									<dd>
+										{pricing &&
+										pricing.priceYouth !== null &&
+										pricing.priceYouth !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceYouth}</span> €
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</dd>
+								</div>
+								<div class="price-row">
+									<dt>{t('adults')}</dt>
+									<dd>
+										{pricing &&
+										pricing.priceAdults !== null &&
+										pricing.priceAdults !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceAdults}</span> €
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</dd>
+								</div>
+							</dl>
+						</article>
+					);
+				})}
+			</div>
+		</>
+	)
+}
+
+{
+	/* 2-Column Table (Guztiak) */
+	twoColumnItems.length > 0 && (
+		<>
+			<h3 class="extras-section-subtitle h3">{t('extras-table.all')}</h3>
+			<div
+				class="table-wrapper extras-table-wrapper"
+				role="region"
+				tabindex={0}
+			>
+				<table
+					class="extras-table extras-table--two-col"
+					itemscope
+					itemtype="https://schema.org/Table"
+				>
+					<thead>
+						<tr>
+							<th scope="col">{t('concept')}</th>
+							<th scope="col">{t('all')}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{twoColumnItems.map(item => {
+							const pricing =
+								item.pricing.discriminant === 'twoColumn'
+									? item.pricing.value
+									: null;
+							return (
+								<tr itemscope itemtype="https://schema.org/Offer">
+									<th scope="row" class="extras-concept">
+										<div>
+											<span class="extras-name" itemprop="name">
+												{lang === 'eu' ? item.nameEu : item.nameEs}
+											</span>
+											{(item.descriptionEu || item.descriptionEs) && (
+												<span class="extras-description">
+													{lang === 'eu'
+														? item.descriptionEu
+														: item.descriptionEs}
+												</span>
+											)}
+										</div>
+									</th>
+									<td>
+										{pricing &&
+										pricing.priceAll !== null &&
+										pricing.priceAll !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceAll}</span>{' '}
+												<span class="currency">€</span>
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			</div>
+
+			{/* Mobile Cards for 2-column items */}
+			<div class="extras-cards">
+				{twoColumnItems.map(item => {
+					const pricing =
+						item.pricing.discriminant === 'twoColumn'
+							? item.pricing.value
+							: null;
+					return (
+						<article
+							class="extras-card"
+							itemscope
+							itemtype="https://schema.org/Offer"
+						>
+							<h3 class="extras-card-title">
+								<span itemprop="name">
+									{lang === 'eu' ? item.nameEu : item.nameEs}
+								</span>
+								{(item.descriptionEu || item.descriptionEs) && (
+									<span class="extras-card-description">
+										{lang === 'eu' ? item.descriptionEu : item.descriptionEs}
+									</span>
+								)}
+							</h3>
+							<dl class="extras-card-prices">
+								<div class="price-row">
+									<dt>{t('all')}</dt>
+									<dd>
+										{pricing &&
+										pricing.priceAll !== null &&
+										pricing.priceAll !== undefined ? (
+											<>
+												<span itemprop="price">{pricing.priceAll}</span> €
+												<meta itemprop="priceCurrency" content="EUR" />
+											</>
+										) : (
+											'-'
+										)}
+									</dd>
+								</div>
+							</dl>
+						</article>
+					);
+				})}
+			</div>
+		</>
+	)
+}
+
+<style>
+	/* Extras Section Styles */
+	.extras-section-subtitle {
+		margin-top: var(--s8);
+		margin-bottom: var(--s4);
+		padding-top: var(--s4);
+		border-top: 2px solid var(--theme-separator);
+		color: var(--theme-primary-900);
+	}
+
+	.extras-table-wrapper {
+		margin-bottom: var(--s6);
+		overflow-x: auto;
+		border-radius: var(--theme-shape-radius);
+		box-shadow: var(--shadow-card);
+		background: var(--theme-card);
+	}
+
+	.extras-table {
+		width: 100%;
+		border-collapse: collapse;
+		background: var(--theme-card);
+
+		thead {
+			background: var(--theme-primary-900);
+			color: var(--theme-on-primary);
+		}
+
+		th,
+		td {
+			padding: var(--s4);
+			text-align: left;
+		}
+
+		th[scope='col'] {
+			text-align: center;
+			font-weight: var(--font-weight-semibold);
+			white-space: nowrap;
+		}
+
+		th[scope='row'] {
+			font-weight: var(--font-weight-medium);
+			background: var(--theme-primary-container);
+			max-width: 300px;
+		}
+
+		td {
+			text-align: center;
+			border-bottom: 1px solid var(--theme-separator);
+			font-weight: var(--font-weight-medium);
+		}
+
+		tbody tr:last-child td {
+			border-bottom: none;
+		}
+
+		tbody tr:hover {
+			background: var(--theme-primary-container-alt);
+		}
+
+		.currency {
+			font-size: 0.875em;
+			opacity: 0.8;
+		}
+	}
+
+	.extras-table--two-col {
+		th[scope='row'],
+		td {
+			width: 50%;
+		}
+	}
+
+	.extras-concept {
+		div {
+			display: flex;
+			flex-direction: column;
+			gap: var(--s1);
+		}
+	}
+
+	.extras-name {
+		font-weight: var(--font-weight-semibold);
+		display: block;
+	}
+
+	.extras-description {
+		font-size: 0.875rem;
+		opacity: 0.8;
+		font-weight: var(--font-weight-regular);
+		display: block;
+	}
+
+	/* Extras Mobile Cards */
+	.extras-cards {
+		display: none;
+	}
+
+	@media (max-width: 1024px) {
+		.extras-table-wrapper {
+			display: none;
+		}
+
+		.extras-cards {
+			display: grid;
+			gap: var(--s4);
+		}
+
+		.extras-card {
+			background: var(--theme-card);
+			border-radius: var(--theme-shape-radius);
+			padding: var(--s4);
+			box-shadow: var(--shadow-card);
+		}
+
+		.extras-card-title {
+			margin: 0 0 var(--s3) 0;
+			padding-bottom: var(--s2);
+			border-bottom: 2px solid var(--theme-primary-900);
+			font-size: 1.125rem;
+			font-weight: var(--font-weight-semibold);
+			color: var(--theme-primary-900);
+			display: flex;
+			flex-direction: column;
+			gap: var(--s1);
+
+			span:first-child {
+				font-weight: var(--font-weight-semibold);
+			}
+		}
+
+		.extras-card-description {
+			font-size: 0.875rem;
+			font-weight: var(--font-weight-regular);
+			opacity: 0.8;
+		}
+
+		.extras-card-prices {
+			display: grid;
+			gap: var(--s2);
+			margin: 0;
+		}
+
+		.extras-card-prices .price-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: var(--s2) 0;
+			border-bottom: 1px solid var(--theme-separator);
+		}
+
+		.extras-card-prices .price-row:last-child {
+			border-bottom: none;
+		}
+
+		.extras-card-prices dt {
+			font-weight: var(--font-weight-medium);
+			margin: 0;
+		}
+
+		.extras-card-prices dd {
+			font-weight: var(--font-weight-semibold);
+			margin: 0;
+		}
+	}
+</style>

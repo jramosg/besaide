@@ -158,6 +158,12 @@ export const ui = {
 		'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira':
 			'Las cuotas de socio de la Asociación de Montañismo Besaide para 2025 son las siguientes',
 		'Bazkide izatearen abantailak': 'Ventajas de ser socio',
+		Gehigarriak: 'Extras',
+		concept: 'Concepto',
+		children: 'Niños',
+		youth: 'Jóvenes',
+		adults: 'Adultos',
+		'extras-table.all': 'Todos',
 		'membership.seo.title':
 			'Hacerse Socio y Federarse - Besaide Mendi Elkartea',
 		'membership.seo.description':
@@ -240,6 +246,12 @@ export const ui = {
 		'nav.leixagarate-aterpea': 'Leixargarate aterpea',
 		'nav.material-rent': 'Material alokairua',
 		'nav.library-maps': 'Liburutegia / Mapak',
+		Gehigarriak: 'Gehigarriak',
+		concept: 'Kontzeptua',
+		children: 'Haurrak',
+		youth: 'Gazteak',
+		adults: 'Nagusiak',
+		'extras-table.all': 'Todos',
 		// Material Rental page
 		'material-rent.seo.title':
 			'Material Alokairua - Besaide Mendizale Elkartea',

@@ -449,6 +449,73 @@ export default config({
 						itemLabel: props =>
 							props.fields.regionEu.value || 'Eskualdea / Región'
 					}
+				),
+				extras: fields.array(
+					fields.object({
+						nameEu: fields.text({
+							label: 'Gehigarriaren izena euskeraz',
+							description: 'Adib: Espainia Mendi Federazioa',
+							validation: { isRequired: true }
+						}),
+						nameEs: fields.text({
+							label: 'Nombre del extra en español',
+							description: 'Ej: Federación Española de Montaña',
+							validation: { isRequired: true }
+						}),
+						descriptionEu: fields.text({
+							label: 'Deskribapena euskeraz (aukerakoa)',
+							description: 'Adib: FEDME txartela, refugiotarako',
+							multiline: true
+						}),
+						descriptionEs: fields.text({
+							label: 'Descripción en español (opcional)',
+							description: 'Ej: Tarjeta FEDME, para refugios',
+							multiline: true
+						}),
+						// Conditional pricing based on table type
+						pricing: fields.conditional(
+							fields.select({
+								label: 'Prezio mota / Tipo de precio',
+								options: [
+									{
+										label: 'Haurrak, Gazteak, Nagusiak',
+										value: 'fourColumn'
+									},
+									{
+										label: 'Guztiak / Todos',
+										value: 'twoColumn'
+									}
+								],
+								defaultValue: 'fourColumn'
+							}),
+							{
+								fourColumn: fields.object({
+									priceChildren: fields.number({
+										label: 'Haurrak / Niños (€)',
+										validation: { min: 0 }
+									}),
+									priceYouth: fields.number({
+										label: 'Gazteak / Jóvenes (€)',
+										validation: { min: 0 }
+									}),
+									priceAdults: fields.number({
+										label: 'Nagusiak / Adultos (€)',
+										validation: { min: 0 }
+									})
+								}),
+								twoColumn: fields.object({
+									priceAll: fields.number({
+										label: 'Guztiak / Todos (€)',
+										validation: { min: 0 }
+									})
+								})
+							}
+						)
+					}),
+					{
+						label: 'Gehigarriak / Extras',
+						itemLabel: props => props.fields.nameEu.value
+					}
 				)
 			}
 		})
