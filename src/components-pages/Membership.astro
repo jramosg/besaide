@@ -90,7 +90,7 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 									<span class="price-value">
 										{formatPrice(formatted.price)}
 									</span>
-									<span class="price-currency">€</span>
+									<meta itemprop="priceCurrency" content="EUR" />
 								</p>
 							</li>
 						);
@@ -170,7 +170,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 											}
 										>
 											<span itemprop="price">{formatPrice(row[cat.key])}</span>{' '}
-											<span class="currency">€</span>
 											<meta itemprop="priceCurrency" content="EUR" />
 										</td>
 									))}

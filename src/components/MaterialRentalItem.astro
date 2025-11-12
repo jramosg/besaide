@@ -36,7 +36,10 @@ const t = useTranslations(lang);
 		}
 	</div>
 	<dt class="material-item__name">{name}</dt>
-	<dd class="material-item__price">{formatPrice(price)}€</dd>
+	<dd class="material-item__price">
+		{formatPrice(price)}
+		<meta itemprop="priceCurrency" content="EUR" />
+	</dd>
 	{
 		!available && (
 			<>
