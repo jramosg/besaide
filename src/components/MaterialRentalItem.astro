@@ -71,6 +71,13 @@ const t = useTranslations(lang);
 
 	.material-item--unavailable {
 		pointer-events: none;
+
+		.material-item__icon,
+		.material-item__name,
+		.material-item__price {
+			color: var(--theme-text-secondary);
+			font-weight: 400;
+		}
 	}
 
 	.material-item__icon {
@@ -136,9 +143,6 @@ const t = useTranslations(lang);
 			.material-item__name,
 			.material-item__price {
 				opacity: 0.9;
-			}
-			.material-item__icon {
-				color: var(--theme-on-bg);
 			}
 		}
 	}
