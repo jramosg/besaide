@@ -16,28 +16,56 @@ const agendaSection = getUrlFromID('agenda', lang);
 
 const events = await sortedAndFilteredEvents(lang, agendaSection, today);
 
-// Separate events into future and past
-const { processedFutureEvents, processedPastEvents } = events.reduce(
+// Group events by month and separate into future/past
+const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
 	(acc, item) => {
-		if (item.isPast) {
-			acc.processedPastEvents.push(item);
+		const date = new Date(item.data.date);
+		const year = date.getFullYear();
+		const month = date.getMonth();
+		const key = `${year}-${month}`;
+
+		let title: string;
+		if (lang === 'eu') {
+			const monthName = new Intl.DateTimeFormat('eu', { month: 'long' }).format(date);
+			const lastDigit = year % 10;
+			const vowels = [0, 2, 3, 6, 8];
+			const suffix = vowels.includes(lastDigit) ? 'ko' : 'eko';
+			title = `${year}${suffix} ${monthName}`;
 		} else {
-			acc.processedFutureEvents.push(item);
+			const monthName = new Intl.DateTimeFormat('es', { month: 'long' }).format(date);
+			title = `${monthName} ${year}`;
 		}
+
+		if (item.isPast) {
+			if (!acc.pastEventsByMonth.has(key)) {
+				acc.pastEventsByMonth.set(key, { title, events: [], year, month });
+			}
+			acc.pastEventsByMonth.get(key)!.events.push(item);
+		} else {
+			if (!acc.futureEventsByMonth.has(key)) {
+				acc.futureEventsByMonth.set(key, { title, events: [], year, month });
+			}
+			acc.futureEventsByMonth.get(key)!.events.push(item);
+			acc.futureCount++;
+		}
+
 		return acc;
 	},
-	{ processedFutureEvents: [], processedPastEvents: [] } as {
-		processedFutureEvents: ProcessedEvent[];
-		processedPastEvents: ProcessedEvent[];
+	{
+		futureEventsByMonth: new Map<string, { title: string; events: ProcessedEvent[]; year: number; month: number }>(),
+		pastEventsByMonth: new Map<string, { title: string; events: ProcessedEvent[]; year: number; month: number }>(),
+		futureCount: 0
 	}
 );
+
+const futureMonths = Array.from(futureEventsByMonth.values());
+const pastMonths = Array.from(pastEventsByMonth.values());
 
 const pastTitle = lang === 'eu' ? 'Iraganeko irteerak' : 'Salidas pasadas';
 const emptyMessage =
 	lang === 'eu'
 		? 'Ez dago etorkizuneko irteerarik programatuta oraingoz.'
 		: 'No hay salidas futuras programadas por el momento.';
-const futureCount = processedFutureEvents.length;
 ---
 
 <Page
@@ -61,10 +89,22 @@ const futureCount = processedFutureEvents.length;
 		)
 	}
 	{
-		processedFutureEvents.length > 0 ? (
+		futureMonths.length > 0 ? (
 			<section class="events-list">
-				{processedFutureEvents.map(item => (
-					<EventListCard item={item} />
+				{futureMonths.map(({ title, events }) => (
+					<div class="month-group">
+						<h2 class="month-title subtitle">{title}</h2>
+						<p class="month-count">
+							{events.length === 1
+								? t('Irteera bakarra dago planifikatuta.')
+								: `${events.length} ${t('irteera daude planifikatuta.')}`}
+						</p>
+						<div class="month-events">
+							{events.map(item => (
+								<EventListCard item={item} />
+							))}
+						</div>
+					</div>
 				))}
 			</section>
 		) : (
@@ -75,12 +115,19 @@ const futureCount = processedFutureEvents.length;
 	}
 
 	{
-		processedPastEvents.length > 0 && (
+		pastMonths.length > 0 && (
 			<section class="events-section past-events">
 				<h2 class="section-title">{pastTitle}</h2>
 				<div class="events-list">
-					{processedPastEvents.slice(0, 6).map(item => (
-						<EventListCard item={item} />
+					{pastMonths.map(({ title, events }) => (
+						<div class="month-group">
+							<h3 class="month-title past subtitle">{title}</h3>
+							<div class="month-events">
+								{events.slice(0, 6).map(item => (
+									<EventListCard item={item} />
+								))}
+							</div>
+						</div>
 					))}
 				</div>
 			</section>
@@ -92,6 +139,12 @@ const futureCount = processedFutureEvents.length;
 	.future-count {
 		color: var(--theme-primary-900);
 	}
+	
+	.month-count {
+		color: var(--theme-primary-900);
+		margin: -1rem 0 0.5rem 0;
+	}
+	
 	.events-section {
 		margin-bottom: 4rem;
 	}
@@ -105,8 +158,28 @@ const futureCount = processedFutureEvents.length;
 	.events-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 3rem;
 		margin: var(--s6) 0;
+	}
+
+	.month-group {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.month-title {
+		margin-bottom: 0;
+	}
+
+	.month-title.past {
+		color: var(--theme-text-secondary);
+	}
+
+	.month-events {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
 	}
 
 	.past-events {
