@@ -399,11 +399,6 @@ const t = useTranslations(lang);
 			menuButton.setAttribute('aria-expanded', 'true');
 			setTimeout(() => {
 				menuButton.setAttribute('open', '');
-				// Focus first interactive element in menu
-				const firstLink = menuOverlay.querySelector(
-					'a, button:not(#menuButton)'
-				) as HTMLElement;
-				firstLink?.focus();
 			}, 100);
 			document.body.style.overflow = 'hidden'; // Disable scroll
 		}
