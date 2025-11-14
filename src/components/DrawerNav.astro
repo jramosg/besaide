@@ -159,6 +159,10 @@ const t = useTranslations(lang);
 		transform: translateX(0);
 	}
 
+	:global(header[drawer-open] .header-toggles__container) {
+		background-color: var(--theme-primary-900);
+	}
+
 	@media (min-width: 769px) {
 		.menu-overlay {
 			width: 400px;
@@ -173,11 +177,13 @@ const t = useTranslations(lang);
 				opacity var(--drawer-animation),
 				transform 0.4s ease-in-out;
 		}
+		:global(header[drawer-open] .header-toggles__container) {
+			background-color: unset;
+		}
 	}
 
 	.drawer-menu-nav {
 		flex: 1;
-		z-index: calc(var(--z-index-header-drawer) + 1);
 		padding-top: var(--header-height);
 		ul {
 			list-style: none;
@@ -208,9 +214,6 @@ const t = useTranslations(lang);
 	.menu-overlay.open .drawer-menu-item {
 		opacity: 1;
 		transform: translateY(0) scale(1);
-	}
-	a {
-		z-index: calc(var(--z-index-header-drawer) + 1);
 	}
 
 	.drawer-menu-item a:not(.drawer-menu-item-button) {
