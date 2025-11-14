@@ -5,5 +5,12 @@
  * @returns Formatted number string
  */
 export function formatPrice(value: number, locale: string = 'es-ES'): string {
-	return Number(value).toLocaleString(locale, { style: 'currency', currency: 'EUR' });
+	return Number(value)
+		.toLocaleString(locale, {
+			style: 'currency',
+			currency: 'EUR',
+			useGrouping: true,
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2
+		})
 }
