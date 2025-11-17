@@ -4,5 +4,5 @@ export const homepageSchema = z.object({
 	membershipTitleEu: z.string(),
 	membershipTitleEs: z.string(),
 	membershipDescriptionEu: z.string(),
-	membershipDescriptionEs: z.string()
+	membershipDescriptionEs: z.string().optional()
 });

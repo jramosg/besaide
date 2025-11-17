@@ -269,14 +269,12 @@ export default config({
 					description:
 						'Hasierako orrian agertuko den deskribapena',
 					multiline: true,
-					validation: { isRequired: true }
 				}),
 				membershipDescriptionEs: fields.text({
 					label: 'Descripción de la página de inicio',
 					description:
 						'Descripción que aparecerá en la página de inicio',
 					multiline: true,
-					validation: { isRequired: true }
 				})
 			}
 		}),

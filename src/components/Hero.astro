@@ -9,12 +9,14 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const homepageContent = await getEntry('homepage', 'homepage');
-const title = lang === 'eu' 
-	? homepageContent?.data.membershipTitleEu 
-	: homepageContent?.data.membershipTitleEs;
-const description = lang === 'eu'
-	? homepageContent?.data.membershipDescriptionEu
-	: homepageContent?.data.membershipDescriptionEs;
+const title =
+	lang === 'eu'
+		? homepageContent?.data.membershipTitleEu
+		: homepageContent?.data.membershipTitleEs;
+const description =
+	lang === 'eu'
+		? homepageContent?.data.membershipDescriptionEu
+		: homepageContent?.data.membershipDescriptionEs;
 ---
 
 <section class="hero" id="hero">
@@ -27,66 +29,68 @@ const description = lang === 'eu'
 	<div class="hero-overlay"></div>
 
 	<h1 class="h1 content__container">{title}</h1>
-	<p class="content__container">
-		{description}
-	</p>
+	{
+		description && description.trim().length > 0 && (
+			<p class="content__container">{description}</p>
+		)
+	}
+
+	<style>
+		.hero {
+			--hero-color: white;
+			--hero-color-contrast: #000000;
+			position: relative;
+			min-height: 70vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: var(--hero-color);
+			overflow: hidden;
+			margin-top: calc(-1 * var(--header-height));
+			padding-top: var(--header-height);
+		}
+
+		.hero-slider__container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: var(--s5);
+			h1 {
+				text-align: center;
+			}
+		}
+
+		.hero-image {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			z-index: -1;
+		}
+
+		.hero-overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				to bottom,
+				rgba(0, 0, 0, 0.3) 0%,
+				rgba(0, 0, 0, 0.5) 100%
+			);
+			z-index: -1;
+		}
+
+		.btn-home-hero {
+			background-color: var(--theme-card) !important;
+			color: var(--theme-primary) !important;
+			border-color: var(--theme-card) !important;
+			transition: opacity 0.3s ease;
+			&:hover {
+				opacity: 0.72;
+			}
+		}
+	</style>
 </section>
-
-<style>
-	.hero {
-		--hero-color: white;
-		--hero-color-contrast: #000000;
-		position: relative;
-		min-height: 70vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		color: var(--hero-color);
-		overflow: hidden;
-		margin-top: calc(-1 * var(--header-height));
-		padding-top: var(--header-height);
-	}
-
-	.hero-slider__container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: var(--s5);
-		h1 {
-			text-align: center;
-		}
-	}
-
-	.hero-image {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
-		z-index: -1;
-	}
-
-	.hero-overlay {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			to bottom,
-			rgba(0, 0, 0, 0.3) 0%,
-			rgba(0, 0, 0, 0.5) 100%
-		);
-		z-index: -1;
-	}
-
-	.btn-home-hero {
-		background-color: var(--theme-card) !important;
-		color: var(--theme-primary) !important;
-		border-color: var(--theme-card) !important;
-		transition: opacity 0.3s ease;
-		&:hover {
-			opacity: 0.72;
-		}
-	}
-</style>
