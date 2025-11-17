@@ -253,28 +253,28 @@ export default config({
 			path: 'src/data/homepage/homepage',
 			schema: {
 				membershipTitleEu: fields.text({
-					label: 'Bazkidetza izenburua euskeraz',
+					label: 'Hasierako orriaren izenburua euskeraz',
 					description:
-						'Hasierako orrian agertuko den bazkidetza atalaren izenburua',
+						'Hasierako orrian agertuko den izenburua',
 					validation: { isRequired: true }
 				}),
 				membershipTitleEs: fields.text({
-					label: 'Título de membresía en español',
+					label: 'Título de la página de inicio',
 					description:
-						'Título de la sección de membresía que aparecerá en la página de inicio',
+						'Título que aparecerá en la página de inicio',
 					validation: { isRequired: true }
 				}),
 				membershipDescriptionEu: fields.text({
-					label: 'Bazkidetza deskribapena euskeraz',
+					label: 'Hasierako orriaren deskribapena euskeraz',
 					description:
-						'Hasierako orrian agertuko den bazkidetza atalaren deskribapena',
+						'Hasierako orrian agertuko den deskribapena',
 					multiline: true,
 					validation: { isRequired: true }
 				}),
 				membershipDescriptionEs: fields.text({
-					label: 'Descripción de membresía en español',
+					label: 'Descripción de la página de inicio',
 					description:
-						'Descripción de la sección de membresía que aparecerá en la página de inicio',
+						'Descripción que aparecerá en la página de inicio',
 					multiline: true,
 					validation: { isRequired: true }
 				})
