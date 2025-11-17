@@ -1,14 +1,13 @@
 ---
 import { Address, Email, Phone, Socials, CompanyName } from '@/config/company';
 import Logo from '@/components/Logo.astro';
-import YoutubeIcon from '@/assets/icons/youtube.svg';
-import XIcon from '@/assets/icons/x.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 import InstagramIcon from '@/assets/icons/instagram.png';
+import WikilocIcon from '@/assets/icons/wikiloc.png';
+import WhatsappIcon from '@/assets/icons/whatsapp.svg';
 import { Image } from 'astro:assets';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import Container from './Container.astro';
-import { nav } from '@/config/nav';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -100,40 +99,6 @@ const organizationSchema = {
 			</div>
 		</section>
 
-		<nav
-			class="footer__section footer__section--nav"
-			aria-labelledby="footer-nav-heading"
-		>
-			<h2 class="subtitle" id="footer-nav-heading">{t('Nabigazioa')}</h2>
-			<ul class="footer__nav-list">
-				{
-					nav.map(item =>
-						item.children.length === 0 ? (
-							<li class="footer__nav-item">
-								<a
-									href={getUrlFromID(item.slug, lang)}
-									class="footer__nav-link"
-								>
-									{t(item.title)}
-								</a>
-							</li>
-						) : (
-							item.children.map(child => (
-								<li class="footer__nav-item">
-									<a
-										href={getUrlFromID(child.slug, lang)}
-										class="footer__nav-link"
-									>
-										{t(item.title) + ' · ' + t(child.title)}
-									</a>
-								</li>
-							))
-						)
-					)
-				}
-			</ul>
-		</nav>
-
 		<section
 			class="footer__section footer__section--social"
 			aria-labelledby="footer-social-heading"
@@ -154,33 +119,6 @@ const organizationSchema = {
 				</li>
 				<li class="footer__social-item">
 					<a
-						href="https://x.com/Besaideme"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="footer__social-link"
-						aria-label={t('Bisitatu Besaideren X orria')}
-					>
-						<XIcon
-							fill="currentColor"
-							width={24}
-							height={24}
-							aria-hidden="true"
-						/>
-					</a>
-				</li>
-				<li class="footer__social-item">
-					<a
-						href="https://www.youtube.com/channel/UChcnKpJIpY-U1NaiIw09nNg"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="footer__social-link"
-						aria-label={t('Bisitatu Besaideren YouTube kanala')}
-					>
-						<YoutubeIcon width={24} height={24} aria-hidden="true" />
-					</a>
-				</li>
-				<li class="footer__social-item">
-					<a
 						href={Socials.instagram}
 						target="_blank"
 						rel="noopener noreferrer"
@@ -195,6 +133,36 @@ const organizationSchema = {
 							height={24}
 							aria-hidden="true"
 						/>
+					</a>
+				</li>
+				<li class="footer__social-item">
+					<a
+						href={Socials.wikiloc}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="footer__social-link"
+						aria-label={t('Bisitatu Besaideren Wikiloc orria')}
+						itemprop="sameAs"
+					>
+						<Image
+							src={WikilocIcon}
+							alt=""
+							width={24}
+							height={24}
+							aria-hidden="true"
+						/>
+					</a>
+				</li>
+				<li class="footer__social-item">
+					<a
+						href={Socials.whatsapp}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="footer__social-link"
+						aria-label={t('Bidali mezu bat WhatsApp-en Besaideri')}
+						itemprop="sameAs"
+					>
+						<WhatsappIcon width={32} height={32} />
 					</a>
 				</li>
 			</ul>
@@ -251,16 +219,8 @@ const organizationSchema = {
 		gap: var(--s3);
 	}
 
-	.footer__section--nav {
-		grid-column: 2;
-		grid-row: 2;
-		a {
-			text-decoration: underline;
-		}
-	}
-
 	.footer__section--social {
-		grid-column: 3;
+		grid-column: 2;
 		grid-row: 2;
 	}
 
@@ -304,15 +264,6 @@ const organizationSchema = {
 
 	.footer__office-hours {
 		margin: 0;
-	}
-
-	/* Navigation Section */
-	.footer__nav-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		column-count: 2;
-		column-gap: var(--s4);
 	}
 
 	.footer__nav-item {
@@ -416,21 +367,14 @@ const organizationSchema = {
 			gap: 0;
 		}
 
-		.footer__nav-list {
-			column-count: 1;
-		}
-
 		.footer__section,
 		.footer__branding {
 			padding: var(--s5) 0;
 		}
 
-		.footer__section:not(:last-child),
-		.footer__section--nav {
+		.footer__section:not(:last-child) {
 			border-bottom: 1px solid var(--theme-outline);
 		}
-
-		.footer__section--nav,
 		.footer__section--social {
 			grid-column: 1;
 			grid-row: auto;
@@ -451,6 +395,10 @@ const organizationSchema = {
 			align-items: center;
 			gap: var(--s2);
 		}
+	}
+
+	.subtitle {
+		margin: 0;
 	}
 
 	@media (max-width: 480px) {

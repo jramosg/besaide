@@ -198,6 +198,11 @@ export const ui = {
 			'Visitar el canal de YouTube de Besaide',
 		'Bisitatu Besaideren Instagram orria':
 			'Visitar la página de Instagram de Besaide',
+		'Bisitatu Besaideren Wikiloc orria':
+			'Visitar la página de Wikiloc de Besaide',
+		'Bidali mezu bat WhatsApp-en Besaideri':
+			'Enviar un mensaje por WhatsApp a Besaide',
+		// Contact page labels
 		EMAILA: 'EMAIL',
 		TELEFONOA: 'TELÉFONO',
 		'Harremanetan jarri': 'Contactar',
