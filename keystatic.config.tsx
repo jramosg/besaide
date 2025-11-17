@@ -327,7 +327,7 @@ export default config({
 			}
 		}),
 		leixergarateAterpea: singleton({
-			label: 'Leixergarate Aterpea / Refugio Leixergarate',
+			label: 'Leixergarate aterpetxea / Refugio Leixergarate',
 			path: 'src/data/leixergarate-aterpea/leixergarate-aterpea',
 			schema: {
 				descriptionEu: fields.text({

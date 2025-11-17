@@ -292,9 +292,9 @@ export const ui = {
 		'hero.federation.description':
 			'Federatu lizentzia mendi elkartearen bitartez tramitatzen da. Bai istripu asegurua eta bai Pyrenaica hiruhilabetekariaren harpidetza dauzka barnean',
 		'hero.federation.cta': 'Federatzeko informazio gehiago',
-		'hero.shelter.title': 'Leixergarate aterpea',
+		'hero.shelter.title': 'Leixergarate aterpetxea',
 		'hero.shelter.description':
-			'Leixargarateko aterpea Besaideko bazkide denen eskura dago nahi duenak erabili dezan. Aterpean 12 pertsonentzako literak, sukalde bat, su baxua, komuna… daude. Aterpea erreserbatzeko, zuzendu Besaideko egoitzara asteartetan 19.30-20.30 bitartean.',
+			'Leixargarateko aterpetxea Besaideko bazkide denen eskura dago nahi duenak erabili dezan. Aterpean 12 pertsonentzako literak, sukalde bat, su baxua, komuna… daude. Aterpea erreserbatzeko, zuzendu Besaideko egoitzara asteartetan 19.30-20.30 bitartean.',
 		'hero.shelter.cta': 'Informazio gehiago',
 		'themeSwitcher.toggleTheme': 'Gaia aldatu',
 		Agenda: 'Agenda',
