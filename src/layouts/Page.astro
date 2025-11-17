@@ -15,7 +15,13 @@ export interface Props {
 	Tag?: keyof HTMLElementTagNameMap;
 }
 
-const { seo, pageClass, transparentHeader, Tag = 'div', ...rest } = Astro.props as Props;
+const {
+	seo,
+	pageClass,
+	transparentHeader,
+	Tag = 'div',
+	...rest
+} = Astro.props as Props;
 ---
 
 <Layout {seo}>

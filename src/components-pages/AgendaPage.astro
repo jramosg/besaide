@@ -26,13 +26,17 @@ const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
 
 		let title: string;
 		if (lang === 'eu') {
-			const monthName = new Intl.DateTimeFormat('eu', { month: 'long' }).format(date);
+			const monthName = new Intl.DateTimeFormat('eu', { month: 'long' }).format(
+				date
+			);
 			const lastDigit = year % 10;
 			const vowels = [0, 2, 3, 6, 8];
 			const suffix = vowels.includes(lastDigit) ? 'ko' : 'eko';
 			title = `${year}${suffix} ${monthName}`;
 		} else {
-			const monthName = new Intl.DateTimeFormat('es', { month: 'long' }).format(date);
+			const monthName = new Intl.DateTimeFormat('es', { month: 'long' }).format(
+				date
+			);
 			title = `${monthName} ${year}`;
 		}
 
@@ -52,8 +56,14 @@ const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
 		return acc;
 	},
 	{
-		futureEventsByMonth: new Map<string, { title: string; events: ProcessedEvent[]; year: number; month: number }>(),
-		pastEventsByMonth: new Map<string, { title: string; events: ProcessedEvent[]; year: number; month: number }>(),
+		futureEventsByMonth: new Map<
+			string,
+			{ title: string; events: ProcessedEvent[]; year: number; month: number }
+		>(),
+		pastEventsByMonth: new Map<
+			string,
+			{ title: string; events: ProcessedEvent[]; year: number; month: number }
+		>(),
 		futureCount: 0
 	}
 );
@@ -139,12 +149,12 @@ const emptyMessage =
 	.future-count {
 		color: var(--theme-primary-900);
 	}
-	
+
 	.month-count {
 		color: var(--theme-primary-900);
 		margin: -1rem 0 0.5rem 0;
 	}
-	
+
 	.events-section {
 		margin-bottom: 4rem;
 	}

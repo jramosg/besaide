@@ -69,99 +69,99 @@ const isFinished = new Date() > eventDate;
 	}}
 	Tag="article"
 >
-		<header class="event-hero">
-			<Image
-				src={event.data.image}
-				style={`view-transition-name: image-${slug}`}
-				alt={event.data.title}
-				class="hero-image"
-				layout="full-width"
-			/>
-		</header>
+	<header class="event-hero">
+		<Image
+			src={event.data.image}
+			style={`view-transition-name: image-${slug}`}
+			alt={event.data.title}
+			class="hero-image"
+			layout="full-width"
+		/>
+	</header>
 
-		<Container class="event-container">
-			<div class="chip-row">
-				<Chip variant="primary">
-					{formattedDate}
-				</Chip>
-				<Chip variant="success">
-					{eventType}
-				</Chip>
-				{isFinished && <Chip variant="error">{t('event.finished')}</Chip>}
-			</div>
+	<Container class="event-container">
+		<div class="chip-row">
+			<Chip variant="primary">
+				{formattedDate}
+			</Chip>
+			<Chip variant="success">
+				{eventType}
+			</Chip>
+			{isFinished && <Chip variant="error">{t('event.finished')}</Chip>}
+		</div>
 
-			<h1 class="title h3" style={`view-transition-name: title-${slug}`}>
-				{event.data.title}
-			</h1>
-			<Content />
+		<h1 class="title h3" style={`view-transition-name: title-${slug}`}>
+			{event.data.title}
+		</h1>
+		<Content />
 
-			<div class="event-meta-container">
-				{
-					discriminant === 'mountain' ? (
-						<CardMeta
-							title={lang === 'eu' ? 'MENDIA' : 'MONTAÑA'}
-							desc={mountain || ''}
-						>
-							<Map slot="icon" />
-						</CardMeta>
-					) : discriminant === 'ski-alpino' ? (
-						<CardMeta title={t('KOKALEKUA')} desc={location || ''}>
-							<Map slot="icon" />
-						</CardMeta>
-					) : (
-						<CardMeta title={t('MENDIA')} desc={mountain || location || ''}>
-							<Map slot="icon" />
-						</CardMeta>
-					)
-				}
-				{
-					event.data.meetingPoint && (
-						<CardMeta
-							title={t('TOPAGUNEA')}
-							desc={`${event.data.meetingPoint}${event.data.time ? ' - ' + event.data.time : ''}`}
-						>
-							<DistanceIcon
-								slot="icon"
-								color="currentColor"
-								fill="currentColor"
-							/>
-						</CardMeta>
-					)
-				}
-				{
-					event.data.duration && (
-						<CardMeta title={t('IRAUPENA')} desc={event.data.duration}>
-							<Clock3 slot="icon" />
-						</CardMeta>
-					)
-				}
-				{
-					elevation && (
-						<CardMeta title={t('DESNIBELA')} desc={elevation}>
-							<ElevationIcon slot="icon" fill="currentColor" />
-						</CardMeta>
-					)
-				}
-				{
-					difficulty && (
-						<CardMeta
-							title={t('MAILA')}
-							desc={difficultyLabels[lang][difficulty]}
-						>
-							<LevelIcon slot="icon" fill="currentColor" />
-						</CardMeta>
-					)
-				}
-			</div>
+		<div class="event-meta-container">
+			{
+				discriminant === 'mountain' ? (
+					<CardMeta
+						title={lang === 'eu' ? 'MENDIA' : 'MONTAÑA'}
+						desc={mountain || ''}
+					>
+						<Map slot="icon" />
+					</CardMeta>
+				) : discriminant === 'ski-alpino' ? (
+					<CardMeta title={t('KOKALEKUA')} desc={location || ''}>
+						<Map slot="icon" />
+					</CardMeta>
+				) : (
+					<CardMeta title={t('MENDIA')} desc={mountain || location || ''}>
+						<Map slot="icon" />
+					</CardMeta>
+				)
+			}
+			{
+				event.data.meetingPoint && (
+					<CardMeta
+						title={t('TOPAGUNEA')}
+						desc={`${event.data.meetingPoint}${event.data.time ? ' - ' + event.data.time : ''}`}
+					>
+						<DistanceIcon
+							slot="icon"
+							color="currentColor"
+							fill="currentColor"
+						/>
+					</CardMeta>
+				)
+			}
+			{
+				event.data.duration && (
+					<CardMeta title={t('IRAUPENA')} desc={event.data.duration}>
+						<Clock3 slot="icon" />
+					</CardMeta>
+				)
+			}
+			{
+				elevation && (
+					<CardMeta title={t('DESNIBELA')} desc={elevation}>
+						<ElevationIcon slot="icon" fill="currentColor" />
+					</CardMeta>
+				)
+			}
+			{
+				difficulty && (
+					<CardMeta
+						title={t('MAILA')}
+						desc={difficultyLabels[lang][difficulty]}
+					>
+						<LevelIcon slot="icon" fill="currentColor" />
+					</CardMeta>
+				)
+			}
+		</div>
 
-			<h2 class="registration-title subtitle">{t('Izen ematea')}</h2>
-			<p class="registration-info">
-				{t('event.registrationInfo')}
-			</p>
-			<Button href="mailto:besaide@besaide.eus" variant="primary">
-				{t('event.register')}
-			</Button>
-		</Container>
+		<h2 class="registration-title subtitle">{t('Izen ematea')}</h2>
+		<p class="registration-info">
+			{t('event.registrationInfo')}
+		</p>
+		<Button href="mailto:besaide@besaide.eus" variant="primary">
+			{t('event.register')}
+		</Button>
+	</Container>
 </Page>
 
 <style>
