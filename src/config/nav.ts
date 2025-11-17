@@ -35,7 +35,7 @@ export const nav = [
 			{ title: 'nav.library-maps', slug: 'library-maps' }
 		]
 	},
-	{ title: 'nav.routes', slug: 'courses', children: [] }
+	{ title: 'nav.routes', slug: 'routes', children: [] }
 ] as const;
 
 export type Nav = typeof nav;

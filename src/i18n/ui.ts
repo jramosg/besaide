@@ -191,6 +191,11 @@ export const ui = {
 		// Leixagarate page SEO
 		'leixagarate-aterpea.seo.description':
 			'Información sobre el refugio de Leixagarate de Besaide Mendizale Elkartea.',
+		// Routes page SEO
+		'routes.seo.description':
+			'Rutas de montaña y senderismo de Besaide. Descubre nuestras rutas recomendadas por el País Vasco y Pirineos.',
+		'Gure mendizale elkartearen ibilbide guztiak':
+			'Todas las rutas de nuestra asociación de montañismo',
 		'Bisitatu Besaideren Facebook orria':
 			'Visitar la página de Facebook de Besaide',
 		'Bisitatu Besaideren X orria': 'Visitar la página de X de Besaide',
@@ -358,6 +363,11 @@ export const ui = {
 		// Leixagarate page SEO
 		'leixagarate-aterpea.seo.description':
 			'Besaide Mendizale Elkarteko Leixargarate aterpeari buruzko informazioa.',
+		// Routes page SEO
+		'routes.seo.description':
+			'Besaideko mendi eta ibilaldi ibilbideak. Ezagutu euskal herrian eta Pirinioetan gure gomendatutako ibilbideak.',
+		'Gure mendizale elkartearen ibilbide guztiak':
+			'Gure mendizale elkartearen ibilbide guztiak',
 		// Library/Maps page SEO
 		'library-maps.seo.description':
 			'Besaideko liburutegia eta mapa bilduma. Bazkideentzat eskuragarri dauden mendiko liburu, gida eta mapen bilduma.',
