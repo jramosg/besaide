@@ -13,7 +13,11 @@ export default config({
 	},
 
 	storage: {
-		kind: 'local'
+		kind: 'github',
+		repo: {
+			owner: 'jramosg',
+			name: 'besaide'
+		}
 	},
 	collections: {
 		news: collection({
@@ -244,6 +248,38 @@ export default config({
 		})
 	},
 	singletons: {
+		homepage: singleton({
+			label: 'Hasierako Orria / Página de Inicio',
+			path: 'src/data/homepage/homepage',
+			schema: {
+				membershipTitleEu: fields.text({
+					label: 'Bazkidetza izenburua euskeraz',
+					description:
+						'Hasierako orrian agertuko den bazkidetza atalaren izenburua',
+					validation: { isRequired: true }
+				}),
+				membershipTitleEs: fields.text({
+					label: 'Título de membresía en español',
+					description:
+						'Título de la sección de membresía que aparecerá en la página de inicio',
+					validation: { isRequired: true }
+				}),
+				membershipDescriptionEu: fields.text({
+					label: 'Bazkidetza deskribapena euskeraz',
+					description:
+						'Hasierako orrian agertuko den bazkidetza atalaren deskribapena',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				membershipDescriptionEs: fields.text({
+					label: 'Descripción de membresía en español',
+					description:
+						'Descripción de la sección de membresía que aparecerá en la página de inicio',
+					multiline: true,
+					validation: { isRequired: true }
+				})
+			}
+		}),
 		besaideHistory: singleton({
 			label: 'Historia / Besaide Historia',
 			path: 'src/data/besaide/historia',
