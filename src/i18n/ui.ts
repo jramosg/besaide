@@ -116,7 +116,7 @@ export const ui = {
 		'event.type.ski-fondo': 'Esquí de Fondo',
 		'event.type.trekking': 'Trekking',
 		'nav.contact': 'Contacto',
-		'Azken berriak': 'Últimas noticias',
+		'Azken albisteak': 'Últimas noticias',
 		'Hurrengo irteerak': 'Próximas salidas',
 		'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.':
 			'Excursiones y actividades de montaña organizadas a montes vascos y Pirineos.',
@@ -134,8 +134,7 @@ export const ui = {
 			'Consulta todas las salidas de Besaide.',
 		'Irteera bakarra dago planifikatuta.': 'Hay una única salida planificada.',
 		'irteera daude planifikatuta.': 'salidas planificadas.',
-		Berriak: 'Noticias',
-		'Atal honetan berri guztiak ikusgai dituzu.':
+		'Atal honetan albiste guztiak ikusgai dituzu.':
 			'En esta sección puedes ver todas las noticias.',
 		// Besaide page - Functioning section
 		Funtzionamendua: 'Funcionamiento',
@@ -235,7 +234,7 @@ export const ui = {
 		es: 'Gaztelania',
 		'settings.description': 'setting.description',
 		a: 'a',
-		'nav.news': 'Berriak',
+		'nav.news': 'Albisteak',
 		'nav.home': 'Hasiera',
 		'nav.agenda': 'Agenda',
 		'nav.besaide': 'Besaide',
@@ -271,7 +270,7 @@ export const ui = {
 		'404.home-button': 'Hasierara itzuli',
 		'404.contact-button': 'Kontaktua',
 		'404.helpful-links-title': 'Baliteke interesgarria izatea:',
-		'404.link-news': 'Berriak',
+		'404.link-news': 'Albisteak',
 		'404.link-agenda': 'Agenda',
 		'404.link-membership': 'Bazkidetza',
 		// In Progress Page
@@ -337,7 +336,7 @@ export const ui = {
 			'Besaide Mendizale Elkarteko bazkidetza kuotak eta abantailak. Materiala alokatu, aterpe eta eski-estazio deskontuak eskuratu.',
 		// Home page SEO
 		'home.seo.description':
-			'Besaide mendizale elkartea - Arrasate. Gure berriak, ekitaldiak, irteerak eta zerbitzuak ezagutu eta elkartu gure mendizaleen komunitatera.',
+			'Besaide mendizale elkartea - Arrasate. Gure albisteak, ekitaldiak, irteerak eta zerbitzuak ezagutu eta elkartu gure mendizaleen komunitatera.',
 		// Contact page SEO
 		'contact.seo.title': 'Kontaktua - Besaide Mendizale Elkartea',
 		'contact.seo.description':

@@ -21,7 +21,7 @@ export default config({
 	},
 	collections: {
 		news: collection({
-			label: 'Berriak / Noticias',
+			label: 'Albisteak / Noticias',
 			slugField: 'titleEu',
 			path: 'src/data/news/*',
 			schema: {

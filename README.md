@@ -230,7 +230,7 @@ A central `langMapping` object maintains the relationship between URL slugs, lan
 const langMapping = {
   'agenda': { lang: 'eu', id: 'agenda' },
   'agenda-es': { lang: 'es', id: 'agenda' },
-  'berriak': { lang: 'eu', id: 'news' },
+  'albisteak': { lang: 'eu', id: 'news' },
   'noticias': { lang: 'es', id: 'news' },
   // ... more mappings
 };
