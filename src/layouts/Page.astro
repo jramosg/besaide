@@ -12,9 +12,10 @@ export interface Props {
 	seo?: BaseHeadProps;
 	pageClass?: string;
 	transparentHeader?: boolean;
+	Tag?: keyof HTMLElementTagNameMap;
 }
 
-const { seo, pageClass, transparentHeader, ...rest } = Astro.props as Props;
+const { seo, pageClass, transparentHeader, Tag = 'div', ...rest } = Astro.props as Props;
 ---
 
 <Layout {seo}>
@@ -24,9 +25,9 @@ const { seo, pageClass, transparentHeader, ...rest } = Astro.props as Props;
 		</Fragment>
 	</Header>
 	<DrawerNav navData={nav} />
-	<div id="page" class={pageClass} {...rest}>
+	<Tag id="page" class={pageClass} {...rest}>
 		<slot />
-	</div>
+	</Tag>
 	<Footer slot="footer">
 		<Logo slot="logo" />
 	</Footer>

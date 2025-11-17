@@ -67,8 +67,8 @@ const isFinished = new Date() > eventDate;
 		title: event.data.title + ' - Besaide Mendizale Elkartea',
 		description: `${event.data.title}. ${formattedDate}.`
 	}}
+	Tag="article"
 >
-	<article>
 		<header class="event-hero">
 			<Image
 				src={event.data.image}
@@ -162,7 +162,6 @@ const isFinished = new Date() > eventDate;
 				{t('event.register')}
 			</Button>
 		</Container>
-	</article>
 </Page>
 
 <style>

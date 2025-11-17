@@ -33,48 +33,47 @@ const summary = processedPost.summary;
 ---
 
 <Page
-	pageClass="content__container single-news"
+	pageClass="content__container single-article"
 	seo={{
 		title: processedPost.title + ' - ' + CompanyName,
 		description: summary || t('news.seo.description')
 	}}
+	Tag="article"
 >
-	<article class="single-article">
-		<a href={newsSection} class="back-link">
-			<ArrowLeft />
-			{t('Atzera itzuli')}
-		</a>
-		<HeroImage
-			src={processedPost.data.image}
-			alt={processedPost.title}
-			slug={slug}
-		/>
+	<a href={newsSection} class="back-link">
+		<ArrowLeft />
+		{t('Atzera itzuli')}
+	</a>
+	<HeroImage
+		src={processedPost.data.image}
+		alt={processedPost.title}
+		slug={slug}
+	/>
 
-		<div class="content__container content__container--narrow">
-			<div class="header-row">
-				<h1 class="title h2" style={`view-transition-name: title-${slug}`}>
-					{processedPost.title}
-				</h1>
-				<button
-					class="share-button"
-					aria-label={t('Partekatu')}
-					data-share-title={processedPost.title}
-					data-share-text={summary}
-					data-share-url={Astro.url.href}
-				>
-					<Share2 />
-				</button>
-			</div>
-
-			<time class="overline meta" style={`view-transition-name: date-${slug}`}>
-				{formatDate(post.data.date, lang)}
-			</time>
-
-			<section class="content">
-				<Content />
-			</section>
+	<div class="content__container content__container--narrow">
+		<div class="header-row">
+			<h1 class="title h2" style={`view-transition-name: title-${slug}`}>
+				{processedPost.title}
+			</h1>
+			<button
+				class="share-button"
+				aria-label={t('Partekatu')}
+				data-share-title={processedPost.title}
+				data-share-text={summary}
+				data-share-url={Astro.url.href}
+			>
+				<Share2 />
+			</button>
 		</div>
-	</article>
+
+		<time class="overline meta" style={`view-transition-name: date-${slug}`}>
+			{formatDate(post.data.date, lang)}
+		</time>
+
+		<section class="content">
+			<Content />
+		</section>
+	</div>
 </Page>
 
 <style>
