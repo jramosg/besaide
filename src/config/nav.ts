@@ -15,24 +15,22 @@ export const nav = [
 		children: []
 	},
 	{
+		title: 'nav.membership-federation',
+		slug: 'membership-federation',
+		children: []
+	},
+
+	{
 		title: 'nav.besaide',
 		slug: 'besaide',
-		children: [
-			{
-				title: 'nav.historia',
-				slug: 'besaide'
-			},
-			{
-				title: 'nav.membership-federation',
-				slug: 'membership-federation'
-			}
-		]
+		children: []
 	},
+	{ title: 'nav.leixagarate-aterpea', slug: 'leixagarate', children: [] },
+
 	{
 		title: 'nav.services',
 		slug: 'material-rent',
 		children: [
-			{ title: 'nav.leixagarate-aterpea', slug: 'leixagarate' },
 			{ title: 'nav.material-rent', slug: 'material-rent' },
 			{ title: 'nav.library-maps', slug: 'library-maps' }
 		]
@@ -52,10 +50,6 @@ export type NavItem = {
 };
 
 export const navActions = [
-	{
-		title: 'nav.membership-federation',
-		slug: 'membership-federation'
-	},
 	{
 		title: 'nav.contact',
 		slug: 'contact'
