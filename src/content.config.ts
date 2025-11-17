@@ -7,6 +7,7 @@ import { membershipSchema } from '@/schemas/membership';
 import { leixergarateAterpeaSchema } from '@/schemas/leixergarateAterpea';
 import { federationCollectionSchema } from '@/schemas/federation';
 import { materialRentalSchema } from '@/schemas/material-rental';
+import { routesSchema } from '@/schemas/routes';
 
 const news = defineCollection({
 	loader: glob({ pattern: '**/*.yaml', base: './src/data/news' }),
@@ -71,6 +72,14 @@ const materialRental = defineCollection({
 	schema: materialRentalSchema
 });
 
+const routes = defineCollection({
+	loader: glob({
+		pattern: '**/*.yaml',
+		base: './src/data/routes'
+	}),
+	schema: ({ image }) => routesSchema(image)
+});
+
 // Expose your defined collection to Astro
 // with the `collections` export
 export const collections = {
@@ -84,5 +93,6 @@ export const collections = {
 	leixergarateAterpea,
 	federation,
 	federationContent,
-	materialRental
+	materialRental,
+	routes
 };

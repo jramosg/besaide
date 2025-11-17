@@ -247,7 +247,7 @@ export const ui = {
 		'nav.membership-federation': 'Bazkidetza / Federatzea',
 		'nav.services': 'Zerbitzuak',
 		'nav.routes': 'Ibilbideak',
-		'nav.leixagarate-aterpea': 'Leixargarate aterpea',
+		'nav.leixagarate-aterpea': 'Leixargarate aterpetxea',
 		'nav.material-rent': 'Material alokairua',
 		'nav.library-maps': 'Liburutegia / Mapak',
 		Gehigarriak: 'Gehigarriak',

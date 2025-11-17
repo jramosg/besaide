@@ -13,11 +13,7 @@ export default config({
 	},
 
 	storage: {
-		kind: 'github',
-		repo: {
-			owner: 'jramosg',
-			name: 'besaide'
-		}
+		kind: 'local'
 	},
 	collections: {
 		news: collection({
@@ -204,6 +200,45 @@ export default config({
 				available: fields.checkbox({
 					label: 'Eskuragarri / Disponible',
 					defaultValue: true
+				})
+			}
+		}),
+		routes: collection({
+			label: 'Ibilbideak / Rutas',
+			slugField: 'titleEu',
+			path: 'src/data/routes/*',
+			schema: {
+				titleEu: fields.slug({
+					name: { label: 'Izenburua euskeraz' }
+				}),
+				titleEs: fields.text({
+					label: 'Izenburua gaztelaniaz',
+					validation: { isRequired: true }
+				}),
+				image: fields.image({
+					label: 'Irudia / Imagen',
+					directory: 'src/assets/images/routes',
+					publicPath: '@/assets/images/routes',
+					validation: { isRequired: true }
+				}),
+				wikilocUrl: fields.url({
+					label: 'Wikiloc URL',
+					description: 'Adib: https://es.wikiloc.com/rutas-senderismo/...',
+					validation: { isRequired: true }
+				}),
+				fromLeixargarate: fields.checkbox({
+					label: 'Leixargaratetik abiatzen da? / ¿Sale desde Leixargarate?',
+					defaultValue: false
+				}),
+				descriptionEu: fields.text({
+					label: 'Deskribapena euskeraz (aukerakoa)',
+					description: 'Ibilbidearen deskribapen laburra',
+					multiline: true
+				}),
+				descriptionEs: fields.text({
+					label: 'Descripción en español (opcional)',
+					description: 'Breve descripción de la ruta',
+					multiline: true
 				})
 			}
 		})

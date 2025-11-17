@@ -11,6 +11,7 @@ import { getEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import LeafletMap from '@/components/LeafletMap.astro';
 import { formatPrice } from '@/utils/format';
+import RouteList from '@/components/RouteList.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -110,6 +111,10 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 					))
 				}
 			</dl>
+		</section>
+		<section class="leixergarate-routes">
+			<h2 class="h4">{t('nav.routes')}</h2>
+			<RouteList filterLeixargarate={true} />
 		</section>
 	</article>
 
