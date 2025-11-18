@@ -194,6 +194,7 @@ export default config({
 						{ label: 'Kaskoa / Casco', value: 'helmet' },
 						{ label: 'Erraketa / Raquetas', value: 'snowshoe' },
 						{ label: 'Kaskoa / Casco', value: 'helmet' },
+						{ label: 'Kranpoia / Crampones', value: 'cramps' },
 						{ label: 'Beste bat / Otro', value: 'other' }
 					]
 				}),
@@ -254,27 +255,23 @@ export default config({
 			schema: {
 				membershipTitleEu: fields.text({
 					label: 'Hasierako orriaren izenburua euskeraz',
-					description:
-						'Hasierako orrian agertuko den izenburua',
+					description: 'Hasierako orrian agertuko den izenburua',
 					validation: { isRequired: true }
 				}),
 				membershipTitleEs: fields.text({
 					label: 'Título de la página de inicio',
-					description:
-						'Título que aparecerá en la página de inicio',
+					description: 'Título que aparecerá en la página de inicio',
 					validation: { isRequired: true }
 				}),
 				membershipDescriptionEu: fields.text({
 					label: 'Hasierako orriaren deskribapena euskeraz',
-					description:
-						'Hasierako orrian agertuko den deskribapena',
-					multiline: true,
+					description: 'Hasierako orrian agertuko den deskribapena',
+					multiline: true
 				}),
 				membershipDescriptionEs: fields.text({
 					label: 'Descripción de la página de inicio',
-					description:
-						'Descripción que aparecerá en la página de inicio',
-					multiline: true,
+					description: 'Descripción que aparecerá en la página de inicio',
+					multiline: true
 				})
 			}
 		}),

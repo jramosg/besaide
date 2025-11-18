@@ -5,6 +5,7 @@ import ConstructIcon from '@/assets/icons/construct.svg';
 import Chip from './Chip.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { formatPrice } from '@/utils/format';
+import CrampsIcon from '@/assets/icons/cramps.svg';
 
 interface Props {
 	icon: string;
@@ -30,6 +31,8 @@ const t = useTranslations(lang);
 				<SnowShoeIcon fill="currentColor" />
 			) : icon === 'helmet' ? (
 				<HardHat />
+			) : icon === 'cramps' ? (
+				<CrampsIcon fill="transparent" stroke="currentColor" />
 			) : (
 				<ConstructIcon fill="currentColor" />
 			)
