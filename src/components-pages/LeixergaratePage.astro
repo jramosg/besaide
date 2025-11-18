@@ -156,16 +156,15 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 
 		<section aria-labelledby="prices-heading">
 			<h2 id="prices-heading" class="h4">{t('Prezioak')}</h2>
-			<dl class="price-list" role="list">
+			<dl class="price-list">
 				{
 					entry.data.prices.map(price => (
-						<div
-							class="price-item"
-							role="listitem"
-							itemscope
-							itemtype="https://schema.org/Offer"
-						>
-							<dt class="price-label">
+						<>
+							<dt
+								class="price-label"
+								itemscope
+								itemtype="https://schema.org/Offer"
+							>
 								<span itemprop="name">{`${lang === 'eu' ? price.labelEu : price.labelEs}: `}</span>
 							</dt>
 							<dd class="price-value">
@@ -184,7 +183,7 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 									</span>
 								)}
 							</dd>
-						</div>
+						</>
 					))
 				}
 			</dl>
@@ -228,35 +227,30 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 		}
 
 		.price-list {
-			display: flex;
-			flex-direction: column;
-			gap: var(--s3, 1rem);
-		}
-
-		.price-item {
-			display: flex;
-			gap: var(--s, 1rem);
-			padding-bottom: var(--s2, 0.5rem);
-			font-weight: var(--font-weight-medium);
-			border-bottom: 1px solid var(--theme-separator);
-			align-items: flex-start;
-			&:hover {
-				background-color: var(--theme-primary-hover-bg);
-			}
+			display: grid;
+			grid-template-columns: auto 1fr;
+			row-gap: var(--s3, 1rem);
 		}
 
 		.price-label {
 			font-weight: var(--font-weight-medium);
+			grid-column: 1;
+			padding-bottom: var(--s2, 0.5rem);
+			border-bottom: 1px solid var(--theme-separator);
 		}
 
 		.price-value {
 			display: flex;
 			gap: var(--s, 0.5rem);
 			align-items: baseline;
-			margin: 0 0 0 auto;
 			color: var(--theme-primary-900);
 			flex-shrink: 0;
 			white-space: nowrap;
+			grid-column: 2;
+			padding-bottom: var(--s2, 0.5rem);
+			border-bottom: 1px solid var(--theme-separator);
+			width: 100%;
+			justify-content: flex-end;
 		}
 
 		.price-amount {
