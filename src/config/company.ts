@@ -21,5 +21,5 @@ export const Socials = {
 	facebook: 'https://www.facebook.com/besaideme',
 	instagram: 'https://www.instagram.com/besaide_mendizale_elkartea',
 	wikiloc: 'https://es.wikiloc.com/wikiloc/user.do?id=14331763',
-	whatsapp: 'https://wa.me/34626321593'
+	whatsapp: 'https://wa.me/34608293997'
 };
