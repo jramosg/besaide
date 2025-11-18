@@ -15,8 +15,12 @@ const metaId = eventId ? `${eventId}-${slugify(title)}` : slugify(title);
 	<div class="icon-container" style={`view-transition-name: icon-${metaId}`}>
 		<slot name="icon" />
 	</div>
-	<h4 class="overline" style={`view-transition-name: title-${metaId}`}>{title}</h4>
-	<span class="meta-desc" style={`view-transition-name: desc-${metaId}`}>{desc}</span>
+	<h4 class="overline" style={`view-transition-name: title-${metaId}`}>
+		{title}
+	</h4>
+	<span class="meta-desc" style={`view-transition-name: desc-${metaId}`}
+		>{desc}</span
+	>
 </div>
 
 <style>

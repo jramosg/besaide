@@ -128,7 +128,11 @@ const isFinished = new Date() > eventDate;
 						<Map slot="icon" />
 					</CardMeta>
 				) : (
-					<CardMeta title={t('MENDIA')} desc={mountain || location || ''} eventId={slug}>
+					<CardMeta
+						title={t('MENDIA')}
+						desc={mountain || location || ''}
+						eventId={slug}
+					>
 						<Map slot="icon" />
 					</CardMeta>
 				)
@@ -150,7 +154,11 @@ const isFinished = new Date() > eventDate;
 			}
 			{
 				event.data.duration && (
-					<CardMeta title={t('IRAUPENA')} desc={event.data.duration} eventId={slug}>
+					<CardMeta
+						title={t('IRAUPENA')}
+						desc={event.data.duration}
+						eventId={slug}
+					>
 						<Clock3 slot="icon" />
 					</CardMeta>
 				)

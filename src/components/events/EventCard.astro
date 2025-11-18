@@ -86,21 +86,14 @@ const difficultyLabel = difficulty
 				)
 			}
 		</div>
-		<h3
-			class="event-title"
-			style={`view-transition-name: title-${eventId}`}
-		>
+		<h3 class="event-title" style={`view-transition-name: title-${eventId}`}>
 			{item.data.title}
 		</h3>
 
 		<div class="event-meta">
 			{
 				discriminant === 'mountain' ? (
-					<CardMeta
-						title={t('MENDIA')}
-						desc={mountain || ''}
-						eventId={eventId}
-					>
+					<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={eventId}>
 						<Map slot="icon" />
 					</CardMeta>
 				) : discriminant === 'ski-alpino' ? (
@@ -153,11 +146,7 @@ const difficultyLabel = difficulty
 			}
 			{
 				difficultyLabel && (
-					<CardMeta
-						title={t('MAILA')}
-						desc={difficultyLabel}
-						eventId={eventId}
-					>
+					<CardMeta title={t('MAILA')} desc={difficultyLabel} eventId={eventId}>
 						<LevelIcon slot="icon" fill="currentColor" />
 					</CardMeta>
 				)
