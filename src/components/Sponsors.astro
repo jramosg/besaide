@@ -1,47 +1,44 @@
 ---
 import LogoMondraberri from '@/assets/sponsors/logo-mondraberri.webp';
-import LogoJMA from '@/assets/sponsors/logo-jma.svg';
 import LogoLaboral from '@/assets/sponsors/logo-laboral.svg';
 import LogoUdala from '@/assets/sponsors/logo-arrasateko-udala.svg';
-import LogoTernua from '@/assets/sponsors/logo-ternua.webp';
-import LogoEroski from '@/assets/sponsors/logo-eroski.svg';
 import SponsorLink from './SponsorLink.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import HomeSectionHeader from './HomeSectionHeader.astro';
+import EMFLogo from '@/assets/emf.webp';
+import GMFLogo from '@/assets/sponsors/GMF.webp';
+
+const lang = getLangFromUrl(Astro.url);
+
 const sponsors = [
 	{
-		name: 'MONDRABERRI Arrasateko Ataria',
-		url: 'http://www.mondraberri.com/mondraberri/',
-		LogoComponent: LogoMondraberri
+		name: 'Euskal Mendi Federazioa',
+		url: 'https://emf.eus' + lang === 'eu' ? '/eu/' : '',
+		LogoComponent: EMFLogo
 	},
 	{
-		name: 'Compañía Alejandro Altuna',
-		url: 'http://www.jma.es/',
-		LogoComponent: LogoJMA
+		name: 'Gipuzkoako Mendizale Federazioa',
+		url: 'https://gmf.eus' + lang === 'eu' ? '/eu/' : '',
+		LogoComponent: GMFLogo
 	},
+	{
+		name: 'Arrasateko Udala',
+		url: 'http://www.arrasate.eus' + '/' + lang,
+		LogoComponent: LogoUdala
+	},
+	{
+		name: 'MONDRABERRI Arrasateko Ataria',
+		url: 'https://mondraberri.eus/',
+		LogoComponent: LogoMondraberri
+	},
+
 	{
 		name: 'Caja Laboral Kutxa',
 		url: 'https://www.laboralkutxa.com',
 		LogoComponent: LogoLaboral
-	},
-	{
-		name: 'Udal Kirol Zerbitzua - Arrasateko Udala',
-		url: 'http://www.arrasate.eus',
-		LogoComponent: LogoUdala
-	},
-	{
-		name: 'Ternua',
-		url: 'https://www.ternua.com/',
-		LogoComponent: LogoTernua
-	},
-	{
-		name: 'Eroski',
-		url: 'http://www.eroski.es/',
-		LogoComponent: LogoEroski
 	}
 ];
 
-const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
