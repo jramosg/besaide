@@ -10,7 +10,7 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
 	server: { port: 1234, host: true },
-	site: 'https://example.com',
+	site: 'https://besaide.vercel.app',
 
 	prefetch: {
 		prefetchAll: true,
