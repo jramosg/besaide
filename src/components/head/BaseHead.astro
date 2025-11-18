@@ -5,6 +5,7 @@ import ThemeProvider from '../theme-switcher/ThemeProvider.astro';
 import '@/styles/index.css';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import { ClientRouter } from 'astro:transitions';
+import OpenGraph from './OpenGraph.astro';
 // import OpenGraph from './OpenGraph.astro';
 // import StructuredData from './StructuredData.astro';
 // import FAQSchema from './FAQSchema.astro';
@@ -17,10 +18,17 @@ export interface Props {
 	keywords?: string;
 	alternateLanguages?: { hreflang: string; href: string }[];
 	noindex?: boolean;
+	openGraphProps?: {
+		title?: string;
+		description?: string;
+		image?: string;
+	};
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const openGraphProps = Astro.props.openGraphProps;
 const title = Astro.props.title || settings.title;
 const description = Astro.props.description || t(settings.description);
 const canonicalURL =
@@ -106,6 +114,17 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <!-- Security headers -->
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 
+{
+	openGraphProps ? (
+		<OpenGraph
+			title={openGraphProps.title || title}
+			desc={openGraphProps.description || description}
+			image={openGraphProps.image}
+		/>
+	) : (
+		<OpenGraph />
+	)
+}
 <!-- <OpenGraph />
 <StructuredData />
 <FAQSchema /> -->
