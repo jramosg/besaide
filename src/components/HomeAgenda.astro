@@ -11,24 +11,29 @@ const today = new Date();
 
 let events = await sortedAndFilteredEvents(lang, agendaSection, today);
 
-// Filter future events and limit to 4
 events = events.filter(event => !event.isPast).slice(0, 4);
 ---
 
-<section id="agenda" class="home-section_container">
-	<HomeSectionHeader
-		title={t('Hurrengo irteerak')}
-		subtitle={t(
-			'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.'
-		)}
-		buttonText={t('Agenda osoa ikusi')}
-		buttonHref={getUrlFromID('agenda', lang)}
-	>
-		<div class="events-grid">
-			{events.map(item => <EventCard item={item} />)}
-		</div>
-	</HomeSectionHeader>
-</section>
+{
+	events.length > 0 ? (
+		<section id="agenda" class="home-section_container">
+			<HomeSectionHeader
+				title={t('Hurrengo irteerak')}
+				subtitle={t(
+					'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.'
+				)}
+				buttonText={t('Agenda osoa ikusi')}
+				buttonHref={getUrlFromID('agenda', lang)}
+			>
+				<div class="events-grid">
+					{events.map(item => (
+						<EventCard item={item} />
+					))}
+				</div>
+			</HomeSectionHeader>
+		</section>
+	) : null
+}
 
 <style>
 	.events-grid {
