@@ -11,6 +11,7 @@ import ElevationIcon from '@/assets/icons/elevation.svg';
 import LevelIcon from '@/assets/icons/level.svg';
 import { formatEventDate } from '@/utils/date';
 import type { ProcessedEvent } from '@/types/Events';
+import Chip from '../Chip.astro';
 
 type Difficulty = 'erraza' | 'ertaina' | 'zaila';
 
@@ -42,7 +43,9 @@ const formattedDate = formatEventDate(startDate, endDate, lang);
 
 const agendaSection = getUrlFromID('agenda', lang);
 
-const slug = `${agendaSection}/${slugify(item.id)}`;
+const eventId = slugify(item.id);
+
+const slug = `${agendaSection}/${eventId}`;
 
 const discriminant = item.data.typeSpecificFields.discriminant;
 const { mountain, elevation, difficulty } =
@@ -62,16 +65,19 @@ const difficultyLabel = difficulty
 			src={item.data.image}
 			alt={item.data.title}
 			class="event-image"
-			style={`view-transition-name: image-${slugify(item.id)}`}
+			style={`view-transition-name: image-${eventId}`}
 		/>
 		<div class="event-overlay"></div>
 	</div>
 
 	<div class="event-content">
 		<div class="event-header">
-			<div class="event-date-badge button-text">
+			<Chip
+				variant="default"
+				style={`view-transition-name: date-chip-${eventId}`}
+			>
 				{formattedDate.toUpperCase()}
-			</div>
+			</Chip>
 			{
 				item.data.typeSpecificFields.discriminant === 'ski-alpino' ? (
 					<DownHillSkiing fill="currentColor" />
@@ -80,21 +86,38 @@ const difficultyLabel = difficulty
 				)
 			}
 		</div>
-		<h3 class="event-title">{item.data.title}</h3>
+		<h3
+			class="event-title"
+			style={`view-transition-name: title-${eventId}`}
+		>
+			{item.data.title}
+		</h3>
 
 		<div class="event-meta">
 			{
 				discriminant === 'mountain' ? (
-					<CardMeta title={t('MENDIA')} desc={mountain || ''}>
+					<CardMeta
+						title={t('MENDIA')}
+						desc={mountain || ''}
+						eventId={eventId}
+					>
 						<Map slot="icon" />
 					</CardMeta>
 				) : discriminant === 'ski-alpino' ? (
-					<CardMeta title={t('KOKALEKUA')} desc={location || ''}>
+					<CardMeta
+						title={t('KOKALEKUA')}
+						desc={location || ''}
+						eventId={eventId}
+					>
 						<Map slot="icon" />
 					</CardMeta>
 				) : (
 					// fallback: show both if type is unknown
-					<CardMeta title={t('MENDIA')} desc={mountain || location || ''}>
+					<CardMeta
+						title={t('MENDIA')}
+						desc={mountain || location || ''}
+						eventId={eventId}
+					>
 						<Map slot="icon" />
 					</CardMeta>
 				)
@@ -104,6 +127,7 @@ const difficultyLabel = difficulty
 					<CardMeta
 						title={t('TOPAGUNEA')}
 						desc={`${item.data.meetingPoint}${item.data.time ? ' - ' + item.data.time : ''}`}
+						eventId={eventId}
 					>
 						<DistanceIcon slot="icon" fill="currentColor" />
 					</CardMeta>
@@ -111,21 +135,29 @@ const difficultyLabel = difficulty
 			}
 			{
 				item.data.duration && (
-					<CardMeta title={t('IRAUPENA')} desc={item.data.duration}>
+					<CardMeta
+						title={t('IRAUPENA')}
+						desc={item.data.duration}
+						eventId={eventId}
+					>
 						<Clock3 slot="icon" />
 					</CardMeta>
 				)
 			}
 			{
 				elevation && (
-					<CardMeta title={t('DESNIBELA')} desc={elevation}>
+					<CardMeta title={t('DESNIBELA')} desc={elevation} eventId={eventId}>
 						<ElevationIcon slot="icon" fill="currentColor" />
 					</CardMeta>
 				)
 			}
 			{
 				difficultyLabel && (
-					<CardMeta title={t('MAILA')} desc={difficultyLabel}>
+					<CardMeta
+						title={t('MAILA')}
+						desc={difficultyLabel}
+						eventId={eventId}
+					>
 						<LevelIcon slot="icon" fill="currentColor" />
 					</CardMeta>
 				)

@@ -2,6 +2,7 @@
 interface Props {
 	variant?: 'primary' | 'success' | 'error' | 'default';
 	class?: string;
+	style?: string;
 }
 
 const { variant = 'default', class: className = '', ...rest } = Astro.props;

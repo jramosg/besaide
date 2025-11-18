@@ -1,17 +1,22 @@
 ---
+import { slugify } from '@/utils/string';
+
 type Props = {
 	title: string;
 	desc: string;
+	eventId?: string;
 };
-const { title, desc }: Props = Astro.props;
+const { title, desc, eventId }: Props = Astro.props;
+
+const metaId = eventId ? `${eventId}-${slugify(title)}` : slugify(title);
 ---
 
-<div class="home-agenda-meta">
-	<div class="icon-container">
+<div class="home-agenda-meta" style={`view-transition-name: meta-${metaId}`}>
+	<div class="icon-container" style={`view-transition-name: icon-${metaId}`}>
 		<slot name="icon" />
 	</div>
-	<h4 class="overline">{title}</h4>
-	<span class="meta-desc">{desc}</span>
+	<h4 class="overline" style={`view-transition-name: title-${metaId}`}>{title}</h4>
+	<span class="meta-desc" style={`view-transition-name: desc-${metaId}`}>{desc}</span>
 </div>
 
 <style>
