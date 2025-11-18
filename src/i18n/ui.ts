@@ -217,7 +217,9 @@ export const ui = {
 		Kokapena: 'Ubicación',
 		Prezioak: 'Precios',
 		Federatzea: 'Federarse',
-		'material-rent.unavailable': 'No disponible'
+		'material-rent.unavailable': 'No disponible',
+		'Animatu zaitez eta pasa familia edo mendi lagun arteko asteburu bat!':
+			'¡Anímate y pasa un fin de semana en familia o con amigos de la montaña!'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

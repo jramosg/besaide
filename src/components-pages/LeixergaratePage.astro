@@ -32,42 +32,110 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 <Page
 	seo={{
 		title: t('Leixargarate aterpetxea') + ' - ' + CompanyName,
-		description: t('leixagarate-aterpea.seo.description')
+		description: t('leixagarate-aterpea.seo.description'),
+		openGraphProps: {
+			title: t('Leixargarate aterpetxea') + ' - ' + CompanyName,
+			description: t('leixagarate-aterpea.seo.description'),
+			image: LeixegarateImage.src
+		}
 	}}
-	pageClass="content__container"
 >
-	<PageHeader title={t('Leixargarate aterpetxea')} />
-
-	<HeroImage
-		src={LeixegarateImage}
-		alt={t('Leixargarate aterpetxea')}
-		slug="leixargarate-aterpea"
+	<script
+		is:inline
+		type="application/ld+json"
+		set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'LodgingBusiness',
+			name: 'Leixargarate Aterpetxea',
+			description:
+				lang === 'eu' ? entry.data.descriptionEu : entry.data.descriptionEs,
+			image: new URL(LeixegarateImage.src, Astro.url).href,
+			address: {
+				'@type': 'PostalAddress',
+				addressCountry: 'ES',
+				addressRegion: 'Gipuzkoa'
+			},
+			geo: {
+				'@type': 'GeoCoordinates',
+				latitude: coordinates.lat,
+				longitude: coordinates.lon,
+				elevation: `${coordinates.elevation}m`
+			},
+			priceRange: `€${Math.min(...entry.data.prices.map(p => p.price))} - €${Math.max(...entry.data.prices.map(p => p.price))}`,
+			amenityFeature: [
+				{
+					'@type': 'LocationFeatureSpecification',
+					name: 'Kitchen',
+					value: true
+				},
+				{
+					'@type': 'LocationFeatureSpecification',
+					name: 'Fireplace',
+					value: true
+				},
+				{
+					'@type': 'LocationFeatureSpecification',
+					name: 'Bathroom',
+					value: true
+				}
+			],
+			maximumAttendeeCapacity: 12,
+			smokingAllowed: false,
+			isAccessibleForFree: false
+		})}
 	/>
+	<article
+		class="content__container"
+		itemscope
+		itemtype="https://schema.org/LodgingBusiness"
+	>
+		<header>
+			<PageHeader title={t('Leixargarate aterpetxea')} />
+			<meta itemprop="name" content="Leixargarate Aterpetxea" />
+		</header>
 
-	<article>
-		<section>
-			<h2 class="h4">{t('Deskribapena')}</h2>
-			<p>
+		<HeroImage
+			src={LeixegarateImage}
+			alt={`${t('Leixargarate aterpetxea')} - ${t('leixagarate-aterpea.seo.description')}`}
+			slug="leixargarate-aterpea"
+		/>
+		<section aria-labelledby="description-heading">
+			<h2 id="description-heading" class="h4">{t('Deskribapena')}</h2>
+			<p itemprop="description">
 				{lang === 'eu' ? entry.data.descriptionEu : entry.data.descriptionEs}
 			</p>
 		</section>
 
-		<section>
-			<h2 class="h4">{t('Besaidek egindako ekarpena')}</h2>
+		<section aria-labelledby="contribution-heading">
+			<h2 id="contribution-heading" class="h4">
+				{t('Besaidek egindako ekarpena')}
+			</h2>
 			<p>
 				{lang === 'eu' ? entry.data.contributionEu : entry.data.contributionEs}
 			</p>
 		</section>
 
-		<section>
-			<h2 class="h4">{t('Argazki galeria')}</h2>
+		<section aria-labelledby="gallery-heading">
+			<h2 id="gallery-heading" class="h4">{t('Argazki galeria')}</h2>
 			<ImageGallery images={images} alt={t('nav.leixagarate-aterpea')} />
 		</section>
 
-		<section>
-			<h2 class="h4">{t('Kokapena')}</h2>
+		<section
+			aria-labelledby="location-heading"
+			itemscope
+			itemtype="https://schema.org/Place"
+		>
+			<h2 id="location-heading" class="h4">{t('Kokapena')}</h2>
 			<p>
-				<data value={`${coordinates.lat},${coordinates.lon}`}>
+				<data
+					value={`${coordinates.lat},${coordinates.lon}`}
+					itemprop="geo"
+					itemscope
+					itemtype="https://schema.org/GeoCoordinates"
+				>
+					<meta itemprop="latitude" content={coordinates.lat.toString()} />
+					<meta itemprop="longitude" content={coordinates.lon.toString()} />
+					<meta itemprop="elevation" content={`${coordinates.elevation}m`} />
 					{coordinatesText}
 				</data>
 			</p>
@@ -75,48 +143,70 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 				class="leaflet-map-container"
 				role="region"
 				aria-label={t('Kokapena')}
+				aria-describedby="location-heading"
 			>
 				<LeafletMap
 					latitude={coordinates.lat}
 					longitude={coordinates.lon}
 					zoom={15}
-					markerComponent=`<a href="https://www.google.com/maps/@${coordinates.lat},${coordinates.lon},16z" target="_blank" rel="noopener noreferrer">Leixegarate Aterpea</a>`
+					markerComponent=`<a href="https://www.google.com/maps/@${coordinates.lat},${coordinates.lon},16z" target="_blank" rel="noopener noreferrer" aria-label="${t('Kokapena')} - Google Maps">Leixegarate Aterpea</a>`
 				/>
 			</div>
 		</section>
 
-		<section>
-			<h2 class="h4">{t('Prezioak')}</h2>
-			<dl class="price-list">
+		<section aria-labelledby="prices-heading">
+			<h2 id="prices-heading" class="h4">{t('Prezioak')}</h2>
+			<dl class="price-list" role="list">
 				{
 					entry.data.prices.map(price => (
 						<div
 							class="price-item"
+							role="listitem"
 							itemscope
 							itemtype="https://schema.org/Offer"
 						>
 							<dt class="price-label">
-								{`${lang === 'eu' ? price.labelEu : price.labelEs}: `}
+								<span itemprop="name">{`${lang === 'eu' ? price.labelEu : price.labelEs}: `}</span>
 							</dt>
 							<dd class="price-value">
 								<span class="price-amount" itemprop="price">
 									{formatPrice(price.price)}
 								</span>
 								<meta itemprop="priceCurrency" content="EUR" />
+								<meta
+									itemprop="availability"
+									content="https://schema.org/InStock"
+								/>
 								{((price.descriptionEu && lang === 'eu') ||
-									(price.descriptionEs && lang === 'es')) &&
-									(lang === 'eu' ? price.descriptionEu : price.descriptionEs)}
+									(price.descriptionEs && lang === 'es')) && (
+									<span itemprop="priceSpecification" class="price-description">
+										{lang === 'eu' ? price.descriptionEu : price.descriptionEs}
+									</span>
+								)}
 							</dd>
 						</div>
 					))
 				}
 			</dl>
 		</section>
-		<section class="leixergarate-routes">
-			<h2 class="h4">{t('nav.routes')}</h2>
+		<section class="leixergarate-routes" aria-labelledby="routes-heading">
+			<h2 id="routes-heading" class="h4">{t('nav.routes')}</h2>
 			<RouteList filterLeixargarate={true} />
 		</section>
 	</article>
+	<section
+		class="leixergarate-footer"
+		role="region"
+		aria-label="Call to action"
+	>
+		<p>
+			{
+				t(
+					'Animatu zaitez eta pasa familia edo mendi lagun arteko asteburu bat!'
+				)
+			}
+		</p>
+	</section>
 
 	<style>
 		.leixagarate-image {
@@ -177,6 +267,28 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			color: var(--theme-text-lighter, #666);
 			font-size: 0.9em;
 			font-weight: 400;
+		}
+
+		.leixergarate-footer {
+			background-color: var(--theme-primary-container-alt);
+			min-height: 164px;
+			color: var(--theme-primary-900);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: var(--s6);
+			width: 100%;
+			margin-top: var(--s6);
+			margin-bottom: calc(var(--s6) * -1);
+		}
+
+		.leixergarate-footer p {
+			margin: 0;
+			text-align: center;
+		}
+
+		:global([data-theme='dark']) .leixergarate-footer {
+			color: var(--theme-on-bg);
 		}
 
 		@media (max-width: 600px) {
