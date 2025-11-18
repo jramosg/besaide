@@ -1,10 +1,6 @@
 ---
 import Hero from '@/components/Hero.astro';
 import '@/styles/card.css';
-
-// import Historia from '../components/Historia.astro';
-//import Zerbitzuak from '../components/Zerbitzuak.astro';
-//import Kontaktua from '../components/Kontaktua.astro';
 import Sponsors from '@/components/Sponsors.astro';
 import Page from 'layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
@@ -12,6 +8,7 @@ import HomeNews from '@/components/news/HomeNews.astro';
 import HomeAgenda from '@/components/HomeAgenda.astro';
 import HomeShortcuts from '@/components/HomeShortcuts.astro';
 import { CompanyName } from '@/config/company';
+import udalaitzImage from '@/assets/udalaitz.webp';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -21,7 +18,12 @@ const t = useTranslations(lang);
 <Page
 	seo={{
 		title: t('nav.home') + ' - ' + CompanyName,
-		description: t('home.seo.description')
+		description: t('home.seo.description'),
+		openGraphProps: {
+			title: t('nav.home') + ' - ' + CompanyName,
+			description: t('home.seo.description'),
+			image: udalaitzImage.src
+		}
 	}}
 	pageClass="home-page"
 	transparentHeader={true}

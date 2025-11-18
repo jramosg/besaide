@@ -36,7 +36,12 @@ const summary = processedPost.summary;
 	pageClass="content__container single-article"
 	seo={{
 		title: processedPost.title + ' - ' + CompanyName,
-		description: summary || t('news.seo.description')
+		description: summary || t('news.seo.description'),
+		openGraphProps: {
+			title: processedPost.title + ' - ' + CompanyName,
+			description: summary || t('news.seo.description'),
+			image: processedPost.data.image.src
+		}
 	}}
 	Tag="article"
 >

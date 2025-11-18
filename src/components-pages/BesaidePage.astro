@@ -29,7 +29,12 @@ const { Content: HistoryContent } = await render(entry);
 <Page
 	seo={{
 		title: 'Historia - ' + CompanyName,
-		description: t('besaide.seo.description')
+		description: t('besaide.seo.description'),
+		openGraphProps: {
+			title: 'Historia - ' + CompanyName,
+			description: t('besaide.seo.description'),
+			image: BesaideLandscape.src
+		}
 	}}
 	pageClass="content__container besaide-page"
 >

@@ -15,6 +15,7 @@ import ElevationIcon from '@/assets/icons/elevation.svg';
 import LevelIcon from '@/assets/icons/level.svg';
 import { formatEventDate } from '@/utils/date';
 import Container from '@/components/Container.astro';
+import { CompanyName } from '@/config/company';
 
 type Props = {
 	event: CollectionEntry<'events'>;
@@ -48,6 +49,9 @@ const discriminant = event.data.typeSpecificFields.discriminant;
 const { mountain, elevation, difficulty } =
 	discriminant === 'mountain' ? event.data.typeSpecificFields.value : {};
 
+const eventTitle = event.data.title;
+const eventDescription = event.data.summary;
+
 const { location } =
 	discriminant === 'ski-alpino' ? event.data.typeSpecificFields.value : {};
 
@@ -64,8 +68,13 @@ const isFinished = new Date() > eventDate;
 
 <Page
 	seo={{
-		title: event.data.title + ' - Besaide Mendizale Elkartea',
-		description: `${event.data.title}. ${formattedDate}.`
+		title: eventTitle + ' - ' + t('nav.agenda') + ' - ' + CompanyName,
+		description: eventDescription,
+		openGraphProps: {
+			title: eventTitle + ' - ' + t('nav.agenda') + ' - ' + CompanyName,
+			description: eventDescription,
+			image: event.data.image.src
+		}
 	}}
 	Tag="article"
 >
