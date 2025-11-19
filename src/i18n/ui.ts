@@ -94,7 +94,6 @@ export const ui = {
 		'hero.shelter.cta': 'Más información',
 		'themeSwitcher.toggleTheme': 'Cambiar tema',
 		Agenda: 'Agenda',
-		'Azken albisteak eta eguneraketak': 'Últimas noticias y actualizaciones',
 		'Berri guztiak ikusi': 'Ver todas las noticias',
 		'Agenda osoa ikusi': 'Ver toda la agenda',
 		// Event meta labels
@@ -118,8 +117,6 @@ export const ui = {
 		'nav.contact': 'Contacto',
 		'Azken albisteak': 'Últimas noticias',
 		'Hurrengo irteerak': 'Próximas salidas',
-		'Euskal mendietara eta Pirinioetara antolatutako txangoak eta mendiko jarduerak.':
-			'Excursiones y actividades de montaña organizadas a montes vascos y Pirineos.',
 		Partekatu: 'Compartir',
 		'Informazio gehiago': 'Más información',
 		'Atzera itzuli': 'Volver',
@@ -310,7 +307,6 @@ export const ui = {
 		'hero.shelter.cta': 'Informazio gehiago',
 		'themeSwitcher.toggleTheme': 'Gaia aldatu',
 		Agenda: 'Agenda',
-		'Azken albisteak eta eguneraketak': 'Azken albisteak eta eguneraketak',
 		'Berri guztiak ikusi': 'Berri guztiak ikusi',
 		'Agenda osoa ikusi': 'Agenda osoa ikusi',
 		// Event meta labels (eu)
