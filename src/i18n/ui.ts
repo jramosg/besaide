@@ -216,7 +216,11 @@ export const ui = {
 		Federatzea: 'Federarse',
 		'material-rent.unavailable': 'No disponible',
 		'Animatu zaitez eta pasa familia edo mendi lagun arteko asteburu bat!':
-			'¡Anímate y pasa un fin de semana en familia o con amigos de la montaña!'
+			'¡Anímate y pasa un fin de semana en familia o con amigos de la montaña!',
+		Ezaugarriak: 'Características',
+		'Informazio gehigarria': 'Información adicional',
+		Prezioa: 'Precio',
+		Ibilbideak: 'Rutas'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

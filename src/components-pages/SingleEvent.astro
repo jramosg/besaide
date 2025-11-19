@@ -4,66 +4,65 @@ export const prerender = false;
 import Page from '@/layouts/Page.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { slugify } from '@/utils/string';
-import { render, type CollectionEntry } from 'astro:content';
+import { getEntry, render, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Chip from '@/components/Chip.astro';
 import Button from '@/components/buttons/Button.astro';
-import CardMeta from '@/components/events/CardMeta.astro';
-import { Map, Clock3 } from '@lucide/astro';
-import DistanceIcon from '@/assets/icons/distance.svg';
-import ElevationIcon from '@/assets/icons/elevation.svg';
-import LevelIcon from '@/assets/icons/level.svg';
 import { formatEventDate } from '@/utils/date';
 import Container from '@/components/Container.astro';
 import { CompanyName } from '@/config/company';
-
+import EventMetas from '@/components/events/EventMetas.astro';
+import { formatPrice } from '@/utils/format';
+import RouteCard from '@/components/RouteCard.astro';
 type Props = {
 	event: CollectionEntry<'events'>;
 };
-const { event }: Props = Astro.props;
+import '@/styles/routes.css';
+
+const { event } = Astro.props;
 const { Content } = await render(event);
 const slug = slugify(event.id);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-type Difficulty = 'erraza' | 'ertaina' | 'zaila';
-
-const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
-	eu: {
-		erraza: 'Erraza',
-		ertaina: 'Ertaina',
-		zaila: 'Zaila'
-	},
-	es: {
-		erraza: 'Fácil',
-		ertaina: 'Media',
-		zaila: 'Difícil'
-	}
-};
-
 const eventDate = new Date(event.data.date);
 const endDate = event.data.endDate ? new Date(event.data.endDate) : null;
 const formattedDate = formatEventDate(eventDate, endDate, lang);
-const discriminant = event.data.typeSpecificFields.discriminant;
-
-const { mountain, elevation, difficulty } =
-	discriminant === 'mountain' ? event.data.typeSpecificFields.value : {};
 
 const eventTitle = event.data.title;
-const eventDescription = event.data.summary;
 
-const { location } =
-	discriminant === 'ski-alpino' ? event.data.typeSpecificFields.value : {};
+const eventDescription =
+	lang === 'es' ? event.data.summaryEs : event.data.summaryEu;
 
-const eventTypeMap = {
+const eventTypeMap: Record<string, string> = {
 	mountain: t('event.type.mountain'),
 	'ski-alpino': t('event.type.ski-alpino'),
 	'ski-fondo': t('event.type.ski-fondo'),
-	trekking: t('event.type.trekking')
+	trekking: t('event.type.trekking'),
+	event: 'Event',
+	course: 'Course'
 };
 
-const eventType = eventTypeMap[discriminant];
+const eventType = eventTypeMap[event.data.type] || event.data.type;
 const isFinished = new Date() > eventDate;
+
+const extraInfoEntry = await getEntry(
+	'eventsMarkdown',
+	event.id + '/extrainfo' + lang
+);
+
+const { Content: ExtraInfoContent } = extraInfoEntry
+	? await render(extraInfoEntry)
+	: { Content: null };
+
+const priceDescriptionEntry = await getEntry(
+	'eventsMarkdown',
+	event.id + '/pricedescription' + lang
+);
+
+const { Content: PriceDescriptionContent } = priceDescriptionEntry
+	? await render(priceDescriptionEntry)
+	: { Content: null };
 ---
 
 <Page
@@ -113,84 +112,88 @@ const isFinished = new Date() > eventDate;
 		</h1>
 		<Content />
 
-		<div class="event-meta-container">
-			{
-				discriminant === 'mountain' ? (
-					<CardMeta
-						title={lang === 'eu' ? 'MENDIA' : 'MONTAÑA'}
-						desc={mountain || ''}
-						eventId={slug}
-					>
-						<Map slot="icon" />
-					</CardMeta>
-				) : discriminant === 'ski-alpino' ? (
-					<CardMeta title={t('KOKALEKUA')} desc={location || ''} eventId={slug}>
-						<Map slot="icon" />
-					</CardMeta>
-				) : (
-					<CardMeta
-						title={t('MENDIA')}
-						desc={mountain || location || ''}
-						eventId={slug}
-					>
-						<Map slot="icon" />
-					</CardMeta>
-				)
-			}
-			{
-				event.data.meetingPoint && (
-					<CardMeta
-						title={t('TOPAGUNEA')}
-						desc={`${event.data.meetingPoint}${event.data.time ? ' - ' + event.data.time : ''}`}
-						eventId={slug}
-					>
-						<DistanceIcon
-							slot="icon"
-							color="currentColor"
-							fill="currentColor"
-						/>
-					</CardMeta>
-				)
-			}
-			{
-				event.data.duration && (
-					<CardMeta
-						title={t('IRAUPENA')}
-						desc={event.data.duration}
-						eventId={slug}
-					>
-						<Clock3 slot="icon" />
-					</CardMeta>
-				)
-			}
-			{
-				elevation && (
-					<CardMeta title={t('DESNIBELA')} desc={elevation} eventId={slug}>
-						<ElevationIcon slot="icon" fill="currentColor" />
-					</CardMeta>
-				)
-			}
-			{
-				difficulty && (
-					<CardMeta
-						title={t('MAILA')}
-						desc={difficultyLabels[lang][difficulty]}
-						eventId={slug}
-					>
-						<LevelIcon slot="icon" fill="currentColor" />
-					</CardMeta>
-				)
-			}
-		</div>
-
-		<h2 class="registration-title subtitle">{t('Izen ematea')}</h2>
-		<p class="registration-info">
-			{t('event.registrationInfo')}
-		</p>
-		<Button href="mailto:besaide@besaide.eus" variant="primary">
-			{t('event.register')}
-		</Button>
+		<section class="" aria-labelledby="features">
+			<h2 id="features" class="subtitle">{t('Ezaugarriak')}</h2>
+			<div class="event-meta-container"><EventMetas item={event} /></div>
+		</section>
+		{
+			extraInfoEntry?.body && (
+				<section aria-labelledby="additional-info">
+					<h2 id="additional-info" class="subtitle">
+						{t('Informazio gehigarria')}
+					</h2>
+					{ExtraInfoContent && <ExtraInfoContent />}
+				</section>
+			)
+		}
+		{
+			event.data.routes && event.data.routes.length > 0 && (
+				<section aria-labelledby="routes">
+					<h2 id="routes" class="subtitle">
+						{t('Ibilbideak')}
+					</h2>
+					<ul class="route-list">
+						{event.data.routes.map(route => (
+							<li class="route-list__item">
+								<RouteCard
+									route={{
+										wikilocUrl: route.url,
+										titleEu: route.labelEu,
+										titleEs: route.labelEs,
+										image: route.image
+									}}
+								/>
+							</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
+		{
+			(priceDescriptionEntry?.body ||
+				(event.data.prices && event.data.prices.length > 0)) && (
+				<section aria-labelledby="price-description">
+					<h2 id="price-description" class="subtitle">
+						{t('Prezioa')}
+					</h2>
+					{PriceDescriptionContent && <PriceDescriptionContent />}
+					{event.data.prices && event.data.prices.length > 0 && (
+						<dl class="prices-list">
+							{event.data.prices.map(price => (
+								<>
+									<dt class="price-item subtitle">
+										{lang === 'es' ? price.labelEs : price.labelEu}
+									</dt>
+									<dd class="price-item item__price subtitle">
+										{formatPrice(price.price)}
+										<meta itemprop="priceCurrency" content="EUR" />
+									</dd>
+								</>
+							))}
+						</dl>
+					)}
+				</section>
+			)
+		}
 	</Container>
+	<section class="inscription-container">
+		<Container>
+			<h2 class="registration-title subtitle">
+				{t('Izen ematea')}
+			</h2>
+			<p class="registration-info">
+				{t('event.registrationInfo')}
+			</p>
+			<Button
+				href="mailto:besaide@besaide.eus"
+				target="_blank"
+				rel="noopener noreferrer"
+				variant="primary"
+			>
+				{t('event.register')}
+			</Button>
+		</Container>
+	</section>
 </Page>
 
 <style>
@@ -211,11 +214,6 @@ const isFinished = new Date() > eventDate;
 		margin-bottom: var(--s6);
 	}
 
-	.registration-title,
-	.registration-info {
-		margin-bottom: 0;
-	}
-
 	.hero-image {
 		width: 100%;
 		height: 100%;
@@ -230,17 +228,10 @@ const isFinished = new Date() > eventDate;
 		margin-bottom: var(--s4);
 	}
 
-	.title {
-		margin-bottom: 0;
-	}
-
 	.event-meta-container {
-		background-color: var(--theme-primary-container-alt);
-		padding: var(--s5);
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: var(--s5);
-		margin-bottom: var(--s4);
 	}
 
 	.summary {
@@ -297,6 +288,35 @@ const isFinished = new Date() > eventDate;
 		margin-top: var(--s8);
 		padding: var(--s8) 0;
 		border-top: 1px solid var(--theme-outline);
+	}
+	.prices-list {
+		display: grid;
+		grid-template-columns: 1fr auto;
+	}
+
+	.price-item {
+		display: flex;
+		align-items: center;
+		gap: var(--s2);
+		padding: var(--s4) 0;
+		border-bottom: 1px solid var(--theme-separator);
+		transition: background-color 0.2s ease;
+		width: 100%;
+	}
+
+	.item__price {
+		font-weight: 600;
+		color: var(--theme-primary-900);
+		margin: 0 0 0 auto;
+	}
+	.inscription-container {
+		padding: var(--s6);
+		margin-top: var(--s6);
+		background-color: var(--theme-primary-container-alt);
+	}
+
+	:global([data-theme='dark']) .item__price {
+		color: var(--theme-on-primary);
 	}
 
 	@media (max-width: 768px) {

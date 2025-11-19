@@ -1,0 +1,30 @@
+.route-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 421px), 1fr));
+		gap: var(--s4);
+		align-items: stretch;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.route-list__item {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		max-width: 421px;
+	}
+
+	/* Tablet: 2 columns when space allows */
+	@media (min-width: 640px) and (max-width: 1023px) {
+		.route-list {
+			grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+		}
+	}
+
+	/* Mobile: Always single column */
+	@media (max-width: 639px) {
+		.route-list {
+			grid-template-columns: 1fr;
+		}
+	}

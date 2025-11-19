@@ -9,7 +9,7 @@ const t = useTranslations(lang);
 const agendaSection = getUrlFromID('agenda', lang);
 const today = new Date();
 
-let events = await sortedAndFilteredEvents(lang, agendaSection, today);
+let events = await sortedAndFilteredEvents(agendaSection, today);
 
 events = events.filter(event => !event.isPast).slice(0, 4);
 ---

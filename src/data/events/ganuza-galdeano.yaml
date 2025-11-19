@@ -1,0 +1,19 @@
+title: GANUZA-GALDEANO
+date: 2025-10-19
+type: mountain
+mountain: Lokiz
+duration: 4 ordu terdi
+meetingPoint: Forumen atzean
+time: '07:00'
+elevationGain: 1121 m
+distance: 15,68 km
+image: '@/assets/images/events/ganuza-galdeano/image.png'
+summaryEu: GANUZA-GALDEANO
+summaryEs: GANUZA-GALDEANO
+prices: []
+routes:
+  - labelEu: Lokiz
+    labelEs: Lokiz
+    url: >-
+      https://es.wikiloc.com/rutas-senderismo/ganuza-sierra-de-lokiz-galdeano-8458658
+    image: '@/assets/images/event-routes/ganuza-galdeano/routes/0/image.png'

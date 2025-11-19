@@ -1,5 +1,9 @@
 // keystatic.config.ts
 import { CompanyName } from '@/config/company';
+import { events } from '@/content-config/collections/events';
+import { news } from '@/content-config/collections/news';
+import { homepage } from '@/content-config/singletons/homepage';
+import { libraryMaps } from '@/content-config/singletons/library-mapts';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
@@ -20,158 +24,8 @@ export default config({
 		}
 	},
 	collections: {
-		news: collection({
-			label: 'Albisteak / Noticias',
-			slugField: 'titleEu',
-			path: 'src/data/news/*',
-			schema: {
-				titleEu: fields.slug({
-					name: { label: 'Izenburua euskeraz' }
-				}),
-				titleEs: fields.text({
-					label: 'Izenburua gaztelaniaz'
-				}),
-				date: fields.date({
-					label: 'Data / Fecha',
-					validation: { isRequired: true }
-				}),
-				image: fields.image({
-					label: 'Irudia / Imagen',
-					directory: 'src/assets/images/news',
-					publicPath: '@/assets/images/news',
-					validation: { isRequired: true }
-				}),
-				summaryEu: fields.text({
-					label: 'Laburpena euskeraz',
-					description: 'Laburpen labur bat',
-					validation: { isRequired: true, length: { max: 200 } },
-					multiline: true
-				}),
-				summaryEs: fields.text({
-					label: 'Laburpena gaztelaniaz',
-					description: 'Resumen breve',
-					validation: { isRequired: true, length: { max: 200 } },
-					multiline: true
-				}),
-				contentEu: fields.markdoc({
-					label: 'Edukia euskeraz',
-					description: 'Albiste osoaren edukia'
-				}),
-				contentEs: fields.markdoc({
-					label: 'Edukia gaztelaniaz',
-					description: 'Contenido completo de la noticia'
-				})
-			}
-		}),
-		events: collection({
-			label: 'Gertaerak / Eventos',
-			slugField: 'title',
-			path: 'src/data/events/*',
-			format: { contentField: 'content' },
-			schema: {
-				title: fields.slug({
-					name: { label: 'Izenburua / Título' }
-				}),
-				lang: fields.select({
-					label: 'Hizkuntza / Idioma',
-					options: [
-						{ label: 'Euskera', value: 'eu' },
-						{ label: 'Español', value: 'es' }
-					],
-					defaultValue: 'eu'
-				}),
-				date: fields.date({
-					label: 'Data / Fecha',
-					description: 'Formato: YYYY-MM-DD',
-					validation: { isRequired: true }
-				}),
-				// Optional end date for multi-day events
-				endDate: fields.date({
-					label: 'Amaiera data / Fecha fin',
-					description: 'Formato: YYYY-MM-DD (opcional)'
-				}),
-				time: fields.text({
-					label: 'Ordua / Hora',
-					description: 'Adib: 06:30'
-				}),
-				// Conditional fields based on type
-				typeSpecificFields: fields.conditional(
-					fields.select({
-						label: 'Mota / Tipo',
-						description:
-							'Zer motatako jarduera den (montaña, ski alpino, etc.)',
-						options: [
-							{ label: 'Mendia / Montaña', value: 'mountain' },
-							{ label: 'Eskia - Ski Alpino', value: 'ski-alpino' }
-						],
-						defaultValue: 'mountain'
-					}),
-					{
-						mountain: fields.object({
-							mountain: fields.text({
-								label: 'Mendia / Montaña',
-								description: 'Mendi edo gailurraren izena',
-								validation: { isRequired: true }
-							}),
-							difficulty: fields.select({
-								label: 'Zailtasuna / Dificultad',
-								options: [
-									{ label: 'Erraza', value: 'erraza' },
-									{ label: 'Ertaina', value: 'ertaina' },
-									{ label: 'Zaila', value: 'zaila' },
-									{ label: 'Oso zaila', value: 'oso-zaila' }
-								],
-								defaultValue: 'ertaina'
-							}),
-							elevation: fields.text({
-								label: 'Altuera / Altitud',
-								description: 'Adib: 2507 m',
-								validation: { isRequired: true }
-							}),
-							distance: fields.text({
-								label: 'Distantzia / Distancia',
-								description: 'Adib: 16 km',
-								validation: { isRequired: true }
-							})
-						}),
-						'ski-alpino': fields.object({
-							location: fields.text({
-								label: 'Kokalekua / Ubicación',
-								description: 'Herria edo kokalekua',
-								validation: { isRequired: true }
-							})
-						})
-					}
-				),
-
-				duration: fields.text({
-					label: 'Iraupena / Duración',
-					description: 'Adib: 8-9 ordu',
-					validation: { isRequired: true }
-				}),
-				meetingPoint: fields.text({
-					label: 'Bilketa puntua / Punto de encuentro',
-					description: 'Non eta noiz bildu',
-					validation: { isRequired: true }
-				}),
-				image: fields.image({
-					label: 'Irudia / Imagen',
-					directory: 'src/assets/images/events',
-					publicPath: '@/assets/images/events',
-					validation: { isRequired: true }
-				}),
-				summary: fields.text({
-					label: 'Laburpena / Resumen',
-					description: 'Laburpen labur bat / Un resumen breve',
-					validation: { isRequired: true, length: { max: 200 } },
-					multiline: true
-				}),
-				content: fields.markdoc({
-					label: 'Edukia / Contenido',
-					description: 'Gertaeraren deskribapen osoa'
-				})
-			}
-		}),
+		news: news,
+		events: events,
 		materialRental: collection({
 			label: 'Material alokairua / Alquiler de material',
 			slugField: 'name_eu',
@@ -249,32 +103,7 @@ export default config({
 		})
 	},
 	singletons: {
-		homepage: singleton({
-			label: 'Hasierako Orria / Página de Inicio',
-			path: 'src/data/homepage/homepage',
-			schema: {
-				membershipTitleEu: fields.text({
-					label: 'Hasierako orriaren izenburua euskeraz',
-					description: 'Hasierako orrian agertuko den izenburua',
-					validation: { isRequired: true }
-				}),
-				membershipTitleEs: fields.text({
-					label: 'Título de la página de inicio',
-					description: 'Título que aparecerá en la página de inicio',
-					validation: { isRequired: true }
-				}),
-				membershipDescriptionEu: fields.text({
-					label: 'Hasierako orriaren deskribapena euskeraz',
-					description: 'Hasierako orrian agertuko den deskribapena',
-					multiline: true
-				}),
-				membershipDescriptionEs: fields.text({
-					label: 'Descripción de la página de inicio',
-					description: 'Descripción que aparecerá en la página de inicio',
-					multiline: true
-				})
-			}
-		}),
+		homepage: homepage,
 		besaideHistory: singleton({
 			label: 'Historia / Besaide Historia',
 			path: 'src/data/besaide/historia',
@@ -338,20 +167,7 @@ export default config({
 				})
 			}
 		}),
-		libraryMaps: singleton({
-			label: 'Liburutegia / Mapak',
-			path: 'src/data/library-maps',
-			schema: {
-				contentEu: fields.markdoc({
-					label: 'Edukia: Liburutegia / Mapa',
-					description: 'Liburutegia euskeraz'
-				}),
-				contentEs: fields.markdoc({
-					label: 'Contenido de: Librería / Mapas ',
-					description: 'Liburutegia gaztelaniaz'
-				})
-			}
-		}),
+		libraryMaps: libraryMaps,
 		membership: singleton({
 			label: 'Bazkidetza / Membresía',
 			path: 'src/data/membership/membership',

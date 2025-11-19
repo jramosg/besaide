@@ -1,0 +1,83 @@
+---
+import { slugify } from '@/utils/string';
+import CardMeta from './CardMeta.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import MountainClimb from '@/assets/icons/elevation.svg';
+import DurationIcon from '@/assets/icons/duration.svg';
+import PlaceIcon from '@/assets/icons/place.svg';
+import { Map, Clock3 } from '@lucide/astro';
+import DistanceIcon from '@/assets/icons/distance.svg';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+	item: CollectionEntry<'events'>;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const {
+	mountain,
+	elevationGain,
+	location,
+	distance,
+	meetingPoint,
+	time,
+	duration,
+	type
+} = Astro.props.item.data;
+
+const slug = slugify(Astro.props.item.id);
+---
+
+<>
+	{
+		type === 'mountain' ? (
+			<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={slug}>
+				<Map slot="icon" />
+			</CardMeta>
+		) : (
+			<CardMeta title={t('KOKALEKUA')} desc={location || ''} eventId={slug}>
+				<Map slot="icon" />
+			</CardMeta>
+		)
+	}
+	{
+		elevationGain && (
+			<CardMeta title={t('DESNIBELA')} desc={elevationGain} eventId={slug}>
+				<MountainClimb slot="icon" fill="currentColor" />
+			</CardMeta>
+		)
+	}
+
+	{
+		distance && (
+			<CardMeta title={t('DISTANTZIA')} desc={distance} eventId={slug}>
+				<DistanceIcon slot="icon" fill="currentColor" />
+			</CardMeta>
+		)
+	}
+
+	{
+		meetingPoint && (
+			<CardMeta title={t('TOPAGUNEA')} desc={meetingPoint} eventId={slug}>
+				<PlaceIcon slot="icon" fill="currentColor" />
+			</CardMeta>
+		)
+	}
+
+	{
+		time && (
+			<CardMeta title={t('ORDUA')} desc={time} eventId={slug}>
+				<Clock3 slot="icon" />
+			</CardMeta>
+		)
+	}
+	{
+		duration && (
+			<CardMeta title={t('IRAUPENA')} desc={duration} eventId={slug}>
+				<DurationIcon slot="icon" fill="currentColor" />
+			</CardMeta>
+		)
+	}
+</>

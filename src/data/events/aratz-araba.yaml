@@ -1,0 +1,25 @@
+title: Aratz (Araba)
+date: 2025-12-14
+type: mountain
+mountain: Aratz
+duration: 3 ordu
+meetingPoint: Garibai
+time: '08:00'
+elevationGain: 791 m
+distance: 9,5 km
+image: '@/assets/images/events/aratz-araba/image.jpg'
+summaryEu: Abenduak 14 Aratz (Araba)
+summaryEs: 14 de diciembre Aratz (Álava)
+prices:
+  - labelEu: Bazkideak
+    labelEs: Socios
+    price: 0
+  - labelEu: Ez bazkideak
+    labelEs: No socios
+    price: 10
+routes:
+  - labelEu: ARATZ 1.445 m Araiatik
+    labelEs: Monte ARATZ 1.445 m. Desde Araia.
+    url: >-
+      https://es.wikiloc.com/rutas-senderismo/monte-aratz-1-445-m-desde-araia-56541117
+    image: '@/assets/images/event-routes/aratz-araba/routes/0/image.png'

@@ -1,0 +1,22 @@
+title: GREDOS MENDILERROA
+date: 2025-09-12
+endDate: 2025-09-14
+type: mountain
+mountain: Gredos Mendilerroa
+duration: 3 egun
+meetingPoint: Zalduspe
+time: '14:30'
+elevationGain: 2.389 m
+image: '@/assets/images/events/gredos-mendilerroa/image.jpg'
+summaryEu: GREDOS MENDILERROA Irailak 12, 13 eta 14
+summaryEs: GREDOS MENDILERROA Irailak 12, 13 eta 14
+prices:
+  - labelEu: Bazkideak
+    labelEs: Socios
+    price: 100
+routes:
+  - labelEu: Gredos Mendilerroa
+    labelEs: Sierra de Gredos
+    url: >-
+      https://es.wikiloc.com/rutas-senderismo/espana-sierra-de-gredos-desde-la-plataforma-de-gredos-hasta-la-mira-2-343-metros-y-los-galayos-18716673
+    image: '@/assets/images/event-routes/gredos-mendilerroa/routes/0/image.png'

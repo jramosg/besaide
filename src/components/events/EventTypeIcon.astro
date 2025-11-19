@@ -1,0 +1,23 @@
+---
+import MountainClimb from '@/assets/icons/elevation.svg';
+import DownHillSkiing from '@/assets/icons/downhill_skiing.svg';
+import CalendarAddOn from '@/assets/icons/calendar_add_on.svg';
+import CourseIcon from '@/assets/icons/course.svg';
+import type { CollectionEntry } from 'astro:content';
+type Props = {
+	item: CollectionEntry<'events'>;
+};
+const { item } = Astro.props;
+---
+
+{
+	item.data.type === 'ski-alpino' ? (
+		<DownHillSkiing fill="currentColor" />
+	) : item.data.type === 'event' ? (
+		<CalendarAddOn fill="currentColor" />
+	) : item.data.type === 'course' ? (
+		<CourseIcon fill="currentColor" />
+	) : (
+		<MountainClimb fill="currentColor" />
+	)
+}

@@ -1,39 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 import { slugify } from '@/utils/string';
-import MountainClimb from '@/assets/icons/elevation.svg';
-import DownHillSkiing from '@/assets/icons/downhill_skiing.svg';
-import CardMeta from '@/components/events/CardMeta.astro';
-import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
-import { Map, Clock3 } from '@lucide/astro';
-import DistanceIcon from '@/assets/icons/distance.svg';
-import ElevationIcon from '@/assets/icons/elevation.svg';
-import LevelIcon from '@/assets/icons/level.svg';
+import { getLangFromUrl, getUrlFromID } from '@/i18n/utils';
 import { formatEventDate } from '@/utils/date';
 import type { ProcessedEvent } from '@/types/Events';
 import Chip from '../Chip.astro';
-
-type Difficulty = 'erraza' | 'ertaina' | 'zaila';
-
-const difficultyLabels: Record<'eu' | 'es', Record<Difficulty, string>> = {
-	eu: {
-		erraza: 'Erraza',
-		ertaina: 'Ertaina',
-		zaila: 'Zaila'
-	},
-	es: {
-		erraza: 'Fácil',
-		ertaina: 'Media',
-		zaila: 'Difícil'
-	}
-};
+import EventMetas from './EventMetas.astro';
+import EventTypeIcon from './EventTypeIcon.astro';
 
 type Props = {
 	item: ProcessedEvent;
 };
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
 const { item } = Astro.props;
 
@@ -46,17 +25,6 @@ const agendaSection = getUrlFromID('agenda', lang);
 const eventId = slugify(item.id);
 
 const slug = `${agendaSection}/${eventId}`;
-
-const discriminant = item.data.typeSpecificFields.discriminant;
-const { mountain, elevation, difficulty } =
-	discriminant === 'mountain' ? item.data.typeSpecificFields.value : {};
-
-const { location } =
-	discriminant === 'ski-alpino' ? item.data.typeSpecificFields.value : {};
-
-const difficultyLabel = difficulty
-	? difficultyLabels[lang][difficulty as Difficulty]
-	: undefined;
 ---
 
 <a href={slug} class="card card--elevated event-card">
@@ -78,79 +46,14 @@ const difficultyLabel = difficulty
 			>
 				{formattedDate.toUpperCase()}
 			</Chip>
-			{
-				item.data.typeSpecificFields.discriminant === 'ski-alpino' ? (
-					<DownHillSkiing fill="currentColor" />
-				) : (
-					<MountainClimb fill="currentColor" />
-				)
-			}
+			<EventTypeIcon item={item} />
 		</div>
 		<h3 class="event-title" style={`view-transition-name: title-${eventId}`}>
 			{item.data.title}
 		</h3>
 
 		<div class="event-meta">
-			{
-				discriminant === 'mountain' ? (
-					<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={eventId}>
-						<Map slot="icon" />
-					</CardMeta>
-				) : discriminant === 'ski-alpino' ? (
-					<CardMeta
-						title={t('KOKALEKUA')}
-						desc={location || ''}
-						eventId={eventId}
-					>
-						<Map slot="icon" />
-					</CardMeta>
-				) : (
-					// fallback: show both if type is unknown
-					<CardMeta
-						title={t('MENDIA')}
-						desc={mountain || location || ''}
-						eventId={eventId}
-					>
-						<Map slot="icon" />
-					</CardMeta>
-				)
-			}
-			{
-				item.data.meetingPoint && (
-					<CardMeta
-						title={t('TOPAGUNEA')}
-						desc={`${item.data.meetingPoint}${item.data.time ? ' - ' + item.data.time : ''}`}
-						eventId={eventId}
-					>
-						<DistanceIcon slot="icon" fill="currentColor" />
-					</CardMeta>
-				)
-			}
-			{
-				item.data.duration && (
-					<CardMeta
-						title={t('IRAUPENA')}
-						desc={item.data.duration}
-						eventId={eventId}
-					>
-						<Clock3 slot="icon" />
-					</CardMeta>
-				)
-			}
-			{
-				elevation && (
-					<CardMeta title={t('DESNIBELA')} desc={elevation} eventId={eventId}>
-						<ElevationIcon slot="icon" fill="currentColor" />
-					</CardMeta>
-				)
-			}
-			{
-				difficultyLabel && (
-					<CardMeta title={t('MAILA')} desc={difficultyLabel} eventId={eventId}>
-						<LevelIcon slot="icon" fill="currentColor" />
-					</CardMeta>
-				)
-			}
+			<EventMetas item={item} />
 		</div>
 	</div>
 </a>
@@ -240,36 +143,5 @@ const difficultyLabel = difficulty
 		gap: 0.5rem;
 		margin-top: auto;
 		align-items: end;
-	}
-
-	.event-meta > :global(:nth-child(1)) {
-		grid-column: 1;
-		grid-row: 1;
-	}
-
-	.event-meta > :global(:nth-child(2)) {
-		grid-column: 1;
-		grid-row: 2;
-	}
-
-	.event-meta > :global(:nth-child(3)) {
-		grid-column: 1;
-		grid-row: 3;
-	}
-
-	.event-meta > :global(:nth-child(4)) {
-		grid-column: 2;
-		grid-row: 2;
-	}
-
-	.event-meta > :global(:nth-child(5)) {
-		grid-column: 2;
-		grid-row: 3;
-	}
-
-	.event-meta > :global(:nth-child(6)) {
-		grid-column: 2;
-		grid-row: 3;
-		align-self: start;
 	}
 </style>

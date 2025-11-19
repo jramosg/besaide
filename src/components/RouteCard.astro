@@ -2,10 +2,14 @@
 import { Image } from 'astro:assets';
 import { getLangFromUrl, useTranslations } from 'i18n/utils';
 import { Share2 } from '@lucide/astro';
-import type { CollectionEntry } from 'astro:content';
 
 type Props = {
-	route: CollectionEntry<'routes'>['data'];
+	route: {
+		wikilocUrl: string;
+		titleEu: string;
+		titleEs: string;
+		image: ImageMetadata;
+	};
 };
 
 const { route }: Props = Astro.props;

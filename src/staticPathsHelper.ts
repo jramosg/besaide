@@ -30,8 +30,8 @@ export async function SingleNewsStaticPaths(lang: Langs) {
 	});
 }
 
-export async function SingleEventStaticPaths(lang: Langs) {
-	const events = await sortedAndFilteredEvents(lang);
+export async function SingleEventStaticPaths() {
+	const events = await sortedAndFilteredEvents();
 
 	return events.map(event => {
 		return {

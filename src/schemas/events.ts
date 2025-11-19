@@ -5,32 +5,40 @@ export const eventsSchema = (image: ImageFunction) =>
 	z
 		.object({
 			title: z.string(),
-			lang: z.string(),
 			date: z.date(),
 			endDate: z.date().optional(),
 			time: z.string().optional(),
-			// Keystatic conditional field structure
-			typeSpecificFields: z.discriminatedUnion('discriminant', [
-				z.object({
-					discriminant: z.literal('mountain'),
-					value: z.object({
-						mountain: z.string(),
-						difficulty: z.enum(['erraza', 'ertaina', 'zaila']),
-						elevation: z.string(),
-						distance: z.string()
-					})
-				}),
-				z.object({
-					discriminant: z.literal('ski-alpino'),
-					value: z.object({
-						location: z.string()
-					})
-				})
-			]),
+			type: z.enum(['mountain', 'ski-alpino', 'event', 'course']),
+			mountain: z.string().optional(),
+			location: z.string().optional(),
 			duration: z.string().optional(),
 			meetingPoint: z.string().optional(),
+			elevationGain: z.string().optional(),
+			distance: z.string().optional(),
 			image: image(),
-			summary: z.string()
+			summaryEu: z.string(),
+			summaryEs: z.string(),
+			prices: z
+				.array(
+					z.object({
+						labelEu: z.string(),
+						labelEs: z.string(),
+						price: z.number()
+					})
+				)
+				.optional(),
+			priceDescriptionEu: z.string().optional(),
+			priceDescriptionEs: z.string().optional(),
+			routes: z
+				.array(
+					z.object({
+						labelEu: z.string(),
+						labelEs: z.string(),
+						url: z.string().url(),
+						image: image()
+					})
+				)
+				.optional()
 		})
 		.refine(data => !data.endDate || data.endDate > data.date, {
 			message: 'endDate must be after date',

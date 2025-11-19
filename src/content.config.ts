@@ -20,8 +20,12 @@ const newsContent = defineCollection({
 });
 
 const events = defineCollection({
-	loader: glob({ pattern: '**/*.mdoc', base: './src/data/events' }),
+	loader: glob({ pattern: '**/*.yaml', base: './src/data/events' }),
 	schema: ({ image }) => eventsSchema(image)
+});
+
+const eventsMarkdown = defineCollection({
+	loader: glob({ pattern: '**/*.mdoc', base: './src/data/events' })
 });
 
 const history = defineCollection({
@@ -95,6 +99,7 @@ export const collections = {
 	news,
 	newsContent,
 	events,
+	eventsMarkdown,
 	history,
 	functioning,
 	libraryMaps,

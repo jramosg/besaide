@@ -14,7 +14,7 @@ const t = useTranslations(lang);
 const today = new Date();
 const agendaSection = getUrlFromID('agenda', lang);
 
-const events = await sortedAndFilteredEvents(lang, agendaSection, today);
+const events = await sortedAndFilteredEvents( agendaSection, today);
 
 // Group events by month and separate into future/past
 const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
