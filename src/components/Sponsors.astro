@@ -65,6 +65,7 @@ const t = useTranslations(lang);
 
 <style>
 	.carousel {
+		max-width: var(--container-max-width);
 		margin: 0 auto;
 		overflow: hidden;
 		display: flex;
@@ -103,6 +104,17 @@ const t = useTranslations(lang);
 		}
 		100% {
 			transform: translateX(-100%);
+		}
+	}
+
+	@media (min-width: 1200px) {
+		.group {
+			animation: none;
+			padding-right: unset;
+		}
+		.carousel {
+			-webkit-mask-image: none;
+			padding: var(--container-padding);
 		}
 	}
 </style>
