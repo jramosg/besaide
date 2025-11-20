@@ -8,6 +8,7 @@ type Props = {
 	navData: Nav;
 };
 const { navData }: Props = Astro.props;
+const { year } = Astro.params;
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -70,7 +71,7 @@ const t = useTranslations(lang);
 							) : (
 								<a
 									class="drawer-menu-item-link"
-									href={getUrlFromID(navItem.slug, lang)}
+									href={getUrlFromID(navItem.slug, lang, {})}
 									tabindex="-1"
 								>
 									{t(navItem.title)}
@@ -90,7 +91,7 @@ const t = useTranslations(lang);
 							class="drawer-menu-item-button"
 							bordered={i === 1}
 							tonal={i === 0}
-							href={getUrlFromID(action.slug, lang)}
+							href={getUrlFromID(action.slug, lang, { year })}
 							tabindex="-1"
 						>
 							{t(action.title)}

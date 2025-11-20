@@ -90,7 +90,7 @@ export function switchLanguage(url: URL): string | null {
 }
 
 type GetUrlFromIDParams = {
-	year?: number;
+	year?: number | string;
 };
 
 export function getUrlFromID(
