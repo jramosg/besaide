@@ -126,7 +126,7 @@ export const ui = {
 		'Besaide Mendizale Elkartea': 'Asociación de Montañismo Besaide',
 		'Izen ematea': 'Inscripción',
 		'event.registrationInfo':
-			'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus. Nahi izanez gero, galdetegia beti eta zurrekin harremanetan jarriko gara.',
+			'Si estás interesado en participar en esta salida, ponte en contacto con nosotros. Escribe a besaide@besaide.eus.',
 		'Kontsulta itzazu Besaideren irteera guztiak.':
 			'Consulta todas las salidas de Besaide.',
 		'Irteera bakarra dago planifikatuta.': 'Hay una única salida planificada.',
@@ -333,7 +333,7 @@ export const ui = {
 		'Informazio gehiago': 'Informazio gehiago',
 		'Atzera itzuli': 'Atzera itzuli',
 		'event.registrationInfo':
-			'Interesa bazaizu irteera honetan parte hartzea, jar zaitez gurekin harremanetan. Idatzi besaide@besaide.eus. Nahi izanez gero, galdetegia betie eta zurrekin harremanetan jarriko gara. beti eta zurrekin harremanetan jarriko gara.',
+			'Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin harremanetan besaide@besaide.eus helbidera idatziz.',
 		// Besaide page - Functioning section
 		Funtzionamendua: 'Funtzionamendua',
 		Historia: 'Historia',

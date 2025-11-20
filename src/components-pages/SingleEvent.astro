@@ -20,7 +20,6 @@ type Props = {
 import '@/styles/routes.css';
 
 const { event } = Astro.props;
-const { Content } = await render(event);
 const slug = slugify(event.id);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -43,6 +42,15 @@ const eventTypeMap: Record<string, string> = {
 
 const eventType = eventTypeMap[event.data.type] || event.data.type;
 const isFinished = new Date() > eventDate;
+
+const descriptionEntry = await getEntry(
+	'eventsMarkdown',
+	event.id + '/description' + lang
+);
+
+const { Content: DescriptionContent } = descriptionEntry
+	? await render(descriptionEntry)
+	: { Content: null };
 
 const extraInfoEntry = await getEntry(
 	'eventsMarkdown',
@@ -108,8 +116,17 @@ const { Content: PriceDescriptionContent } = priceDescriptionEntry
 		<h1 class="title h3" style={`view-transition-name: title-${slug}`}>
 			{event.data.title}
 		</h1>
-		<Content />
 
+		{
+			descriptionEntry?.body && (
+				<section aria-labelledby="description">
+					<h2 id="description" class="subtitle">
+						{t('Deskribapena')}
+					</h2>
+					{DescriptionContent && <DescriptionContent />}
+				</section>
+			)
+		}
 		<section class="" aria-labelledby="features">
 			<h2 id="features" class="subtitle">{t('Ezaugarriak')}</h2>
 			<div class="event-meta-container"><EventMetas item={event} /></div>
