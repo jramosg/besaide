@@ -37,10 +37,8 @@ const eventDescription =
 const eventTypeMap: Record<string, string> = {
 	mountain: t('event.type.mountain'),
 	'ski-alpino': t('event.type.ski-alpino'),
-	'ski-fondo': t('event.type.ski-fondo'),
-	trekking: t('event.type.trekking'),
-	event: 'Event',
-	course: 'Course'
+	event: t('event.type.event'),
+	course: t('event.type.course')
 };
 
 const eventType = eventTypeMap[event.data.type] || event.data.type;
