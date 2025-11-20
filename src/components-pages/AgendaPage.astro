@@ -6,18 +6,26 @@ import EventListCard from '@/components/events/EventListCard.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import type { ProcessedEvent } from '@/types/Events';
 import { CompanyName } from '@/config/company';
+import ChevronLeftIcon from '@lucide/astro/icons/chevron-left';
+import ChevronRightIcon from '@lucide/astro/icons/chevron-right';
+import { capitalizeFirstLetter } from '@/utils/string';
+
+const today = new Date();
 
 const url = Astro.url;
+const { year } = Astro.params;
+const yearFilter = year ? parseInt(year, 10) : today.getFullYear();
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 
-const today = new Date();
 const agendaSection = getUrlFromID('agenda', lang);
 
-const events = await sortedAndFilteredEvents(agendaSection, today);
+const events = await sortedAndFilteredEvents(agendaSection, today, {
+	yearFilter
+});
 
 // Group events by month and separate into future/past
-const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
+const { futureEventsByMonth, pastEventsByMonth } = events.reduce(
 	(acc, item) => {
 		const date = new Date(item.data.date);
 		const year = date.getFullYear();
@@ -38,6 +46,7 @@ const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
 				date
 			);
 			title = `${monthName} ${year}`;
+			title = capitalizeFirstLetter(title);
 		}
 
 		if (item.isPast) {
@@ -50,9 +59,7 @@ const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
 				acc.futureEventsByMonth.set(key, { title, events: [], year, month });
 			}
 			acc.futureEventsByMonth.get(key)!.events.push(item);
-			acc.futureCount++;
 		}
-
 		return acc;
 	},
 	{
@@ -63,8 +70,7 @@ const { futureEventsByMonth, pastEventsByMonth, futureCount } = events.reduce(
 		pastEventsByMonth: new Map<
 			string,
 			{ title: string; events: ProcessedEvent[]; year: number; month: number }
-		>(),
-		futureCount: 0
+		>()
 	}
 );
 
@@ -74,8 +80,11 @@ const pastMonths = Array.from(pastEventsByMonth.values());
 const pastTitle = lang === 'eu' ? 'Iraganeko irteerak' : 'Salidas pasadas';
 const emptyMessage =
 	lang === 'eu'
-		? 'Ez dago irteerarik programatuta oraingoz.'
-		: 'No hay salidas futuras programadas por el momento.';
+		? 'Ez dago irteerarik ' + year + ' urtean'
+		: 'No hay salidas en ' + year;
+
+const previousYear = yearFilter - 1;
+const nextYear = yearFilter + 1;
 ---
 
 <Page
@@ -89,36 +98,66 @@ const emptyMessage =
 		title="Agenda"
 		subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
 	/>
-	{
-		futureCount > 0 && (
-			<p class="future-count">
-				{futureCount === 1
-					? t('Irteera bakarra dago planifikatuta.')
-					: `${futureCount} ${t('irteera daude planifikatuta.')}`}
-			</p>
-		)
-	}
+
+	<nav
+		class="year-navigation"
+		aria-label={lang === 'eu' ? 'Urteko nabigazioa' : 'Navegación por año'}
+	>
+		<a
+			href={url.href.replace(`${yearFilter}`, `${previousYear}`)}
+			class="year-nav-link"
+			aria-label={lang === 'eu'
+				? `${previousYear} urtea ikusi`
+				: `Ver año ${previousYear}`}
+		>
+			<ChevronLeftIcon aria-hidden="true" />
+			<span class="button-text">{t('Aurreko urtea')}</span>
+		</a>
+
+		<p class="current-year" aria-current="page">
+			<time datetime={yearFilter.toString()} class="h3">{yearFilter}</time>
+		</p>
+
+		<a
+			href={url.href.replace(`${yearFilter}`, `${nextYear}`)}
+			class="year-nav-link"
+			aria-label={lang === 'eu'
+				? `${nextYear} urtea ikusi`
+				: `Ver año ${nextYear}`}
+		>
+			<span class="button-text">{t('Hurrengo urtea')}</span>
+			<ChevronRightIcon aria-hidden="true" />
+		</a>
+	</nav>
+
 	{
 		futureMonths.length > 0 ? (
-			<section class="events-list">
+			<section aria-labelledby="upcoming-events-heading">
+				<h2 id="upcoming-events-heading" class="visually-hidden">
+					{lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas'}
+				</h2>
 				{futureMonths.map(({ title, events }) => (
-					<div class="month-group">
-						<h2 class="month-title subtitle">{title}</h2>
-						<p class="month-count">
-							{events.length === 1
-								? t('Irteera bakarra dago planifikatuta.')
-								: `${events.length} ${t('irteera daude planifikatuta.')}`}
-						</p>
-						<div class="month-events">
+					<article class="month-section">
+						<header class="month-header">
+							<h3 class="month-title subtitle">{title}</h3>
+							<p class="month-summary">
+								{events.length === 1
+									? t('Irteera bakarra dago planifikatuta.')
+									: `${events.length} ${t('irteera daude planifikatuta.')}`}
+							</p>
+						</header>
+						<ul class="events-grid" role="list">
 							{events.map(item => (
-								<EventListCard item={item} />
+								<li>
+									<EventListCard item={item} />
+								</li>
 							))}
-						</div>
-					</div>
+						</ul>
+					</article>
 				))}
 			</section>
 		) : (
-			<div class="empty-state">
+			<div class="empty-state" role="status">
 				<p>{emptyMessage}</p>
 			</div>
 		)
@@ -126,92 +165,155 @@ const emptyMessage =
 
 	{
 		pastMonths.length > 0 && (
-			<section class="events-section past-events">
-				<h2 class="section-title">{pastTitle}</h2>
-				<div class="events-list">
-					{pastMonths.map(({ title, events }) => (
-						<div class="month-group">
-							<h3 class="month-title past subtitle">{title}</h3>
-							<div class="month-events">
-								{events.slice(0, 6).map(item => (
+			<section
+				class="past-events-section"
+				aria-labelledby="past-events-heading"
+			>
+				<h2 id="past-events-heading" class="section-title h3">
+					{pastTitle}
+				</h2>
+				{pastMonths.map(({ title, events }) => (
+					<article class="month-section">
+						<h3 class="month-title past subtitle">{title}</h3>
+						<ul class="events-grid" role="list">
+							{events.slice(0, 6).map(item => (
+								<li>
 									<EventListCard item={item} />
-								))}
-							</div>
-						</div>
-					))}
-				</div>
+								</li>
+							))}
+						</ul>
+					</article>
+				))}
 			</section>
 		)
 	}
 </Page>
 
 <style>
-	.future-count {
-		color: var(--theme-primary-900);
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
 	}
 
-	.month-count {
-		color: var(--theme-primary-900);
-		margin: -1rem 0 0.5rem 0;
-	}
-
-	.events-section {
-		margin-bottom: 4rem;
-	}
-
-	.section-title {
-		margin-bottom: 2rem;
-		padding-bottom: 0.75rem;
-		border-bottom: 3px solid var(--theme-primary);
-	}
-
-	.events-list {
+	.year-navigation {
 		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		margin: var(--s6) 0;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--s4);
+		margin-block: var(--s6);
+		padding-block-end: var(--s4);
+		border-block-end: 1px solid var(--theme-primary-900);
 	}
 
-	.month-group {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+	.year-nav-link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--s2);
+		padding: var(--s2) 0;
+		text-decoration: none;
+		color: var(--theme-on-bg);
+		border-radius: var(--theme-shape-radius);
+		transition:
+			opacity 0.3s ease,
+			color 0.3s ease,
+			transform 0.3s ease;
+		transform: scale(1);
+		opacity: 0.8;
+	}
+
+	.year-nav-link:focus-visible {
+		opacity: 1;
+		color: var(--theme-primary);
+		transform: scale(1.05);
+		outline: 2px solid var(--theme-primary);
+		outline-offset: 2px;
+	}
+
+	.year-nav-link:hover {
+		opacity: 1;
+		color: var(--theme-primary);
+		transform: scale(1.05);
+	}
+
+	.year-nav-link:active {
+		transform: scale(0.95);
+	}
+
+	.current-year {
+		margin: 0;
+	}
+
+	.month-section {
+		margin-block-end: var(--s8);
+	}
+
+	.month-header {
+		margin-block-end: var(--s4);
 	}
 
 	.month-title {
-		margin-bottom: 0;
+		margin-block-end: var(--s2);
 	}
 
 	.month-title.past {
 		color: var(--theme-text-secondary);
 	}
 
-	.month-events {
+	.month-summary {
+		color: var(--theme-primary-900);
+		font-size: var(--font-size-sm);
+		margin: 0;
+	}
+
+	.events-grid {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--s4);
+		list-style: none;
+		padding: 0;
+		margin: 0;
 	}
 
-	.past-events {
-		margin-top: 3rem;
-		padding-top: 3rem;
-		border-top: 2px dashed #e5e7eb;
+	.past-events-section {
+		margin-block-start: var(--s8);
+		padding-block-start: var(--s8);
+		border-block-start: 2px dashed var(--theme-separator);
 	}
 
-	.past-events .section-title {
-		border-bottom-color: #9ca3af;
+	.section-title {
+		margin-block-end: var(--s6);
+		padding-block-end: var(--s3);
+		border-block-end: 3px solid var(--theme-separator);
 		color: var(--theme-text-secondary);
 	}
 
 	.empty-state {
 		text-align: center;
-		padding: 4rem 2rem;
-		background: #f9fafb;
-		border-radius: 16px;
-		margin: 2rem 0;
+		padding: var(--s8) var(--s4);
+		background: var(--theme-primary-container-alt);
+		border-radius: var(--theme-shape-radius);
+		margin-block: var(--s6);
 	}
 
 	.empty-state p {
-		color: var(--theme-text-secondary);
+		margin: 0;
+		font-size: var(--font-size-lg);
+	}
+
+	@media (max-width: 600px) {
+		.year-nav-link span {
+			display: none;
+		}
+
+		.year-navigation {
+			gap: var(--s2);
+		}
 	}
 </style>

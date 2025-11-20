@@ -220,7 +220,10 @@ export const ui = {
 		Ezaugarriak: 'Características',
 		'Informazio gehigarria': 'Información adicional',
 		Prezioa: 'Precio',
-		Ibilbideak: 'Rutas'
+		Ibilbideak: 'Rutas',
+		'agenda.year-navigation': 'Navegación por años',
+		'Aurreko urtea': 'Año anterior',
+		'Hurrengo urtea': 'Año siguiente'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -375,7 +378,8 @@ export const ui = {
 			'Besaideko liburutegia eta mapa bilduma. Bazkideentzat eskuragarri dauden mendiko liburu, gida eta mapen bilduma.',
 		// Event SEO
 		'event.seo.title-prefix': 'Ekitaldia',
-		'material-rent.unavailable': 'Ez dago eskuragarri'
+		'material-rent.unavailable': 'Ez dago eskuragarri',
+		'agenda.year-navigation': 'Urtearen nabigazioa'
 	}
 } as const;
 

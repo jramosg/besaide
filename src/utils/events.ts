@@ -21,7 +21,8 @@ export const processEvent = async (
 
 export const sortedAndFilteredEvents = async (
 	agendaSection: string = 'agenda',
-	today: Date = new Date()
+	today: Date = new Date(),
+	{ yearFilter }: { yearFilter?: number } = {}
 ): Promise<ProcessedEvent[]> => {
 	// load collection
 	const allEvents = await getCollection('events');
@@ -30,6 +31,9 @@ export const sortedAndFilteredEvents = async (
 	for (const entry of allEvents) {
 		// Filter by language
 
+		if (yearFilter && entry.data.date.getFullYear() !== yearFilter) {
+			continue;
+		}
 		// Add isPast and slug
 		const isPast = new Date(entry.data.date) < today;
 		processedEvents.push({

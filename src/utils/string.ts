@@ -9,3 +9,8 @@ export function slugify(text: string): string {
 		.replace(/^-+/, '') // Trim - from start of text
 		.replace(/-+$/, ''); // Trim - from end of text
 }
+
+export function capitalizeFirstLetter(text: string): string {
+	if (text.length === 0) return text;
+	return text.charAt(0).toUpperCase() + text.slice(1);
+}

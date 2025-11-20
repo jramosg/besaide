@@ -64,6 +64,13 @@ export function switchLanguage(url: URL): string | null {
 		}
 	}
 
+	// Handle agenda pages with optional year
+	if (pathParts[0] === 'agenda' || pathParts[0] === 'agenda-es') {
+		const newPrefix = pathParts[0] === 'agenda' ? 'agenda-es' : 'agenda';
+		const rest = pathParts.slice(1).join('/');
+		return `/${newPrefix}${rest ? '/' + rest : ''}`;
+	}
+
 	const currentSlug: string = pathParts[pathParts.length - 1];
 
 	// Find the mapping entry for the current slug
@@ -82,10 +89,18 @@ export function switchLanguage(url: URL): string | null {
 	return null;
 }
 
-export function getUrlFromID(slug: string, lang: Langs): string {
+type GetUrlFromIDParams = {
+	year?: number;
+};
+
+export function getUrlFromID(
+	slug: string,
+	lang: Langs,
+	params?: GetUrlFromIDParams
+): string {
 	for (const [urlSlug, info] of Object.entries(langMapping)) {
 		if (info.lang === lang && info.id === slug) {
-			return `/${urlSlug}`;
+			return `/${urlSlug}${params?.year ? `/${params.year}` : ''}`;
 		}
 	}
 	return '';

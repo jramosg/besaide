@@ -73,7 +73,7 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 								) : (
 									<a
 										class={'nav-link ' + (isActive ? 'nav-link--active' : '')}
-										href={getUrlFromID(navItem.slug, lang)}
+										href={getUrlFromID(navItem.slug, lang, navItem.slug === 'agenda' ? { year: 2025} : undefined)}
 									>
 										{t(navItem.title)}
 									</a>
