@@ -167,8 +167,9 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 
 	.event-meta-row {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
+		grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
 		column-gap: var(--s4);
+		row-gap: var(--s2);
 		align-items: end;
 	}
 

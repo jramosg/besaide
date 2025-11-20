@@ -245,8 +245,9 @@ const { Content: PriceDescriptionContent } = priceDescriptionEntry
 
 	.event-meta-container {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: var(--s5);
+		grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
+		column-gap: var(--s5);
+		row-gap: var(--s4);
 	}
 
 	.summary {
@@ -257,52 +258,6 @@ const { Content: PriceDescriptionContent } = priceDescriptionEntry
 		border-radius: var(--theme-shape-radius);
 		color: var(--theme-on-bg);
 		line-height: 1.5;
-	}
-
-	.content :global(h2) {
-		font-size: var(--font-size-h2);
-		font-weight: var(--font-weight-medium);
-		margin: var(--s8) 0 var(--s4);
-		color: var(--theme-on-bg);
-	}
-
-	.content :global(h3) {
-		font-size: var(--font-size-h3);
-		font-weight: var(--font-weight-medium);
-		margin: var(--s6) 0 var(--s3);
-		color: var(--theme-on-bg);
-	}
-
-	.content :global(p) {
-		line-height: 1.5;
-		margin-bottom: var(--s5);
-		color: var(--theme-on-bg);
-	}
-
-	.content :global(ul),
-	.content :global(ol) {
-		margin-bottom: var(--s5);
-		padding-left: var(--s6);
-	}
-
-	.content :global(li) {
-		line-height: 1.5;
-		margin-bottom: var(--s2);
-		color: var(--theme-on-bg);
-	}
-
-	.content :global(a) {
-		color: var(--theme-primary);
-		font-weight: var(--font-weight-medium);
-		text-decoration: underline;
-	}
-
-	.cta-section {
-		display: flex;
-		justify-content: center;
-		margin-top: var(--s8);
-		padding: var(--s8) 0;
-		border-top: 1px solid var(--theme-outline);
 	}
 	.prices-list {
 		display: grid;
@@ -338,11 +293,6 @@ const { Content: PriceDescriptionContent } = priceDescriptionEntry
 		.event-hero {
 			height: 50vh;
 			min-height: 300px;
-		}
-		.event-meta-container {
-			grid-template-columns: 1fr;
-			gap: var(--s4);
-			padding: var(--s6);
 		}
 
 		.chip-row {
