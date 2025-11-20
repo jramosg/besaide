@@ -138,9 +138,9 @@ const slug = `${agendaSection}/${eventId}`;
 
 	.event-meta {
 		display: grid;
-		grid-template-columns: 1fr auto;
-		grid-template-rows: auto auto auto;
-		gap: 0.5rem;
+		grid-template-columns: auto 1fr;
+		column-gap: var(--s6);
+		row-gap: var(--s2);
 		margin-top: auto;
 		align-items: end;
 	}
