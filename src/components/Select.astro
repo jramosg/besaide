@@ -41,7 +41,12 @@ const selectedOption = options.find(opt => opt.value === defaultValue);
 		<ChevronDown class="select-icon" aria-hidden="true" />
 	</button>
 
-	<div class="select-content" role="listbox" aria-label={ariaLabel} data-select-content>
+	<div
+		class="select-content"
+		role="listbox"
+		aria-label={ariaLabel}
+		data-select-content
+	>
 		{
 			options.map(option => (
 				<div
@@ -59,7 +64,13 @@ const selectedOption = options.find(opt => opt.value === defaultValue);
 	</div>
 
 	<!-- Hidden input for form submission -->
-	<input type="hidden" name={id} id={id} value={defaultValue || ''} data-select-input />
+	<input
+		type="hidden"
+		name={id}
+		id={id}
+		value={defaultValue || ''}
+		data-select-input
+	/>
 </div>
 
 <style>
@@ -179,16 +190,16 @@ const selectedOption = options.find(opt => opt.value === defaultValue);
 	}
 
 	.select-item:hover {
-		background-color: var(--theme-input-bg);
+		background-color: var(--theme-primary-hover-bg);
 	}
 
 	.select-item:focus {
 		outline: none;
-		background-color: var(--theme-input-bg);
+		background-color: var(--theme-primary-hover-bg);
 	}
 
 	.select-item[aria-selected='true'] {
-		background-color: var(--theme-input-bg);
+		background-color: var(--theme-primary-hover-bg);
 		font-weight: 500;
 	}
 
@@ -229,25 +240,27 @@ const selectedOption = options.find(opt => opt.value === defaultValue);
 
 		private init() {
 			this.trigger.addEventListener('click', () => this.toggle());
-			
+
 			this.items.forEach(item => {
 				item.addEventListener('click', () => this.selectItem(item));
-				item.addEventListener('keydown', (e) => this.handleItemKeydown(e, item));
+				item.addEventListener('keydown', e => this.handleItemKeydown(e, item));
 				item.setAttribute('tabindex', '0');
 			});
 
 			// Close on outside click
-			document.addEventListener('click', (e) => {
+			document.addEventListener('click', e => {
 				if (!this.container.contains(e.target as Node)) {
 					this.close();
 				}
 			});
 
 			// Keyboard navigation
-			this.trigger.addEventListener('keydown', (e) => this.handleTriggerKeydown(e));
+			this.trigger.addEventListener('keydown', e =>
+				this.handleTriggerKeydown(e)
+			);
 
 			// Close on escape
-			document.addEventListener('keydown', (e) => {
+			document.addEventListener('keydown', e => {
 				if (e.key === 'Escape' && this.isOpen) {
 					this.close();
 					this.trigger.focus();
@@ -263,9 +276,11 @@ const selectedOption = options.find(opt => opt.value === defaultValue);
 			this.isOpen = true;
 			this.trigger.setAttribute('aria-expanded', 'true');
 			this.content.setAttribute('data-open', 'true');
-			
+
 			// Focus first selected item or first item
-			const selectedItem = this.content.querySelector('[aria-selected="true"]') as HTMLElement;
+			const selectedItem = this.content.querySelector(
+				'[aria-selected="true"]'
+			) as HTMLElement;
 			if (selectedItem) {
 				selectedItem.focus();
 			} else if (this.items.length > 0) {

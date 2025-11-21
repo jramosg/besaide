@@ -175,6 +175,8 @@
 	--form-field-input-color: var(--theme-on-bg);
 
 	/* Primary Colors (Dark) */
+	--theme-primary-hover-bg: rgba(236, 67, 237, 0.2);
+
 	--theme-primary-container: var(--theme-primary-950);
 	--theme-primary-container-alt: var(--theme-primary-950);
 
