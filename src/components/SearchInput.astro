@@ -22,6 +22,7 @@ const { placeholder, ariaLabel, id = 'search-input' } = Astro.props;
 		aria-label={ariaLabel}
 		autocomplete="off"
 	/>
+	<slot></slot>
 </div>
 
 <style>

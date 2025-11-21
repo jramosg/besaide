@@ -110,11 +110,21 @@ const eventTypeOptions: SelectOption[] = [
 			title={t('Agenda')}
 			subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
 		/>
-		<SearchInput
-			placeholder={t('Bilatu irteerak...')}
-			ariaLabel={t('agenda.search-label')}
-			id="event-search"
-		/>
+		<div>
+			<SearchInput
+				placeholder={t('Bilatu irteerak...')}
+				ariaLabel={t('agenda.search-label')}
+				id="event-search"
+			>
+				<div
+					id="filter-results"
+					class="filter-results"
+					role="status"
+					aria-live="polite"
+				>
+				</div></SearchInput
+			>
+		</div>
 		<Select
 			options={eventTypeOptions}
 			ariaLabel={t('agenda.filter-label')}
@@ -153,14 +163,6 @@ const eventTypeOptions: SelectOption[] = [
 			<ChevronRightIcon aria-hidden="true" />
 		</a>
 	</nav>
-
-	<div
-		id="filter-results"
-		class="filter-results"
-		role="status"
-		aria-live="polite"
-	>
-	</div>
 
 	{
 		futureMonths.length > 0 ? (
@@ -271,14 +273,15 @@ const eventTypeOptions: SelectOption[] = [
 	}
 
 	.filter-results {
-		margin-block-end: var(--s6);
-		padding: var(--s2) var(--s3);
 		font-size: var(--font-size-sm);
 		color: var(--theme-text-secondary);
 		text-align: center;
 		opacity: 0;
 		transition: opacity 0.2s ease;
 		display: none;
+		position: absolute;
+		top: var(--s7);
+
 	}
 
 	.filter-results:not(:empty) {
