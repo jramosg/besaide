@@ -1,6 +1,7 @@
 ---
 import Button from 'components/buttons/Button.astro';
 import { getLangFromUrl, getUrlFromID, useTranslations } from 'i18n/utils';
+import Container from './Container.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -27,23 +28,27 @@ const shortcuts = [
 ];
 ---
 
-<section class="shortcuts-grid">
-	{
-		shortcuts.map(shortcut => (
-			<>
-				<div class="shortcut-item">
-					<h3>{shortcut.title}</h3>
-					<p>{shortcut.description}</p>
-					<Button href={shortcut.href}>{shortcut.cta}</Button>
-				</div>
-			</>
-		))
-	}
+<section class="shortcuts-container">
+	<Container class="shortcuts-grid">
+		{
+			shortcuts.map(shortcut => (
+				<>
+					<div class="shortcut-item">
+						<h3>{shortcut.title}</h3>
+						<p>{shortcut.description}</p>
+						<Button href={shortcut.href}>{shortcut.cta}</Button>
+					</div>
+				</>
+			))
+		}
+	</Container>
 </section>
 
 <style>
-	.shortcuts-grid {
+	.shortcuts-container {
 		background-color: var(--theme-primary-container);
+	}
+	.shortcuts-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 0;

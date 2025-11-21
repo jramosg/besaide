@@ -36,13 +36,12 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 	.events-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, 320px);
-		gap: 2rem;
+		gap: var(--s6);
 	}
 
 	@media (max-width: 768px) {
 		.events-grid {
 			grid-template-columns: 1fr;
-			gap: 1.5rem;
 		}
 	}
 </style>
