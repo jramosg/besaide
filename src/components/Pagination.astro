@@ -92,23 +92,19 @@ const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
 	<ul class="pagination__nav">
 		<!-- Previous page -->
 		<li class="pagination__item">
-			{
-				prevUrl ? (
-					<a
-						href={prevUrl}
-						class="pagination__link pagination__link--prev pagination-link--text"
-						aria-label={t('pagination.previous-page')}
-					>
-						<ArrowLeft />
-						{t('Aurreko orria')}
-					</a>
-				) : (
-					<span class="pagination__link pagination__link--prev pagination__link--disabled pagination-link--text">
-						<ArrowLeft />
-						{t('Aurreko orria')}
-					</span>
-				)
-			}
+			<a
+				href={prevUrl}
+				class:list={[
+					'pagination__link pagination__link--prev pagination-link--text',
+					!prevUrl ? 'pagination__link--disabled' : ''
+				]}
+				aria-label={t('pagination.previous-page')}
+				aria-disabled={prevUrl ? 'false' : 'true'}
+				tabindex={!prevUrl ? '-1' : undefined}
+			>
+				<ArrowLeft />
+				{t('Aurreko orria')}
+			</a>
 		</li>
 
 		<!-- Page numbers -->
@@ -141,23 +137,19 @@ const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
 
 		<!-- Next page -->
 		<li class="pagination__item">
-			{
-				nextUrl ? (
-					<a
-						href={nextUrl}
-						class="pagination__link pagination__link--next pagination-link--text"
-						aria-label={t('pagination.next-page')}
-					>
-						{t('Hurrengo orria')}
-						<ArrowRight />
-					</a>
-				) : (
-					<span class="pagination__link pagination__link--next pagination__link--disabled pagination-link--text">
-						{t('Hurrengo orria')}
-						<ArrowRight />
-					</span>
-				)
-			}
+			<a
+				href={nextUrl}
+				class:list={[
+					'pagination__link pagination__link--next pagination-link--text',
+					!nextUrl ? 'pagination__link--disabled' : ''
+				]}
+				aria-label={t('pagination.next-page')}
+				aria-disabled={nextUrl ? 'false' : 'true'}
+				tabindex={!nextUrl ? '-1' : undefined}
+			>
+				{t('Hurrengo orria')}
+				<ArrowRight />
+			</a>
 		</li>
 	</ul>
 </nav>
@@ -219,6 +211,7 @@ const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
 
 	.pagination__link--disabled {
 		color: var(--theme-text-secondary);
+		opacity: 0.5;
 		cursor: not-allowed;
 	}
 
