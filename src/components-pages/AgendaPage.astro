@@ -235,7 +235,7 @@ const eventTypeOptions: SelectOption[] = [
 
 	.header-grid {
 		display: grid;
-		grid-template-columns: 1fr minmax(240px, 1fr) auto;
+		grid-template-columns: 1fr minmax(240px, 1fr) minmax(150px, auto);
 		align-items: center;
 		gap: var(--s4);
 		margin-bottom: var(--s6);
@@ -481,7 +481,7 @@ const eventTypeOptions: SelectOption[] = [
 
 			// Update results message
 			if (resultsDiv) {
-				if (searchTerm || (selectedType && selectedType !== 'every'	) ) {
+				if (searchTerm || (selectedType && selectedType !== 'every')) {
 					const lang = document.documentElement.lang || 'eu';
 					const message =
 						lang === 'eu'
