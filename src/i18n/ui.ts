@@ -226,8 +226,8 @@ export const ui = {
 		'Hurrengo urtea': 'Año siguiente',
 		'Bilatu irteerak...': 'Buscar salidas...',
 		'Bilatu albisteak...': 'Buscar noticias...',
-		'Irteera mota': 'Tipo de salida',
-		'Guztiak': 'Todas',
+		'Ekitaldi mota': 'Tipo de evento',
+		Guztiak: 'Todas',
 		'agenda.search-label': 'Buscar salidas por nombre',
 		'agenda.filter-label': 'Filtrar por tipo de salida'
 	},
@@ -388,8 +388,6 @@ export const ui = {
 		'agenda.year-navigation': 'Urtearen nabigazioa',
 		'Bilatu irteerak...': 'Bilatu irteerak...',
 		'Bilatu albisteak...': 'Bilatu albisteak...',
-		'Irteera mota': 'Irteera mota',
-		'Guztiak': 'Guztiak',
 		'agenda.search-label': 'Bilatu irteerak izenaren arabera',
 		'agenda.filter-label': 'Iragazi irteera motaren arabera'
 	}

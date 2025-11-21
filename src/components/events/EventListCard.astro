@@ -63,7 +63,11 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 				</Chip>
 			)
 		}
-		<h3 class="h4" style={`view-transition-name: title-${slug}`} data-event-title>
+		<h3
+			class="h4"
+			style={`view-transition-name: title-${slug}`}
+			data-event-title
+		>
 			{item.data.title}
 		</h3>
 		{summary && <p class="event-summary">{summary}</p>}
