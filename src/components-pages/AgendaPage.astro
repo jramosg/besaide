@@ -10,6 +10,7 @@ import ChevronRightIcon from '@lucide/astro/icons/chevron-right';
 import { capitalizeFirstLetter } from '@/utils/string';
 import SearchInput from '@/components/SearchInput.astro';
 import Select, { type SelectOption } from '@/components/Select.astro';
+import PageHeader from '@/components/PageHeader.astro';
 
 const today = new Date();
 
@@ -105,10 +106,10 @@ const eventTypeOptions: SelectOption[] = [
 	pageClass="content__container"
 >
 	<div class="header-grid">
-		<h1 class="page-title h2 has-subtitle">Agenda</h1>
-		<p class="page-subtitle">
-			{t('Kontsulta itzazu Besaideren irteera guztiak.')}
-		</p>
+		<PageHeader
+			title={t('Agenda')}
+			subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
+		/>
 		<SearchInput
 			placeholder={t('Bilatu irteerak...')}
 			ariaLabel={t('agenda.search-label')}
@@ -239,6 +240,7 @@ const eventTypeOptions: SelectOption[] = [
 		align-items: center;
 		gap: var(--s4);
 		margin-bottom: var(--s6);
+		row-gap: 0;
 	}
 	.header-grid > :global(:nth-child(2)) {
 		grid-column: 1;
@@ -426,7 +428,7 @@ const eventTypeOptions: SelectOption[] = [
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
+	document.addEventListener('astro:page-load', () => {
 		const searchInput = document.getElementById(
 			'event-search'
 		) as HTMLInputElement | null;
