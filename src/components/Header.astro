@@ -222,6 +222,7 @@ const headerClasses = [
 		text-decoration: none;
 
 		padding: var(--container-padding);
+		padding-left: var(--s6);
 		svg {
 			width: var(--s10);
 		}
@@ -243,6 +244,8 @@ const headerClasses = [
 		align-items: center;
 		height: 100%;
 		justify-content: flex-end;
+		padding: var(--container-padding);
+		padding-right: var(--s6);
 	}
 	.header-nav__container--scrolled {
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -322,10 +325,6 @@ const headerClasses = [
 	nav ul li:not(.drawer-menu-item) a.nav-link--active {
 		border-bottom: 3px solid var(--theme-primary-900);
 		color: var(--theme-primary-900);
-	}
-
-	.header-action-item__container {
-		padding: var(--container-padding);
 	}
 
 	.header-nav__item {
@@ -475,6 +474,14 @@ const headerClasses = [
 			display: none;
 		}
 
+		.header-logo__link {
+			padding-left: 0;
+		}
+
+		.header-action-item__container  {
+			padding-right: var(--s4);
+		}
+		
 		.header-action-item__container button,
 		.header-action-item__container a {
 			display: none;
