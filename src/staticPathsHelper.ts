@@ -36,6 +36,7 @@ export async function SingleEventStaticPaths() {
 	return events.map(event => {
 		return {
 			params: {
+				year: event.data.date.getFullYear(),
 				singleEventId: slugify(event.id)
 			},
 			props: { event }

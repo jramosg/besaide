@@ -2,21 +2,26 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ProcessedEvent } from '@/types/Events';
 import { slugify } from './string';
 
-/**
- * Process a single event with image processing and slug generation
- */
+// Extract common logic for processing events into a helper function
+const processEventEntry = (
+	entry: CollectionEntry<'events'>,
+	agendaSection: string,
+	today: Date
+): ProcessedEvent => {
+	const isPast = new Date(entry.data.date) < today;
+	return {
+		...entry,
+		slug: `${agendaSection}/${entry.data.date.getFullYear()}/${slugify(entry.id)}`,
+		isPast
+	};
+};
+
 export const processEvent = async (
 	item: CollectionEntry<'events'>,
 	agendaSection: string,
 	today?: Date
 ): Promise<ProcessedEvent> => {
-	const isPast = today ? new Date(item.data.date) < today : false;
-
-	return {
-		...item,
-		slug: `${agendaSection}/${slugify(item.id)}`,
-		isPast
-	};
+	return processEventEntry(item, agendaSection, today || new Date());
 };
 
 export const sortedAndFilteredEvents = async (
@@ -35,12 +40,7 @@ export const sortedAndFilteredEvents = async (
 			continue;
 		}
 		// Add isPast and slug
-		const isPast = new Date(entry.data.date) < today;
-		processedEvents.push({
-			...entry,
-			slug: `${agendaSection}/${slugify(entry.id)}`,
-			isPast
-		});
+		processedEvents.push(processEventEntry(entry, agendaSection, today));
 	}
 
 	// Sort by date (oldest first)
