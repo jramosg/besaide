@@ -1,0 +1,348 @@
+---
+import ChevronDown from '@lucide/astro/icons/chevron-down';
+import Check from '@lucide/astro/icons/check';
+
+export interface SelectOption {
+	value: string;
+	label: string;
+}
+
+interface Props {
+	options: SelectOption[];
+	defaultValue?: string;
+	placeholder?: string;
+	ariaLabel: string;
+	id?: string;
+}
+
+const {
+	options,
+	defaultValue,
+	placeholder = 'Select an option',
+	ariaLabel,
+	id = 'select-input'
+} = Astro.props;
+
+const selectedOption = options.find(opt => opt.value === defaultValue);
+---
+
+<div class="select-container" data-select-id={id}>
+	<button
+		type="button"
+		class="select-trigger"
+		aria-haspopup="listbox"
+		aria-expanded="false"
+		aria-label={ariaLabel}
+		data-select-trigger
+	>
+		<span class="select-value" data-select-value>
+			{selectedOption ? selectedOption.label : placeholder}
+		</span>
+		<ChevronDown class="select-icon" aria-hidden="true" />
+	</button>
+
+	<div class="select-content" role="listbox" aria-label={ariaLabel} data-select-content>
+		{
+			options.map(option => (
+				<div
+					class="select-item"
+					role="option"
+					aria-selected={option.value === defaultValue ? 'true' : 'false'}
+					data-value={option.value}
+					data-select-item
+				>
+					<Check class="select-item-indicator" aria-hidden="true" />
+					<span>{option.label}</span>
+				</div>
+			))
+		}
+	</div>
+
+	<!-- Hidden input for form submission -->
+	<input type="hidden" name={id} id={id} value={defaultValue || ''} data-select-input />
+</div>
+
+<style>
+	.select-container {
+		position: relative;
+		width: 100%;
+	}
+
+	.select-trigger {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		height: 44px;
+		padding: var(--s2) var(--s3);
+		font-size: var(--font-size-base);
+		font-family: var(--theme-font-family);
+		color: var(--theme-on-bg);
+		background-color: var(--theme-input-bg);
+		border: 1px solid var(--theme-input-border);
+		border-radius: var(--theme-shape-radius);
+		cursor: pointer;
+		transition:
+			border-color var(--theme-transition),
+			box-shadow var(--theme-transition),
+			background-color var(--theme-transition);
+		text-align: left;
+	}
+
+	.select-trigger:hover {
+		border-color: var(--theme-input-border-hover);
+	}
+
+	.select-trigger:focus {
+		outline: none;
+		border-color: var(--theme-primary);
+		box-shadow: 0 0 0 3px var(--theme-input-focus-ring);
+		background-color: var(--theme-bg);
+	}
+
+	.select-trigger[aria-expanded='true'] {
+		border-color: var(--theme-primary);
+	}
+
+	.select-trigger[aria-expanded='true'] .select-icon {
+		transform: rotate(180deg);
+	}
+
+	.select-value {
+		flex: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.select-value:empty::before,
+	.select-trigger:not([data-has-value]) .select-value {
+		color: var(--theme-input-placeholder);
+	}
+
+	.select-icon {
+		flex-shrink: 0;
+		margin-left: var(--s2);
+		color: var(--theme-input-placeholder);
+		transition:
+			transform var(--theme-transition),
+			color var(--theme-transition);
+	}
+
+	.select-trigger:focus .select-icon {
+		color: var(--theme-primary);
+	}
+
+	.select-content {
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+		z-index: 50;
+		width: 100%;
+		max-height: 300px;
+		overflow-y: auto;
+		background-color: var(--theme-bg);
+		border: 1px solid var(--theme-input-border);
+		border-radius: var(--theme-shape-radius);
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -4px rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-8px);
+		transition:
+			opacity 200ms ease,
+			transform 200ms ease,
+			visibility 200ms;
+	}
+
+	.select-content[data-open='true'] {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	.select-item {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: var(--s2);
+		width: 100%;
+		padding: var(--s2) var(--s3);
+		font-size: var(--font-size-base);
+		color: var(--theme-on-bg);
+		cursor: pointer;
+		transition:
+			background-color var(--theme-transition),
+			color var(--theme-transition);
+		user-select: none;
+	}
+
+	.select-item:hover {
+		background-color: var(--theme-input-bg);
+	}
+
+	.select-item:focus {
+		outline: none;
+		background-color: var(--theme-input-bg);
+	}
+
+	.select-item[aria-selected='true'] {
+		background-color: var(--theme-input-bg);
+		font-weight: 500;
+	}
+
+	.select-item-indicator {
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		opacity: 0;
+		transition: opacity var(--theme-transition);
+	}
+
+	.select-item[aria-selected='true'] .select-item-indicator {
+		opacity: 1;
+		color: var(--theme-primary);
+	}
+</style>
+
+<script>
+	class CustomSelect {
+		private container: HTMLElement;
+		private trigger: HTMLButtonElement;
+		private content: HTMLElement;
+		private input: HTMLInputElement;
+		private valueDisplay: HTMLElement;
+		private items: NodeListOf<HTMLElement>;
+		private isOpen = false;
+
+		constructor(container: HTMLElement) {
+			this.container = container;
+			this.trigger = container.querySelector('[data-select-trigger]')!;
+			this.content = container.querySelector('[data-select-content]')!;
+			this.input = container.querySelector('[data-select-input]')!;
+			this.valueDisplay = container.querySelector('[data-select-value]')!;
+			this.items = container.querySelectorAll('[data-select-item]');
+
+			this.init();
+		}
+
+		private init() {
+			this.trigger.addEventListener('click', () => this.toggle());
+			
+			this.items.forEach(item => {
+				item.addEventListener('click', () => this.selectItem(item));
+				item.addEventListener('keydown', (e) => this.handleItemKeydown(e, item));
+				item.setAttribute('tabindex', '0');
+			});
+
+			// Close on outside click
+			document.addEventListener('click', (e) => {
+				if (!this.container.contains(e.target as Node)) {
+					this.close();
+				}
+			});
+
+			// Keyboard navigation
+			this.trigger.addEventListener('keydown', (e) => this.handleTriggerKeydown(e));
+
+			// Close on escape
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && this.isOpen) {
+					this.close();
+					this.trigger.focus();
+				}
+			});
+		}
+
+		private toggle() {
+			this.isOpen ? this.close() : this.open();
+		}
+
+		private open() {
+			this.isOpen = true;
+			this.trigger.setAttribute('aria-expanded', 'true');
+			this.content.setAttribute('data-open', 'true');
+			
+			// Focus first selected item or first item
+			const selectedItem = this.content.querySelector('[aria-selected="true"]') as HTMLElement;
+			if (selectedItem) {
+				selectedItem.focus();
+			} else if (this.items.length > 0) {
+				this.items[0].focus();
+			}
+		}
+
+		private close() {
+			this.isOpen = false;
+			this.trigger.setAttribute('aria-expanded', 'false');
+			this.content.setAttribute('data-open', 'false');
+		}
+
+		private selectItem(item: HTMLElement) {
+			const value = item.getAttribute('data-value')!;
+			const label = item.querySelector('span')?.textContent || '';
+
+			// Update all selected states
+			this.items.forEach(i => i.setAttribute('aria-selected', 'false'));
+			item.setAttribute('aria-selected', 'true');
+
+			// Update display value and hidden input
+			this.valueDisplay.textContent = label;
+			this.input.value = value;
+
+			// Add attribute to indicate value is set
+			this.trigger.setAttribute('data-has-value', 'true');
+
+			// Dispatch change event
+			this.input.dispatchEvent(new Event('change', { bubbles: true }));
+
+			this.close();
+			this.trigger.focus();
+		}
+
+		private handleTriggerKeydown(e: KeyboardEvent) {
+			if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(e.key)) {
+				e.preventDefault();
+				this.open();
+			}
+		}
+
+		private handleItemKeydown(e: KeyboardEvent, item: HTMLElement) {
+			const currentIndex = Array.from(this.items).indexOf(item);
+
+			switch (e.key) {
+				case 'Enter':
+				case ' ':
+					e.preventDefault();
+					this.selectItem(item);
+					break;
+				case 'ArrowDown':
+					e.preventDefault();
+					const nextItem = this.items[currentIndex + 1];
+					if (nextItem) nextItem.focus();
+					break;
+				case 'ArrowUp':
+					e.preventDefault();
+					const prevItem = this.items[currentIndex - 1];
+					if (prevItem) prevItem.focus();
+					break;
+				case 'Home':
+					e.preventDefault();
+					this.items[0]?.focus();
+					break;
+				case 'End':
+					e.preventDefault();
+					this.items[this.items.length - 1]?.focus();
+					break;
+			}
+		}
+	}
+
+	// Initialize all select components
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll('[data-select-id]').forEach(container => {
+			new CustomSelect(container as HTMLElement);
+		});
+	});
+</script>

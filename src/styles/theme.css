@@ -121,6 +121,13 @@
 	/* Text Colors */
 	--theme-text-secondary: #6f6f70;
 
+	/* Form Input Colors */
+	--theme-input-bg: var(--theme-bg);
+	--theme-input-border: var(--theme-outline);
+	--theme-input-border-hover: var(--theme-primary-300);
+	--theme-input-placeholder: var(--grey-500);
+	--theme-input-focus-ring: rgba(177, 28, 171, 0.15);
+
 	/* Figma-based Grey Scale */
 	--grey-50: #fafafb;
 	--grey-100: #f4f5f6;
@@ -186,6 +193,13 @@
 
 	/* Text Colors (Dark) */
 	--theme-text-secondary: #b3b3b4;
+
+	/* Form Input Colors (Dark) */
+	--theme-input-bg: hsl(0, 0%, 10%);
+	--theme-input-border: var(--theme-outline);
+	--theme-input-border-hover: var(--theme-primary-400);
+	--theme-input-placeholder: var(--grey-600);
+	--theme-input-focus-ring: rgba(236, 67, 237, 0.25);
 
 	--theme-container-gradient: linear-gradient(
 		135deg,

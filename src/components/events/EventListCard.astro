@@ -34,6 +34,7 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 		'event-row card card--elevated',
 		item.isPast && 'event-card--past'
 	]}
+	data-event-type={item.data.type}
 >
 	<div class="event-image-col">
 		<Image
@@ -62,7 +63,7 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 				</Chip>
 			)
 		}
-		<h3 class="h4" style={`view-transition-name: title-${slug}`}>
+		<h3 class="h4" style={`view-transition-name: title-${slug}`} data-event-title>
 			{item.data.title}
 		</h3>
 		{summary && <p class="event-summary">{summary}</p>}

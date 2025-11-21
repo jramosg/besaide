@@ -223,7 +223,13 @@ export const ui = {
 		Ibilbideak: 'Rutas',
 		'agenda.year-navigation': 'Navegación por años',
 		'Aurreko urtea': 'Año anterior',
-		'Hurrengo urtea': 'Año siguiente'
+		'Hurrengo urtea': 'Año siguiente',
+		'Bilatu irteerak...': 'Buscar salidas...',
+		'Bilatu albisteak...': 'Buscar noticias...',
+		'Irteera mota': 'Tipo de salida',
+		'Guztiak': 'Todas',
+		'agenda.search-label': 'Buscar salidas por nombre',
+		'agenda.filter-label': 'Filtrar por tipo de salida'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -379,7 +385,13 @@ export const ui = {
 		// Event SEO
 		'event.seo.title-prefix': 'Ekitaldia',
 		'material-rent.unavailable': 'Ez dago eskuragarri',
-		'agenda.year-navigation': 'Urtearen nabigazioa'
+		'agenda.year-navigation': 'Urtearen nabigazioa',
+		'Bilatu irteerak...': 'Bilatu irteerak...',
+		'Bilatu albisteak...': 'Bilatu albisteak...',
+		'Irteera mota': 'Irteera mota',
+		'Guztiak': 'Guztiak',
+		'agenda.search-label': 'Bilatu irteerak izenaren arabera',
+		'agenda.filter-label': 'Iragazi irteera motaren arabera'
 	}
 } as const;
 

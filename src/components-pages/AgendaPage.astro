@@ -3,12 +3,13 @@ import Page from '@/layouts/Page.astro';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/utils/events';
 import EventListCard from '@/components/events/EventListCard.astro';
-import PageHeader from '@/components/PageHeader.astro';
 import type { ProcessedEvent } from '@/types/Events';
 import { CompanyName } from '@/config/company';
 import ChevronLeftIcon from '@lucide/astro/icons/chevron-left';
 import ChevronRightIcon from '@lucide/astro/icons/chevron-right';
 import { capitalizeFirstLetter } from '@/utils/string';
+import SearchInput from '@/components/SearchInput.astro';
+import Select, { type SelectOption } from '@/components/Select.astro';
 
 const today = new Date();
 
@@ -85,6 +86,15 @@ const emptyMessage =
 
 const previousYear = yearFilter - 1;
 const nextYear = yearFilter + 1;
+
+// Event type filter options
+const eventTypeOptions: SelectOption[] = [
+	{ value: 'every', label: t('Guztiak') },
+	{ value: 'mountain', label: t('event.type.mountain') },
+	{ value: 'ski-alpino', label: t('event.type.ski-alpino') },
+	{ value: 'event', label: t('event.type.event') },
+	{ value: 'course', label: t('event.type.course') }
+];
 ---
 
 <Page
@@ -94,10 +104,23 @@ const nextYear = yearFilter + 1;
 	}}
 	pageClass="content__container"
 >
-	<PageHeader
-		title="Agenda"
-		subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
-	/>
+	<div class="header-grid">
+		<h1 class="page-title h2 has-subtitle">Agenda</h1>
+		<p class="page-subtitle">
+			{t('Kontsulta itzazu Besaideren irteera guztiak.')}
+		</p>
+		<SearchInput
+			placeholder={t('Bilatu irteerak...')}
+			ariaLabel={t('agenda.search-label')}
+			id="event-search"
+		/>
+		<Select
+			options={eventTypeOptions}
+			ariaLabel={t('agenda.filter-label')}
+			placeholder={t('Ekitaldi mota')}
+			id="event-type-filter"
+		/>
+	</div>
 
 	<nav
 		class="year-navigation"
@@ -129,6 +152,14 @@ const nextYear = yearFilter + 1;
 			<ChevronRightIcon aria-hidden="true" />
 		</a>
 	</nav>
+
+	<div
+		id="filter-results"
+		class="filter-results"
+		role="status"
+		aria-live="polite"
+	>
+	</div>
 
 	{
 		futureMonths.length > 0 ? (
@@ -202,6 +233,31 @@ const nextYear = yearFilter + 1;
 		border-width: 0;
 	}
 
+	.header-grid {
+		display: grid;
+		grid-template-columns: 1fr minmax(240px, 1fr) auto;
+		align-items: center;
+		gap: var(--s4);
+		margin-bottom: var(--s6);
+	}
+	.header-grid > :global(:nth-child(2)) {
+		grid-column: 1;
+	}
+	.header-grid > :global(:nth-child(3)) {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+	}
+	.header-grid > :global(:nth-child(4)) {
+		grid-column: 3;
+		grid-row: 1 / span 2;
+	}
+	.page-title.h2 {
+		margin-bottom: 0;
+	}
+	.page-subtitle {
+		margin-bottom: 0;
+	}
+
 	.year-navigation {
 		display: flex;
 		justify-content: space-between;
@@ -210,6 +266,21 @@ const nextYear = yearFilter + 1;
 		margin-block: var(--s6);
 		padding-block-end: var(--s4);
 		border-block-end: 1px solid var(--theme-primary-900);
+	}
+
+	.filter-results {
+		margin-block-end: var(--s6);
+		padding: var(--s2) var(--s3);
+		font-size: var(--font-size-sm);
+		color: var(--theme-text-secondary);
+		text-align: center;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+		display: none;
+	}
+
+	.filter-results:not(:empty) {
+		opacity: 1;
 	}
 
 	.year-nav-link {
@@ -307,6 +378,37 @@ const nextYear = yearFilter + 1;
 		font-size: var(--font-size-lg);
 	}
 
+	@media (max-width: 992px) {
+		.header-grid {
+			grid-template-columns: 2fr 1fr;
+			gap: var(--s3);
+		}
+
+		.header-grid > :global(:nth-child(1)),
+		.header-grid > :global(:nth-child(2)) {
+			grid-column: 1 / span 2;
+		}
+
+		.header-grid > :global(:nth-child(3)) {
+			grid-column: 1;
+		}
+
+		.header-grid > :global(:nth-child(4)) {
+			grid-column: 2;
+		}
+
+		.header-grid > :global(:nth-child(3)),
+		.header-grid > :global(:nth-child(4)) {
+			grid-row: 3;
+		}
+	}
+
+	@media (min-width: 993px) {
+		.header-grid > :global(:nth-child(4)) :global(.select-wrapper) {
+			min-width: 240px;
+		}
+	}
+
 	@media (max-width: 600px) {
 		.year-nav-link span {
 			display: none;
@@ -315,5 +417,95 @@ const nextYear = yearFilter + 1;
 		.year-navigation {
 			gap: var(--s2);
 		}
+
+		.header-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--s3);
+		}
 	}
 </style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const searchInput = document.getElementById(
+			'event-search'
+		) as HTMLInputElement | null;
+		const typeFilter = document.getElementById(
+			'event-type-filter'
+		) as HTMLSelectElement | null;
+		const monthSections = document.querySelectorAll('.month-section');
+		const resultsDiv = document.getElementById('filter-results');
+
+		if (!searchInput || !typeFilter) return;
+
+		const filterEvents = () => {
+			const searchTerm = searchInput.value.toLowerCase().trim();
+			const selectedType = typeFilter.value;
+			let totalVisible = 0;
+			let totalEvents = 0;
+
+			monthSections.forEach(section => {
+				const eventCards = section.querySelectorAll(
+					'.events-grid > li'
+				) as NodeListOf<HTMLLIElement>;
+				let visibleCount = 0;
+
+				eventCards.forEach(card => {
+					totalEvents++;
+					const titleElement = card.querySelector('[data-event-title]');
+					const typeElement = card.querySelector('[data-event-type]');
+
+					const title = titleElement?.textContent?.toLowerCase() || '';
+					const type = typeElement?.getAttribute('data-event-type') || '';
+
+					const matchesSearch = !searchTerm || title.includes(searchTerm);
+					const matchesType =
+						!selectedType || selectedType === 'every' || type === selectedType;
+
+					if (matchesSearch && matchesType) {
+						card.style.display = '';
+						visibleCount++;
+						totalVisible++;
+					} else {
+						card.style.display = 'none';
+					}
+				});
+
+				// Hide month section if no events are visible
+				if (visibleCount === 0) {
+					(section as HTMLElement).style.display = 'none';
+				} else {
+					(section as HTMLElement).style.display = '';
+				}
+			});
+
+			// Update results message
+			if (resultsDiv) {
+				if (searchTerm || (selectedType && selectedType !== 'every'	) ) {
+					const lang = document.documentElement.lang || 'eu';
+					const message =
+						lang === 'eu'
+							? totalVisible === 0
+								? `Ez da irteerarik aurkitu`
+								: totalVisible === 1
+									? `Irteera bakarra aurkitu da ${totalEvents} irteeretatik`
+									: `${totalVisible} irteera aurkitu dira ${totalEvents} irteeretatik`
+							: totalVisible === 0
+								? `No se encontraron salidas`
+								: totalVisible === 1
+									? `Se encontró una salida de ${totalEvents} en total`
+									: `${totalVisible} salidas encontradas de ${totalEvents} en total`;
+					resultsDiv.textContent = message;
+					resultsDiv.style.display = 'block';
+				} else {
+					resultsDiv.textContent = '';
+					resultsDiv.style.display = 'none';
+				}
+			}
+		};
+
+		// Add event listeners
+		searchInput.addEventListener('input', filterEvents);
+		typeFilter.addEventListener('change', filterEvents);
+	});
+</script>
