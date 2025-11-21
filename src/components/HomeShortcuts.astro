@@ -68,7 +68,7 @@ const shortcuts = [
 	}
 
 	.shortcut-item {
-		padding: var(--container-padding);
+		padding-right: var(--s6);
 		padding-top: var(--s8);
 		padding-bottom: var(--s8);
 
@@ -76,6 +76,14 @@ const shortcuts = [
 		flex-direction: column;
 		gap: var(--s4);
 		align-items: center;
+	}
+
+	.shortcut-item:not(:first-child) {
+		padding-left: var(--s6);
+	}
+
+	.shortcut-item:last-child {
+		padding-right: 0;
 	}
 
 	.shortcut-item h3 {
@@ -100,6 +108,17 @@ const shortcuts = [
 			border-bottom: 1px solid var(--border-color);
 		}
 
+		.shortcut-item:nth-child(2) {
+			padding-right: var(--s6);
+			border-right: none;
+		}
+
+		.shortcut-item:nth-child(3) {
+			border-right: none;
+			padding-left: 0;
+			padding-right: var(--s6);
+		}
+
 		.shortcut-item:last-child {
 			border-bottom: none;
 		}
@@ -109,11 +128,12 @@ const shortcuts = [
 	@media (max-width: 768px) {
 		.shortcuts-grid {
 			grid-template-columns: 1fr;
-		}
-
-		.shortcut-item {
-			border-right: none;
-			border-bottom: 1px solid var(--border-color);
+			.shortcut-item {
+				border-right: none;
+				border-bottom: 1px solid var(--border-color);
+				padding-right: 0;
+				padding-left: 0;
+			}
 		}
 
 		.shortcut-item:last-child {
