@@ -24,10 +24,9 @@ const agendaSection = getUrlFromID('agenda', lang);
 
 const eventId = slugify(item.id);
 
-const slug = `${agendaSection}/${eventId}`;
 ---
 
-<a href={slug} class="card card--elevated event-card">
+<a href={item.slug} class="card card--elevated event-card">
 	<div class="event-image-container">
 		<Image
 			src={item.data.image}
