@@ -79,7 +79,7 @@ const headerClasses = [
 										{t(navItem.title)}
 										<ChevronDown class="dropdown-arrow" size={16} />
 									</button>
-								) : (
+								) : navItem.title === 'nav.home' ? null : (
 									<a
 										class={'nav-link ' + (isActive ? 'nav-link--active' : '')}
 										href={getUrlFromID(
@@ -478,10 +478,10 @@ const headerClasses = [
 			padding-left: 0;
 		}
 
-		.header-action-item__container  {
+		.header-action-item__container {
 			padding-right: var(--s4);
 		}
-		
+
 		.header-action-item__container button,
 		.header-action-item__container a {
 			display: none;
