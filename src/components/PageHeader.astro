@@ -9,11 +9,17 @@ const { title, subtitle, id }: Props = Astro.props;
 ---
 
 <>
-	<h1 id={id} class:list={['page-title', 'h2', subtitle && 'has-subtitle']}>{title}</h1>
+	<h1 id={id} class:list={['page-title', 'h2', subtitle && 'has-subtitle']}>
+		{title}
+	</h1>
 	{subtitle && <p class="page-subtitle">{subtitle}</p>}
 </>
 
 <style>
+	.page-title {
+		margin-top: var(--s6);
+	}
+	
 	h1.h2 {
 		margin-bottom: var(--s6);
 	}
