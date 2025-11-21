@@ -83,11 +83,11 @@ export const ui = {
 		'hero.membership.title': '¿Quieres ser socio?',
 		'hero.membership.description':
 			'Los socios tendrán la posibilidad de alquilar material de Besaide. Además, tendrán descuentos al reservar el refugio de Leixargara, al participar en actividades o cursos y al comprar forfaits de las estaciones de esquí de Formigal, Panticosa, Astun y Candanchu.',
-		'hero.membership.cta': 'Quiero ser socio',
+		'hero.membership.cta': 'Más información',
 		'hero.federation.title': 'Federarse',
 		'hero.federation.description':
 			'La licencia federativa se tramita a través de la asociación de montaña. Incluye tanto seguro de accidentes como suscripción a la revista trimestral Pyrenaica',
-		'hero.federation.cta': 'Más información para federarse',
+		'hero.federation.cta': 'Más información',
 		'hero.shelter.title': 'Refugio de Leixergarate',
 		'hero.shelter.description':
 			'El refugio de Leixergarate está a disposición de todos los socios de Besaide para que quien quiera pueda utilizarlo. El refugio dispone de literas para 12 personas, una cocina, hogar bajo, baño… Para reservar el refugio, acércate a la sede de Besaide los martes de 19:30 a 20:30.',
@@ -306,14 +306,14 @@ export const ui = {
 		'in-progress.badge-coming-soon': 'Laster',
 		'in-progress.badge-exciting': 'Zirraragarria',
 		// Hero
-		'hero.membership.title': 'Bazkide izan nahi duzu?',
+		'hero.membership.title': 'Bazkidetza',
 		'hero.membership.description':
 			'Bazkideek Besaideko materiala alokatzeko aukera izango dute. Horrez gain, beherapenak izango dituzte Leixargarateko aterpetxea hartzerako orduan, ekintzetan edo ikastaroetan parte hartzerako orduan eta Formigal, Panticosa, Astun eta Candanchu eski estaziotako forfaitak erosterako orduan.',
-		'hero.membership.cta': 'Bazkide izan nahi dut',
-		'hero.federation.title': 'Federatu',
+		'hero.membership.cta': 'Informazio gehiago',
+		'hero.federation.title': 'Federatzea',
 		'hero.federation.description':
 			'Federatu lizentzia mendi elkartearen bitartez tramitatzen da. Bai istripu asegurua eta bai Pyrenaica hiruhilabetekariaren harpidetza dauzka barnean',
-		'hero.federation.cta': 'Federatzeko informazio gehiago',
+		'hero.federation.cta': 'Informazio gehiago',
 		'hero.shelter.title': 'Leixergarate aterpetxea',
 		'hero.shelter.description':
 			'Leixargarateko aterpetxea Besaideko bazkide denen eskura dago nahi duenak erabili dezan. Aterpean 12 pertsonentzako literak, sukalde bat, su baxua, komuna… daude. Aterpea erreserbatzeko, zuzendu Besaideko egoitzara asteartetan 19.30-20.30 bitartean.',
