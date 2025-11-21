@@ -16,24 +16,33 @@ type Props = {
 	navData: Nav;
 	rightMenu?: boolean;
 	transparent?: boolean;
+	includeToggles?: boolean;
 };
-const { navData, rightMenu }: Props = Astro.props;
+const { navData, rightMenu, includeToggles = true }: Props = Astro.props;
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 
 const currentPageId = getIdfromUrl(url);
-const headerClasses = [rightMenu && 'header--right', 'header--transparent']
+const headerClasses = [
+	rightMenu && 'header--right',
+	'header--transparent',
+	!includeToggles && 'not-toggles'
+]
 	.filter(Boolean)
 	.join(' ');
 ---
 
 <header id="besaideHeader" class={headerClasses}>
-	<div class="header-toggles__container">
-		<LanguageToggle />
-		<ThemeSwitcher />
-	</div>
+	{
+		includeToggles && (
+			<div class="header-toggles__container">
+				<LanguageToggle />
+				<ThemeSwitcher />
+			</div>
+		)
+	}
 	<div class="header-logo-menu__container">
 		<a
 			class="header-logo__link"
@@ -73,7 +82,11 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 								) : (
 									<a
 										class={'nav-link ' + (isActive ? 'nav-link--active' : '')}
-										href={getUrlFromID(navItem.slug, lang, navItem.slug === 'agenda' ? { year: 2025} : undefined)}
+										href={getUrlFromID(
+											navItem.slug,
+											lang,
+											navItem.slug === 'agenda' ? { year: 2025 } : undefined
+										)}
 									>
 										{t(navItem.title)}
 									</a>
@@ -148,6 +161,11 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 			var(--transition-transform),
 			padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		background-color: var(--theme-bg);
+	}
+
+	header.not-toggles {
+		grid-template-rows: var(--header-content-height);
+		height: var(--header-content-height);
 	}
 
 	.header-logo-menu__container,
@@ -605,13 +623,16 @@ const headerClasses = [rightMenu && 'header--right', 'header--transparent']
 		};
 
 		const onScrollHandler = () => {
+			console.log('scroll event');
 			if (!ticking) {
 				window.requestAnimationFrame(handleScroll);
 				ticking = true;
 			}
 		};
 
-		window.addEventListener('scroll', onScrollHandler);
+		const headerClasses = navHeader?.className;
+		if (!headerClasses || !headerClasses.includes('not-toggles'))
+			window.addEventListener('scroll', onScrollHandler);
 
 		// Dropdown menu accessibility
 		const dropdownTriggers = document.querySelectorAll(

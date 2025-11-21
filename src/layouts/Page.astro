@@ -25,7 +25,12 @@ const {
 ---
 
 <Layout {seo}>
-	<Header slot="header" navData={nav} transparent={transparentHeader}>
+	<Header
+		slot="header"
+		navData={nav}
+		transparent={transparentHeader}
+		includeToggles={false}
+	>
 		<Fragment slot="logo">
 			<Logo />
 		</Fragment>

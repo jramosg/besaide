@@ -30,4 +30,8 @@ const lang = getLangFromUrl(Astro.url);
 	.main-content {
 		padding-top: var(--header-height);
 	}
+
+	:global(header.not-toggles) ~ .main-content {
+		padding-top: var(--header-content-height);
+	}
 </style>
