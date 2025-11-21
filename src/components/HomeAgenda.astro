@@ -20,7 +20,7 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 			<HomeSectionHeader
 				title={t('Hurrengo irteerak')}
 				buttonText={t('Agenda osoa ikusi')}
-				buttonHref={getUrlFromID('agenda', lang)}
+				buttonHref={getUrlFromID('agenda', lang, { year: today.getFullYear() })}
 			>
 				<div class="events-grid">
 					{events.map(item => (
