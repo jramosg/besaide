@@ -27,12 +27,12 @@ const slug = slugify(item.id);
 		</div>
 
 		<div class="news-card__content">
-			<h3
+			<h2
 				class="news-card__title h4"
 				style={`view-transition-name: title-${slug}`}
 			>
 				{item.title}
-			</h3>
+			</h2>
 			<time
 				class="news-card__date overline"
 				style={`view-transition-name: date-${slug}`}
@@ -197,7 +197,9 @@ const slug = slugify(item.id);
 				// Find the closest card anchor to get the URL and title
 				const anchor = btn.closest('a');
 				const url = anchor ? anchor.href : window.location.href;
-				const titleEl = anchor ? anchor.querySelector('h3') : null;
+				const titleEl = anchor
+					? anchor.querySelector('.news-card__title')
+					: null;
 				const title = titleEl ? titleEl.textContent.trim() : document.title;
 				const subText = anchor
 					? anchor.querySelector('p')?.textContent.trim() || ''
