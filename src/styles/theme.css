@@ -159,6 +159,8 @@
 	--z-index-popover: 1500;
 	--z-index-snackbar: 1400;
 	--z-index-tooltip: 1500;
+
+	--footer-margin-top: var(--s8);
 }
 
 [data-theme='dark'] {
