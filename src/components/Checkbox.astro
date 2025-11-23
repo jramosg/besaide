@@ -1,0 +1,100 @@
+---
+interface Props {
+	id: string;
+	name: string;
+	label: string;
+	required?: boolean;
+	checked?: boolean;
+}
+
+const { id, name, label, required = false, checked = false } = Astro.props;
+---
+
+<div class="checkbox-wrapper">
+	<input
+		type="checkbox"
+		id={id}
+		name={name}
+		class="checkbox-input"
+		required={required}
+		checked={checked}
+	/>
+	<label for={id} class="checkbox-label">
+		{label}
+		{
+			required && (
+				<span class="required-mark" aria-label="required">
+					*
+				</span>
+			)
+		}
+	</label>
+</div>
+
+<style>
+	.checkbox-wrapper {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--s2);
+		width: 100%;
+	}
+
+	.checkbox-input {
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		width: 20px;
+		height: 20px;
+		min-width: 20px;
+		border: 2px solid var(--theme-input-border);
+		border-radius: 4px;
+		background-color: var(--theme-input-bg);
+		cursor: pointer;
+		position: relative;
+		transition:
+			background-color var(--theme-transition),
+			border-color var(--theme-transition);
+		margin-top: 2px;
+	}
+
+	.checkbox-input:hover {
+		border-color: var(--theme-input-border-hover);
+	}
+
+	.checkbox-input:focus {
+		outline: none;
+		border-color: var(--theme-primary);
+		box-shadow: 0 0 0 3px var(--theme-input-focus-ring);
+	}
+
+	.checkbox-input:checked {
+		background-color: var(--theme-primary-900);
+		border-color: var(--theme-primary-900);
+	}
+
+	.checkbox-input:checked::after {
+		content: '';
+		position: absolute;
+		left: 5px;
+		top: 1px;
+		width: 5px;
+		height: 10px;
+		border: solid var(--theme-on-primary);
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+	}
+
+	.checkbox-label {
+		font-size: var(--font-size-base);
+		color: var(--theme-on-bg);
+		cursor: pointer;
+		user-select: none;
+		line-height: 1.5;
+	}
+
+	.required-mark {
+		color: var(--theme-error, #d32f2f);
+		margin-left: 4px;
+		font-weight: var(--font-weight-semibold);
+	}
+</style>

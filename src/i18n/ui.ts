@@ -229,7 +229,31 @@ export const ui = {
 		'Ekitaldi mota': 'Tipo de evento',
 		Guztiak: 'Todas',
 		'agenda.search-label': 'Buscar salidas por nombre',
-		'agenda.filter-label': 'Filtrar por tipo de salida'
+		'agenda.filter-label': 'Filtrar por tipo de salida',
+		// Membership form
+		'form.title': 'Solicitud de nueva licencia de socio y federación',
+		'form.instructions':
+			'Rellena el cuestionario. Los datos requeridos los encontrarás marcados con el símbolo *',
+		'form.section.personal-data': 'Rellena los datos personales:',
+		'form.field.dni': 'DNI (con letra)',
+		'form.field.name': 'Nombre',
+		'form.field.surnames': 'Apellidos',
+		'form.field.birthdate': 'Fecha de nacimiento',
+		'form.field.address': 'Dirección',
+		'form.field.town': 'Localidad',
+		'form.field.postal-code': 'Código postal',
+		'form.field.province': 'Provincia',
+		'form.field.phone1': '1. Teléfono',
+		'form.field.phone2': '2. Teléfono',
+		'form.field.email': 'Email',
+		'form.field.info-spanish': 'Deseo recibir información en castellano',
+		'form.section.membership': 'Quiero ser socio de Besaide M.E.:',
+		'form.field.membership-yes': 'Sí',
+		'form.field.federation': 'Quiero licencia federativa',
+		'form.field.federation-yes': 'Sí',
+		'form.field.accept-terms': 'Acepto las condiciones de uso',
+		'form.button.submit': 'Enviar solicitud',
+		'form.link.privacy': 'Aviso legal y política de privacidad'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -389,7 +413,31 @@ export const ui = {
 		'Bilatu irteerak...': 'Bilatu irteerak...',
 		'Bilatu albisteak...': 'Bilatu albisteak...',
 		'agenda.search-label': 'Bilatu irteerak izenaren arabera',
-		'agenda.filter-label': 'Iragazi irteera motaren arabera'
+		'agenda.filter-label': 'Iragazi irteera motaren arabera',
+		// Membership form
+		'form.title': 'Bazkide eta federatu lizentzia berrien eskaera orria',
+		'form.instructions':
+			'Galdetegia bete ezazu. Beharrezkoak diren datuak * ikurrarekin aurkituko dituzu.',
+		'form.section.personal-data': 'Datu pertsonalak bete:',
+		'form.field.dni': 'NAN (letrarekin)',
+		'form.field.name': 'Izena',
+		'form.field.surnames': 'Abizenak',
+		'form.field.birthdate': 'Jaiotza data',
+		'form.field.address': 'Helbidea',
+		'form.field.town': 'Herria',
+		'form.field.postal-code': 'Posta kutxa',
+		'form.field.province': 'Probintzia',
+		'form.field.phone1': '1. Telefonoa',
+		'form.field.phone2': '2. Telefonoa',
+		'form.field.email': 'Emaila',
+		'form.field.info-spanish': 'Informazioa gazteleraz jaso nahi dut',
+		'form.section.membership': 'Besaidea M.E-ko bazkide izan nahi dut:',
+		'form.field.membership-yes': 'Bai',
+		'form.field.federation': 'Federatu lizentzia nahi dut',
+		'form.field.federation-yes': 'Bai',
+		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
+		'form.button.submit': 'Eskaera bidali',
+		'form.link.privacy': 'Lege oharra eta pribatutasun politika'
 	}
 } as const;
 

@@ -1,0 +1,389 @@
+---
+import Input from '@/components/Input.astro';
+import Checkbox from '@/components/Checkbox.astro';
+import Button from '@/components/buttons/Button.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const privacyPolicyUrl =
+	lang === 'eu'
+		? '/lege-oharra-eta-pribatutasun-politika'
+		: '/aviso-legal-y-politica-de-privacidad';
+---
+
+<section class="membership-form-section" aria-labelledby="form-title">
+	<div class="form-container">
+		<h2 id="form-title" class="form-title">
+			{t('form.title')}
+		</h2>
+
+		<p class="form-instructions">
+			{t('form.instructions')}
+		</p>
+
+		<form
+			class="membership-form"
+			method="POST"
+			action="/api/membership-submit"
+			novalidate
+		>
+			<!-- Section 1: Personal Data -->
+			<fieldset class="form-section">
+				<legend class="form-subtitle">
+					{t('form.section.personal-data')}
+				</legend>
+
+				<div class="form-grid">
+					<div class="form-field form-field--full">
+						<label for="dni" class="form-label">
+							{t('form.field.dni')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="dni"
+							name="dni"
+							type="text"
+							required={true}
+							autocomplete="off"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="name" class="form-label">
+							{t('form.field.name')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="name"
+							name="name"
+							type="text"
+							required={true}
+							autocomplete="given-name"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="surnames" class="form-label">
+							{t('form.field.surnames')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="surnames"
+							name="surnames"
+							type="text"
+							required={true}
+							autocomplete="family-name"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="birthdate" class="form-label">
+							{t('form.field.birthdate')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="birthdate"
+							name="birthdate"
+							type="date"
+							required={true}
+							autocomplete="bday"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="address" class="form-label">
+							{t('form.field.address')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="address"
+							name="address"
+							type="text"
+							required={true}
+							autocomplete="street-address"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="town" class="form-label">
+							{t('form.field.town')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="town"
+							name="town"
+							type="text"
+							required={true}
+							autocomplete="address-level2"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="postal-code" class="form-label">
+							{t('form.field.postal-code')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="postal-code"
+							name="postal-code"
+							type="text"
+							required={true}
+							autocomplete="postal-code"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="province" class="form-label">
+							{t('form.field.province')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="province"
+							name="province"
+							type="text"
+							required={true}
+							autocomplete="address-level1"
+						/>
+					</div>
+
+					<div class="form-field form-field--half">
+						<label for="phone1" class="form-label">
+							{t('form.field.phone1')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="phone1"
+							name="phone1"
+							type="tel"
+							required={true}
+							autocomplete="tel"
+						/>
+					</div>
+
+					<div class="form-field form-field--half">
+						<label for="phone2" class="form-label">
+							{t('form.field.phone2')}
+						</label>
+						<Input id="phone2" name="phone2" type="tel" autocomplete="tel" />
+					</div>
+
+					<div class="form-field form-field--full">
+						<label for="email" class="form-label">
+							{t('form.field.email')}
+							<abbr title="required" aria-label="required">*</abbr>
+						</label>
+						<Input
+							id="email"
+							name="email"
+							type="email"
+							required={true}
+							autocomplete="email"
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<Checkbox
+							id="info-spanish"
+							name="info-spanish"
+							label={t('form.field.info-spanish')}
+						/>
+					</div>
+				</div>
+			</fieldset>
+
+			<!-- Section 2: Membership and Federation -->
+			<fieldset class="form-section">
+				<legend class="form-subtitle">
+					{t('form.section.membership')}
+				</legend>
+
+				<div class="form-grid">
+					<div class="form-field form-field--full">
+						<Checkbox
+							id="membership"
+							name="membership"
+							label={t('form.field.membership-yes')}
+						/>
+					</div>
+
+					<div class="form-field form-field--full">
+						<Checkbox
+							id="federation"
+							name="federation"
+							label={t('form.field.federation')}
+						/>
+					</div>
+				</div>
+			</fieldset>
+
+			<!-- Terms and Submit -->
+			<footer class="form-footer">
+				<div class="form-field form-field--full">
+					<Checkbox
+						id="accept-terms"
+						name="accept-terms"
+						label={t('form.field.accept-terms')}
+						required={true}
+					/>
+					<a href={privacyPolicyUrl} class="privacy-link" target="_blank">
+						{t('form.link.privacy')}
+					</a>
+				</div>
+
+				<Button type="submit" class="submit-button">
+					{t('form.button.submit')}
+				</Button>
+			</footer>
+		</form>
+	</div>
+</section>
+
+<style>
+	.membership-form-section {
+		background-color: var(--theme-bg);
+		padding: var(--s8) 0;
+		margin-top: var(--s8);
+	}
+
+	.form-container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 var(--s4);
+	}
+
+	.form-title {
+		color: var(--theme-primary-900);
+		margin-bottom: var(--s4);
+		font-weight: var(--font-weight-bold);
+		text-align: center;
+	}
+
+	.form-instructions {
+		text-align: center;
+		margin-bottom: var(--s6);
+		color: var(--theme-on-bg);
+		font-size: var(--font-size-base);
+		line-height: 1.6;
+	}
+
+	.membership-form {
+		background-color: var(--theme-card);
+		padding: var(--s6);
+		border-radius: var(--theme-shape-radius);
+		box-shadow: var(--shadow-card);
+	}
+
+	.form-section {
+		margin-bottom: var(--s6);
+	}
+
+	.form-section:last-of-type {
+		margin-bottom: var(--s4);
+	}
+
+	.form-subtitle {
+		color: var(--theme-primary-900);
+		margin-bottom: var(--s4);
+		font-weight: var(--font-weight-semibold);
+		font-size: 1.125rem;
+		padding: 0;
+	}
+
+	fieldset {
+		border: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	legend {
+		padding: 0;
+		margin-bottom: var(--s4);
+	}
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--s4);
+	}
+
+	@media (min-width: 768px) {
+		.form-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.form-field--full {
+			grid-column: 1 / -1;
+		}
+
+		.form-field--half {
+			grid-column: span 1;
+		}
+	}
+
+	.form-field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+	}
+
+	.form-label {
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-medium);
+		color: var(--theme-on-bg);
+	}
+
+	.form-label abbr {
+		color: var(--theme-error, #d32f2f);
+		text-decoration: none;
+		margin-left: 2px;
+		font-weight: var(--font-weight-semibold);
+	}
+
+	.form-footer {
+		border-top: 1px solid var(--theme-separator);
+		padding-top: var(--s4);
+		display: flex;
+		flex-direction: column;
+		gap: var(--s4);
+		align-items: center;
+	}
+
+	.privacy-link {
+		display: inline-block;
+		margin-top: var(--s2);
+		color: var(--theme-primary-900);
+		text-decoration: underline;
+		font-size: var(--font-size-sm);
+		transition: opacity var(--theme-transition);
+	}
+
+	.privacy-link:hover {
+		opacity: 0.8;
+	}
+
+	.submit-button {
+		min-width: 200px;
+	}
+
+	/* Enhanced styling for a professional look */
+	:global(.input-field) {
+		width: 100%;
+	}
+
+	:global(.checkbox-wrapper) {
+		padding: var(--s2) 0;
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 767px) {
+		.membership-form {
+			padding: var(--s4);
+		}
+
+		.form-container {
+			padding: 0 var(--s3);
+		}
+	}
+</style>

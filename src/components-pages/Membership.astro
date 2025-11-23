@@ -2,6 +2,7 @@
 import Container from '@/components/Container.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ExtrasTable from '@/components/ExtrasTable.astro';
+import MembershipForm from '@/components/MembershipForm.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Page from '@/layouts/Page.astro';
 import { getEntry, render } from 'astro:content';
@@ -229,6 +230,8 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 			</section>
 		)
 	}
+
+	<MembershipForm />
 </Page>
 
 <style>
