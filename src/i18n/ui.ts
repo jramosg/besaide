@@ -285,7 +285,7 @@ export const ui = {
 		'nav.agenda': 'Agenda',
 		'nav.besaide': 'Besaide',
 		'nav.historia': 'Historia',
-		'nav.membership-federation': 'Bazkidetza / Federatzea',
+		'nav.membership-federation': 'Bazkidetza | Federatzea',
 		'nav.services': 'Zerbitzuak',
 		'nav.routes': 'Ibilbideak',
 		'nav.leixagarate-aterpea': 'Leixargarate',

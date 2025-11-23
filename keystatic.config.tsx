@@ -169,7 +169,7 @@ export default config({
 		}),
 		libraryMaps: libraryMaps,
 		membership: singleton({
-			label: 'Bazkidetza / Membresía',
+			label: 'Bazkidetza | Membresía',
 			path: 'src/data/membership/membership',
 			schema: {
 				benefitsEu: fields.text({
