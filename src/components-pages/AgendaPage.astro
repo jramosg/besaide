@@ -111,28 +111,28 @@ const eventTypeOptions: SelectOption[] = [
 			title={t('Agenda')}
 			subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
 		/>
-		<div>
-			<Input
-				placeholder={t('Bilatu irteerak...')}
-				ariaLabel={t('agenda.search-label')}
-				id="event-search"
-			>
-				<SearchIcon slot="start-icon" aria-hidden="true" />
-			</Input>
-			<div
-				id="filter-results"
-				class="filter-results"
-				role="status"
-				aria-live="polite"
-			>
-			</div>
-		</div>
+		<Input
+			placeholder={t('Bilatu irteerak...')}
+			ariaLabel={t('agenda.search-label')}
+			id="event-search"
+			type="search"
+			addWrapper
+		>
+			<SearchIcon slot="start-icon" aria-hidden="true" />
+		</Input>
 		<Select
 			options={eventTypeOptions}
 			ariaLabel={t('agenda.filter-label')}
 			placeholder={t('Ekitaldi mota')}
 			id="event-type-filter"
 		/>
+		<div
+			id="filter-results"
+			class="filter-results filter-results__mobile"
+			role="status"
+			aria-live="polite"
+		>
+		</div>
 	</div>
 
 	<nav
@@ -277,12 +277,12 @@ const eventTypeOptions: SelectOption[] = [
 	.filter-results {
 		font-size: var(--font-size-sm);
 		color: var(--theme-text-secondary);
-		text-align: center;
 		opacity: 0;
 		transition: opacity 0.2s ease;
 		display: none;
-		position: absolute;
 		top: var(--s7);
+		grid-column: 2;
+		margin-top: -40px;
 	}
 
 	.filter-results:not(:empty) {
@@ -406,6 +406,11 @@ const eventTypeOptions: SelectOption[] = [
 		.header-grid > :global(:nth-child(3)),
 		.header-grid > :global(:nth-child(4)) {
 			grid-row: 3;
+		}
+
+		.filter-results {
+			grid-column: 1 / span 2;
+			margin-top: 0;
 		}
 	}
 
