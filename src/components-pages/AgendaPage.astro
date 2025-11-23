@@ -8,7 +8,8 @@ import { CompanyName } from '@/config/company';
 import ChevronLeftIcon from '@lucide/astro/icons/chevron-left';
 import ChevronRightIcon from '@lucide/astro/icons/chevron-right';
 import { capitalizeFirstLetter } from '@/utils/string';
-import SearchInput from '@/components/SearchInput.astro';
+import SearchIcon from '@lucide/astro/icons/search';
+import Input from '@/components/Input.astro';
 import Select, { type SelectOption } from '@/components/Select.astro';
 import PageHeader from '@/components/PageHeader.astro';
 
@@ -111,19 +112,20 @@ const eventTypeOptions: SelectOption[] = [
 			subtitle={t('Kontsulta itzazu Besaideren irteera guztiak.')}
 		/>
 		<div>
-			<SearchInput
+			<Input
 				placeholder={t('Bilatu irteerak...')}
 				ariaLabel={t('agenda.search-label')}
 				id="event-search"
 			>
-				<div
-					id="filter-results"
-					class="filter-results"
-					role="status"
-					aria-live="polite"
-				>
-				</div></SearchInput
+				<SearchIcon slot="start-icon" aria-hidden="true" />
+			</Input>
+			<div
+				id="filter-results"
+				class="filter-results"
+				role="status"
+				aria-live="polite"
 			>
+			</div>
 		</div>
 		<Select
 			options={eventTypeOptions}
