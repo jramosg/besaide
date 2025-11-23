@@ -18,7 +18,6 @@
 	--theme-primary-container: var(--theme-primary-100);
 	--theme-primary-container-alt: var(--theme-primary-50);
 	--theme-on-primary: #fff;
-	--theme-on-primary-container: #f3e6f3;
 	--theme-container-gradient: linear-gradient(
 		135deg,
 		#800080 0%,

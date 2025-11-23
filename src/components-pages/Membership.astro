@@ -71,57 +71,53 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		}
 	}}
 >
-	<section class="section__membership" aria-labelledby="membership-title">
-		<Container class="container__membership">
-			<PageHeader
-				title={t('Bazkidetza')}
-				subtitle={t(
-					'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira'
-				) + ':'}
-				id="bazkidetza"
-			/>
+	<Container
+		class="container__membership"
+		tag="section"
+		aria-labelledby="membership-title"
+	>
+		<PageHeader
+			title={t('Bazkidetza')}
+			subtitle={t(
+				'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira'
+			) + ':'}
+			id="bazkidetza"
+		/>
 
-			<ul class="prices-list">
+		<ul class="prices-list">
+			{
+				membership.data.prices.map(item => {
+					const label = lang === 'eu' ? item.labelEu : item.labelEs;
+					const formatted = formatPriceLabel(label, item.price);
+
+					return (
+						<li class="price-item">
+							<h2 class="price-category">
+								<strong>{formatted.firstWord}</strong> {formatted.rest}
+							</h2>
+							<p class="price-amount">
+								<span class="price-value">{formatPrice(formatted.price)}</span>
+								<meta itemprop="priceCurrency" content="EUR" />
+							</p>
+						</li>
+					);
+				})
+			}
+		</ul>
+
+		<aside class="card__membership--benefits" aria-labelledby="benefits-title">
+			<h2 id="benefits-title" class="benefits-title h4">
+				{t('Bazkide izatearen abantailak')}
+			</h2>
+			<p class="benefits-description">
 				{
-					membership.data.prices.map(item => {
-						const label = lang === 'eu' ? item.labelEu : item.labelEs;
-						const formatted = formatPriceLabel(label, item.price);
-
-						return (
-							<li class="price-item">
-								<h2 class="price-category">
-									<strong>{formatted.firstWord}</strong> {formatted.rest}
-								</h2>
-								<p class="price-amount">
-									<span class="price-value">
-										{formatPrice(formatted.price)}
-									</span>
-									<meta itemprop="priceCurrency" content="EUR" />
-								</p>
-							</li>
-						);
-					})
+					lang === 'eu'
+						? membership.data.benefitsEu
+						: membership.data.benefitsEs
 				}
-			</ul>
-
-			<aside
-				class="card__membership--benefits"
-				aria-labelledby="benefits-title"
-			>
-				<h2 id="benefits-title" class="benefits-title h3">
-					{t('Bazkide izatearen abantailak')}
-				</h2>
-				<p class="benefits-description">
-					{
-						lang === 'eu'
-							? membership.data.benefitsEu
-							: membership.data.benefitsEs
-					}
-				</p>
-				<Wand size={36} aria-hidden="true" />
-			</aside>
-		</Container>
-	</section>
+			</p>
+		</aside>
+	</Container>
 
 	{
 		pricingTable && (
@@ -146,6 +142,8 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 						class="euskal-mendi-federazioa-logo"
 						src={EuskalMendiFederazioaLogo}
 						alt="Euskal Mendi Federazioa Logo"
+						width={172}
+						height={98}
 					/>
 				</div>
 				{/* Desktop Table View */}
@@ -235,10 +233,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 </Page>
 
 <style>
-	.section__membership {
-		background-color: var(--theme-primary-container-alt);
-	}
-
 	.container__membership {
 		padding-bottom: var(--s6);
 		display: grid;
@@ -318,14 +312,14 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	}
 
 	.card__membership--benefits {
-		background-color: var(--theme-primary-900);
-		color: var(--theme-on-primary);
-		padding: var(--s6);
-		padding-bottom: var(--s8);
+		background-color: var(--theme-primary-container);
+		color: var(--theme-on-bg);
+		padding: var(--s7) var(--s6);
 		border-radius: var(--theme-shape-radius);
 		max-width: 100%;
 		width: 100%;
 		position: relative;
+		height: fit-content;
 
 		@media (min-width: 768px) {
 			grid-column: 2;
@@ -339,16 +333,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		margin: 0;
 		line-height: 1.6;
 		font-size: 1rem;
-	}
-
-	.card__membership--benefits svg {
-		--size: 36px;
-		width: var(--size);
-		height: var(--size);
-		position: absolute;
-		bottom: var(--s6);
-		right: calc(var(--size) / 2 + var(--s6));
-		transform: rotate(270deg);
 	}
 
 	/* Federation Section */
@@ -385,6 +369,7 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	.euskal-mendi-federazioa-logo {
 		height: auto;
 		width: 200px;
+		aspect-ratio: 172 / 98;
 		align-self: center;
 		justify-self: center;
 		grid-column: 1;
@@ -392,13 +377,13 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	}
 	@media (min-width: 768px) {
 		.federation-info-grid {
-			grid-template-columns: auto 1fr;
+			grid-template-columns: 1fr 1fr;
 			row-gap: var(--s4);
 		}
 
 		.euskal-mendi-federazioa-logo {
-			width: 200px;
-			min-width: 200px;
+			max-width: 400px;
+			min-width: 300px;
 			grid-column: 2;
 			grid-row: 1 / span 2;
 		}
