@@ -20,8 +20,6 @@ const startDate = new Date(item.data.date);
 const endDate = item.data.endDate ? new Date(item.data.endDate) : null;
 const formattedDate = formatEventDate(startDate, endDate, lang);
 
-const agendaSection = getUrlFromID('agenda', lang);
-
 const eventId = slugify(item.id);
 
 ---
