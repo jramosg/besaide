@@ -45,4 +45,4 @@ jobs:
         run: pnpm run format:check
 
       - name: Run check
-        run: pnpm run check --minimumFailingSeverity warning
+        run: pnpm run check --minimumFailingSeverity hint
