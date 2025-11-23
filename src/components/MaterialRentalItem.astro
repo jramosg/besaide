@@ -6,6 +6,7 @@ import Chip from './Chip.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { formatPrice } from '@/utils/format';
 import CrampsIcon from '@/assets/icons/cramps.svg';
+import FokaIcon from '@/assets/icons/foka.svg';
 
 interface Props {
 	icon: string;
@@ -33,6 +34,8 @@ const t = useTranslations(lang);
 				<HardHat />
 			) : icon === 'cramps' ? (
 				<CrampsIcon fill="transparent" stroke="currentColor" />
+			) : icon === 'foka' ? (
+				<FokaIcon stroke="currentColor" />
 			) : (
 				<ConstructIcon fill="currentColor" />
 			)

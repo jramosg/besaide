@@ -4,7 +4,15 @@ import { z } from 'astro:content';
 export const materialRentalSchema = z.object({
 	name_eu: z.string(),
 	name_es: z.string(),
-	icon: z.enum(['ice-axe', 'other', 'snowshoe', 'shovel', 'helmet', 'cramps']),
+	icon: z.enum([
+		'ice-axe',
+		'other',
+		'snowshoe',
+		'shovel',
+		'helmet',
+		'cramps',
+		'foka'
+	]),
 	description_eu: z.string().optional(),
 	description_es: z.string().optional(),
 	price: z.number(),

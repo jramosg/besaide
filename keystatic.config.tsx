@@ -49,6 +49,7 @@ export default config({
 						{ label: 'Erraketa / Raquetas', value: 'snowshoe' },
 						{ label: 'Kaskoa / Casco', value: 'helmet' },
 						{ label: 'Kranpoia / Crampones', value: 'cramps' },
+						{ label: 'Foka / Foca', value: 'foka' },
 						{ label: 'Beste bat / Otro', value: 'other' }
 					]
 				}),
