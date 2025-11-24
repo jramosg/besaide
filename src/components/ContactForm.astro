@@ -1,26 +1,43 @@
 ---
+import Input from '@/components/Input.astro';
+import Textarea from '@/components/Textarea.astro';
+import FormField from '@/components/FormField.astro';
 import Button from '@/components/buttons/Button.astro';
+import '@/styles/form-shared.css';
+import Checkbox from './Checkbox.astro';
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<form class="contact-form-fields">
-	<div class="form-group">
-		<label for="name">Izena *</label>
-		<input type="text" id="name" name="name" required />
-	</div>
+<form class="contact-form-fields" method="POST" novalidate>
+	<FormField label="Izena" htmlFor="name" required>
+		<Input
+			id="name"
+			name="name"
+			type="text"
+			required={true}
+			autocomplete="name"
+		/>
+	</FormField>
 
-	<div class="form-group">
-		<label for="email">Emaila *</label>
-		<input type="email" id="email" name="email" required />
-	</div>
+	<FormField label="Emaila" htmlFor="email" required>
+		<Input
+			id="email"
+			name="email"
+			type="email"
+			required={true}
+			autocomplete="email"
+		/>
+	</FormField>
 
-	<div class="form-group">
-		<label for="phone">Telefonoa</label>
-		<input type="tel" id="phone" name="phone" />
-	</div>
+	<FormField label="Telefonoa" htmlFor="phone">
+		<Input id="phone" name="phone" type="tel" autocomplete="tel" />
+	</FormField>
 
-	<div class="form-group">
-		<label for="subject">Gaia *</label>
-		<select id="subject" name="subject" required>
+	<FormField label="Gaia" htmlFor="subject" required>
+		<select id="subject" name="subject" class="select-field" required>
 			<option value="">Aukeratu gai bat...</option>
 			<option value="bazkidetza">Bazkidetza</option>
 			<option value="zerbitzuak">Zerbitzuak</option>
@@ -29,72 +46,58 @@ import Button from '@/components/buttons/Button.astro';
 			<option value="aterpea">Aterpea</option>
 			<option value="beste">Beste bat</option>
 		</select>
-	</div>
+	</FormField>
 
-	<div class="form-group">
-		<label for="message">Mezua *</label>
-		<textarea
+	<FormField label="Mezua" htmlFor="message" required>
+		<Textarea
 			id="message"
 			name="message"
-			rows="5"
-			required
-			placeholder="Idatzi hemen zure mezua..."></textarea>
-	</div>
+			rows={5}
+			required={true}
+			placeholder="Idatzi hemen zure mezua..."
+		/>
+	</FormField>
+	<Checkbox
+		id="terms"
+		name="terms"
+		label={t('Erabilera arauak onartzen ditut.')}
+		hrefLabel={t('(Irakurri hemen)')}
+		href={getUrlFromID('cookies-policy', lang)}
+		required
+	/>
 
-	<Button class="btn" type="submit">Mezua bidali</Button>
+	<Button class="submit-button" type="submit">Mezua bidali</Button>
 </form>
 
 <style>
-	/* Contact Form */
-	.contact-form {
-		border-radius: 12px;
-		border: 1px solid #e5e7eb;
+	.contact-form-fields {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s4);
 	}
 
-	.form-group {
-		margin-bottom: var(--s5);
-	}
-
-	.form-group label {
-		display: block;
-		margin-bottom: 0.5rem;
-		font-weight: 500;
-	}
-
-	.form-group input,
-	.form-group select,
-	.form-group textarea {
-		width: 100%;
-		padding: var(--s3);
-		border: 1px solid var(--theme-outline);
-		border-radius: 6px;
-		transition:
-			border-color 0.3s ease,
-			box-shadow 0.3s ease;
+	.form-field :global(input),
+	.form-field :global(select),
+	.form-field :global(textarea) {
 		background: transparent;
 		color: var(--theme-on-bg);
 	}
 
-	:global([data-theme='dark']) .form-group input,
-	:global([data-theme='dark']) .form-group select,
-	:global([data-theme='dark']) .form-group textarea {
+	:global([data-theme='dark']) .form-field :global(input),
+	:global([data-theme='dark']) .form-field :global(select),
+	:global([data-theme='dark']) .form-field :global(textarea) {
 		background-color: var(--theme-card);
 	}
 
-	.form-group textarea:focus,
-	.form-group input:focus,
-	.form-group select:focus {
-		outline: none;
-		border-color: var(--theme-primary);
-		box-shadow: 0 0 0 3px var(--theme-primary-hover-bg);
+	.submit-button {
+		margin-top: var(--s2);
+		align-self: center;
+		min-width: 200px;
 	}
 
-	.form-group textarea {
-		resize: vertical;
-		font-family: inherit;
-	}
-
-	.btn {
-		width: 100%;
+	@media (max-width: 600px) {
+		.submit-button {
+			width: 100%;
+		}
 	}
 </style>

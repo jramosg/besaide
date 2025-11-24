@@ -253,7 +253,9 @@ export const ui = {
 		'form.field.federation-yes': 'Sí',
 		'form.field.accept-terms': 'Acepto las condiciones de uso',
 		'form.button.submit': 'Enviar solicitud',
-		'form.link.privacy': 'Aviso legal y política de privacidad'
+		'form.link.privacy': 'Aviso legal y política de privacidad',
+		'Erabilera arauak onartzen ditut.': 'Acepto las condiciones de uso.',
+		'(Irakurri hemen)': '(Leer aquí)'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

@@ -1,8 +1,10 @@
 ---
 import Input from '@/components/Input.astro';
 import Checkbox from '@/components/Checkbox.astro';
+import FormField from '@/components/FormField.astro';
 import Button from '@/components/buttons/Button.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import '@/styles/form-shared.css';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -36,11 +38,12 @@ const privacyPolicyUrl =
 				</legend>
 
 				<div class="form-grid">
-					<div class="form-field form-field--full">
-						<label for="dni" class="form-label">
-							{t('form.field.dni')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.dni')}
+						htmlFor="dni"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="dni"
 							name="dni"
@@ -48,13 +51,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="off"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="name" class="form-label">
-							{t('form.field.name')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.name')}
+						htmlFor="name"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="name"
 							name="name"
@@ -62,13 +66,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="given-name"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="surnames" class="form-label">
-							{t('form.field.surnames')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.surnames')}
+						htmlFor="surnames"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="surnames"
 							name="surnames"
@@ -76,13 +81,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="family-name"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="birthdate" class="form-label">
-							{t('form.field.birthdate')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.birthdate')}
+						htmlFor="birthdate"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="birthdate"
 							name="birthdate"
@@ -90,13 +96,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="bday"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="address" class="form-label">
-							{t('form.field.address')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.address')}
+						htmlFor="address"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="address"
 							name="address"
@@ -104,13 +111,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="street-address"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="town" class="form-label">
-							{t('form.field.town')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.town')}
+						htmlFor="town"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="town"
 							name="town"
@@ -118,13 +126,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="address-level2"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="postal-code" class="form-label">
-							{t('form.field.postal-code')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.postal-code')}
+						htmlFor="postal-code"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="postal-code"
 							name="postal-code"
@@ -132,13 +141,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="postal-code"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="province" class="form-label">
-							{t('form.field.province')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.province')}
+						htmlFor="province"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="province"
 							name="province"
@@ -146,13 +156,14 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="address-level1"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--half">
-						<label for="phone1" class="form-label">
-							{t('form.field.phone1')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.phone1')}
+						htmlFor="phone1"
+						required
+						class="form-field--half"
+					>
 						<Input
 							id="phone1"
 							name="phone1"
@@ -160,20 +171,22 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="tel"
 						/>
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--half">
-						<label for="phone2" class="form-label">
-							{t('form.field.phone2')}
-						</label>
+					<FormField
+						label={t('form.field.phone2')}
+						htmlFor="phone2"
+						class="form-field--half"
+					>
 						<Input id="phone2" name="phone2" type="tel" autocomplete="tel" />
-					</div>
+					</FormField>
 
-					<div class="form-field form-field--full">
-						<label for="email" class="form-label">
-							{t('form.field.email')}
-							<abbr title="required" aria-label="required">*</abbr>
-						</label>
+					<FormField
+						label={t('form.field.email')}
+						htmlFor="email"
+						required
+						class="form-field--full"
+					>
 						<Input
 							id="email"
 							name="email"
@@ -181,7 +194,7 @@ const privacyPolicyUrl =
 							required={true}
 							autocomplete="email"
 						/>
-					</div>
+					</FormField>
 
 					<div class="form-field form-field--full">
 						<Checkbox
@@ -322,25 +335,6 @@ const privacyPolicyUrl =
 		}
 	}
 
-	.form-field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--s2);
-	}
-
-	.form-label {
-		font-size: var(--font-size-base);
-		font-weight: var(--font-weight-medium);
-		color: var(--theme-on-bg);
-	}
-
-	.form-label abbr {
-		color: var(--theme-error, #d32f2f);
-		text-decoration: none;
-		margin-left: 2px;
-		font-weight: var(--font-weight-semibold);
-	}
-
 	.form-footer {
 		border-top: 1px solid var(--theme-separator);
 		padding-top: var(--s4);
@@ -365,11 +359,6 @@ const privacyPolicyUrl =
 
 	.submit-button {
 		min-width: 200px;
-	}
-
-	/* Enhanced styling for a professional look */
-	:global(.input-field) {
-		width: 100%;
 	}
 
 	:global(.checkbox-wrapper) {

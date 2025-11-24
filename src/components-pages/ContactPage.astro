@@ -32,7 +32,7 @@ const t = useTranslations(lang);
 		</div>
 	</section>
 	<section class="form-section">
-		<Container>
+		<Container narrow>
 			<PageHeader title={t('Harremanetan jarri')} />
 
 			<ContactForm />
@@ -60,9 +60,12 @@ const t = useTranslations(lang);
 	.form-section {
 		background-color: var(--theme-primary-container-alt);
 		margin-top: var(--s6);
-		padding: var(--s6) 0;
+		padding: var(--s8) 0;
 	}
-
+	.form-section :global(.page-title) {
+		margin: 0;
+		text-align: center;
+	}
 	@media (max-width: 768px) {
 		.contact-layout {
 			grid-template-columns: 1fr;

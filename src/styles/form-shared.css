@@ -1,0 +1,33 @@
+/* Shared Form Field Styles */
+.input-field,
+.textarea-field {
+	width: 100%;
+}
+
+.select-field {
+	width: 100%;
+	height: 44px;
+	padding: var(--s2) var(--s3);
+	font-size: var(--font-size-base);
+	font-family: var(--theme-font-family);
+	color: var(--theme-on-bg);
+	background-color: var(--theme-input-bg);
+	border: 1px solid var(--theme-input-border);
+	border-radius: var(--theme-shape-radius);
+	transition:
+		border-color var(--theme-transition),
+		box-shadow var(--theme-transition),
+		background-color var(--theme-transition);
+	cursor: pointer;
+}
+
+.select-field:hover {
+	border-color: var(--theme-input-border-hover);
+}
+
+.select-field:focus {
+	outline: none;
+	border-color: var(--theme-primary);
+	box-shadow: 0 0 0 3px var(--theme-input-focus-ring);
+	background-color: var(--theme-bg);
+}

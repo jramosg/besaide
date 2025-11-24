@@ -1,0 +1,51 @@
+---
+interface Props {
+	label: string;
+	htmlFor: string;
+	required?: boolean;
+	class?: string;
+}
+
+const {
+	label,
+	htmlFor,
+	required = false,
+	class: className,
+	...rest
+} = Astro.props;
+---
+
+<div class:list={['form-field', className]} {...rest}>
+	<label for={htmlFor} class="form-label">
+		{label}
+		{
+			required && (
+				<abbr title="required" aria-label="required">
+					*
+				</abbr>
+			)
+		}
+	</label>
+	<slot />
+</div>
+
+<style>
+	.form-field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+	}
+
+	.form-label {
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-medium);
+		color: var(--theme-on-bg);
+	}
+
+	.form-label abbr {
+		color: var(--theme-error, #d32f2f);
+		text-decoration: none;
+		margin-left: 2px;
+		font-weight: var(--font-weight-semibold);
+	}
+</style>

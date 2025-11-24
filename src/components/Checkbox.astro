@@ -5,9 +5,19 @@ interface Props {
 	label: string;
 	required?: boolean;
 	checked?: boolean;
+	href?: string;
+	hrefLabel?: string;
 }
 
-const { id, name, label, required = false, checked = false } = Astro.props;
+const {
+	id,
+	name,
+	label,
+	required = false,
+	checked = false,
+	href,
+	hrefLabel
+} = Astro.props;
 ---
 
 <div class="checkbox-wrapper">
@@ -25,6 +35,16 @@ const { id, name, label, required = false, checked = false } = Astro.props;
 			required && (
 				<span class="required-mark" aria-label="required">
 					*
+				</span>
+			)
+		}
+		{
+			href && (
+				<span>
+					&nbsp;
+					<a href={href} target="_blank">
+						{hrefLabel}
+					</a>
 				</span>
 			)
 		}
