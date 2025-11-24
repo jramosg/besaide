@@ -1,3 +1,4 @@
+import { transformFilename } from '@/utils/string';
 import { collection, fields } from '@keystatic/core';
 
 export const events = collection({
@@ -77,27 +78,69 @@ export const events = collection({
 		}),
 		descriptionEu: fields.markdoc({
 			label: 'Deskribapena / Descripción',
-			description: 'Gertaeraren deskribapen osoa'
+			description: 'Gertaeraren deskribapen osoa',
+			options: {
+				image: {
+					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		descriptionEs: fields.markdoc({
 			label: 'Descripción',
-			description: 'Descripción completa del evento'
+			description: 'Descripción completa del evento',
+			options: {
+				image: {
+					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		extraInfoEu: fields.markdoc({
 			label: 'Informazio gehigarria',
-			description: 'Ekarpen osagarriak, gomendatutako ekipamendua, etab.'
+			description: 'Ekarpen osagarriak, gomendatutako ekipamendua, etab.',
+			options: {
+				image: {
+					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		extraInfoEs: fields.markdoc({
 			label: 'Información adicional',
-			description: 'Aportaciones adicionales, equipo recomendado, etc.'
+			description: 'Aportaciones adicionales, equipo recomendado, etc.',
+			options: {
+				image: {
+					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		priceDescriptionEu: fields.markdoc({
 			label: 'Prezioaren deskribapena',
-			description: 'Prezioari buruzko informazio gehigarria'
+			description: 'Prezioari buruzko informazio gehigarria',
+			options: {
+				image: {
+					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		priceDescriptionEs: fields.markdoc({
 			label: 'Descripción del precio',
-			description: 'Información adicional sobre el precio'
+			description: 'Información adicional sobre el precio',
+			options: {
+				image: {
+					directory: 'src/assets/images/events',
+					publicPath: '@/assets/images/events',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		prices: fields.array(
 			fields.object({

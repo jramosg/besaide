@@ -4,6 +4,7 @@ import { events } from '@/content-config/collections/events';
 import { news } from '@/content-config/collections/news';
 import { homepage } from '@/content-config/singletons/homepage';
 import { libraryMaps } from '@/content-config/singletons/library-mapts';
+import { transformFilename } from '@/utils/string';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
@@ -17,11 +18,7 @@ export default config({
 	},
 
 	storage: {
-		kind: 'github',
-		repo: {
-			owner: 'jramosg',
-			name: 'besaide'
-		}
+		kind: 'local'
 	},
 	collections: {
 		news: news,
@@ -111,11 +108,25 @@ export default config({
 			schema: {
 				contentEu: fields.markdoc({
 					label: 'Historia euskeraz',
-					description: 'Besaide Mendizale Elkartearen historia euskeraz'
+					description: 'Besaide Mendizale Elkartearen historia euskeraz',
+					options: {
+						image: {
+							directory: 'src/assets/images/besaide/historia',
+							publicPath: '@/assets/images/besaide/historia',
+							transformFilename: filename => transformFilename(filename)
+						}
+					}
 				}),
 				contentEs: fields.markdoc({
 					label: 'Historia en español',
-					description: 'Historia de la Asociación de Montañismo Besaide'
+					description: 'Historia de la Asociación de Montañismo Besaide',
+					options: {
+						image: {
+							directory: 'src/assets/images/besaide/historia',
+							publicPath: '@/assets/images/besaide/historia',
+							transformFilename: filename => transformFilename(filename)
+						}
+					}
 				})
 			}
 		}),
@@ -278,11 +289,25 @@ export default config({
 			schema: {
 				contentEu: fields.markdoc({
 					label: 'Edukia euskeraz',
-					description: 'Federazioari buruzko informazioa euskeraz'
+					description: 'Federazioari buruzko informazioa euskeraz',
+					options: {
+						image: {
+							directory: 'src/assets/images/federation',
+							publicPath: '@/assets/images/federation',
+							transformFilename: filename => transformFilename(filename)
+						}
+					}
 				}),
 				contentEs: fields.markdoc({
 					label: 'Contenido en español',
-					description: 'Información sobre la federación en español'
+					description: 'Información sobre la federación en español',
+					options: {
+						image: {
+							directory: 'src/assets/images/federation',
+							publicPath: '@/assets/images/federation',
+							transformFilename: filename => transformFilename(filename)
+						}
+					}
 				}),
 				infoCardEu: fields.text({
 					label: 'Informazio gehigarria euskeraz',

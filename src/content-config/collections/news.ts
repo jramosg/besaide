@@ -1,3 +1,4 @@
+import { transformFilename } from '@/utils/string';
 import { collection, fields } from '@keystatic/core';
 
 export const news = collection({
@@ -35,11 +36,25 @@ export const news = collection({
 		}),
 		contentEu: fields.markdoc({
 			label: 'Edukia euskeraz',
-			description: 'Albiste osoaren edukia'
+			description: 'Albiste osoaren edukia',
+			options: {
+				image: {
+					directory: 'src/assets/images/news',
+					publicPath: '@/assets/images/news',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		}),
 		contentEs: fields.markdoc({
 			label: 'Edukia gaztelaniaz',
-			description: 'Contenido completo de la noticia'
+			description: 'Contenido completo de la noticia',
+			options: {
+				image: {
+					directory: 'src/assets/images/news',
+					publicPath: '@/assets/images/news',
+					transformFilename: filename => transformFilename(filename)
+				}
+			}
 		})
 	}
 });
