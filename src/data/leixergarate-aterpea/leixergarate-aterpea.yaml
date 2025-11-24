@@ -46,9 +46,9 @@ prices:
     descriptionEs: noche
   - labelEu: ' Ez bazkideak'
     labelEs: No socios
-    price: 8
+    price: 11
     descriptionEu: gaua
     descriptionEs: noche
   - labelEu: Haurrak (5-12 urtea, biak barne)
     labelEs: Niños (5-12, ambos incluidos)
-    price: 5
+    price: 4
