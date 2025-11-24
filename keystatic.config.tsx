@@ -7,6 +7,14 @@ import { libraryMaps } from '@/content-config/singletons/library-mapts';
 import { transformFilename } from '@/utils/string';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
+const GitHubConfig = {
+	kind: 'github',
+	repo: {
+		owner: 'jramosg',
+		name: 'besaide'
+	}
+} as const;
+
 export default config({
 	ui: {
 		brand: {
@@ -16,10 +24,7 @@ export default config({
 			}
 		}
 	},
-
-	storage: {
-		kind: 'local'
-	},
+	storage: GitHubConfig,
 	collections: {
 		news: news,
 		events: events,
