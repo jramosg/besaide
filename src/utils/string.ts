@@ -14,8 +14,3 @@ export function capitalizeFirstLetter(text: string): string {
 	if (text.length === 0) return text;
 	return text.charAt(0).toUpperCase() + text.slice(1);
 }
-
-export function transformFilename(originalFilename: string): string {
-	const extension = originalFilename.split('.').pop();
-	return self.crypto.randomUUID() + '.' + extension;
-}

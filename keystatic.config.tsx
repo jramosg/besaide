@@ -4,7 +4,7 @@ import { events } from '@/content-config/collections/events';
 import { news } from '@/content-config/collections/news';
 import { homepage } from '@/content-config/singletons/homepage';
 import { libraryMaps } from '@/content-config/singletons/library-mapts';
-import { transformFilename } from '@/utils/string';
+import { createImageOptions } from '@/content-config/util';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 const GitHubConfig = {
@@ -114,24 +114,12 @@ export default config({
 				contentEu: fields.markdoc({
 					label: 'Historia euskeraz',
 					description: 'Besaide Mendizale Elkartearen historia euskeraz',
-					options: {
-						image: {
-							directory: 'src/assets/images/besaide/historia',
-							publicPath: '@/assets/images/besaide/historia',
-							transformFilename: filename => transformFilename(filename)
-						}
-					}
+					options: createImageOptions('besaide/historia')
 				}),
 				contentEs: fields.markdoc({
 					label: 'Historia en español',
 					description: 'Historia de la Asociación de Montañismo Besaide',
-					options: {
-						image: {
-							directory: 'src/assets/images/besaide/historia',
-							publicPath: '@/assets/images/besaide/historia',
-							transformFilename: filename => transformFilename(filename)
-						}
-					}
+					options: createImageOptions('besaide/historia')
 				})
 			}
 		}),
@@ -295,24 +283,12 @@ export default config({
 				contentEu: fields.markdoc({
 					label: 'Edukia euskeraz',
 					description: 'Federazioari buruzko informazioa euskeraz',
-					options: {
-						image: {
-							directory: 'src/assets/images/federation',
-							publicPath: '@/assets/images/federation',
-							transformFilename: filename => transformFilename(filename)
-						}
-					}
+					options: createImageOptions('federation')
 				}),
 				contentEs: fields.markdoc({
 					label: 'Contenido en español',
 					description: 'Información sobre la federación en español',
-					options: {
-						image: {
-							directory: 'src/assets/images/federation',
-							publicPath: '@/assets/images/federation',
-							transformFilename: filename => transformFilename(filename)
-						}
-					}
+					options: createImageOptions('federation')
 				}),
 				infoCardEu: fields.text({
 					label: 'Informazio gehigarria euskeraz',

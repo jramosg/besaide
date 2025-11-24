@@ -1,5 +1,5 @@
-import { transformFilename } from '@/utils/string';
 import { collection, fields } from '@keystatic/core';
+import { createImageOptions } from '../util';
 
 export const news = collection({
 	label: 'Albisteak / Noticias',
@@ -37,24 +37,12 @@ export const news = collection({
 		contentEu: fields.markdoc({
 			label: 'Edukia euskeraz',
 			description: 'Albiste osoaren edukia',
-			options: {
-				image: {
-					directory: 'src/assets/images/news',
-					publicPath: '@/assets/images/news',
-					transformFilename: filename => transformFilename(filename)
-				}
-			}
+			options: createImageOptions('news')
 		}),
 		contentEs: fields.markdoc({
 			label: 'Edukia gaztelaniaz',
 			description: 'Contenido completo de la noticia',
-			options: {
-				image: {
-					directory: 'src/assets/images/news',
-					publicPath: '@/assets/images/news',
-					transformFilename: filename => transformFilename(filename)
-				}
-			}
+			options: createImageOptions('news')
 		})
 	}
 });

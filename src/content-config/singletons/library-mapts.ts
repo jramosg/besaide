@@ -1,5 +1,5 @@
-import { transformFilename } from '@/utils/string';
 import { fields, singleton } from '@keystatic/core';
+import { createImageOptions } from '../util';
 
 export const libraryMaps = singleton({
 	label: 'Liburutegia / Mapak',
@@ -8,24 +8,12 @@ export const libraryMaps = singleton({
 		contentEu: fields.markdoc({
 			label: 'Edukia: Liburutegia / Mapa',
 			description: 'Liburutegia euskeraz',
-			options: {
-				image: {
-					directory: 'src/assets/images/library-maps',
-					publicPath: '@/assets/images/library-maps',
-					transformFilename: filename => transformFilename(filename)
-				}
-			}
+			options: createImageOptions('library-maps')
 		}),
 		contentEs: fields.markdoc({
 			label: 'Contenido de: Librería / Mapas ',
 			description: 'Liburutegia gaztelaniaz',
-			options: {
-				image: {
-					directory: 'src/assets/images/library-maps',
-					publicPath: '@/assets/images/library-maps',
-					transformFilename: filename => transformFilename(filename)
-				}
-			}
+			options: createImageOptions('library-maps')
 		})
 	}
 });
