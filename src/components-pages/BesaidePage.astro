@@ -24,6 +24,8 @@ if (!besaideFunctioning) {
 }
 
 const { Content: HistoryContent } = await render(entry);
+
+const boardMembers = besaideFunctioning.data.boardMembers;
 ---
 
 <Page
@@ -46,40 +48,34 @@ const { Content: HistoryContent } = await render(entry);
 		<HistoryContent />
 	</section>
 
-	<section class="functioning-section">
-		<h2 class="h4">{t('Funtzionamendua')}</h2>
-		<p>
-			{
-				lang === 'eu'
-					? besaideFunctioning.data.introductionEu
-					: besaideFunctioning.data.introductionEs
-			}
-		</p>
+	{
+		boardMembers && boardMembers.length > 0 && (
+			<section class="functioning-section">
+				<h2 class="h4">{t('Funtzionamendua')}</h2>
+				<p>
+					{lang === 'eu'
+						? besaideFunctioning.data.introductionEu
+						: besaideFunctioning.data.introductionEs}
+				</p>
+				<ul class="board-members">
+					{boardMembers.map(member => (
+						<li>
+							<strong>
+								{lang === 'eu' ? member.positionEu : member.positionEs}:
+							</strong>{' '}
+							{member.name}
+						</li>
+					))}
+				</ul>
 
-		{
-			besaideFunctioning.data.boardMembers &&
-				besaideFunctioning.data.boardMembers.length > 0 && (
-					<ul class="board-members">
-						{besaideFunctioning.data.boardMembers.map(member => (
-							<li>
-								<strong>
-									{lang === 'eu' ? member.positionEu : member.positionEs}:
-								</strong>{' '}
-								{member.name}
-							</li>
-						))}
-					</ul>
-				)
-		}
-
-		<p>
-			{
-				lang === 'eu'
-					? besaideFunctioning.data.closingTextEu
-					: besaideFunctioning.data.closingTextEs
-			}
-		</p>
-	</section>
+				<p>
+					{lang === 'eu'
+						? besaideFunctioning.data.closingTextEu
+						: besaideFunctioning.data.closingTextEs}
+				</p>
+			</section>
+		)
+	}
 	<section>
 		<h2 class="h4">{t('Arreta zerbitzua')}</h2>
 		<OfficeHours />
