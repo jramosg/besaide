@@ -160,6 +160,7 @@
 	--z-index-tooltip: 1500;
 
 	--footer-margin-top: var(--s8);
+	--content-margin-top: var(--s6);
 }
 
 [data-theme='dark'] {
