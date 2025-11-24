@@ -8,7 +8,7 @@ infoCardEs: >
 pricingTable:
   - regionEu: Hego Euskal Herria,  Espainiar estatua
     regionEs: País Vasco sur, Estado Español
-    priceChildren: 23.87
+    priceChildren: 23
     priceYouth: 29.59
     priceAdults: 89.78
     priceSeniors: 69.76
