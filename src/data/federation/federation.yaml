@@ -94,9 +94,11 @@ extras:
     descriptionEu: mundialarekin derrigorrez
     descriptionEs: obligatorio con mundial
     pricing:
-      discriminant: twoColumn
+      discriminant: fourColumn
       value:
-        priceAll: 2065.62
+        priceChildren: 2065.62
+        priceYouth: 2065.62
+        priceAdults: 2065.62
   - nameEu: Pyrenaica
     nameEs: Pyrenaica
     descriptionEu: etxe bakoitzean 1 derrigorez
