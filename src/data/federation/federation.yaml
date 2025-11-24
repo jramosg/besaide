@@ -12,18 +12,42 @@ infoCardEs: >-
 
   Si necesitas más información, acércate a la oficina de Besaide
 pricingTable:
+  - regionEu: 'Lizentzia '
+    regionEs: 'Licencia '
+    priceChildren: 5
+    priceYouth: 5
+    priceAdults: 23.85
+    priceSeniors: 15.49
+  - regionEu: Estatua
+    regionEs: Estado
+    priceChildren: 18.87
+    priceYouth: 24.59
+    priceAdults: 70.26
+    priceSeniors: 45.91
   - regionEu: Hego Euskal Herria,  Espainiar estatua
     regionEs: País Vasco sur, Estado Español
     priceChildren: 23.87
     priceYouth: 29.59
     priceAdults: 94.11
     priceSeniors: 69.76
+  - regionEu: Pirinioak
+    regionEs: Pirineos
+    priceChildren: 23.87
+    priceYouth: 18.99
+    priceAdults: 18.99
+    priceSeniors: 18.99
   - regionEu: Hego Euskal Herria, Espainiar estatua, Pirinioak
     regionEs: País Vasco sur, Estado Español, Pirineos
     priceChildren: 42.86
     priceYouth: 48
     priceAdults: 113.1
     priceSeniors: 88.75
+  - regionEu: Mundua
+    regionEs: Mundial
+    priceChildren: 46.92
+    priceYouth: 46.92
+    priceAdults: 46.92
+    priceSeniors: 46.92
   - regionEu: Hego Euskal Herria, Espainiar estatua, Pirinioak, Mundua
     regionEs: País Vasco sur, Estado Español, Pirineos, Mundial
     priceChildren: 89.78
