@@ -120,40 +120,6 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			<ImageGallery images={images} alt={t('nav.leixagarate-aterpea')} />
 		</section>
 
-		<section
-			aria-labelledby="location-heading"
-			itemscope
-			itemtype="https://schema.org/Place"
-		>
-			<h2 id="location-heading" class="h4">{t('Kokapena')}</h2>
-			<p>
-				<data
-					value={`${coordinates.lat},${coordinates.lon}`}
-					itemprop="geo"
-					itemscope
-					itemtype="https://schema.org/GeoCoordinates"
-				>
-					<meta itemprop="latitude" content={coordinates.lat.toString()} />
-					<meta itemprop="longitude" content={coordinates.lon.toString()} />
-					<meta itemprop="elevation" content={`${coordinates.elevation}m`} />
-					{coordinatesText}
-				</data>
-			</p>
-			<div
-				class="leaflet-map-container"
-				role="region"
-				aria-label={t('Kokapena')}
-				aria-describedby="location-heading"
-			>
-				<LeafletMap
-					latitude={coordinates.lat}
-					longitude={coordinates.lon}
-					zoom={15}
-					markerComponent=`<a href="https://www.google.com/maps/@${coordinates.lat},${coordinates.lon},16z" target="_blank" rel="noopener noreferrer" aria-label="${t('Kokapena')} - Google Maps">Leixegarate Aterpea</a>`
-				/>
-			</div>
-		</section>
-
 		<section aria-labelledby="prices-heading">
 			<h2 id="prices-heading" class="h4">{t('Prezioak')}</h2>
 			<dl class="price-list">
@@ -188,6 +154,40 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 				}
 			</dl>
 		</section>
+		<section
+			aria-labelledby="location-heading"
+			itemscope
+			itemtype="https://schema.org/Place"
+		>
+			<h2 id="location-heading" class="h4">{t('Kokapena')}</h2>
+			<p>
+				<data
+					value={`${coordinates.lat},${coordinates.lon}`}
+					itemprop="geo"
+					itemscope
+					itemtype="https://schema.org/GeoCoordinates"
+				>
+					<meta itemprop="latitude" content={coordinates.lat.toString()} />
+					<meta itemprop="longitude" content={coordinates.lon.toString()} />
+					<meta itemprop="elevation" content={`${coordinates.elevation}m`} />
+					{coordinatesText}
+				</data>
+			</p>
+			<div
+				class="leaflet-map-container"
+				role="region"
+				aria-label={t('Kokapena')}
+				aria-describedby="location-heading"
+			>
+				<LeafletMap
+					latitude={coordinates.lat}
+					longitude={coordinates.lon}
+					zoom={15}
+					markerComponent=`<a href="https://www.google.com/maps/@${coordinates.lat},${coordinates.lon},16z" target="_blank" rel="noopener noreferrer" aria-label="${t('Kokapena')} - Google Maps">Leixegarate Aterpea</a>`
+				/>
+			</div>
+		</section>
+		
 		<section class="leixergarate-routes" aria-labelledby="routes-heading">
 			<h2 id="routes-heading" class="h4">{t('nav.routes')}</h2>
 			<RouteList filterLeixargarate={true} />
