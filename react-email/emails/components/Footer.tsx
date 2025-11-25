@@ -1,5 +1,4 @@
 import { Text, Hr, Link } from '@react-email/components';
-import * as React from 'react';
 
 export const Footer = () => {
 	return (
