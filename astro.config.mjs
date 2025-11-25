@@ -6,12 +6,11 @@ import markdoc from '@astrojs/markdoc';
 import keystatic from '@keystatic/astro';
 
 import vercel from '@astrojs/vercel';
-import { Site } from '@/config/company';
 
 // https://astro.build/config
 export default defineConfig({
 	server: { port: 1234, host: true },
-	site: Site,
+	site: 'https://besaide.vercel.app',
 
 	prefetch: {
 		prefetchAll: true,
