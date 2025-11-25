@@ -42,6 +42,11 @@ const langMapping: LangMapping = {
 	contacto: { lang: 'es', id: 'contact' }
 };
 
+export function getIdFromFirstSegment(url: URL): string | null {
+	const [, firstPathSegment] = url.pathname.split('/');
+	const mappingEntry = langMapping[firstPathSegment] || null;
+	return mappingEntry ? mappingEntry.id : null;
+}
 export function getLangFromUrl(url: URL): Langs {
 	const [, firstPathSegment] = url.pathname.split('/');
 	const lang = langMapping[firstPathSegment]?.lang;

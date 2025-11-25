@@ -1,0 +1,24 @@
+---
+interface Props {
+	message?: string;
+}
+
+const { message } = Astro.props;
+---
+
+{
+	message && (
+		<p class="form-error" role="alert">
+			{message}
+		</p>
+	)
+}
+
+<style>
+	.form-error {
+		margin-top: var(--s1);
+		font-size: var(--font-size-sm);
+		color: var(--theme-error, #d32f2f);
+		font-weight: var(--font-weight-medium);
+	}
+</style>

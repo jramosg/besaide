@@ -1,9 +1,13 @@
 ---
+import FormError from './FormError.astro';
+
 interface Props {
 	label: string;
 	htmlFor: string;
 	required?: boolean;
 	class?: string;
+	errors?: Record<string, string>;
+	name?: string;
 }
 
 const {
@@ -11,8 +15,12 @@ const {
 	htmlFor,
 	required = false,
 	class: className,
+	errors = {},
+	name,
 	...rest
 } = Astro.props;
+
+const errorMessage = name ? errors[name] : '';
 ---
 
 <div class:list={['form-field', className]} {...rest}>
@@ -27,6 +35,7 @@ const {
 		}
 	</label>
 	<slot />
+	{errorMessage && <FormError message={errorMessage} />}
 </div>
 
 <style>

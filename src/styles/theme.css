@@ -17,6 +17,8 @@
 	--theme-primary-dark: var(--theme-primary-700);
 	--theme-primary-container: var(--theme-primary-100);
 	--theme-primary-container-alt: var(--theme-primary-50);
+	--theme-on-primary-container-colorful: var(--theme-primary-900);
+
 	--theme-on-primary: #fff;
 	--theme-container-gradient: linear-gradient(
 		135deg,
@@ -183,14 +185,15 @@
 	--theme-primary-container-alt: var(--theme-primary-950);
 
 	--theme-on-primary-container: #fff;
+	--theme-on-primary-container-colorful: var(--theme-primary-100);
 
 	/* Secondary Colors (Dark) */
-	--theme-secondary-container: var(--theme-secondary-dark);
 	--theme-on-secondary-container: #fff;
 
 	/* Accent Orange Palette (Dark) */
 	--theme-secondary-container: var(--theme-secondary-800);
 	--theme-secondary-container-alt: var(--theme-secondary-900);
+
 	--theme-on-accent-container: #fff;
 
 	--theme-footer-bg: var(--grey-900);

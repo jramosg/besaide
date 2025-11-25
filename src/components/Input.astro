@@ -8,6 +8,7 @@ interface Props {
 	required?: boolean;
 	autocomplete?: string;
 	addWrapper?: boolean;
+	value?: string | number;
 }
 
 const {
@@ -18,7 +19,8 @@ const {
 	name,
 	required = false,
 	autocomplete = 'off',
-	addWrapper = false
+	addWrapper = false,
+	value
 } = Astro.props;
 ---
 
@@ -35,6 +37,7 @@ const {
 				aria-label={ariaLabel}
 				autocomplete={autocomplete}
 				required={required}
+				value={value}
 			/>
 			<slot />
 		</div>
@@ -48,6 +51,7 @@ const {
 				class="input-field"
 				placeholder={placeholder}
 				aria-label={ariaLabel}
+				value={value}
 				autocomplete={autocomplete}
 				required={required}
 			/>

@@ -253,10 +253,20 @@ export const ui = {
 		'form.field.accept-terms': 'Acepto las condiciones de uso',
 		'form.button.submit': 'Enviar solicitud',
 		'form.link.privacy': 'Leer aviso legal y política de privacidad',
+		'form.error.required': 'Este campo es obligatorio',
+		'form.error.email': 'El formato del email no es válido',
+		'form.error.phone': 'El formato del teléfono no es válido',
+		'form.error.postal-code': 'El código postal debe tener 5 dígitos',
+		'form.error.accept-terms': 'Debes aceptar las condiciones de uso',
+		'form.error.invalid': 'Valor no válido',
 		'Erabilera arauak onartzen ditut.': 'Acepto las condiciones de uso.',
 		'(Irakurri hemen)': '(Leer aquí)',
 		'Lege oharra / Pribatutasun politika':
-			'Aviso legal / Política de privacidad'
+			'Aviso legal / Política de privacidad',
+		'Federazio eskaera jaso da': 'Solicitud de federación recibida',
+		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuak jarriko gara.\nEskerrik asko!':
+			'Tus datos han sido enviados. En cuanto se tramite la solicitud, nos pondremos en contacto contigo.\n¡Gracias!',
+		'Beste galdetegi bat bete': 'Rellenar otro formulario'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -438,7 +448,13 @@ export const ui = {
 		'form.field.federation': 'Federatu lizentzia nahi dut',
 		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
 		'form.button.submit': 'Eskaera bidali',
-		'form.link.privacy': 'Lege oharra eta pribatutasun politika irakurri'
+		'form.link.privacy': 'Lege oharra eta pribatutasun politika irakurri',
+		'form.error.required': 'Datu hau nahitaezkoa da',
+		'form.error.email': 'Emailaren formatua ez da zuzena',
+		'form.error.phone': 'Telefonoaren formatua ez da zuzena',
+		'form.error.postal-code': 'Posta kodeak 5 zenbaki izan behar ditu',
+		'form.error.accept-terms': 'Erabilera arauak onartu behar dituzu',
+		'form.error.invalid': 'Balio okerra'
 	}
 } as const;
 

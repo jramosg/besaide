@@ -1,0 +1,15 @@
+---
+const props = Astro.props;
+---
+
+<section class="form-section" {...props}>
+	<slot />
+</section>
+
+<style>
+	.form-section {
+		background-color: var(--theme-primary-container-alt);
+		margin-top: var(--s6);
+		padding: var(--s8) 0;
+	}
+</style>
