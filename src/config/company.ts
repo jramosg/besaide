@@ -23,3 +23,5 @@ export const Socials = {
 	wikiloc: 'https://es.wikiloc.com/wikiloc/user.do?id=14331763',
 	whatsapp: 'https://wa.me/34608293997'
 };
+
+export const Site = 'https://besaide.vercel.app';
