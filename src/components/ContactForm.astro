@@ -4,11 +4,7 @@ import Textarea from '@/components/Textarea.astro';
 import FormField from '@/components/FormField.astro';
 import Button from '@/components/buttons/Button.astro';
 import '@/styles/form-shared.css';
-import Checkbox from './Checkbox.astro';
-import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import FormPrivacy from './FormPrivacy.astro';
 ---
 
 <form class="contact-form-fields" method="POST" novalidate>
@@ -57,14 +53,7 @@ const t = useTranslations(lang);
 			placeholder="Idatzi hemen zure mezua..."
 		/>
 	</FormField>
-	<Checkbox
-		id="terms"
-		name="terms"
-		label={t('Erabilera arauak onartzen ditut.')}
-		hrefLabel={t('(Irakurri hemen)')}
-		href={getUrlFromID('cookies-policy', lang)}
-		required
-	/>
+	<FormPrivacy />
 
 	<Button class="submit-button" type="submit">Mezua bidali</Button>
 </form>
@@ -92,12 +81,5 @@ const t = useTranslations(lang);
 	.submit-button {
 		margin-top: var(--s2);
 		align-self: center;
-		min-width: 200px;
-	}
-
-	@media (max-width: 600px) {
-		.submit-button {
-			width: 100%;
-		}
 	}
 </style>

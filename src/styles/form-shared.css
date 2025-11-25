@@ -31,3 +31,13 @@
 	box-shadow: 0 0 0 3px var(--theme-input-focus-ring);
 	background-color: var(--theme-bg);
 }
+
+.submit-button {
+	min-width: 200px;
+}
+
+@media (max-width: 640px) {
+	.submit-button {
+		width: 100%;
+	}
+}

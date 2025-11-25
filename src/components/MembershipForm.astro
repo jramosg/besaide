@@ -5,19 +5,16 @@ import FormField from '@/components/FormField.astro';
 import Button from '@/components/buttons/Button.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import '@/styles/form-shared.css';
+import Container from './Container.astro';
+import FormPrivacy from './FormPrivacy.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const privacyPolicyUrl =
-	lang === 'eu'
-		? '/lege-oharra-eta-pribatutasun-politika'
-		: '/aviso-legal-y-politica-de-privacidad';
 ---
 
 <section class="membership-form-section" aria-labelledby="form-title">
-	<div class="form-container">
-		<h2 id="form-title" class="form-title">
+	<Container narrow>
+		<h2 id="form-title" class="h4">
 			{t('form.title')}
 		</h2>
 
@@ -33,8 +30,8 @@ const privacyPolicyUrl =
 		>
 			<!-- Section 1: Personal Data -->
 			<fieldset class="form-section">
-				<legend class="form-subtitle">
-					{t('form.section.personal-data')}
+				<legend class="form-subtitle subtitle">
+					{'1. ' + t('form.section.personal-data')}
 				</legend>
 
 				<div class="form-grid">
@@ -206,58 +203,49 @@ const privacyPolicyUrl =
 				</div>
 			</fieldset>
 
-			<!-- Section 2: Membership and Federation -->
-			<fieldset class="form-section">
-				<legend class="form-subtitle">
-					{t('form.section.membership')}
+			<!-- Section 2: Membership -->
+			<fieldset class="form-section form-section--row">
+				<legend class="form-subtitle subtitle">
+					{'2. ' + t('form.section.membership')}
 				</legend>
 
 				<div class="form-grid">
 					<div class="form-field form-field--full">
-						<Checkbox
-							id="membership"
-							name="membership"
-							label={t('form.field.membership-yes')}
-						/>
+						<Checkbox id="membership" name="membership" label={t('Bai')} />
 					</div>
+				</div>
+			</fieldset>
 
+			<!-- Section 3: Federation -->
+			<fieldset class="form-section form-section--row">
+				<legend class="form-subtitle subtitle">
+					{'3. ' + t('form.field.federation') + ': '}
+				</legend>
+
+				<div class="form-grid">
 					<div class="form-field form-field--full">
-						<Checkbox
-							id="federation"
-							name="federation"
-							label={t('form.field.federation')}
-						/>
+						<Checkbox id="federation" name="federation" label={t('Bai')} />
 					</div>
 				</div>
 			</fieldset>
 
 			<!-- Terms and Submit -->
 			<footer class="form-footer">
-				<div class="form-field form-field--full">
-					<Checkbox
-						id="accept-terms"
-						name="accept-terms"
-						label={t('form.field.accept-terms')}
-						required={true}
-					/>
-					<a href={privacyPolicyUrl} class="privacy-link" target="_blank">
-						{t('form.link.privacy')}
-					</a>
-				</div>
+				<FormPrivacy />
 
 				<Button type="submit" class="submit-button">
 					{t('form.button.submit')}
 				</Button>
 			</footer>
 		</form>
-	</div>
+	</Container>
 </section>
 
 <style>
 	.membership-form-section {
-		background-color: var(--theme-bg);
+		background-color: var(--theme-primary-container-alt);
+		margin-top: var(--s6);
 		padding: var(--s8) 0;
-		margin-top: var(--s8);
 	}
 
 	.form-container {
@@ -266,19 +254,12 @@ const privacyPolicyUrl =
 		padding: 0 var(--s4);
 	}
 
-	.form-title {
-		color: var(--theme-primary-900);
-		margin-bottom: var(--s4);
-		font-weight: var(--font-weight-bold);
-		text-align: center;
-	}
-
 	.form-instructions {
 		text-align: center;
 		margin-bottom: var(--s6);
-		color: var(--theme-on-bg);
-		font-size: var(--font-size-base);
-		line-height: 1.6;
+		color: var(--theme-primary-900);
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
 	}
 
 	.membership-form {
@@ -296,11 +277,22 @@ const privacyPolicyUrl =
 		margin-bottom: var(--s4);
 	}
 
+	.form-section--row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: var(--s4);
+		legend {
+			display: contents;
+		}
+	}
+
+	.checkbox-legend {
+		display: flex;
+	}
+
 	.form-subtitle {
-		color: var(--theme-primary-900);
-		margin-bottom: var(--s4);
-		font-weight: var(--font-weight-semibold);
-		font-size: 1.125rem;
+		margin-bottom: var(--s6);
 		padding: 0;
 	}
 
@@ -336,33 +328,18 @@ const privacyPolicyUrl =
 	}
 
 	.form-footer {
-		border-top: 1px solid var(--theme-separator);
 		padding-top: var(--s4);
 		display: flex;
 		flex-direction: column;
-		gap: var(--s4);
-		align-items: center;
-	}
-
-	.privacy-link {
-		display: inline-block;
-		margin-top: var(--s2);
-		color: var(--theme-primary-900);
-		text-decoration: underline;
-		font-size: var(--font-size-sm);
-		transition: opacity var(--theme-transition);
-	}
-
-	.privacy-link:hover {
-		opacity: 0.8;
-	}
-
-	.submit-button {
-		min-width: 200px;
 	}
 
 	:global(.checkbox-wrapper) {
 		padding: var(--s2) 0;
+	}
+
+	.submit-button {
+		margin-top: var(--s2);
+		align-self: center;
 	}
 
 	/* Responsive adjustments */

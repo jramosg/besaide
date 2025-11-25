@@ -1,0 +1,36 @@
+---
+import { getUrlFromID, getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Checkbox from './Checkbox.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<>
+	<Checkbox
+		id="accept-terms"
+		name="accept-terms"
+		label={t('form.field.accept-terms')}
+		required={true}
+	/>
+	<a
+		href={getUrlFromID('privacy-policy', lang)}
+		target="_blank"
+		class="privacy-link"
+	>
+		{t('form.link.privacy')}
+	</a>
+</>
+
+<style>
+	.privacy-link {
+		grid-column: 2;
+		transition: color var(--theme-transition);
+		font-size: var(--font-size-sm);
+		margin-left: calc(20px + var(--s4));
+		margin-top: calc(-1 * var(--s2));
+		&:hover {
+			color: var(--theme-primary-900);
+		}
+	}
+</style>

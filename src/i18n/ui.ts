@@ -248,14 +248,15 @@ export const ui = {
 		'form.field.email': 'Email',
 		'form.field.info-spanish': 'Deseo recibir información en castellano',
 		'form.section.membership': 'Quiero ser socio de Besaide M.E.:',
-		'form.field.membership-yes': 'Sí',
+		Bai: 'Sí',
 		'form.field.federation': 'Quiero licencia federativa',
-		'form.field.federation-yes': 'Sí',
 		'form.field.accept-terms': 'Acepto las condiciones de uso',
 		'form.button.submit': 'Enviar solicitud',
-		'form.link.privacy': 'Aviso legal y política de privacidad',
+		'form.link.privacy': 'Leer aviso legal y política de privacidad',
 		'Erabilera arauak onartzen ditut.': 'Acepto las condiciones de uso.',
-		'(Irakurri hemen)': '(Leer aquí)'
+		'(Irakurri hemen)': '(Leer aquí)',
+		'Lege oharra / Pribatutasun politika':
+			'Aviso legal / Política de privacidad'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -434,12 +435,10 @@ export const ui = {
 		'form.field.email': 'Emaila',
 		'form.field.info-spanish': 'Informazioa gazteleraz jaso nahi dut',
 		'form.section.membership': 'Besaidea M.E-ko bazkide izan nahi dut:',
-		'form.field.membership-yes': 'Bai',
 		'form.field.federation': 'Federatu lizentzia nahi dut',
-		'form.field.federation-yes': 'Bai',
 		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
 		'form.button.submit': 'Eskaera bidali',
-		'form.link.privacy': 'Lege oharra eta pribatutasun politika'
+		'form.link.privacy': 'Lege oharra eta pribatutasun politika irakurri'
 	}
 } as const;
 
