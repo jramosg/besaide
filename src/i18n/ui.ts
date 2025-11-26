@@ -462,7 +462,7 @@ export const ui = {
 		'email.membership.subject.federation': 'Federatu lizentzia eskaera',
 		'email.membership.subject.membership': 'Bazkide izateko eskaera',
 		'email.membership.subject.membership-and-federation':
-			'Bazkide eta federatu lizentzia eskaera',
+			'Bazkide eta federatu lizentzia eskaera'
 	}
 } as const;
 

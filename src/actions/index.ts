@@ -25,8 +25,7 @@ export const server = {
 			federation: z.boolean().default(false),
 			language: z.enum(['es', 'eu']).default('eu')
 		}),
-		handler: async (input) => {
-			console.log('Received membership form submission:', input);
+		handler: async input => {
 			// Format birthdate to string for email
 			const formattedData = {
 				...input,

@@ -1,4 +1,4 @@
-import type { Langs } from "@/i18n/ui";
+import type { Langs } from '@/i18n/ui';
 
 export type FormData = Record<string, any>;
 export type Errors = Record<string, string>;
@@ -7,7 +7,6 @@ export type FormProps = {
 	errors: Errors;
 	formData: FormData;
 };
-
 
 export type MembershipFormData = {
 	dni: string;
@@ -25,4 +24,4 @@ export type MembershipFormData = {
 	membership: boolean;
 	federation: boolean;
 	language?: Langs;
-}
+};
