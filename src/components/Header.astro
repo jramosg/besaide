@@ -1,14 +1,14 @@
 ---
-import Burger from 'components/buttons/Burger.astro';
-import { nav, navActions, type Nav } from 'config/nav';
+import Burger from '@/components/buttons/Burger.astro';
+import { nav, navActions, type Nav } from '@/config/nav';
 import {
 	getLangFromUrl,
 	useTranslations,
 	getUrlFromID,
 	getIdfromUrl
-} from 'i18n/utils';
-import LanguageToggle from 'components/LanguageToggle.astro';
-import ThemeSwitcher from 'components/theme-switcher/ThemeSwitcher.astro';
+} from '@/i18n/utils';
+import LanguageToggle from '@/components/LanguageToggle.astro';
+import ThemeSwitcher from '@/components/theme-switcher/ThemeSwitcher.astro';
 import Button from '@/components/buttons/Button.astro';
 import { ChevronDown } from '@lucide/astro';
 
