@@ -1,8 +1,12 @@
 ---
-const props = Astro.props;
+type Props = {
+	class?: string;
+	id?: string;
+};
+const { class: className, ...props } = Astro.props;
 ---
 
-<section class="form-section" {...props}>
+<section class:list={['form-section', className]} {...props}>
 	<slot />
 </section>
 

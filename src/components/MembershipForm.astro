@@ -9,17 +9,17 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import '@/styles/form-shared.css';
 import Container from './Container.astro';
 import FormPrivacy from './FormPrivacy.astro';
-import FormError from './FormError.astro';
 import FormSection from './FormSection.astro';
-import type { FormProps } from '@/types/Form';
 
-type Props = FormProps;
-const { errors, formData } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<FormSection aria-labelledby="form-title">
+<FormSection
+	aria-labelledby="form-title"
+	id="membership-form-section"
+	class="form-section__membership"
+>
 	<Container narrow>
 		<h2 id="form-title" class="h4">
 			{t('form.title')}
@@ -29,13 +29,10 @@ const t = useTranslations(lang);
 			{t('form.instructions')}
 		</p>
 
-		<form
-			class="membership-form"
-			id="membership-form"
-			novalidate
-			method="POST"
-			enctype="application/x-www-form-urlencoded"
-		>
+		<form class="membership-form" id="membership-form" novalidate>
+			<!-- Hidden field for language -->
+			<input type="hidden" name="language" value={lang} />
+
 			<!-- Section 1: Personal Data -->
 			<fieldset class="form-section">
 				<legend class="form-subtitle subtitle">
@@ -48,7 +45,6 @@ const t = useTranslations(lang);
 						htmlFor="dni"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="dni"
 					>
 						<Input
@@ -57,7 +53,6 @@ const t = useTranslations(lang);
 							type="text"
 							required={true}
 							autocomplete="off"
-							value={formData.dni}
 						/>
 					</FormField>
 
@@ -66,7 +61,6 @@ const t = useTranslations(lang);
 						htmlFor="name"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="name"
 					>
 						<Input
@@ -75,7 +69,6 @@ const t = useTranslations(lang);
 							type="text"
 							required={true}
 							autocomplete="given-name"
-							value={formData.name}
 						/>
 					</FormField>
 
@@ -84,7 +77,6 @@ const t = useTranslations(lang);
 						htmlFor="surnames"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="surnames"
 					>
 						<Input
@@ -93,7 +85,6 @@ const t = useTranslations(lang);
 							type="text"
 							required={true}
 							autocomplete="family-name"
-							value={formData.surnames}
 						/>
 					</FormField>
 
@@ -102,7 +93,6 @@ const t = useTranslations(lang);
 						htmlFor="birthdate"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="birthdate"
 					>
 						<Input
@@ -111,7 +101,6 @@ const t = useTranslations(lang);
 							type="date"
 							required={true}
 							autocomplete="bday"
-							value={formData.birthdate}
 						/>
 					</FormField>
 
@@ -120,7 +109,6 @@ const t = useTranslations(lang);
 						htmlFor="address"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="address"
 					>
 						<Input
@@ -129,7 +117,6 @@ const t = useTranslations(lang);
 							type="text"
 							required={true}
 							autocomplete="street-address"
-							value={formData.address}
 						/>
 					</FormField>
 
@@ -138,7 +125,6 @@ const t = useTranslations(lang);
 						htmlFor="town"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="town"
 					>
 						<Input
@@ -147,25 +133,22 @@ const t = useTranslations(lang);
 							type="text"
 							required={true}
 							autocomplete="address-level2"
-							value={formData.town}
 						/>
 					</FormField>
 
 					<FormField
 						label={t('form.field.postal-code')}
-						htmlFor="postal-code"
+						htmlFor="postalCode"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="postalCode"
 					>
 						<Input
-							id="postal-code"
-							name="postal-code"
+							id="postalCode"
+							name="postalCode"
 							type="text"
 							required={true}
 							autocomplete="postal-code"
-							value={formData.postalCode}
 						/>
 					</FormField>
 
@@ -174,7 +157,6 @@ const t = useTranslations(lang);
 						htmlFor="province"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="province"
 					>
 						<Input
@@ -183,7 +165,6 @@ const t = useTranslations(lang);
 							type="text"
 							required={true}
 							autocomplete="address-level1"
-							value={formData.province}
 						/>
 					</FormField>
 
@@ -192,7 +173,6 @@ const t = useTranslations(lang);
 						htmlFor="phone1"
 						required
 						class="form-field--half"
-						errors={errors}
 						name="phone1"
 					>
 						<Input
@@ -201,7 +181,6 @@ const t = useTranslations(lang);
 							type="tel"
 							required={true}
 							autocomplete="tel"
-							value={formData.phone1}
 						/>
 					</FormField>
 
@@ -209,16 +188,9 @@ const t = useTranslations(lang);
 						label={t('form.field.phone2')}
 						htmlFor="phone2"
 						class="form-field--half"
-						errors={errors}
 						name="phone2"
 					>
-						<Input
-							id="phone2"
-							name="phone2"
-							type="tel"
-							autocomplete="tel"
-							value={formData.phone2}
-						/>
+						<Input id="phone2" name="phone2" type="tel" autocomplete="tel" />
 					</FormField>
 
 					<FormField
@@ -226,7 +198,6 @@ const t = useTranslations(lang);
 						htmlFor="email"
 						required
 						class="form-field--full"
-						errors={errors}
 						name="email"
 					>
 						<Input
@@ -235,15 +206,13 @@ const t = useTranslations(lang);
 							type="email"
 							required={true}
 							autocomplete="email"
-							value={formData.email}
 						/>
 					</FormField>
 
 					<div class="form-field form-field--full">
 						<Checkbox
-							id="info-spanish"
-							checked={formData.infoSpanish}
-							name="info-spanish"
+							id="infoSpanish"
+							name="infoSpanish"
 							label={t('form.field.info-spanish')}
 						/>
 					</div>
@@ -258,12 +227,7 @@ const t = useTranslations(lang);
 
 				<div class="form-grid">
 					<div class="form-field form-field--full">
-						<Checkbox
-							checked={formData.membership}
-							id="membership"
-							name="membership"
-							label={t('Bai')}
-						/>
+						<Checkbox id="membership" name="membership" label={t('Bai')} />
 					</div>
 				</div>
 			</fieldset>
@@ -276,12 +240,7 @@ const t = useTranslations(lang);
 
 				<div class="form-grid">
 					<div class="form-field form-field--full">
-						<Checkbox
-							checked={formData.federation}
-							id="federation"
-							name="federation"
-							label={t('Bai')}
-						/>
+						<Checkbox id="federation" name="federation" label={t('Bai')} />
 					</div>
 				</div>
 			</fieldset>
@@ -289,9 +248,8 @@ const t = useTranslations(lang);
 			<!-- Terms and Submit -->
 			<footer class="form-footer">
 				<FormPrivacy />
-				<FormError message={errors.acceptTerms} />
 
-				<Button type="submit" class="submit-button">
+				<Button type="submit" class="submit-button membership-submit-button">
 					{t('form.button.submit')}
 				</Button>
 			</footer>
@@ -300,6 +258,9 @@ const t = useTranslations(lang);
 </FormSection>
 
 <style>
+	.form-section__membership {
+		scroll-margin-top: calc(var(--header-height) + 20px);
+	}
 	.form-instructions {
 		text-align: center;
 		margin-bottom: var(--s6);
@@ -313,6 +274,9 @@ const t = useTranslations(lang);
 		padding: var(--s6);
 		border-radius: var(--theme-shape-radius);
 		box-shadow: var(--shadow-card);
+		.membership-submit-button {
+			margin-top: var(--s4);
+		}
 	}
 
 	.form-section {
@@ -394,4 +358,152 @@ const t = useTranslations(lang);
 			padding: var(--s4);
 		}
 	}
+
+	/* Error animations and styling */
+	:global(.form-error) {
+		margin-top: var(--s2);
+		font-size: var(--font-size-sm);
+		color: var(--theme-error);
+		font-weight: var(--font-weight-medium);
+		display: block;
+		animation: slideIn 0.3s ease;
+	}
+
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	:global(.input-error) {
+		border-color: var(--theme-error) !important;
+		box-shadow: 0 0 0 1px var(--theme-error) !important;
+	}
+
+	:global(.input-error:focus) {
+		border-color: var(--theme-error) !important;
+		box-shadow: 0 0 0 2px var(--theme-error-dark) !important;
+	}
+
+	/* Success and error message styles */
+	.success-message,
+	.error-message {
+		margin-bottom: var(--s4);
+		padding: var(--s4);
+		border-radius: var(--theme-shape-radius);
+		animation: slideIn 0.3s ease;
+	}
+
+	.success-message {
+		background-color: hsl(142, 76%, 95%);
+		border: 1px solid hsl(142, 76%, 70%);
+		color: hsl(142, 76%, 25%);
+	}
+
+	.error-message {
+		background-color: hsl(0, 76%, 95%);
+		border: 1px solid hsl(0, 76%, 70%);
+		color: hsl(0, 76%, 35%);
+	}
+
+	.success-message p,
+	.error-message p {
+		margin: 0;
+		font-weight: var(--font-weight-medium);
+	}
 </style>
+
+<script>
+	import {
+		setupFormValidation,
+		type FieldValidation
+	} from '@/utils/formValidation';
+	import { actions } from 'astro:actions';
+
+	import { toggleMembershipSections } from '@/utils/toggleSections';
+
+	document.addEventListener('astro:page-load', () => {
+		const lang = document.documentElement.lang;
+
+		// Translation helper
+		const translations: Record<string, Record<string, string>> = {
+			eu: {
+				required: 'Datu hau beharrezkoa da',
+				email: 'Emaila ez da baliozkoa',
+				phone: 'Gutxienez 9 zenbaki behar dira',
+				postalCode: 'Posta kodea ez da baliozkoa (5 zenbaki)',
+				'terms.required': 'Baldintzak onartu behar dituzu',
+				loading: 'Bidaltzen...'
+			},
+			es: {
+				required: 'Este campo es obligatorio',
+				email: 'El email no es válido',
+				phone: 'Se requieren al menos 9 dígitos',
+				postalCode: 'El código postal no es válido (5 dígitos)',
+				'terms.required': 'Debes aceptar los términos',
+				loading: 'Enviando...'
+			}
+		};
+
+		const t = (key: string) =>
+			translations[lang][key] ||
+			console.warn(`Missing translation for key: ${key}`) ||
+			translations['eu'][key];
+
+		// Define validation rules
+		const validationRules: FieldValidation = {
+			dni: [{ type: 'required', message: t('required') }],
+			name: [{ type: 'required', message: t('required') }],
+			surnames: [{ type: 'required', message: t('required') }],
+			birthdate: [{ type: 'required', message: t('required') }],
+			address: [{ type: 'required', message: t('required') }],
+			town: [{ type: 'required', message: t('required') }],
+			postalCode: [
+				{ type: 'required', message: t('required') },
+				{ type: 'minLength', message: t('postalCode'), value: 5 },
+				{ type: 'postalCode', message: t('postalCode') }
+			],
+			province: [{ type: 'required', message: t('required') }],
+			phone1: [
+				{ type: 'required', message: t('required') },
+				{ type: 'phone', message: t('phone') }
+			],
+			phone2: [{ type: 'phone', message: t('phone') }],
+			email: [
+				{ type: 'required', message: t('required') },
+				{ type: 'email', message: t('email') }
+			],
+			terms: [{ type: 'checkbox.required', message: t('terms.required') }]
+		};
+
+		// Setup form validation
+		setupFormValidation('membership-form', validationRules, async formData => {
+			const button = document.querySelector(
+				'.membership-submit-button'
+			) as HTMLButtonElement;
+			const originalText = button?.textContent || t('form.button.submit');
+
+			try {
+				if (button) {
+					button.disabled = true;
+					button.textContent = t('loading');
+				}
+
+				const { error } = await actions.submitMembership(formData);
+				if (!error) {
+					toggleMembershipSections();
+				}
+			} finally {
+				if (button) {
+					button.disabled = false;
+					button.textContent = originalText;
+				}
+			}
+		});
+	});
+</script>

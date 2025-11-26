@@ -3,12 +3,12 @@ interface Props {
 	message?: string;
 }
 
-const { message } = Astro.props;
+const { message, ...rest } = Astro.props;
 ---
 
 {
 	message && (
-		<p class="form-error" role="alert">
+		<p class="form-error" role="alert" {...rest}>
 			{message}
 		</p>
 	)
@@ -16,9 +16,21 @@ const { message } = Astro.props;
 
 <style>
 	.form-error {
-		margin-top: var(--s1);
+		margin-top: var(--s2);
 		font-size: var(--font-size-sm);
 		color: var(--theme-error, #d32f2f);
 		font-weight: var(--font-weight-medium);
+		animation: slideIn 0.3s ease;
+	}
+
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 </style>

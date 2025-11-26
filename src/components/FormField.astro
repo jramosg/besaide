@@ -1,4 +1,5 @@
 ---
+import type { Errors } from '@/types/Form';
 import FormError from './FormError.astro';
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 	htmlFor: string;
 	required?: boolean;
 	class?: string;
-	errors?: Record<string, string>;
+	errors?: Errors
 	name?: string;
 }
 

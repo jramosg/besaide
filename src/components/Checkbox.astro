@@ -5,12 +5,24 @@ interface Props {
 	label: string;
 	required?: boolean;
 	checked?: boolean;
+	class?: string;
+	errorMessage?: string;
 }
 
-const { id, name, label, required = false, checked = false } = Astro.props;
+const {
+	id,
+	name,
+	label,
+	required = false,
+	checked = false,
+	class: className = '',
+	errorMessage,
+	...props
+} = Astro.props;
+
 ---
 
-<div class="checkbox-wrapper">
+<div class:list={['checkbox-wrapper', className]} {...props}>
 	<input
 		type="checkbox"
 		id={id}
@@ -33,10 +45,15 @@ const { id, name, label, required = false, checked = false } = Astro.props;
 
 <style>
 	.checkbox-wrapper {
-		display: flex;
+		display: grid;
+		grid-template-columns: auto 1fr;
 		align-items: flex-start;
 		gap: var(--s2);
 		width: 100%;
+	}
+
+	.checkbox-wrapper :global(.form-error) {
+		grid-column: 2;
 	}
 
 	.checkbox-input {

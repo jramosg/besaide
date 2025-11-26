@@ -266,7 +266,11 @@ export const ui = {
 		'Federazio eskaera jaso da': 'Solicitud de federación recibida',
 		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuak jarriko gara.\nEskerrik asko!':
 			'Tus datos han sido enviados. En cuanto se tramite la solicitud, nos pondremos en contacto contigo.\n¡Gracias!',
-		'Beste galdetegi bat bete': 'Rellenar otro formulario'
+		'Beste galdetegi bat bete': 'Rellenar otro formulario',
+		'email.membership.subject.federation': 'Solicitud de federación',
+		'email.membership.subject.membership': 'Solicitud de socio',
+		'email.membership.subject.membership-and-federation':
+			'Solicitud de socio y federación'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -454,7 +458,11 @@ export const ui = {
 		'form.error.phone': 'Telefonoaren formatua ez da zuzena',
 		'form.error.postal-code': 'Posta kodeak 5 zenbaki izan behar ditu',
 		'form.error.accept-terms': 'Erabilera arauak onartu behar dituzu',
-		'form.error.invalid': 'Balio okerra'
+		'form.error.invalid': 'Balio okerra',
+		'email.membership.subject.federation': 'Federatu lizentzia eskaera',
+		'email.membership.subject.membership': 'Bazkide izateko eskaera',
+		'email.membership.subject.membership-and-federation':
+			'Bazkide eta federatu lizentzia eskaera',
 	}
 } as const;
 
