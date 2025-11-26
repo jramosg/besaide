@@ -1,14 +1,15 @@
 {
 	"extends": "astro/tsconfigs/strict",
-	"include": [".astro/types.d.ts", "**/*"],
-	"exclude": ["dist", "react-email"],
+	"include": [".astro/types.d.ts", "**/*", "react-email/**/*.tsx"],
+	"exclude": ["dist"],
 	"types": ["astro/client"],
 	"strictNullChecks": true,
 	"allowJs": true,
 	"compilerOptions": {
-		"baseUrl": "src",
+		"baseUrl": ".",
 		"paths": {
-			"@/*": ["*"]
+			"@/*": ["src/*"],
+			"@mail/*": ["react-email/*"]
 		},
 		"jsx": "react-jsx",
 		"jsxImportSource": "react"
