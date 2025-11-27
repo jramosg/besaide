@@ -20,8 +20,8 @@ export type MembershipFormData = {
 	phone1: string;
 	phone2?: string;
 	email: string;
-	infoSpanish: boolean;
-	membership: boolean;
-	federation: boolean;
+	infoSpanish?: boolean;
+	membership?: boolean;
+	federation?: boolean;
 	language?: Langs;
 };

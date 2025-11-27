@@ -1,5 +1,5 @@
 import { Resend } from 'resend';
-import { render } from '@react-email/render';
+import { render, toPlainText } from '@react-email/render';
 import MembershipEmail from '@mail/emails/MembershipEmail';
 import type { MembershipFormData } from '@/types/Form';
 import { useTranslations } from '@/i18n/utils';
@@ -11,6 +11,7 @@ export async function sendMembershipEmail(data: MembershipFormData) {
 		// Render the React email template to HTML
 
 		const emailHtml = await render(<MembershipEmail {...data} />);
+		const plainText = toPlainText(emailHtml);
 		const t = useTranslations(data.language || 'eu');
 
 		// Send the email
@@ -24,7 +25,8 @@ export async function sendMembershipEmail(data: MembershipFormData) {
 						? t('email.membership.subject.federation')
 						: t('email.membership.subject.membership')
 			} - ${data.name} ${data.surnames}`,
-			html: emailHtml
+			html: emailHtml,
+			text: plainText
 		});
 
 		return { success: true, data: result };

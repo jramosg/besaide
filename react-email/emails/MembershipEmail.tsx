@@ -4,24 +4,8 @@ import Footer from './components/Footer';
 import Section from './components/Section';
 import Field from './components/Field';
 import { Text } from '@react-email/components';
-
-interface MembershipEmailProps {
-	dni: string;
-	name: string;
-	surnames: string;
-	birthdate: string;
-	address: string;
-	town: string;
-	postalCode: string;
-	province: string;
-	phone1: string;
-	phone2?: string;
-	email: string;
-	infoSpanish: boolean;
-	membership: boolean;
-	federation: boolean;
-	language?: 'es' | 'eu';
-}
+import { formatDate } from '@/i18n/utils';
+import { MembershipFormData } from '@/types/Form';
 
 const translations = {
 	es: {
@@ -90,13 +74,13 @@ export const MembershipEmail = ({
 	postalCode = '{{postalCode}}',
 	province = '{{province}}',
 	phone1 = '{{phone1}}',
-	phone2 = '{{phone2}}',
+	phone2,
 	email = '{{email}}',
-	infoSpanish = true,
-	membership = true,
-	federation = false,
+	infoSpanish,
+	membership,
+	federation,
 	language = 'eu'
-}: MembershipEmailProps) => {
+}: MembershipFormData) => {
 	const t = translations[language];
 
 	return (
@@ -114,7 +98,10 @@ export const MembershipEmail = ({
 				<Section title={t.sections.personalData} variant="accent">
 					<div style={fieldGrid}>
 						<Field label={t.labels.dni} value={dni} />
-						<Field label={t.labels.birthdate} value={birthdate} />
+						<Field
+							label={t.labels.birthdate}
+							value={formatDate(birthdate, language)}
+						/>
 					</div>
 					<Field label={t.labels.name} value={name} fullWidth />
 					<Field label={t.labels.surnames} value={surnames} fullWidth />
