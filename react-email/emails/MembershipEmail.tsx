@@ -5,7 +5,7 @@ import Section from './components/Section';
 import Field from './components/Field';
 import { Text } from '@react-email/components';
 import { formatDate } from '@/i18n/utils';
-import { MembershipFormData } from '@/types/Form';
+import type { MembershipFormData } from '@/types/Form';
 
 const translations = {
 	es: {

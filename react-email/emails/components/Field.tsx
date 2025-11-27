@@ -2,7 +2,7 @@ import { Text } from '@react-email/components';
 
 interface FieldProps {
 	label: string;
-	value: string | number | boolean;
+	value: string | number | boolean | undefined;
 	fullWidth?: boolean;
 	lang?: 'es' | 'eu';
 }
