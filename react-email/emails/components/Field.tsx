@@ -4,11 +4,25 @@ interface FieldProps {
 	label: string;
 	value: string | number | boolean;
 	fullWidth?: boolean;
+	lang?: 'es' | 'eu';
 }
 
-export const Field = ({ label, value, fullWidth = false }: FieldProps) => {
+export const Field = ({
+	label,
+	value,
+	fullWidth = false,
+	lang = 'eu'
+}: FieldProps) => {
 	const displayValue =
-		typeof value === 'boolean' ? (value ? 'Sí / Bai' : 'No / Ez') : value;
+		typeof value === 'boolean'
+			? value
+				? lang === 'es'
+					? 'Sí'
+					: 'Bai'
+				: lang === 'es'
+					? 'No'
+					: 'Ez'
+			: value;
 
 	return (
 		<div style={fullWidth ? fieldFullWidth : field}>

@@ -19,6 +19,7 @@ const translations = {
 		heading: 'Hemos recibido tu mensaje',
 		intro:
 			'Gracias por contactar con nosotros. Hemos recibido tu mensaje correctamente:',
+		preview: 'Mensaje de contacto de {name}',
 		section: 'Tu Información de Contacto',
 		labels: {
 			name: 'Nombre',
@@ -32,6 +33,7 @@ const translations = {
 		heading: 'Zure mezua jaso dugu',
 		intro:
 			'Eskerrik asko gurekin harremanetan jartzeagatik. Zure mezua ondo jaso dugu:',
+		preview: 'Kontaktu mezua {name}-ren',
 		section: 'Zure Kontaktu Informazioa',
 		labels: {
 			name: 'Izena',
@@ -54,7 +56,7 @@ export const ContactEmail = ({
 	const t = translations[language];
 
 	return (
-		<Layout preview={`Nuevo mensaje de contacto de ${name}`}>
+		<Layout preview={t.preview.replace('{name}', name)}>
 			<Header />
 
 			<div style={contentArea}>

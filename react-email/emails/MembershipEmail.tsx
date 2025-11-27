@@ -28,6 +28,7 @@ const translations = {
 		heading: 'Solicitud de Membresía Recibida',
 		intro:
 			'Gracias por tu solicitud. Hemos registrado los siguientes datos en nuestro sistema:',
+		preview: 'Solicitud de membresía de {name} {surnames}',
 		sections: {
 			personalData: 'Datos Personales',
 			membership: 'Membresía',
@@ -54,6 +55,7 @@ const translations = {
 		heading: 'Bazkidetza Eskaera Jasota',
 		intro:
 			'Eskerrik asko zure eskaeragatik. Datu hauek erregistratu ditugu gure sisteman:',
+		preview: 'Bazkidetza eskaera: {name} {surnames}',
 		sections: {
 			personalData: 'Datu Pertsonalak',
 			membership: 'Bazkidetza',
@@ -68,12 +70,12 @@ const translations = {
 			town: 'Herria',
 			postalCode: 'Posta Kodea',
 			province: 'Probintzia',
-			phone1: 'Telefono Nagusia',
-			phone2: 'Bigarren Telefonoa',
+			phone1: '1. Telefonoa',
+			phone2: '2. Telefonoa',
 			email: 'Helbide Elektronikoa',
 			infoSpanish: 'Informazioa Gaztelaniaz Jaso',
-			membership: 'Bazkidetza Eskatzen Du',
-			federation: 'Federazioa Eskatzen Du'
+			membership: 'Besaidea M.E-ko bazkide izan nahi dut',
+			federation: 'Federatu lizentzia nahi dut'
 		}
 	}
 };
@@ -93,12 +95,16 @@ export const MembershipEmail = ({
 	infoSpanish = true,
 	membership = true,
 	federation = false,
-	language = 'es'
+	language = 'eu'
 }: MembershipEmailProps) => {
 	const t = translations[language];
 
 	return (
-		<Layout preview={`Nueva solicitud de membresía de ${name} ${surnames}`}>
+		<Layout
+			preview={t.preview
+				.replace('{name}', name)
+				.replace('{surnames}', surnames)}
+		>
 			<Header />
 
 			<div style={contentArea}>
@@ -123,15 +129,30 @@ export const MembershipEmail = ({
 						<Field label={t.labels.phone2} value={phone2 || '—'} />
 					</div>
 					<Field label={t.labels.email} value={email} fullWidth />
-					<Field label={t.labels.infoSpanish} value={infoSpanish} fullWidth />
+					<Field
+						label={t.labels.infoSpanish}
+						value={infoSpanish}
+						lang={language}
+						fullWidth
+					/>
 				</Section>
 
 				<Section title={t.sections.membership}>
-					<Field label={t.labels.membership} value={membership} fullWidth />
+					<Field
+						label={t.labels.membership}
+						value={membership}
+						lang={language}
+						fullWidth
+					/>
 				</Section>
 
 				<Section title={t.sections.federation}>
-					<Field label={t.labels.federation} value={federation} fullWidth />
+					<Field
+						label={t.labels.federation}
+						value={federation}
+						lang={language}
+						fullWidth
+					/>
 				</Section>
 			</div>
 

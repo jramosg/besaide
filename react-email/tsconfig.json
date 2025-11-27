@@ -1,0 +1,15 @@
+{
+	"include": [".astro/types.d.ts", "../**/*", "**/*"],
+	"exclude": ["dist"],
+	"strictNullChecks": true,
+	"allowJs": true,
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["../src/*"],
+			"@mail/*": ["react-email/*"]
+		},
+		"jsx": "react-jsx",
+		"jsxImportSource": "react"
+	}
+}
