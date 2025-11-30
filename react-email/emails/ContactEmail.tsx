@@ -51,7 +51,7 @@ export const ContactEmail = ({
 	phone = '{{phone}}',
 	subject = '{{subject}}',
 	message = '{{message}}',
-	language = 'es'
+	language = 'eu'
 }: ContactEmailProps) => {
 	const t = translations[language];
 
