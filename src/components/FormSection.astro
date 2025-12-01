@@ -16,4 +16,34 @@ const { class: className, ...props } = Astro.props;
 		margin-top: var(--s6);
 		padding: var(--s8) 0;
 	}
+
+	:global(.form-error) {
+		margin-top: var(--s2);
+		font-size: var(--font-size-sm);
+		color: var(--theme-error);
+		font-weight: var(--font-weight-medium);
+		display: block;
+		animation: slideIn 0.3s ease;
+	}
+
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	:global(.input-error) {
+		border-color: var(--theme-error) !important;
+		box-shadow: 0 0 0 1px var(--theme-error) !important;
+	}
+
+	:global(.input-error:focus) {
+		border-color: var(--theme-error) !important;
+		box-shadow: 0 0 0 2px var(--theme-error-dark) !important;
+	}
 </style>

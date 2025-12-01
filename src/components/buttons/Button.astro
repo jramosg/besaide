@@ -116,4 +116,27 @@ const Tag = href ? 'a' : 'button';
 		cursor: pointer;
 		outline: none;
 	}
+
+	.loading {
+		opacity: 0.8;
+		cursor: not-allowed;
+	}
+	/* Loading spinner styles */
+	:global(.spinner) {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		border: 2px solid rgba(255, 255, 255, 0.3);
+		border-radius: 50%;
+		border-top-color: currentColor;
+		animation: spin 1s ease-in-out infinite;
+		margin-right: 8px;
+		vertical-align: middle;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
 </style>

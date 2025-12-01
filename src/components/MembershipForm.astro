@@ -247,7 +247,11 @@ const t = useTranslations(lang);
 			<footer class="form-footer">
 				<FormPrivacy />
 
-				<Button type="submit" class="submit-button membership-submit-button">
+				<Button
+					id="membership-submit-button"
+					type="submit"
+					class="submit-button membership-submit-button"
+				>
 					{t('form.button.submit')}
 				</Button>
 			</footer>
@@ -349,70 +353,11 @@ const t = useTranslations(lang);
 		margin-top: var(--s2);
 		align-self: center;
 	}
-
 	/* Responsive adjustments */
 	@media (max-width: 767px) {
 		.membership-form {
 			padding: var(--s4);
 		}
-	}
-
-	/* Error animations and styling */
-	:global(.form-error) {
-		margin-top: var(--s2);
-		font-size: var(--font-size-sm);
-		color: var(--theme-error);
-		font-weight: var(--font-weight-medium);
-		display: block;
-		animation: slideIn 0.3s ease;
-	}
-
-	@keyframes slideIn {
-		from {
-			opacity: 0;
-			transform: translateY(-4px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	:global(.input-error) {
-		border-color: var(--theme-error) !important;
-		box-shadow: 0 0 0 1px var(--theme-error) !important;
-	}
-
-	:global(.input-error:focus) {
-		border-color: var(--theme-error) !important;
-		box-shadow: 0 0 0 2px var(--theme-error-dark) !important;
-	}
-
-	/* Success and error message styles */
-	.success-message,
-	.error-message {
-		margin-bottom: var(--s4);
-		padding: var(--s4);
-		border-radius: var(--theme-shape-radius);
-		animation: slideIn 0.3s ease;
-	}
-
-	.success-message {
-		background-color: hsl(142, 76%, 95%);
-		border: 1px solid hsl(142, 76%, 70%);
-		color: hsl(142, 76%, 25%);
-	}
-
-	.error-message {
-		background-color: hsl(0, 76%, 95%);
-		border: 1px solid hsl(0, 76%, 70%);
-		color: hsl(0, 76%, 35%);
-	}
-
-	.success-message p,
-	.error-message p {
-		margin: 0;
-		font-weight: var(--font-weight-medium);
 	}
 </style>
 
@@ -422,36 +367,17 @@ const t = useTranslations(lang);
 		type FieldValidation
 	} from '@/utils/formValidation';
 	import { actions } from 'astro:actions';
+	import { submitFormWithLoadingState } from '@/utils/formSubmission';
 
 	import { toggleMembershipSections } from '@/utils/toggleSections';
 
+	import { useTranslations } from '@/i18n/utils';
+	import type { Langs } from '@/i18n/ui';
+
 	document.addEventListener('astro:page-load', () => {
-		const lang = document.documentElement.lang;
-
+		const lang = document.documentElement.lang as Langs;
+		const t = useTranslations(lang);
 		// Translation helper
-		const translations: Record<string, Record<string, string>> = {
-			eu: {
-				required: 'Datu hau beharrezkoa da',
-				email: 'Emaila ez da baliozkoa',
-				phone: 'Gutxienez 9 zenbaki behar dira',
-				postalCode: 'Posta kodea ez da baliozkoa (5 zenbaki)',
-				'terms.required': 'Baldintzak onartu behar dituzu',
-				loading: 'Bidaltzen...'
-			},
-			es: {
-				required: 'Este campo es obligatorio',
-				email: 'El email no es válido',
-				phone: 'Se requieren al menos 9 dígitos',
-				postalCode: 'El código postal no es válido (5 dígitos)',
-				'terms.required': 'Debes aceptar los términos',
-				loading: 'Enviando...'
-			}
-		};
-
-		const t = (key: string) =>
-			translations[lang][key] ||
-			console.warn(`Missing translation for key: ${key}`) ||
-			translations['eu'][key];
 
 		// Define validation rules
 		const validationRules: FieldValidation = {
@@ -481,27 +407,18 @@ const t = useTranslations(lang);
 
 		// Setup form validation
 		setupFormValidation('membership-form', validationRules, async formData => {
-			const button = document.querySelector(
-				'.membership-submit-button'
+			const button = document.getElementById(
+				'membership-submit-button'
 			) as HTMLButtonElement;
-			const originalText = button?.textContent || t('form.button.submit');
 
-			try {
-				if (button) {
-					button.disabled = true;
-					button.textContent = t('loading');
-				}
-
-				const { error } = await actions.submitMembership(formData);
-				if (!error) {
-					toggleMembershipSections();
-				}
-			} finally {
-				if (button) {
-					button.disabled = false;
-					button.textContent = originalText;
-				}
-			}
+			await submitFormWithLoadingState({
+				button,
+				action: actions.submitMembership,
+				data: formData,
+				onSuccess: () => toggleMembershipSections(),
+				onError: error => alert(error),
+				t
+			});
 		});
 	});
 </script>

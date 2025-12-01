@@ -270,7 +270,13 @@ export const ui = {
 		'email.membership.subject.federation': 'Solicitud de federación',
 		'email.membership.subject.membership': 'Solicitud de socio',
 		'email.membership.subject.membership-and-federation':
-			'Solicitud de socio y federación'
+			'Solicitud de socio y federación',
+		required: 'Este campo es obligatorio',
+		email: 'El email no es válido',
+		phone: 'Se requieren al menos 9 dígitos',
+		postalCode: 'El código postal no es válido (5 dígitos)',
+		'terms.required': 'Debes aceptar los términos',
+		loading: 'Enviando...'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -462,7 +468,13 @@ export const ui = {
 		'email.membership.subject.federation': 'Federatu lizentzia eskaera',
 		'email.membership.subject.membership': 'Bazkide izateko eskaera',
 		'email.membership.subject.membership-and-federation':
-			'Bazkide eta federatu lizentzia eskaera'
+			'Bazkide eta federatu lizentzia eskaera',
+		required: 'Datu hau beharrezkoa da',
+		email: 'Emaila ez da baliozkoa',
+		phone: 'Gutxienez 9 zenbaki behar dira',
+		postalCode: 'Posta kodea ez da baliozkoa (5 zenbaki)',
+		'terms.required': 'Baldintzak onartu behar dituzu',
+		loading: 'Bidaltzen...'
 	}
 } as const;
 
