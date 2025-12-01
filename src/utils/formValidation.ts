@@ -139,7 +139,6 @@ export function setupFormValidation(
 
 	// Helper to hide error with animation
 	function hideError(fieldName: string) {
-		console.log('Hiding error for', fieldName);
 		const field = form.querySelector(`[name="${fieldName}"]`) as HTMLElement;
 		if (!field) return;
 
