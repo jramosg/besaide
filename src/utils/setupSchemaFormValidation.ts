@@ -28,6 +28,9 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		const { field } = findField(fieldName);
 		if (!field) return;
 
+		const inputEl = field.querySelector('input, textarea, select');
+		const errorId = `${fieldName}-error`;
+
 		// Remove existing if different
 		const existing = field.querySelector('.form-error');
 		if (existing && existing.textContent !== message) existing.remove();
@@ -35,13 +38,13 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		if (!existing || existing.textContent !== message) {
 			const p = document.createElement('p');
 			p.className = 'form-error';
+			p.id = errorId;
 			p.setAttribute('role', 'alert');
 			p.textContent = message;
 			p.style.opacity = '0';
 			p.style.transform = 'translateY(-4px)';
 			p.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
 
-			const inputEl = field.querySelector('input, textarea, select');
 			const checkboxWrapper = field.querySelector('.checkbox-wrapper');
 			if (checkboxWrapper) checkboxWrapper.appendChild(p);
 			else if (inputEl?.parentElement) inputEl.parentElement.appendChild(p);
@@ -53,6 +56,8 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 			});
 
 			inputEl?.classList.add('input-error');
+			inputEl?.setAttribute('aria-describedby', errorId);
+			inputEl?.setAttribute('aria-invalid', 'true');
 		}
 	}
 
@@ -67,6 +72,8 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		}
 		const inputEl = field.querySelector('input, textarea, select');
 		inputEl?.classList.remove('input-error');
+		inputEl?.removeAttribute('aria-describedby');
+		inputEl?.removeAttribute('aria-invalid');
 	}
 
 	function getShape() {

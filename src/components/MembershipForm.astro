@@ -28,10 +28,8 @@ const t = useTranslations(lang);
 		</p>
 
 		<form class="membership-form" id="membership-form" novalidate>
-			<!-- Hidden field for language -->
 			<input type="hidden" name="language" value={lang} />
 
-			<!-- Section 1: Personal Data -->
 			<fieldset class="form-section">
 				<legend class="form-subtitle subtitle">
 					{'1. ' + t('form.section.personal-data')}
@@ -250,7 +248,7 @@ const t = useTranslations(lang);
 				<Button
 					id="membership-submit-button"
 					type="submit"
-					class="submit-button membership-submit-button"
+					class="submit-button"
 				>
 					{t('form.button.submit')}
 				</Button>
@@ -269,16 +267,6 @@ const t = useTranslations(lang);
 		color: var(--theme-primary-900);
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight-medium);
-	}
-
-	.membership-form {
-		background-color: var(--theme-card);
-		padding: var(--s6);
-		border-radius: var(--theme-shape-radius);
-		box-shadow: var(--shadow-card);
-		.membership-submit-button {
-			margin-top: var(--s4);
-		}
 	}
 
 	.form-section {

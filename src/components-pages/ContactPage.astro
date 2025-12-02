@@ -4,6 +4,7 @@ import OfficeHours from '@/components/contact-card/OfficeHours.astro';
 import PhoneCard from '@/components/contact-card/PhoneCard.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import Container from '@/components/Container.astro';
+import FormSection from '@/components/FormSection.astro';
 import LeafletMap from '@/components/LeafletMap.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -31,13 +32,13 @@ const t = useTranslations(lang);
 			</section>
 		</div>
 	</section>
-	<section class="form-section">
+	<FormSection class="form-section" aria-labelledby="contact-form-title">
 		<Container narrow>
-			<PageHeader title={t('Harremanetan jarri')} />
+			<PageHeader id="contact-form-title" title={t('Harremanetan jarri')} />
 
 			<ContactForm />
 		</Container>
-	</section>
+	</FormSection>
 </Page>
 
 <style>

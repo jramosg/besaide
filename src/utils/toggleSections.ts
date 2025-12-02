@@ -1,6 +1,6 @@
-export function toggleMembershipSections() {
-	const formSection = document.getElementById('membership-form-section');
-	const successSection = document.getElementById('form-success');
+function toggleSections(formSectionId: string, successSectionId: string) {
+	const formSection = document.getElementById(formSectionId);
+	const successSection = document.getElementById(successSectionId);
 
 	if (!formSection || !successSection) return;
 
@@ -60,4 +60,12 @@ export function toggleMembershipSections() {
 			});
 		}, 500);
 	}
+}
+
+export function toggleMembershipSections() {
+	toggleSections('membership-form-section', 'form-success');
+}
+
+export function toggleContactSections() {
+	toggleSections('contact-form-section', 'contact-form-success');
 }

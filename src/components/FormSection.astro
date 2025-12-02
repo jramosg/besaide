@@ -17,6 +17,17 @@ const { class: className, ...props } = Astro.props;
 		padding: var(--s8) 0;
 	}
 
+	.form-section :global(form) {
+		background-color: var(--theme-card);
+		padding: var(--s6);
+		border-radius: var(--theme-shape-radius);
+		box-shadow: var(--shadow-card);
+	}
+
+	.form-section :global(.submit-button) {
+		margin-top: var(--s4);
+	}
+
 	:global(.form-error) {
 		margin-top: var(--s2);
 		font-size: var(--font-size-sm);

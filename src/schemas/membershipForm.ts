@@ -22,7 +22,7 @@ export const membershipFormSchema = z.object({
 		.transform(val => val.trim())
 		.pipe(z.string().min(9, 'phone').or(z.literal('')))
 		.optional(),
-	email: z.string().email('email'),
+	email: z.string().email('email').min(1, 'required'),
 	infoSpanish: z.enum(['on', 'off']).default('off'),
 	membership: z.enum(['on', 'off']).default('off'),
 	federation: z.enum(['on', 'off']).default('off'),

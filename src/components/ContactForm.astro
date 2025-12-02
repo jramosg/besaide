@@ -5,82 +5,202 @@ import FormField from '@/components/FormField.astro';
 import Button from '@/components/buttons/Button.astro';
 import '@/styles/form-shared.css';
 import FormPrivacy from './FormPrivacy.astro';
-import FormSection from './FormSection.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<FormSection class="contact-form-fields">
-	<FormField label="Izena" htmlFor="name" required>
-		<Input
-			id="name"
+<div
+	class="contact-form-success"
+	id="contact-form-success"
+	style="display: none;"
+>
+	<h3>{t('contact.form.success.title') || 'Eskerrik asko!'}</h3>
+	<p>
+		{
+			t('contact.form.success.message') ||
+				'Zure mezua ondo jaso dugu. Laster erantzungo dizugu.'
+		}
+	</p>
+</div>
+
+<section id="contact-form-section">
+	<form
+		class="contact-form-fields"
+		id="contact-form"
+		novalidate
+		aria-label={t('contact.form.title') || 'Contact form'}
+	>
+		<input type="hidden" name="language" value={lang} />
+
+		<FormField
+			label={t('contact.form.name') || 'Izena'}
+			htmlFor="name"
+			required
 			name="name"
-			type="text"
-			required={true}
-			autocomplete="name"
-		/>
-	</FormField>
+		>
+			<Input
+				id="name"
+				name="name"
+				type="text"
+				required={true}
+				autocomplete="name"
+				aria-required="true"
+			/>
+		</FormField>
 
-	<FormField label="Emaila" htmlFor="email" required>
-		<Input
-			id="email"
+		<FormField
+			label={t('contact.form.email') || 'Emaila'}
+			htmlFor="email"
+			required
 			name="email"
-			type="email"
-			required={true}
-			autocomplete="email"
-		/>
-	</FormField>
+		>
+			<Input
+				id="email"
+				name="email"
+				type="email"
+				required={true}
+				autocomplete="email"
+				aria-required="true"
+			/>
+		</FormField>
 
-	<FormField label="Telefonoa" htmlFor="phone">
-		<Input id="phone" name="phone" type="tel" autocomplete="tel" />
-	</FormField>
+		<FormField
+			label={t('contact.form.phone') || 'Telefonoa'}
+			htmlFor="phone"
+			name="phone"
+		>
+			<Input id="phone" name="phone" type="tel" autocomplete="tel" />
+		</FormField>
 
-	<FormField label="Gaia" htmlFor="subject" required>
-		<select id="subject" name="subject" class="select-field" required>
-			<option value="">Aukeratu gai bat...</option>
-			<option value="bazkidetza">Bazkidetza</option>
-			<option value="zerbitzuak">Zerbitzuak</option>
-			<option value="ekintzak">Ekintzak</option>
-			<option value="materiala">Material alokairua</option>
-			<option value="aterpea">Aterpea</option>
-			<option value="beste">Beste bat</option>
-		</select>
-	</FormField>
+		<FormField
+			label={t('contact.form.subject') || 'Gaia'}
+			htmlFor="subject"
+			required
+			name="subject"
+		>
+			<select
+				id="subject"
+				name="subject"
+				class="select-field"
+				required
+				aria-required="true"
+			>
+				<option disabled selected value=""
+					>{
+						t('contact.form.subject.placeholder') || 'Aukeratu gai bat...'
+					}</option
+				>
+				<option value="bazkidetza"
+					>{t('contact.form.subject.membership') || 'Bazkidetza'}</option
+				>
+				<option value="zerbitzuak"
+					>{t('contact.form.subject.services') || 'Zerbitzuak'}</option
+				>
+				<option value="ekintzak"
+					>{t('contact.form.subject.activities') || 'Ekintzak'}</option
+				>
+				<option value="materiala"
+					>{t('contact.form.subject.rental') || 'Material alokairua'}</option
+				>
+				<option value="aterpea"
+					>{t('contact.form.subject.shelter') || 'Aterpea'}</option
+				>
+				<option value="beste"
+					>{t('contact.form.subject.other') || 'Beste bat'}</option
+				>
+			</select>
+		</FormField>
 
-	<FormField label="Mezua" htmlFor="message" required>
-		<Textarea
-			id="message"
+		<FormField
+			label={t('contact.form.message') || 'Mezua'}
+			htmlFor="message"
+			required
 			name="message"
-			rows={5}
-			required={true}
-			placeholder="Idatzi hemen zure mezua..."
-		/>
-	</FormField>
-	<FormPrivacy />
+		>
+			<Textarea
+				id="message"
+				name="message"
+				rows={5}
+				required={true}
+				placeholder={t('contact.form.message.placeholder') ||
+					'Idatzi hemen zure mezua...'}
+				aria-required="true"
+			/>
+		</FormField>
+		<FormPrivacy />
 
-	<Button class="submit-button" type="submit">Mezua bidali</Button>
-</FormSection>
+		<Button class="submit-button" id="contact-submit-button" type="submit">
+			{t('form.button.submit') || 'Mezua bidali'}
+		</Button>
+	</form>
+</section>
 
 <style>
 	.contact-form-fields {
 		display: flex;
 		flex-direction: column;
 		gap: var(--s4);
-	}
-
-	.form-field :global(input),
-	.form-field :global(select),
-	.form-field :global(textarea) {
-		background: transparent;
-		color: var(--theme-on-bg);
-	}
-
-	:global([data-theme='dark']) .form-field :global(input),
-	:global([data-theme='dark']) .form-field :global(select),
-	:global([data-theme='dark']) .form-field :global(textarea) {
-		background-color: var(--theme-card);
+		margin-top: var(--s6);
 	}
 
 	.submit-button {
 		margin-top: var(--s2);
 		align-self: center;
 	}
+
+	.contact-form-success {
+		background-color: var(--theme-success-container);
+		color: var(--theme-on-success-container);
+		padding: var(--s6);
+		border-radius: var(--theme-shape-radius);
+		text-align: center;
+		margin-top: var(--s6);
+	}
+
+	.contact-form-success h3 {
+		margin: 0 0 var(--s2);
+		font-size: var(--font-size-xl);
+	}
+
+	.contact-form-success p {
+		margin: 0;
+		font-size: var(--font-size-base);
+	}
 </style>
+
+<script>
+	import { setupSchemaFormValidation } from '@/utils/setupSchemaFormValidation';
+	import { contactFormSchema } from '@/schemas/contactForm';
+	import { actions } from 'astro:actions';
+	import { submitFormWithLoadingState } from '@/utils/formSubmission';
+	import { toggleContactSections } from '@/utils/toggleSections';
+	import { useTranslations } from '@/i18n/utils';
+	import type { Langs } from '@/i18n/ui';
+
+	document.addEventListener('astro:page-load', () => {
+		const lang = document.documentElement.lang as Langs;
+		const t = useTranslations(lang);
+
+		setupSchemaFormValidation(
+			'contact-form',
+			contactFormSchema,
+			t,
+			formData => {
+				const button = document.getElementById(
+					'contact-submit-button'
+				) as HTMLButtonElement;
+
+				submitFormWithLoadingState({
+					button,
+					action: actions.submitContact,
+					data: formData,
+					onSuccess: () => toggleContactSections(),
+					onError: error => alert(error),
+					t
+				});
+			}
+		);
+	});
+</script>
