@@ -362,10 +362,8 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-	import {
-		setupFormValidation,
-		type FieldValidation
-	} from '@/utils/formValidation';
+	import { setupSchemaFormValidation } from '@/utils/setupSchemaFormValidation';
+	import { membershipFormSchema } from '@/schemas/membershipForm';
 	import { actions } from 'astro:actions';
 	import { submitFormWithLoadingState } from '@/utils/formSubmission';
 
@@ -377,48 +375,25 @@ const t = useTranslations(lang);
 	document.addEventListener('astro:page-load', () => {
 		const lang = document.documentElement.lang as Langs;
 		const t = useTranslations(lang);
-		// Translation helper
 
-		// Define validation rules
-		const validationRules: FieldValidation = {
-			dni: [{ type: 'required', message: t('required') }],
-			name: [{ type: 'required', message: t('required') }],
-			surnames: [{ type: 'required', message: t('required') }],
-			birthdate: [{ type: 'required', message: t('required') }],
-			address: [{ type: 'required', message: t('required') }],
-			town: [{ type: 'required', message: t('required') }],
-			postalCode: [
-				{ type: 'required', message: t('required') },
-				{ type: 'minLength', message: t('postalCode'), value: 5 },
-				{ type: 'postalCode', message: t('postalCode') }
-			],
-			province: [{ type: 'required', message: t('required') }],
-			phone1: [
-				{ type: 'required', message: t('required') },
-				{ type: 'phone', message: t('phone') }
-			],
-			phone2: [{ type: 'phone', message: t('phone') }],
-			email: [
-				{ type: 'required', message: t('required') },
-				{ type: 'email', message: t('email') }
-			],
-			terms: [{ type: 'checkbox.required', message: t('terms.required') }]
-		};
+		setupSchemaFormValidation(
+			'membership-form',
+			membershipFormSchema,
+			t,
+			formData => {
+				const button = document.getElementById(
+					'membership-submit-button'
+				) as HTMLButtonElement;
 
-		// Setup form validation
-		setupFormValidation('membership-form', validationRules, async formData => {
-			const button = document.getElementById(
-				'membership-submit-button'
-			) as HTMLButtonElement;
-
-			await submitFormWithLoadingState({
-				button,
-				action: actions.submitMembership,
-				data: formData,
-				onSuccess: () => toggleMembershipSections(),
-				onError: error => alert(error),
-				t
-			});
-		});
+				submitFormWithLoadingState({
+					button,
+					action: actions.submitMembership,
+					data: formData,
+					onSuccess: () => toggleMembershipSections(),
+					onError: error => alert(error),
+					t
+				});
+			}
+		);
 	});
 </script>

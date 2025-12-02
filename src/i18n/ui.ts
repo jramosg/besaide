@@ -274,7 +274,8 @@ export const ui = {
 		required: 'Este campo es obligatorio',
 		email: 'El email no es válido',
 		phone: 'Se requieren al menos 9 dígitos',
-		postalCode: 'El código postal no es válido (5 dígitos)',
+		postalCodeLength: 'El código postal debe tener 5 dígitos',
+		postalCodeInvalid: 'El código postal no es válido',
 		'terms.required': 'Debes aceptar los términos',
 		loading: 'Enviando...'
 	},
@@ -470,9 +471,10 @@ export const ui = {
 		'email.membership.subject.membership-and-federation':
 			'Bazkide eta federatu lizentzia eskaera',
 		required: 'Datu hau beharrezkoa da',
-		email: 'Emaila ez da baliozkoa',
-		phone: 'Gutxienez 9 zenbaki behar dira',
-		postalCode: 'Posta kodea ez da baliozkoa (5 zenbaki)',
+		email: 'Emailaren formatua ez da zuzena',
+		phone: 'Fomatua ez da zuzena, 9 zenbaki behar dira gutxienez',
+		postalCodeLength: 'Posta kodeak 5 zenbaki izan behar ditu',
+		postalCodeInvalid: 'Formatua ez da zuzena',
 		'terms.required': 'Baldintzak onartu behar dituzu',
 		loading: 'Bidaltzen...'
 	}

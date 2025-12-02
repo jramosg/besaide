@@ -5,9 +5,10 @@ import FormField from '@/components/FormField.astro';
 import Button from '@/components/buttons/Button.astro';
 import '@/styles/form-shared.css';
 import FormPrivacy from './FormPrivacy.astro';
+import FormSection from './FormSection.astro';
 ---
 
-<form class="contact-form-fields" method="POST" novalidate>
+<FormSection class="contact-form-fields">
 	<FormField label="Izena" htmlFor="name" required>
 		<Input
 			id="name"
@@ -56,7 +57,7 @@ import FormPrivacy from './FormPrivacy.astro';
 	<FormPrivacy />
 
 	<Button class="submit-button" type="submit">Mezua bidali</Button>
-</form>
+</FormSection>
 
 <style>
 	.contact-form-fields {
