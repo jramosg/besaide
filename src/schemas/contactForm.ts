@@ -17,7 +17,8 @@ export const contactFormSchema = z.object({
 		'contact.form.subject.other'
 	]),
 	message: z.string().min(1, { message: 'required' }),
-	language: z.enum(['es', 'eu']).default('eu')
+	language: z.enum(['es', 'eu']).default('eu'),
+	terms: z.literal('on', { errorMap: () => ({ message: 'terms.required' }) })
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
