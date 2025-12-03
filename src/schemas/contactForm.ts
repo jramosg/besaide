@@ -8,7 +8,14 @@ export const contactFormSchema = z.object({
 		.transform((val: string) => val.trim())
 		.pipe(z.string().min(9, 'phone').or(z.literal('')))
 		.optional(),
-	subject: z.string().min(1, { message: 'required' }),
+	subject: z.enum([
+		'contact.form.subject.membership',
+		'contact.form.subject.services',
+		'contact.form.subject.activities',
+		'contact.form.subject.rental',
+		'contact.form.subject.shelter',
+		'contact.form.subject.other'
+	]),
 	message: z.string().min(1, { message: 'required' }),
 	language: z.enum(['es', 'eu']).default('eu')
 });

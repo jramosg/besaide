@@ -5,10 +5,19 @@ import { ContactEmail } from '@mail/emails/ContactEmail';
 import type { MembershipFormData } from '@/types/Form';
 import type { ContactFormData } from '@/schemas/contactForm';
 import { useTranslations } from '@/i18n/utils';
+import { Email } from '@/config/company';
 
 const resend = import.meta.env.RESEND_API_KEY
 	? new Resend(import.meta.env.RESEND_API_KEY)
 	: null;
+
+const companyRecipient = import.meta.env.RESEND_TO_EMAIL || Email.name;
+
+const getEmailRecipients = (data: MembershipFormData | ContactFormData) => {
+	return import.meta.env.NODE_ENV === 'development'
+		? companyRecipient
+		: data.email;
+};
 
 export async function sendContactEmail(data: ContactFormData) {
 	try {
@@ -25,11 +34,12 @@ export async function sendContactEmail(data: ContactFormData) {
 
 		const result = await resend.emails.send({
 			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-			to: import.meta.env.RESEND_TO_EMAIL || 'info@besaide.eus',
+			to: getEmailRecipients(data),
 			replyTo: data.email,
-			subject: `${t('contact.form.subject')}: ${data.subject} - ${data.name}`,
+			subject: `${t('contact.form.subject')}: ${t(data.subject)} - ${data.name}`,
 			html: emailHtml,
-			text: plainText
+			text: plainText,
+			bcc: companyRecipient
 		});
 
 		return { success: true, data: result };
@@ -56,7 +66,8 @@ export async function sendMembershipEmail(data: MembershipFormData) {
 
 		const result = await resend.emails.send({
 			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-			to: data.email, // info@besaide.eus
+			to: getEmailRecipients(data),
+			bcc: companyRecipient,
 			subject: `${
 				data.federation && data.membership
 					? t('email.membership.subject.membership-and-federation')
@@ -65,7 +76,8 @@ export async function sendMembershipEmail(data: MembershipFormData) {
 						: t('email.membership.subject.membership')
 			} - ${data.name} ${data.surnames}`,
 			html: emailHtml,
-			text: plainText
+			text: plainText,
+			replyTo: data.email
 		});
 		return { success: true, data: result };
 	} catch (error) {

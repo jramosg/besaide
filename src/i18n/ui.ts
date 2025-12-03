@@ -133,6 +133,17 @@ export const ui = {
 		'contact.form.success.title': '¡Gracias!',
 		'contact.form.success.message':
 			'Hemos recibido tu mensaje. Te responderemos pronto.',
+		// Contact email
+		'email.contact.heading': 'Hemos recibido tu mensaje',
+		'email.contact.intro':
+			'Gracias por contactar con nosotros. Hemos recibido tu mensaje correctamente:',
+		'email.contact.preview': 'Mensaje de contacto de {name}',
+		'email.contact.section': 'Tu Información de Contacto',
+		'email.contact.labels.name': 'Nombre',
+		'email.contact.labels.email': 'Correo Electrónico',
+		'email.contact.labels.phone': 'Teléfono',
+		'email.contact.labels.subject': 'Asunto',
+		'email.contact.labels.message': 'Mensaje',
 		'Azken albisteak': 'Últimas noticias',
 		'Hurrengo irteerak': 'Próximas salidas',
 		Partekatu: 'Compartir',
@@ -420,6 +431,17 @@ export const ui = {
 		'contact.form.success.title': 'Eskerrik asko!',
 		'contact.form.success.message':
 			'Zure mezua ondo jaso dugu. Laster erantzungo dizugu.',
+		// Contact email
+		'email.contact.heading': 'Zure mezua jaso dugu',
+		'email.contact.intro':
+			'Eskerrik asko gurekin harremanetan jartzeagatik. Zure mezua ondo jaso dugu:',
+		'email.contact.preview': '{name}-(r)en kontaktu mezua',
+		'email.contact.section': 'Zure Kontaktu Informazioa',
+		'email.contact.labels.name': 'Izena',
+		'email.contact.labels.email': 'Helbide Elektronikoa',
+		'email.contact.labels.phone': 'Telefonoa',
+		'email.contact.labels.subject': 'Gaia',
+		'email.contact.labels.message': 'Mezua',
 		Partekatu: 'Partekatu',
 		'Informazio gehiago': 'Informazio gehiago',
 		'Atzera itzuli': 'Atzera itzuli',

@@ -4,6 +4,8 @@ import Footer from './components/Footer';
 import Section from './components/Section';
 import Field from './components/Field';
 import { Text } from '@react-email/components';
+import { useTranslations } from '@/i18n/utils';
+import type { UIKeys } from '@/i18n/ui';
 
 interface ContactEmailProps {
 	name: string;
@@ -14,37 +16,6 @@ interface ContactEmailProps {
 	language?: 'es' | 'eu';
 }
 
-const translations = {
-	es: {
-		heading: 'Hemos recibido tu mensaje',
-		intro:
-			'Gracias por contactar con nosotros. Hemos recibido tu mensaje correctamente:',
-		preview: 'Mensaje de contacto de {name}',
-		section: 'Tu Información de Contacto',
-		labels: {
-			name: 'Nombre',
-			email: 'Correo Electrónico',
-			phone: 'Teléfono',
-			subject: 'Asunto',
-			message: 'Mensaje'
-		}
-	},
-	eu: {
-		heading: 'Zure mezua jaso dugu',
-		intro:
-			'Eskerrik asko gurekin harremanetan jartzeagatik. Zure mezua ondo jaso dugu:',
-		preview: 'Kontaktu mezua {name}-ren',
-		section: 'Zure Kontaktu Informazioa',
-		labels: {
-			name: 'Izena',
-			email: 'Helbide Elektronikoa',
-			phone: 'Telefonoa',
-			subject: 'Gaia',
-			message: 'Mezua'
-		}
-	}
-};
-
 export const ContactEmail = ({
 	name = '{{name}}',
 	email = '{{email}}',
@@ -53,25 +24,37 @@ export const ContactEmail = ({
 	message = '{{message}}',
 	language = 'eu'
 }: ContactEmailProps) => {
-	const t = translations[language];
-
+	const t = useTranslations(language);
 	return (
-		<Layout preview={t.preview.replace('{name}', name)}>
+		<Layout preview={t('email.contact.preview').replace('{name}', name)}>
 			<Header />
 
 			<div style={contentArea}>
-				<Text style={heading}>{t.heading}</Text>
-				<Text style={intro}>{t.intro}</Text>
+				<Text style={heading}>{t('email.contact.heading')}</Text>
+				<Text style={intro}>{t('email.contact.intro')}</Text>
 
-				<Section title={t.section} variant="accent">
-					<Field label={t.labels.name} value={name} fullWidth />
+				<Section title={t('email.contact.section')} variant="accent">
+					<Field
+						label={t('email.contact.labels.name')}
+						value={name}
+						fullWidth
+					/>
 					<div style={fieldGrid}>
-						<Field label={t.labels.email} value={email} />
-						<Field label={t.labels.phone} value={phone || '—'} />
+						<Field label={t('email.contact.labels.email')} value={email} />
+						<Field
+							label={t('email.contact.labels.phone')}
+							value={phone || '—'}
+						/>
 					</div>
-					<Field label={t.labels.subject} value={subject} fullWidth />
+					<Field
+						label={t('email.contact.labels.subject')}
+						value={t(subject as UIKeys)}
+						fullWidth
+					/>
 					<div style={messageContainer}>
-						<Text style={messageLabel}>{t.labels.message}</Text>
+						<Text style={messageLabel}>
+							{t('email.contact.labels.message')}
+						</Text>
 						<Text style={messageText}>{message}</Text>
 					</div>
 				</Section>
