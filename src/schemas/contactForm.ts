@@ -14,7 +14,8 @@ export const contactFormSchema = z.object({
 		'contact.form.subject.activities',
 		'contact.form.subject.rental',
 		'contact.form.subject.shelter',
-		'contact.form.subject.other'
+		'contact.form.subject.other',
+		'{{subject}}'
 	]),
 	message: z.string().min(1, { message: 'required' }),
 	language: z.enum(['es', 'eu']).default('eu'),

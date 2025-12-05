@@ -115,12 +115,13 @@ const Tag = href ? 'a' : 'button';
 	button.btn {
 		cursor: pointer;
 		outline: none;
+		&.btn-loading {
+			opacity: 0.8;
+			cursor: not-allowed;
+			pointer-events: none;
+		}
 	}
 
-	.loading {
-		opacity: 0.8;
-		cursor: not-allowed;
-	}
 	/* Loading spinner styles */
 	:global(.spinner) {
 		display: inline-block;

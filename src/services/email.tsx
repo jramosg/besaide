@@ -36,7 +36,7 @@ export async function sendContactEmail(data: ContactFormData) {
 			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
 			to: getEmailRecipients(data),
 			replyTo: data.email,
-			subject: `${t('contact.form.subject')}: ${t(data.subject)} - ${data.name}`,
+			subject: `${t(data.subject)} - ${data.name}`,
 			html: emailHtml,
 			text: plainText,
 			bcc: companyRecipient

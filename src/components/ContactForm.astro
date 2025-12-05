@@ -11,17 +11,6 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<div
-	class="contact-form-success"
-	id="contact-form-success"
-	style="display: none;"
->
-	<h3>{t('contact.form.success.title')}</h3>
-	<p>
-		{t('contact.form.success.message')}
-	</p>
-</div>
-
 <section id="contact-form-section">
 	<form
 		class="contact-form-fields"
@@ -140,15 +129,6 @@ const t = useTranslations(lang);
 		align-self: center;
 	}
 
-	.contact-form-success {
-		background-color: var(--theme-success-container);
-		color: var(--theme-on-success-container);
-		padding: var(--s6);
-		border-radius: var(--theme-shape-radius);
-		text-align: center;
-		margin-top: var(--s6);
-	}
-
 	.contact-form-success h3 {
 		margin: 0 0 var(--s2);
 		font-size: var(--font-size-xl);
@@ -165,7 +145,7 @@ const t = useTranslations(lang);
 	import { contactFormSchema } from '@/schemas/contactForm';
 	import { actions } from 'astro:actions';
 	import { submitFormWithLoadingState } from '@/utils/formSubmission';
-	import { toggleContactSections } from '@/utils/toggleSections';
+	import { toggleSections } from '@/utils/toggleSections';
 	import { useTranslations } from '@/i18n/utils';
 	import type { Langs } from '@/i18n/ui';
 
@@ -182,11 +162,12 @@ const t = useTranslations(lang);
 					'contact-submit-button'
 				) as HTMLButtonElement;
 
+				const formSectionId = 'contact-form-section';
 				submitFormWithLoadingState({
 					button,
 					action: actions.submitContact,
 					data: formData,
-					onSuccess: () => toggleContactSections(),
+					onSuccess: () => toggleSections(formSectionId),
 					onError: error => alert(error),
 					t
 				});
