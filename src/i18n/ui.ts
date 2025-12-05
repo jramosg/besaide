@@ -281,6 +281,10 @@ export const ui = {
 		'form.field.federation': 'Quiero licencia federativa',
 		'form.field.accept-terms': 'Acepto las condiciones de uso',
 		'form.button.submit': 'Enviar solicitud',
+		'form.button.resubmit': 'Rellenar otro formulario',
+		'form.success.title': 'Solicitud recibida',
+		'form.success.message':
+			'Tus datos han sido enviados. Nos pondremos en contacto contigo en breve.\n¡Gracias!',
 		'form.link.privacy': 'Leer aviso legal y política de privacidad',
 		'form.error.postal-code': 'El código postal debe tener 5 dígitos',
 		'form.error.accept-terms': 'Debes aceptar las condiciones de uso',
@@ -290,7 +294,7 @@ export const ui = {
 		'Lege oharra / Pribatutasun politika':
 			'Aviso legal / Política de privacidad',
 		'Federazio eskaera jaso da': 'Solicitud de federación recibida',
-		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuak jarriko gara.\nEskerrik asko!':
+		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuan jarriko gara.\nEskerrik asko!':
 			'Tus datos han sido enviados. En cuanto se tramite la solicitud, nos pondremos en contacto contigo.\n¡Gracias!',
 		'Beste galdetegi bat bete': 'Rellenar otro formulario',
 		'email.membership.subject.federation': 'Solicitud de federación',
@@ -431,6 +435,7 @@ export const ui = {
 		'contact.form.success.title': 'Eskerrik asko!',
 		'contact.form.success.message':
 			'Zure mezua ondo jaso dugu. Laster erantzungo dizugu.',
+		'{{subject}}': '{{subject}}',
 		// Contact email
 		'email.contact.heading': 'Zure mezua jaso dugu',
 		'email.contact.intro':
@@ -515,6 +520,10 @@ export const ui = {
 		'form.field.federation': 'Federatu lizentzia nahi dut',
 		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
 		'form.button.submit': 'Eskaera bidali',
+		'form.button.resubmit': 'Beste galdetegi bat bete',
+		'form.success.title': 'Eskaera jaso da',
+		'form.success.message':
+			'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuan jarriko gara.\nEskerrik asko!',
 		'form.link.privacy': 'Lege oharra eta pribatutasun politika irakurri',
 		'form.error.postal-code': 'Posta kodeak 5 zenbaki izan behar ditu',
 		'form.error.accept-terms': 'Erabilera arauak onartu behar dituzu',

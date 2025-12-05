@@ -355,7 +355,7 @@ const t = useTranslations(lang);
 	import { actions } from 'astro:actions';
 	import { submitFormWithLoadingState } from '@/utils/formSubmission';
 
-	import { toggleMembershipSections } from '@/utils/toggleSections';
+	import { toggleSections } from '@/utils/toggleSections';
 
 	import { useTranslations } from '@/i18n/utils';
 	import type { Langs } from '@/i18n/ui';
@@ -373,11 +373,12 @@ const t = useTranslations(lang);
 					'membership-submit-button'
 				) as HTMLButtonElement;
 
+				const formSectionId = 'membership-form-section';
 				submitFormWithLoadingState({
 					button,
 					action: actions.submitMembership,
 					data: formData,
-					onSuccess: () => toggleMembershipSections(),
+					onSuccess: () => toggleSections(formSectionId),
 					onError: error => alert(error),
 					t
 				});

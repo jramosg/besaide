@@ -39,7 +39,7 @@ export async function submitFormWithLoadingState<T = any, D = FormData>({
 	try {
 		// Set loading state
 		button.disabled = true;
-		button.classList.add('loading');
+		button.classList.add('btn-loading');
 		button.innerHTML = `
 			<span class="spinner"></span>
 			<span class="loading-text">${t('loading')}</span>
@@ -50,7 +50,7 @@ export async function submitFormWithLoadingState<T = any, D = FormData>({
 
 		// Handle success - SafeResult has data property
 		if (result.data) {
-			onSuccess?.(result.data);
+			 onSuccess?.(result.data);
 		}
 
 		// Handle error - SafeResult has error property (ActionError)
@@ -64,7 +64,7 @@ export async function submitFormWithLoadingState<T = any, D = FormData>({
 	} finally {
 		// Always reset loading state
 		button.disabled = false;
-		button.classList.remove('loading');
+		button.classList.remove('btn-loading');
 		button.innerHTML = originalHTML;
 	}
 }

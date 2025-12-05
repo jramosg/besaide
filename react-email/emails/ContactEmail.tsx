@@ -5,16 +5,7 @@ import Section from './components/Section';
 import Field from './components/Field';
 import { Text } from '@react-email/components';
 import { useTranslations } from '@/i18n/utils';
-import type { UIKeys } from '@/i18n/ui';
-
-interface ContactEmailProps {
-	name: string;
-	email: string;
-	phone?: string;
-	subject: string;
-	message: string;
-	language?: 'es' | 'eu';
-}
+import type { ContactFormData } from '@/schemas/contactForm';
 
 export const ContactEmail = ({
 	name = '{{name}}',
@@ -23,7 +14,7 @@ export const ContactEmail = ({
 	subject = '{{subject}}',
 	message = '{{message}}',
 	language = 'eu'
-}: ContactEmailProps) => {
+}: ContactFormData) => {
 	const t = useTranslations(language);
 	return (
 		<Layout preview={t('email.contact.preview').replace('{name}', name)}>
@@ -48,7 +39,7 @@ export const ContactEmail = ({
 					</div>
 					<Field
 						label={t('email.contact.labels.subject')}
-						value={t(subject as UIKeys)}
+						value={t(subject)}
 						fullWidth
 					/>
 					<div style={messageContainer}>

@@ -10,8 +10,7 @@ import InfoIcon from '@lucide/astro/icons/info';
 import EuskalMendiFederazioaLogo from '@/assets/emf.webp';
 import { Image } from 'astro:assets';
 import { formatPrice } from '@/utils/format';
-import FormSection from '@/components/FormSection.astro';
-import Button from '@/components/buttons/Button.astro';
+import FormSuccessSection from '@/components/FormSuccessSection.astro';
 
 const url = Astro.url;
 
@@ -232,35 +231,16 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 			</section>
 		)
 	}
-	<FormSection
-		class="section__success"
-		aria-labelledby="federation-received"
-		id="form-success"
-	>
-		<Container narrow class="federation-success-message">
-			<h2 class="sr-only federation-received">
-				{t('Federazio eskaera jaso da')}
-			</h2>
-			<p class="subtitle">
-				{
-					t(
-						'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuak jarriko gara.\nEskerrik asko!'
-					)
-				}
-			</p>
-			<Button id="resubmit-button" type="button">
-				{t('Beste galdetegi bat bete')}
-			</Button>
-		</Container>
-	</FormSection>
+	<FormSuccessSection
+		formSectionId="membership-form-section"
+		titleKey="form.success.title"
+		messageKey="form.success.message"
+		buttonTextKey="form.button.resubmit"
+	/>
 	<MembershipForm />
 </Page>
 
 <style>
-	.section__success {
-		display: none;
-		scroll-margin-top: calc(var(--header-height) + 20px);
-	}
 	.container__membership {
 		padding-bottom: var(--s6);
 		display: grid;
@@ -406,17 +386,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		grid-row: 1;
 	}
 
-	.federation-success-message {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		p {
-			white-space: pre-line;
-			margin-bottom: var(--s8);
-			text-align: center;
-			color: var(--theme-on-primary-container-colorful);
-		}
-	}
 	@media (min-width: 768px) {
 		.federation-info-grid {
 			grid-template-columns: 1fr 1fr;
@@ -544,14 +513,4 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	}
 </style>
 
-<script>
-	import { toggleMembershipSections } from '@/utils/toggleSections';
-	document.addEventListener('astro:page-load', () => {
-		const resubmitButton = document.getElementById('resubmit-button');
-		if (resubmitButton) {
-			resubmitButton.addEventListener('click', () => {
-				toggleMembershipSections();
-			});
-		}
-	});
-</script>
+

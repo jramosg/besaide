@@ -5,6 +5,7 @@ import PhoneCard from '@/components/contact-card/PhoneCard.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import Container from '@/components/Container.astro';
 import FormSection from '@/components/FormSection.astro';
+import FormSuccessSection from '@/components/FormSuccessSection.astro';
 import LeafletMap from '@/components/LeafletMap.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
@@ -39,6 +40,12 @@ const t = useTranslations(lang);
 			<ContactForm />
 		</Container>
 	</FormSection>
+	<FormSuccessSection
+		formSectionId="contact-form-section"
+		titleKey="contact.form.success.title"
+		messageKey="contact.form.success.message"
+		buttonTextKey="form.button.resubmit"
+	/>
 </Page>
 
 <style>
