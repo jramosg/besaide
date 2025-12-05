@@ -151,6 +151,7 @@ const headerClasses = [
 		grid-template-rows: var(--header-toggles-height) var(
 				--header-content-height
 			);
+			
 		align-items: center;
 		position: fixed;
 		align-items: center;
@@ -192,7 +193,7 @@ const headerClasses = [
 	}
 
 	header.header--transparent {
-		background-color: color-mix(in srgb, var(--theme-bg) 60%, transparent);
+		background-color: color-mix(in srgb, var(--theme-bg) 100%, transparent);
 		backdrop-filter: blur(10px);
 	}
 
@@ -231,11 +232,13 @@ const headerClasses = [
 	.header-nav__container {
 		display: flex;
 		justify-content: center;
+
 	}
 	.header-logo-menu__container {
 		display: flex;
 		align-items: center;
 		height: 100%;
+	
 	}
 
 	.header-action-item__container {
