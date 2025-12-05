@@ -88,7 +88,7 @@ export const ui = {
 		'hero.federation.description':
 			'La licencia federativa se tramita a través de la asociación de montaña. Incluye tanto seguro de accidentes como suscripción a la revista trimestral Pyrenaica',
 		'hero.federation.cta': 'Más información',
-		'hero.shelter.title': 'Refugio de Leixergarate',
+		'hero.shelter.title': 'Refugio de Leixargarate',
 		'hero.shelter.description':
 			'El refugio de Leixergarate está a disposición de todos los socios de Besaide para que quien quiera pueda utilizarlo. El refugio dispone de literas para 12 personas, una cocina, hogar bajo, baño… Para reservar el refugio, acércate a la sede de Besaide los martes de 19:30 a 20:30.',
 		'hero.shelter.cta': 'Más información',
@@ -393,7 +393,7 @@ export const ui = {
 		'hero.federation.description':
 			'Federatu lizentzia mendi elkartearen bitartez tramitatzen da. Bai istripu asegurua eta bai Pyrenaica hiruhilabetekariaren harpidetza dauzka barnean',
 		'hero.federation.cta': 'Informazio gehiago',
-		'hero.shelter.title': 'Leixergarate aterpetxea',
+		'hero.shelter.title': 'Leixargarate aterpetxea',
 		'hero.shelter.description':
 			'Leixargarateko aterpetxea Besaideko bazkide denen eskura dago nahi duenak erabili dezan. Aterpean 12 pertsonentzako literak, sukalde bat, su baxua, komuna… daude. Aterpea erreserbatzeko, zuzendu Besaideko egoitzara asteartetan 19.30-20.30 bitartean.',
 		'hero.shelter.cta': 'Informazio gehiago',

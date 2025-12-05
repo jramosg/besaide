@@ -90,7 +90,7 @@
 	--container-max-width-xl: 1920px;
 	--container-max-width: 1440px;
 	--container-max-width-narrow: 960px;
-	--container-padding: 0 1rem;
+	--container-padding: 0 2rem;
 
 	--theme-blog-post-header-width: 1200px;
 
@@ -99,7 +99,7 @@
 		'Roboto Variable', sans-serif, -apple-system, BlinkMacSystemFont;
 
 	--header-toggles-height: var(--s6);
-	--header-content-height: 4rem;
+	--header-content-height: 6rem;
 	--header-height: calc(
 		var(--header-content-height) + var(--header-toggles-height)
 	);
