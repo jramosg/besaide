@@ -15,7 +15,9 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 	if (!form) return;
 
 	// Find submit button to disable immediately on submit
-	const submitButton = form.querySelector('[type="submit"]') as HTMLButtonElement | null;
+	const submitButton = form.querySelector(
+		'[type="submit"]'
+	) as HTMLButtonElement | null;
 
 	// Map of fieldName -> HTMLElement utilities
 	function findField(name: string): {
@@ -193,8 +195,7 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		if (isValid) {
 			if (onSubmit) {
 				onSubmit(fd);
-								isSubmitting = false;
-
+				isSubmitting = false;
 			} else {
 				form.submit();
 				isSubmitting = false;

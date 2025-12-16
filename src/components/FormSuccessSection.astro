@@ -73,12 +73,10 @@ const successSectionId = `${formSectionId}-success-section`;
 			'[id$="-resubmit-button"]'
 		);
 
-		console.log('Found resubmit buttons:', resubmitButtons);
-
 		resubmitButtons.forEach(button => {
 			const buttonId = button.id;
 			const formSectionId = buttonId.replace('-resubmit-button', '');
-		
+
 			if (formSectionId) {
 				button.addEventListener('click', () => {
 					toggleSections(formSectionId);
