@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+import { Resend, type CreateEmailResponse } from 'resend';
 import { render, toPlainText } from '@react-email/render';
 import MembershipEmail from '@mail/emails/MembershipEmail';
 import { ContactEmail } from '@mail/emails/ContactEmail';
@@ -7,19 +7,46 @@ import type { ContactFormData } from '@/schemas/contactForm';
 import { useTranslations } from '@/i18n/utils';
 import { Email } from '@/config/company';
 
+type EmailResponse = {
+	success: boolean;
+	data?: CreateEmailResponse;
+	error?: string;
+	message?: string;
+	code?: 'FORBIDDEN' | 'INTERNAL_SERVER_ERROR';
+};
+
 const resend = import.meta.env.RESEND_API_KEY
 	? new Resend(import.meta.env.RESEND_API_KEY)
 	: null;
 
 const companyRecipient = import.meta.env.RESEND_TO_EMAIL || Email.name;
 
-const getEmailRecipients = (data: MembershipFormData | ContactFormData) => {
-	return import.meta.env.NODE_ENV === 'development'
-		? companyRecipient
-		: data.email;
+const getEmailRecipients = (_data: MembershipFormData | ContactFormData) => {
+	// return import.meta.env.PROD	? [data.email, companyRecipient]	: companyRecipient;
+	return [companyRecipient];
 };
 
-export async function sendContactEmail(data: ContactFormData) {
+export const emailResultProcessor = (
+	result: CreateEmailResponse
+): EmailResponse => {
+	if (result.error) {
+		return {
+			success: false,
+			code:
+				result.error.statusCode === 403 ? 'FORBIDDEN' : 'INTERNAL_SERVER_ERROR',
+			error: result.error.message || 'error-sending-email-please-try-again'
+		};
+	}
+
+	return {
+		success: true,
+		message: 'email-sent-successfully'
+	};
+};
+
+export async function sendContactEmail(
+	data: ContactFormData
+): Promise<EmailResponse> {
 	try {
 		const emailHtml = await render(<ContactEmail {...data} />);
 		const plainText = toPlainText(emailHtml);
@@ -41,8 +68,7 @@ export async function sendContactEmail(data: ContactFormData) {
 			text: plainText,
 			bcc: companyRecipient
 		});
-
-		return { success: true, data: result };
+		return emailResultProcessor(result);
 	} catch (error) {
 		return {
 			success: false,
@@ -51,7 +77,9 @@ export async function sendContactEmail(data: ContactFormData) {
 	}
 }
 
-export async function sendMembershipEmail(data: MembershipFormData) {
+export async function sendMembershipEmail(
+	data: MembershipFormData
+): Promise<EmailResponse> {
 	try {
 		const emailHtml = await render(<MembershipEmail {...data} />);
 		const plainText = toPlainText(emailHtml);
@@ -79,7 +107,7 @@ export async function sendMembershipEmail(data: MembershipFormData) {
 			text: plainText,
 			replyTo: data.email
 		});
-		return { success: true, data: result };
+		return emailResultProcessor(result);
 	} catch (error) {
 		return {
 			success: false,
