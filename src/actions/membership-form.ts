@@ -20,16 +20,13 @@ export const membershipFormAction = defineAction({
 
 		if (!emailResult.success) {
 			throw new ActionError({
-				code: 'INTERNAL_SERVER_ERROR',
-				message:
-					emailResult.error ||
-					'Error al enviar el email. Por favor, inténtalo de nuevo.'
+				code: emailResult.code || 'INTERNAL_SERVER_ERROR',
+				message: emailResult.error || 'error-sending-email-please-try-again'
 			});
 		}
-
 		return {
 			success: true,
-			message: 'Solicitud de membresía enviada correctamente'
+			message: 'email-sent-successfully'
 		};
 	}
 });
