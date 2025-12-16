@@ -1,6 +1,6 @@
 export function toggleSections(formSectionId: string) {
 	const formSection = document.getElementById(formSectionId);
-	const successSectionId = formSection + '-success-section';
+	const successSectionId = formSectionId + '-success-section';
 	const successSection = document.getElementById(successSectionId);
 
 	if (!formSection || !successSection) return;
