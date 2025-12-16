@@ -50,7 +50,7 @@ export async function submitFormWithLoadingState<T = any, D = FormData>({
 
 		// Handle success - SafeResult has data property
 		if (result.data) {
-			 onSuccess?.(result.data);
+			onSuccess?.(result.data);
 		}
 
 		// Handle error - SafeResult has error property (ActionError)
