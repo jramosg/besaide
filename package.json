@@ -32,7 +32,6 @@
 		"react-dom": "^19.2.3",
 		"resend": "^6.6.0",
 		"sharp": "^0.34.5",
-		"theme-toggles": "^4.10.1",
 		"typescript": "^5.9.3"
 	},
 	"devDependencies": {
