@@ -142,7 +142,11 @@ const t = useTranslations(lang);
 		transform: translateX(0);
 	}
 
-	:global(header[drawer-open] .header-toggles__container) {
+	:global(header[drawer-open]) {
+		animation: none;
+	}
+
+	:global(header[drawer-open] .header-container) {
 		background-color: var(--theme-primary-900);
 	}
 

@@ -88,9 +88,9 @@
 	--section-margin: 3rem;
 	--theme-grid-gap: 1rem;
 	--container-max-width-xl: 1920px;
-	--container-max-width: 1440px;
+	--container-max-width: 1920px;
 	--container-max-width-narrow: 960px;
-	--container-padding: 0 5rem;
+	--container-padding: 0 4rem;
 
 	--theme-blog-post-header-width: 1200px;
 
