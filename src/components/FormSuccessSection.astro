@@ -1,0 +1,87 @@
+---
+import FormSection from '@/components/FormSection.astro';
+import Container from '@/components/Container.astro';
+import Button from '@/components/buttons/Button.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import type { UIKeys } from '@/i18n/ui';
+
+interface Props {
+	formSectionId: string;
+	titleKey: UIKeys;
+	messageKey: UIKeys;
+	buttonTextKey: UIKeys;
+	class?: string;
+}
+
+const {
+	formSectionId,
+	titleKey,
+	messageKey,
+	buttonTextKey,
+	class: className
+} = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const successSectionId = `${formSectionId}-success-section`;
+---
+
+<FormSection
+	class:list={['section__success', className]}
+	aria-labelledby={`${successSectionId}-title`}
+	id={successSectionId}
+>
+	<Container narrow class="success-message">
+		<h2 class="sr-only" id={`${successSectionId}-title`}>
+			{t(titleKey)}
+		</h2>
+		<p class="subtitle">
+			{t(messageKey)}
+		</p>
+		<Button id={`${formSectionId}-resubmit-button`} type="button">
+			{t(buttonTextKey)}
+		</Button>
+	</Container>
+</FormSection>
+
+<style>
+	.section__success {
+		display: none;
+		scroll-margin-top: calc(var(--header-height) + 20px);
+	}
+
+	.success-message {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		p {
+			white-space: pre-line;
+			margin-bottom: var(--s8);
+			text-align: center;
+			color: var(--theme-on-primary-container-colorful);
+		}
+	}
+</style>
+
+<script>
+	import { toggleSections } from '@/utils/toggleSections';
+
+	document.addEventListener('astro:page-load', () => {
+		// Find all resubmit buttons and attach handlers
+		const resubmitButtons = document.querySelectorAll(
+			'[id$="-resubmit-button"]'
+		);
+
+		resubmitButtons.forEach(button => {
+			const buttonId = button.id;
+			const formSectionId = buttonId.replace('-resubmit-button', '');
+
+			if (formSectionId) {
+				button.addEventListener('click', () => {
+					toggleSections(formSectionId);
+				});
+			}
+		});
+	});
+</script>

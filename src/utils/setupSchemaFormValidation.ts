@@ -14,6 +14,11 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 	const form = document.getElementById(formId) as HTMLFormElement | null;
 	if (!form) return;
 
+	// Find submit button to disable immediately on submit
+	const submitButton = form.querySelector(
+		'[type="submit"]'
+	) as HTMLButtonElement | null;
+
 	// Map of fieldName -> HTMLElement utilities
 	function findField(name: string): {
 		input: HTMLElement | null;
@@ -137,8 +142,17 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 			.forEach(el => el.classList.remove('input-error'));
 	}
 
+	let isSubmitting = false;
+
 	form.addEventListener('submit', async e => {
 		e.preventDefault();
+
+		if (isSubmitting) return;
+		isSubmitting = true;
+
+		if (submitButton) {
+			submitButton.disabled = true;
+		}
 
 		// Global validation with the whole schema to catch cross-field issues
 		clearAllErrors();
@@ -179,9 +193,18 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		}
 
 		if (isValid) {
-			if (onSubmit) onSubmit(fd);
-			else form.submit();
+			if (onSubmit) {
+				onSubmit(fd);
+				isSubmitting = false;
+			} else {
+				form.submit();
+				isSubmitting = false;
+			}
 		} else {
+			isSubmitting = false;
+			if (submitButton) {
+				submitButton.disabled = false;
+			}
 			const firstError = form.querySelector('.form-error');
 			firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		}

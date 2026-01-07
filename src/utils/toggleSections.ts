@@ -1,5 +1,6 @@
-function toggleSections(formSectionId: string, successSectionId: string) {
+export function toggleSections(formSectionId: string) {
 	const formSection = document.getElementById(formSectionId);
+	const successSectionId = formSectionId + '-success-section';
 	const successSection = document.getElementById(successSectionId);
 
 	if (!formSection || !successSection) return;
@@ -14,6 +15,7 @@ function toggleSections(formSectionId: string, successSectionId: string) {
 
 	if (isFormVisible) {
 		// Hide form, show success with animation
+		formSection.style.pointerEvents = 'none';
 		formSection.style.opacity = '0';
 		formSection.style.transform = 'translateY(-20px)';
 		setTimeout(() => {
@@ -44,6 +46,7 @@ function toggleSections(formSectionId: string, successSectionId: string) {
 			formSection.style.display = 'block';
 			formSection.style.opacity = '0';
 			formSection.style.transform = 'translateY(20px)';
+			formSection.style.pointerEvents = 'auto';
 			requestAnimationFrame(() => {
 				setTimeout(
 					() =>
@@ -60,12 +63,4 @@ function toggleSections(formSectionId: string, successSectionId: string) {
 			});
 		}, 500);
 	}
-}
-
-export function toggleMembershipSections() {
-	toggleSections('membership-form-section', 'form-success');
-}
-
-export function toggleContactSections() {
-	toggleSections('contact-form-section', 'contact-form-success');
 }

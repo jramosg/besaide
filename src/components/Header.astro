@@ -11,6 +11,7 @@ import LanguageToggle from '@/components/LanguageToggle.astro';
 import ThemeSwitcher from '@/components/theme-switcher/ThemeSwitcher.astro';
 import Button from '@/components/buttons/Button.astro';
 import { ChevronDown } from '@lucide/astro';
+import Container from './Container.astro';
 
 type Props = {
 	navData: Nav;
@@ -27,7 +28,6 @@ const t = useTranslations(lang);
 const currentPageId = getIdfromUrl(url);
 const headerClasses = [
 	rightMenu && 'header--right',
-	'header--transparent',
 	!includeToggles && 'not-toggles'
 ]
 	.filter(Boolean)
@@ -43,101 +43,103 @@ const headerClasses = [
 			</div>
 		)
 	}
-	<div class="header-logo-menu__container">
-		<a
-			class="header-logo__link"
-			aria-label={t('Orri nagusira joan')}
-			href={getUrlFromID('', lang)}
-		>
-			<slot name="logo" />
-		</a>
-	</div>
+	<Container class="header-container">
+		<div class="header-logo-menu__container">
+			<a
+				class="header-logo__link"
+				aria-label={t('Orri nagusira joan')}
+				href={getUrlFromID('', lang)}
+			>
+				<slot name="logo" />
+			</a>
+		</div>
 
-	<div class="header-nav__container">
-		<nav>
-			<ul>
-				{
-					navData.map((navItem, index) => {
-						const isActive =
-							navItem.slug === currentPageId ||
-							navItem.children.some(child => child.slug === currentPageId);
-						const hasChildren = navItem.children.length > 0;
-						const dropdownId = `dropdown-${index}`;
+		<div class="header-nav__container">
+			<nav>
+				<ul>
+					{
+						navData.map((navItem, index) => {
+							const isActive =
+								navItem.slug === currentPageId ||
+								navItem.children.some(child => child.slug === currentPageId);
+							const hasChildren = navItem.children.length > 0;
+							const dropdownId = `dropdown-${index}`;
 
-						return (
-							<li
-								class={`header-nav__item button-text ${hasChildren ? 'has-dropdown' : ''}`}
-							>
-								{hasChildren ? (
-									<button
-										class={`dropdown-trigger ${isActive ? 'nav-link--active' : ''}`}
-										aria-haspopup="true"
-										aria-expanded="false"
-										aria-controls={dropdownId}
-										data-dropdown-trigger
-									>
-										{t(navItem.title)}
-										<ChevronDown class="dropdown-arrow" size={16} />
-									</button>
-								) : navItem.title === 'nav.home' ? null : (
-									<a
-										class={'nav-link ' + (isActive ? 'nav-link--active' : '')}
-										href={getUrlFromID(
-											navItem.slug,
-											lang,
-											navItem.slug === 'agenda' ? { year: 2025 } : undefined
-										)}
-									>
-										{t(navItem.title)}
-									</a>
-								)}
-								{hasChildren && (
-									<ul class="dropdown-menu" id={dropdownId} role="menu">
-										{navItem.children.map(child => {
-											const isChildActive = child.slug === currentPageId;
-											return (
-												<li role="none" class="nav-child--list-item">
-													<a
-														class={
-															'nav-child ' +
-															(isChildActive ? 'nav-child--active' : '')
-														}
-														href={getUrlFromID(child.slug, lang)}
-														role="menuitem"
-													>
-														{t(child.title)}
-													</a>
-												</li>
-											);
-										})}
-									</ul>
-								)}
-							</li>
-						);
-					})
-				}
-			</ul>
-		</nav>
-	</div>
-	<div class="header-action-item__container">
-		{
-			navActions.map((action, i) => (
-				<Button
-					outlined={i !== navActions.length - 1}
-					href={getUrlFromID(action.slug, lang)}
-				>
-					{t(action.title)}
-				</Button>
-			))
-		}
-		<Burger
-			id="menuButton"
-			aria-label={t('Menua ireki')}
-			data-open-label={t('Menua ireki')}
-			data-close-label={t('Menua itxi')}
-			navData={nav}
-		/>
-	</div>
+							return (
+								<li
+									class={`header-nav__item button-text ${hasChildren ? 'has-dropdown' : ''}`}
+								>
+									{hasChildren ? (
+										<button
+											class={`dropdown-trigger ${isActive ? 'nav-link--active' : ''}`}
+											aria-haspopup="true"
+											aria-expanded="false"
+											aria-controls={dropdownId}
+											data-dropdown-trigger
+										>
+											{t(navItem.title)}
+											<ChevronDown class="dropdown-arrow" size={16} />
+										</button>
+									) : navItem.title === 'nav.home' ? null : (
+										<a
+											class={'nav-link ' + (isActive ? 'nav-link--active' : '')}
+											href={getUrlFromID(
+												navItem.slug,
+												lang,
+												navItem.slug === 'agenda' ? { year: 2025 } : undefined
+											)}
+										>
+											{t(navItem.title)}
+										</a>
+									)}
+									{hasChildren && (
+										<ul class="dropdown-menu" id={dropdownId} role="menu">
+											{navItem.children.map(child => {
+												const isChildActive = child.slug === currentPageId;
+												return (
+													<li role="none" class="nav-child--list-item">
+														<a
+															class={
+																'nav-child ' +
+																(isChildActive ? 'nav-child--active' : '')
+															}
+															href={getUrlFromID(child.slug, lang)}
+															role="menuitem"
+														>
+															{t(child.title)}
+														</a>
+													</li>
+												);
+											})}
+										</ul>
+									)}
+								</li>
+							);
+						})
+					}
+				</ul>
+			</nav>
+		</div>
+		<div class="header-action-item__container">
+			{
+				navActions.map((action, i) => (
+					<Button
+						outlined={i !== navActions.length - 1}
+						href={getUrlFromID(action.slug, lang)}
+					>
+						{t(action.title)}
+					</Button>
+				))
+			}
+			<Burger
+				id="menuButton"
+				aria-label={t('Menua ireki')}
+				data-open-label={t('Menua ireki')}
+				data-close-label={t('Menua itxi')}
+				navData={nav}
+			/>
+		</div>
+	</Container>
 </header>
 
 <style>
@@ -146,12 +148,6 @@ const headerClasses = [
 		--transition-height: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		width: 100%;
 		height: var(--header-height);
-		display: grid;
-		grid-template-columns: auto 1fr auto;
-		grid-template-rows: var(--header-toggles-height) var(
-				--header-content-height
-			);
-		align-items: center;
 		position: fixed;
 		align-items: center;
 		top: 0;
@@ -161,11 +157,44 @@ const headerClasses = [
 			var(--transition-transform),
 			padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		background-color: var(--theme-bg);
+		animation: header-blur-scroll 0.3s linear both;
+		animation-timeline: scroll();
+		animation-range: 0 250px;
+		border-bottom: 1px solid transparent;
+	}
+
+	@keyframes header-blur-scroll {
+		0% {
+			backdrop-filter: blur(0px);
+			box-shadow: 0;
+			background-color: var(--theme-bg);
+		}
+
+		100% {
+			backdrop-filter: blur(10px);
+			border-bottom-color: var(--theme-outline);
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+			margin-top: 0;
+			opacity: 1;
+			background-color: color-mix(in srgb, var(--theme-bg) 60%, transparent);
+		}
+	}
+
+	.header-container {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		grid-template-rows: var(--header-toggles-height) var(
+				--header-content-height
+			);
+		align-items: center;
 	}
 
 	header.not-toggles {
-		grid-template-rows: var(--header-content-height);
 		height: var(--header-content-height);
+
+		.header-container {
+			grid-template-rows: var(--header-content-height);
+		}
 	}
 
 	.header-logo-menu__container,
@@ -189,11 +218,6 @@ const headerClasses = [
 			opacity 0.25s ease-in,
 			var(--transition-transform);
 		padding: var(--container-padding);
-	}
-
-	header.header--transparent {
-		background-color: color-mix(in srgb, var(--theme-bg) 60%, transparent);
-		backdrop-filter: blur(10px);
 	}
 
 	header.header-nav__container--scrolling-down {
@@ -220,9 +244,6 @@ const headerClasses = [
 		width: fit-content;
 		color: inherit;
 		text-decoration: none;
-
-		padding: var(--container-padding);
-		padding-left: var(--s6);
 		svg {
 			width: var(--s10);
 		}
@@ -244,8 +265,6 @@ const headerClasses = [
 		align-items: center;
 		height: 100%;
 		justify-content: flex-end;
-		padding: var(--container-padding);
-		padding-right: var(--s6);
 	}
 	.header-nav__container--scrolled {
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -467,19 +486,8 @@ const headerClasses = [
 
 	/* Mobile styles */
 	@media (max-width: 1104px) {
-		header {
-			padding: 0 var(--s2);
-		}
 		.header-nav__container {
 			display: none;
-		}
-
-		.header-logo__link {
-			padding-left: 0;
-		}
-
-		.header-action-item__container {
-			padding-right: var(--s4);
 		}
 
 		.header-action-item__container button,

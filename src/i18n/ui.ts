@@ -88,7 +88,7 @@ export const ui = {
 		'hero.federation.description':
 			'La licencia federativa se tramita a través de la asociación de montaña. Incluye tanto seguro de accidentes como suscripción a la revista trimestral Pyrenaica',
 		'hero.federation.cta': 'Más información',
-		'hero.shelter.title': 'Refugio de Leixergarate',
+		'hero.shelter.title': 'Refugio de Leixargarate',
 		'hero.shelter.description':
 			'El refugio de Leixergarate está a disposición de todos los socios de Besaide para que quien quiera pueda utilizarlo. El refugio dispone de literas para 12 personas, una cocina, hogar bajo, baño… Para reservar el refugio, acércate a la sede de Besaide los martes de 19:30 a 20:30.',
 		'hero.shelter.cta': 'Más información',
@@ -281,6 +281,10 @@ export const ui = {
 		'form.field.federation': 'Quiero licencia federativa',
 		'form.field.accept-terms': 'Acepto las condiciones de uso',
 		'form.button.submit': 'Enviar solicitud',
+		'form.button.resubmit': 'Rellenar otro formulario',
+		'form.success.title': 'Solicitud recibida',
+		'form.success.message':
+			'Tus datos han sido enviados. Nos pondremos en contacto contigo en breve.\n¡Gracias!',
 		'form.link.privacy': 'Leer aviso legal y política de privacidad',
 		'form.error.postal-code': 'El código postal debe tener 5 dígitos',
 		'form.error.accept-terms': 'Debes aceptar las condiciones de uso',
@@ -290,7 +294,7 @@ export const ui = {
 		'Lege oharra / Pribatutasun politika':
 			'Aviso legal / Política de privacidad',
 		'Federazio eskaera jaso da': 'Solicitud de federación recibida',
-		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuak jarriko gara.\nEskerrik asko!':
+		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuan jarriko gara.\nEskerrik asko!':
 			'Tus datos han sido enviados. En cuanto se tramite la solicitud, nos pondremos en contacto contigo.\n¡Gracias!',
 		'Beste galdetegi bat bete': 'Rellenar otro formulario',
 		'email.membership.subject.federation': 'Solicitud de federación',
@@ -389,7 +393,7 @@ export const ui = {
 		'hero.federation.description':
 			'Federatu lizentzia mendi elkartearen bitartez tramitatzen da. Bai istripu asegurua eta bai Pyrenaica hiruhilabetekariaren harpidetza dauzka barnean',
 		'hero.federation.cta': 'Informazio gehiago',
-		'hero.shelter.title': 'Leixergarate aterpetxea',
+		'hero.shelter.title': 'Leixargarate aterpetxea',
 		'hero.shelter.description':
 			'Leixargarateko aterpetxea Besaideko bazkide denen eskura dago nahi duenak erabili dezan. Aterpean 12 pertsonentzako literak, sukalde bat, su baxua, komuna… daude. Aterpea erreserbatzeko, zuzendu Besaideko egoitzara asteartetan 19.30-20.30 bitartean.',
 		'hero.shelter.cta': 'Informazio gehiago',
@@ -431,6 +435,7 @@ export const ui = {
 		'contact.form.success.title': 'Eskerrik asko!',
 		'contact.form.success.message':
 			'Zure mezua ondo jaso dugu. Laster erantzungo dizugu.',
+		'{{subject}}': '{{subject}}',
 		// Contact email
 		'email.contact.heading': 'Zure mezua jaso dugu',
 		'email.contact.intro':
@@ -515,6 +520,10 @@ export const ui = {
 		'form.field.federation': 'Federatu lizentzia nahi dut',
 		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
 		'form.button.submit': 'Eskaera bidali',
+		'form.button.resubmit': 'Beste galdetegi bat bete',
+		'form.success.title': 'Eskaera jaso da',
+		'form.success.message':
+			'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuan jarriko gara.\nEskerrik asko!',
 		'form.link.privacy': 'Lege oharra eta pribatutasun politika irakurri',
 		'form.error.postal-code': 'Posta kodeak 5 zenbaki izan behar ditu',
 		'form.error.accept-terms': 'Erabilera arauak onartu behar dituzu',
