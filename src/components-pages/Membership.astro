@@ -131,24 +131,16 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 				<h1 id="federatzea" class="h2">
 					{t('Federatzea')}
 				</h1>
-				<div class="federation-info-grid">
-					<FederationContent />
-					<div class="federation-info-card">
-						<div class="info-icon-container">
-							<InfoIcon size={24} aria-hidden="true" />
-						</div>
-						{lang === 'eu'
-							? federation.data.infoCardEu
-							: federation.data.infoCardEs}
+				<FederationContent />
+				<div class="federation-info-card">
+					<div class="info-icon-container">
+						<InfoIcon size={24} aria-hidden="true" />
 					</div>
-					<Image
-						/*class="euskal-mendi-federazioa-logo"
-						src={EuskalMendiFederazioaLogo}
-						alt="Euskal Mendi Federazioa Logo"
-						width={172}
-						height={98}*/
-					/>
+					{lang === 'eu'
+						? federation.data.infoCardEu
+						: federation.data.infoCardEs}
 				</div>
+
 				{/* Desktop Table View */}
 				<div class="table-wrapper" role="region" tabindex={0}>
 					<table
@@ -349,11 +341,8 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		margin-top: var(--s6);
 	}
 
-	.federation-info-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--s4);
-		margin-bottom: var(--s6);
+	.federation-info-card {
+		margin: var(--s6) 0;
 	}
 
 	.federation-info-card {
@@ -387,10 +376,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	}
 
 	@media (min-width: 768px) {
-		.federation-info-grid {
-			grid-template-columns: 1fr 1fr;
-			row-gap: var(--s4);
-		}
 
 		.euskal-mendi-federazioa-logo {
 			grid-column: 2;
@@ -512,5 +497,3 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		}
 	}
 </style>
-
-
