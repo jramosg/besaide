@@ -19,28 +19,31 @@ const t = useTranslations(lang);
 const title = lang === 'eu' ? route.titleEu : route.titleEs;
 ---
 
-<a
-	href={route.wikilocUrl}
-	target="_blank"
-	rel="noopener noreferrer"
-	class="card card--elevated route-card__link"
->
-	<div class="route-card__image">
-		<Image src={route.image} alt={title} />
-	</div>
-
-	<div class="route-card__content">
-		<h4 class="route-card__title h4">
-			{title}
-		</h4>
-
-		<div class="route-card__footer">
-			<button class="route-card__share" aria-label={t('Partekatu')}>
-				<Share2 />
-			</button>
+<article class="card card--elevated route-card" itemscope itemtype="https://schema.org/TouristAttraction">
+	<a
+		href={route.wikilocUrl}
+		target="_blank"
+		rel="noopener noreferrer"
+		class="route-card__link"
+		itemprop="url"
+	>
+		<div class="route-card__image">
+			<Image src={route.image} alt={title} itemprop="image" />
 		</div>
-	</div>
-</a>
+
+		<div class="route-card__content">
+			<h3 class="route-card__title h4" itemprop="name">
+				{title}
+			</h3>
+
+			<div class="route-card__footer">
+				<button class="route-card__share" aria-label={t('Partekatu')}>
+					<Share2 aria-hidden="true" />
+				</button>
+			</div>
+		</div>
+	</a>
+</article>
 
 <style>
 	.route-card__link {
