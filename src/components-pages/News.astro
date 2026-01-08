@@ -25,10 +25,7 @@ const processedNews = processNewsItems(page.data, lang);
 		description: t('news.seo.description')
 	}}
 >
-	<PageHeader
-		title={t('nav.news')}
-		subtitle={t('Atal honetan albiste guztiak ikusgai dituzu.')}
-	/>
+	<PageHeader title={t('nav.news')} />
 
 	<section class="news-grid">
 		{processedNews.map(p => <NewsCard item={p} />)}

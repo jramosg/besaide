@@ -160,8 +160,6 @@ export const ui = {
 			'Consulta todas las salidas de Besaide.',
 		'Irteera bakarra dago planifikatuta.': 'Hay una única salida planificada.',
 		'irteera daude planifikatuta.': 'salidas planificadas.',
-		'Atal honetan albiste guztiak ikusgai dituzu.':
-			'En esta sección puedes ver todas las noticias.',
 		// Besaide page - Functioning section
 		Funtzionamendua: 'Funcionamiento',
 		Historia: 'Historia',
