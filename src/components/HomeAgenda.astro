@@ -16,8 +16,13 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 
 {
 	events.length > 0 ? (
-		<section id="agenda" class="home-section_container">
+		<section
+			id="agenda"
+			class="home-section_container"
+			aria-labelledby="agenda-heading"
+		>
 			<HomeSectionHeader
+				id="agenda-heading"
 				title={t('Hurrengo irteerak')}
 				buttonText={t('Agenda osoa ikusi')}
 				buttonHref={getUrlFromID('agenda', lang, { year: today.getFullYear() })}

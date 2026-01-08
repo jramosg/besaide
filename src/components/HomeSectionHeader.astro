@@ -7,6 +7,7 @@ interface Props {
 	buttonText?: string;
 	buttonHref?: string;
 	class?: string;
+	id?: string;
 }
 
 const {
@@ -14,6 +15,7 @@ const {
 	subtitle,
 	buttonText,
 	buttonHref,
+	id,
 	class: className,
 	...rest
 } = Astro.props;
@@ -21,7 +23,7 @@ const {
 
 <>
 	<div class={`section-header ${className || ''}`} {...rest}>
-		<h2 class="section-header__title">{title}</h2>
+		<h2 class="section-header__title" id={id}>{title}</h2>
 		{
 			buttonText && (
 				<div class="section-header__action">
