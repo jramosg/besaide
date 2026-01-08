@@ -16,13 +16,14 @@ const t = useTranslations(lang);
 const slug = slugify(item.id);
 ---
 
-<article class="card card--elevated news-card">
-	<a href={item.slug} class="news-card__link">
+<article class="card card--elevated news-card" itemscope itemtype="https://schema.org/Article">
+	<a href={item.slug} class="news-card__link" itemprop="url">
 		<div class="news-card__image">
 			<Image
 				src={item.data.image}
 				style={`view-transition-name: image-${slug}`}
 				alt={item.title}
+				itemprop="image"
 			/>
 		</div>
 
@@ -30,12 +31,15 @@ const slug = slugify(item.id);
 			<h2
 				class="news-card__title h4"
 				style={`view-transition-name: title-${slug}`}
+				itemprop="headline"
 			>
 				{item.title}
 			</h2>
 			<time
 				class="news-card__date overline"
 				style={`view-transition-name: date-${slug}`}
+				datetime={item.data.date.toISOString()}
+				itemprop="datePublished"
 			>
 				{formatDate(item.data.date)}
 			</time>
