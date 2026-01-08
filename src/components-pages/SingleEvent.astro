@@ -68,7 +68,37 @@ const priceDescriptionEntry = await getEntry(
 const { Content: PriceDescriptionContent } = priceDescriptionEntry
 	? await render(priceDescriptionEntry)
 	: { Content: null };
+
+// Structured data for event
+const eventSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Event',
+	name: eventTitle,
+	description: eventDescription,
+	startDate: eventDate.toISOString(),
+	...(endDate && { endDate: endDate.toISOString() }),
+	eventStatus: isFinished ? 'https://schema.org/EventScheduled' : 'https://schema.org/EventScheduled',
+	eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+	organizer: {
+		'@type': 'Organization',
+		name: CompanyName,
+		url: Astro.site?.toString()
+	},
+	image: new URL(event.data.image.src, Astro.site).toString(),
+	...(event.data.price && { offers: {
+		'@type': 'Offer',
+		price: event.data.price,
+		priceCurrency: 'EUR',
+		availability: isFinished ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock'
+	}})
+};
 ---
+
+<script
+	is:inline
+	type="application/ld+json"
+	set:html={JSON.stringify(eventSchema)}
+/>
 
 <Page
 	seo={{
