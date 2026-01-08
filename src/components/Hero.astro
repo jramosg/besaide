@@ -18,14 +18,14 @@ const description =
 		: homepageContent?.data.membershipDescriptionEs;
 ---
 
-<section class="hero" id="hero">
+<section class="hero" id="hero" role="banner" aria-label="Hero">
 	<Image
 		src={udalaitzImage}
 		layout="full-width"
 		alt="Udalaitz mendia"
 		class="hero-image"
 	/>
-	<div class="hero-overlay"></div>
+	<div class="hero-overlay" aria-hidden="true"></div>
 
 	<h1 class="h1 content__container">{title}</h1>
 	{
