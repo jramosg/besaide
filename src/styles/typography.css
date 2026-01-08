@@ -105,6 +105,11 @@ h4,
 	font-weight: var(--font-weight-medium);
 }
 
+.subtitle2 {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-semibold);
+}
+
 .body-text {
 	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-normal);

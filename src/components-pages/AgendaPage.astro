@@ -80,6 +80,9 @@ const { futureEventsByMonth, pastEventsByMonth } = events.reduce(
 const futureMonths = Array.from(futureEventsByMonth.values());
 const pastMonths = Array.from(pastEventsByMonth.values());
 
+const areFutureEvents = futureMonths.length > 0;
+const arePastEvents = pastMonths.length > 0;
+
 const pastTitle = lang === 'eu' ? 'Iraganeko irteerak' : 'Salidas pasadas';
 const emptyMessage =
 	lang === 'eu'
@@ -164,7 +167,7 @@ const eventTypeOptions: SelectOption[] = [
 	</nav>
 
 	{
-		futureMonths.length > 0 ? (
+		areFutureEvents ? (
 			<section aria-labelledby="upcoming-events-heading">
 				<h2 id="upcoming-events-heading" class="visually-hidden">
 					{lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas'}
@@ -172,7 +175,7 @@ const eventTypeOptions: SelectOption[] = [
 				{futureMonths.map(({ title, events }) => (
 					<article class="month-section">
 						<header class="month-header">
-							<h3 class="month-title subtitle">{title}</h3>
+							<h3 class="month-title subtitle2">{title}</h3>
 							<p class="month-summary">
 								{events.length === 1
 									? t('Irteera bakarra dago planifikatuta.')
@@ -189,25 +192,25 @@ const eventTypeOptions: SelectOption[] = [
 					</article>
 				))}
 			</section>
-		) : (
+		) : !areFutureEvents && !arePastEvents ? (
 			<div class="empty-state" role="status">
 				<p>{emptyMessage}</p>
 			</div>
-		)
+		) : null
 	}
 
 	{
 		pastMonths.length > 0 && (
 			<section
-				class="past-events-section"
-				aria-labelledby="past-events-heading"
+				class:list={[
+					'past-events-section',
+					areFutureEvents ? 'past-events-section--dashed' : ''
+				]}
+				aria-label={pastTitle}
 			>
-				<h2 id="past-events-heading" class="section-title h3">
-					{pastTitle}
-				</h2>
 				{pastMonths.map(({ title, events }) => (
 					<article class="month-section">
-						<h3 class="month-title past subtitle">{title}</h3>
+						<h3 class="month-title past subtitle2">{title}</h3>
 						<ul class="events-grid" role="list">
 							{events.slice(0, 6).map(item => (
 								<li>
@@ -357,10 +360,12 @@ const eventTypeOptions: SelectOption[] = [
 
 	.past-events-section {
 		margin-block-start: var(--s8);
-		padding-block-start: var(--s8);
-		border-block-start: 2px dashed var(--theme-separator);
 	}
 
+	.past-events-section--dashed {
+		border-block-start: 2px dashed var(--theme-separator);
+		padding-block-start: var(--s8);
+	}
 	.section-title {
 		margin-block-end: var(--s6);
 		padding-block-end: var(--s3);
