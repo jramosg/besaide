@@ -86,17 +86,7 @@ const eventSchema = {
 		name: CompanyName,
 		url: Astro.site?.toString()
 	},
-	image: new URL(event.data.image.src, Astro.site).toString(),
-	...(event.data.price && {
-		offers: {
-			'@type': 'Offer',
-			price: event.data.price,
-			priceCurrency: 'EUR',
-			availability: isFinished
-				? 'https://schema.org/SoldOut'
-				: 'https://schema.org/InStock'
-		}
-	})
+	image: new URL(event.data.image.src, Astro.site).toString()
 };
 ---
 
