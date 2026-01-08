@@ -139,8 +139,17 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 						: federation.data.infoCardEs}
 				</div>
 
+				<h2 class="subtitle" id="federation-prices">
+					{t('Kuotak:')}
+				</h2>
+
 				{/* Desktop Table View */}
-				<div class="table-wrapper" role="region" tabindex={0}>
+				<section
+					aria-labelledby="federation-prices"
+					class="table-wrapper"
+					role="region"
+					tabindex={0}
+				>
 					<table
 						class="federation-table"
 						itemscope
@@ -174,10 +183,10 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 							))}
 						</tbody>
 					</table>
-				</div>
+				</section>
 
 				{/* Mobile Card View */}
-				<div class="federation-cards">
+				<section aria-labelledby="federation-prices" class="federation-cards">
 					{pricingTable.map(row => (
 						<article
 							class="federation-card"
@@ -203,7 +212,7 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 							</dl>
 						</article>
 					))}
-				</div>
+				</section>
 			</section>
 		)
 	}
@@ -214,8 +223,8 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 				class="section__extras content__container"
 				aria-labelledby="extras-title"
 			>
-				<h2 id="extras-title" class="h3">
-					{t('Gehigarriak')}
+				<h2 id="extras-title" class="subtitle">
+					{t('Gehigarriak:')}
 				</h2>
 				<ExtrasTable extras={federation.data.extras} lang={lang} />
 			</section>
@@ -439,7 +448,7 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 		display: none;
 	}
 
-	@media (max-width: 1024px) {
+	@media (max-width: 1250px) {
 		.table-wrapper {
 			display: none;
 		}
@@ -455,7 +464,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 			padding: var(--s4);
 			box-shadow: var(--shadow-card);
 		}
-
 		.card-region {
 			margin: 0 0 var(--s3) 0;
 			padding-bottom: var(--s2);
@@ -470,7 +478,6 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 			gap: var(--s2);
 			margin: 0;
 		}
-
 		.price-row {
 			display: flex;
 			justify-content: space-between;

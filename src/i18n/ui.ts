@@ -307,7 +307,11 @@ export const ui = {
 		postalCodeInvalid: 'El código postal no es válido',
 		'terms.required': 'Debes aceptar los términos',
 		loading: 'Enviando...',
-		'*Asteburuetan prezioak eguneko izango dira.': '*Los precios en fines de semana serán por día.',
+		'*Asteburuetan prezioak eguneko izango dira.':
+			'*Los precios en fines de semana serán por día.',
+
+		'Gehigarriak:': 'Extras:',
+		'Kuotak:': 'Cuotas:'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -345,7 +349,6 @@ export const ui = {
 		'nav.leixagarate-aterpea': 'Leixargarate',
 		'nav.material-rent': 'Material alokairua',
 		'nav.library-maps': 'Liburutegia / Mapak',
-		Gehigarriak: 'Gehigarriak',
 		concept: 'Kontzeptua',
 		children: 'Haurrak',
 		youth: 'Gazteak',
