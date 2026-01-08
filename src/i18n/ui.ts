@@ -306,7 +306,8 @@ export const ui = {
 		postalCodeLength: 'El código postal debe tener 5 dígitos',
 		postalCodeInvalid: 'El código postal no es válido',
 		'terms.required': 'Debes aceptar los términos',
-		loading: 'Enviando...'
+		loading: 'Enviando...',
+		'*Asteburuetan prezioak eguneko izango dira.': '*Los precios en fines de semana serán por día.',
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

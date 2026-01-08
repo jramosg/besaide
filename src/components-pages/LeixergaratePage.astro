@@ -122,13 +122,13 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 					entry.data.prices.map(price => (
 						<>
 							<dt
-								class="price-label"
+								class="price-label subtitle"
 								itemscope
 								itemtype="https://schema.org/Offer"
 							>
 								<span itemprop="name">{`${lang === 'eu' ? price.labelEu : price.labelEs}: `}</span>
 							</dt>
-							<dd class="price-value">
+							<dd class="price-value subtitle">
 								<span class="price-amount" itemprop="price">
 									{formatPrice(price.price)}
 								</span>
@@ -148,6 +148,7 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 					))
 				}
 			</dl>
+			<small class="prices-note">{t('*Asteburuetan prezioak eguneko izango dira.')}</small>
 		</section>
 
 		<section aria-labelledby="gallery-heading">
@@ -233,7 +234,6 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 		}
 
 		.price-label {
-			font-weight: var(--font-weight-medium);
 			grid-column: 1;
 			padding-bottom: var(--s2, 0.5rem);
 			border-bottom: 1px solid var(--theme-separator);
@@ -251,16 +251,15 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			border-bottom: 1px solid var(--theme-separator);
 			width: 100%;
 			justify-content: flex-end;
+
 		}
 
-		.price-amount {
-			font-weight: 500;
-		}
-
-		.price-description {
-			color: var(--theme-text-lighter, #666);
-			font-size: 0.9em;
-			font-weight: 400;
+		.prices-note {
+			font-weight: var(--font-weight-semibold);
+			color: var(--theme-primary-900);
+			margin-top: var(--s4);
+			font-size: var(--font-size-base);
+			display: block;
 		}
 
 		.leixergarate-footer {
