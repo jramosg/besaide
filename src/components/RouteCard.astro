@@ -19,7 +19,11 @@ const t = useTranslations(lang);
 const title = lang === 'eu' ? route.titleEu : route.titleEs;
 ---
 
-<article class="card card--elevated route-card" itemscope itemtype="https://schema.org/TouristAttraction">
+<article
+	class="card card--elevated route-card"
+	itemscope
+	itemtype="https://schema.org/TouristAttraction"
+>
 	<a
 		href={route.wikilocUrl}
 		target="_blank"

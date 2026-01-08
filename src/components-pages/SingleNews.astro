@@ -104,7 +104,11 @@ const articleSchema = {
 			</button>
 		</div>
 
-		<time class="overline meta" style={`view-transition-name: date-${slug}`} datetime={post.data.date.toISOString()}>
+		<time
+			class="overline meta"
+			style={`view-transition-name: date-${slug}`}
+			datetime={post.data.date.toISOString()}
+		>
 			{formatDate(post.data.date, lang)}
 		</time>
 

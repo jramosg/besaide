@@ -16,7 +16,11 @@ const t = useTranslations(lang);
 const slug = slugify(item.id);
 ---
 
-<article class="card card--elevated news-card" itemscope itemtype="https://schema.org/Article">
+<article
+	class="card card--elevated news-card"
+	itemscope
+	itemtype="https://schema.org/Article"
+>
 	<a href={item.slug} class="news-card__link" itemprop="url">
 		<div class="news-card__image">
 			<Image

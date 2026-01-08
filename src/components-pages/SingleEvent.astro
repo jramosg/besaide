@@ -77,7 +77,9 @@ const eventSchema = {
 	description: eventDescription,
 	startDate: eventDate.toISOString(),
 	...(endDate && { endDate: endDate.toISOString() }),
-	eventStatus: isFinished ? 'https://schema.org/EventScheduled' : 'https://schema.org/EventScheduled',
+	eventStatus: isFinished
+		? 'https://schema.org/EventScheduled'
+		: 'https://schema.org/EventScheduled',
 	eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
 	organizer: {
 		'@type': 'Organization',
@@ -85,12 +87,16 @@ const eventSchema = {
 		url: Astro.site?.toString()
 	},
 	image: new URL(event.data.image.src, Astro.site).toString(),
-	...(event.data.price && { offers: {
-		'@type': 'Offer',
-		price: event.data.price,
-		priceCurrency: 'EUR',
-		availability: isFinished ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock'
-	}})
+	...(event.data.price && {
+		offers: {
+			'@type': 'Offer',
+			price: event.data.price,
+			priceCurrency: 'EUR',
+			availability: isFinished
+				? 'https://schema.org/SoldOut'
+				: 'https://schema.org/InStock'
+		}
+	})
 };
 ---
 
