@@ -10,7 +10,7 @@ import type { ContactFormData } from '@/schemas/contactForm';
 export const ContactEmail = ({
 	name = '{{name}}',
 	email = '{{email}}',
-	phone = '{{phone}}',
+	phone = '—',
 	subject = '{{subject}}',
 	message = '{{message}}',
 	language = 'eu'
@@ -32,10 +32,7 @@ export const ContactEmail = ({
 					/>
 					<div style={fieldGrid}>
 						<Field label={t('email.contact.labels.email')} value={email} />
-						<Field
-							label={t('email.contact.labels.phone')}
-							value={phone || '—'}
-						/>
+						<Field label={t('email.contact.labels.phone')} value={phone} />
 					</div>
 					<Field
 						label={t('email.contact.labels.subject')}
