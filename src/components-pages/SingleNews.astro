@@ -30,7 +30,40 @@ const { Content } = await render(entry);
 
 const slug = slugify(post.id);
 const summary = processedPost.summary;
+
+// Structured data for article
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: processedPost.title,
+	datePublished: post.data.date.toISOString(),
+	dateModified: post.data.date.toISOString(),
+	author: {
+		'@type': 'Organization',
+		name: CompanyName
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: CompanyName,
+		logo: {
+			'@type': 'ImageObject',
+			url: new URL('/main-logo-horizontal.png', Astro.site).toString()
+		}
+	},
+	image: new URL(processedPost.data.image.src, Astro.site).toString(),
+	description: summary || t('news.seo.description'),
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': Astro.url.href
+	}
+};
 ---
+
+<script
+	is:inline
+	type="application/ld+json"
+	set:html={JSON.stringify(articleSchema)}
+/>
 
 <Page
 	pageClass="content__container single-article"
@@ -71,11 +104,11 @@ const summary = processedPost.summary;
 			</button>
 		</div>
 
-		<time class="overline meta" style={`view-transition-name: date-${slug}`}>
+		<time class="overline meta" style={`view-transition-name: date-${slug}`} datetime={post.data.date.toISOString()}>
 			{formatDate(post.data.date, lang)}
 		</time>
 
-		<section class="content">
+		<section class="content" itemprop="articleBody">
 			<Content />
 		</section>
 	</div>
