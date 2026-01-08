@@ -42,9 +42,13 @@ const sponsors = [
 const t = useTranslations(lang);
 ---
 
-<section class='id="babesleak"'>
-	<HomeSectionHeader title={t('Babesleak')} class="content__container">
-		<div class="carousel">
+<section id="babesleak" aria-labelledby="sponsors-heading">
+	<HomeSectionHeader
+		title={t('Babesleak')}
+		class="content__container"
+		id="sponsors-heading"
+	>
+		<div class="carousel" role="region" aria-label={t('Babesleak')}>
 			<div class="group">
 				{
 					sponsors.map(sponsor => {
