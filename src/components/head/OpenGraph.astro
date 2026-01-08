@@ -21,7 +21,7 @@ const defaultImage1 = new URL(
 const defaultImage2 = new URL('/open-graph.jpg', Astro.site).toString();
 const title = Astro.props.title || settings.title;
 const description = desc || t(settings.description);
-const siteName = 'Laguntza Fisioterapia';
+const siteName = 'Besaide Mendizale Elkartea';
 ---
 
 <!-- Open Graph / Facebook -->
@@ -38,7 +38,7 @@ const siteName = 'Laguntza Fisioterapia';
 <meta property="og:image:height" content="630" />
 <meta
 	property="og:image:alt"
-	content="Laguntza Fisioterapia - Centro de Fisioterapia en Urnieta, Gipuzkoa"
+	content="Besaide Mendizale Elkartea - Arrasate, Gipuzkoa"
 />
 <meta property="og:locale" content={lang === 'eu' ? 'eu_ES' : 'es_ES'} />
 {
@@ -52,11 +52,11 @@ const siteName = 'Laguntza Fisioterapia';
 <!-- Additional business-specific Open Graph tags -->
 <meta
 	property="business:contact_data:street_address"
-	content="Zubitxo Plaza, 3"
+	content="Garibai 3 bis"
 />
-<meta property="business:contact_data:locality" content="Urnieta" />
+<meta property="business:contact_data:locality" content="Arrasate" />
 <meta property="business:contact_data:region" content="Gipuzkoa" />
-<meta property="business:contact_data:postal_code" content="20130" />
+<meta property="business:contact_data:postal_code" content="20500" />
 <meta property="business:contact_data:country_name" content="España" />
 
 <!-- Twitter -->
