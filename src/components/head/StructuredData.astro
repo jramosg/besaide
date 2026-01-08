@@ -1,173 +1,103 @@
 ---
 import { settings } from '@/config/settings';
-import { Address, Phone, Email } from '@/config/company';
+import { Address, Phone, Email, Socials, CompanyName } from '@/config/company';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Main business structured data
+// Main organization structured data
 const structuredData = {
 	'@context': 'https://schema.org',
-	'@type': 'MedicalBusiness',
-	'@id': 'https://laguntzafisioterapia.com#business',
-	name: 'Laguntza Fisioterapia',
-	alternateName: 'Centro de Fisioterapia Laguntza',
+	'@type': 'SportsOrganization',
+	'@id': 'https://besaide.vercel.app#organization',
+	name: CompanyName,
+	alternateName:
+		lang === 'eu' ? 'Besaide Mendi Elkartea' : 'Asociación de Montaña Besaide',
 	description: t(settings.description),
-	url: 'https://laguntzafisioterapia.com',
+	url: 'https://besaide.vercel.app',
 	logo: {
 		'@type': 'ImageObject',
-		url: 'https://laguntzafisioterapia.com/main-logo-horizontal.png',
+		url: 'https://besaide.vercel.app/main-logo-horizontal.png',
 		width: 300,
 		height: 224
 	},
 	image: [
-		'https://laguntzafisioterapia.com/main-logo-horizontal.png',
-		'https://laguntzafisioterapia.com/open-graph.jpg'
+		'https://besaide.vercel.app/main-logo-horizontal.png',
+		'https://besaide.vercel.app/open-graph.jpg'
 	],
 	telephone: Phone.name,
 	email: Email.name.replace('mailto:', ''),
-	sameAs: ['https://laguntzafisioterapia.com'],
+	sameAs: [Socials.facebook, Socials.instagram, Socials.wikiloc],
 	address: {
 		'@type': 'PostalAddress',
-		streetAddress: 'Zubitxo Plaza, 3',
-		addressLocality: 'Urnieta',
+		streetAddress: 'Garibai 3 bis',
+		addressLocality: 'Arrasate',
 		addressRegion: 'Gipuzkoa',
-		postalCode: '20130',
+		postalCode: '20500',
 		addressCountry: 'ES'
 	},
 	geo: {
 		'@type': 'GeoCoordinates',
-		latitude: 43.24656113552193,
-		longitude: -1.9932571315890595
+		latitude: 43.0651336,
+		longitude: -2.4921267
 	},
 	openingHoursSpecification: [
 		{
 			'@type': 'OpeningHoursSpecification',
-			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-			opens: '08:00',
-			closes: '20:00'
+			dayOfWeek: ['Tuesday', 'Wednesday'],
+			opens: '19:30',
+			closes: '20:30'
 		}
 	],
-	priceRange: '€€',
-	currenciesAccepted: 'EUR',
-	paymentAccepted: ['Cash', 'Credit Card', 'Bank Transfer'],
 	areaServed: [
 		{
 			'@type': 'City',
-			name: 'Urnieta'
+			name: 'Arrasate'
 		},
 		{
 			'@type': 'City',
-			name: 'Donostia-San Sebastián'
+			name: 'Mondragón'
 		},
 		{
 			'@type': 'AdministrativeArea',
 			name: 'Gipuzkoa'
 		},
 		{
-			'@type': 'Country',
-			name: 'España'
+			'@type': 'AdministrativeArea',
+			name: 'País Vasco'
 		}
 	],
-	medicalSpecialty: [
-		{
-			'@type': 'MedicalSpecialty',
-			name: 'Physical Therapy'
-		},
-		{
-			'@type': 'MedicalSpecialty',
-			name: 'Sports Medicine'
-		},
-		{
-			'@type': 'MedicalSpecialty',
-			name: 'Pain Management'
-		},
-		{
-			'@type': 'MedicalSpecialty',
-			name: 'Osteopathy'
-		}
-	],
-	availableService: [
-		{
-			'@type': 'MedicalTherapy',
-			name: 'Fisioterapia General',
-			description:
-				'Tratamiento integral de lesiones y dolor mediante técnicas de fisioterapia avanzada'
-		},
-		{
-			'@type': 'MedicalTherapy',
-			name: 'Osteopatía',
-			description: 'Tratamiento holístico para recuperar el equilibrio corporal'
-		},
-		{
-			'@type': 'MedicalTherapy',
-			name: 'Punción Seca',
-			description:
-				'Técnica especializada para tratar puntos gatillo miofasciales'
-		},
-		{
-			'@type': 'MedicalTherapy',
-			name: 'Neuromodulación',
-			description: 'Técnicas avanzadas de estimulación del sistema nervioso'
-		},
-		{
-			'@type': 'MedicalTherapy',
-			name: 'Rehabilitación Deportiva',
-			description: 'Recuperación específica para atletas y deportistas'
-		}
-	],
+	sport: ['Mountain Climbing', 'Hiking', 'Skiing', 'Mountaineering'],
+	memberOf: {
+		'@type': 'SportsOrganization',
+		name:
+			lang === 'eu'
+				? 'Euskal Mendizale Federakundea'
+				: 'Federación Vasca de Montaña'
+	},
 	hasMap: Address.url,
 	isAccessibleForFree: false,
 	knowsAbout: [
-		'Fisioterapia',
-		'Osteopatía',
-		'Rehabilitación',
-		'Terapia Manual',
-		'Punción Seca',
-		'Neuromodulación',
-		'Medicina Deportiva'
+		lang === 'eu' ? 'Mendizale jarduera' : 'Actividad montañera',
+		lang === 'eu' ? 'Mendi ibilaldiak' : 'Excursiones de montaña',
+		lang === 'eu' ? 'Eski alpinoa' : 'Esquí alpino',
+		lang === 'eu' ? 'Mendizale hezkuntza' : 'Educación montañera'
 	]
 };
 
-// Professional/Person structured data
-const professionalData = {
+// Breadcrumb data for navigation
+const breadcrumbData = {
 	'@context': 'https://schema.org',
-	'@type': 'Person',
-	'@id': 'https://laguntzafisioterapia.com#jokin-ramos',
-	name: 'Jokin Ramos',
-	jobTitle: 'Fisioterapeuta Colegiado',
-	worksFor: {
-		'@id': 'https://laguntzafisioterapia.com#business'
-	},
-	knowsAbout: [
-		'Fisioterapia',
-		'Osteopatía',
-		'Punción Seca',
-		'Neuromodulación',
-		'Rehabilitación Deportiva',
-		'Terapia Manual'
-	],
-	alumniOf: 'Universidad Pública de Navarra',
-	hasCredential: 'Colegio Profesional de Fisioterapeutas de País Vasco',
-	email: Email.name.replace('mailto:', ''),
-	telephone: Phone.name
-};
-
-// Organization data for additional context
-const organizationData = {
-	'@context': 'https://schema.org',
-	'@type': 'Organization',
-	name: 'Laguntza Fisioterapia',
-	url: 'https://laguntzafisioterapia.com',
-	logo: 'https://laguntzafisioterapia.com/main-logo-horizontal.png',
-	contactPoint: {
-		'@type': 'ContactPoint',
-		telephone: Phone.name,
-		contactType: 'customer service',
-		availableLanguage: ['Spanish', 'Basque'],
-		areaServed: 'ES'
-	}
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: lang === 'eu' ? 'Hasiera' : 'Inicio',
+			item: 'https://besaide.vercel.app'
+		}
+	]
 };
 ---
 
@@ -179,10 +109,5 @@ const organizationData = {
 <script
 	type="application/ld+json"
 	is:inline
-	set:html={JSON.stringify(professionalData)}
-/>
-<script
-	type="application/ld+json"
-	is:inline
-	set:html={JSON.stringify(organizationData)}
+	set:html={JSON.stringify(breadcrumbData)}
 />
