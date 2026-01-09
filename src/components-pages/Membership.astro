@@ -138,80 +138,93 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 						? federation.data.infoCardEu
 						: federation.data.infoCardEs}
 				</div>
-
-				<h2 class="subtitle" id="federation-prices">
-					{t('Kuotak:')}
-				</h2>
-
-				{/* Desktop Table View */}
-				<section
-					aria-labelledby="federation-prices"
-					class="table-wrapper"
-					role="region"
-					tabindex={0}
-				>
-					<table
-						class="federation-table"
-						itemscope
-						itemtype="https://schema.org/Table"
-					>
-						<thead>
-							<tr>
-								<th scope="col">{lang === 'eu' ? 'Eskualdea' : 'Región'}</th>
-								{ageCategories.map(cat => (
-									<th scope="col">{lang === 'eu' ? cat.eu : cat.es}</th>
-								))}
-							</tr>
-						</thead>
-						<tbody>
-							{pricingTable.map((row, index) => (
-								<tr itemscope itemtype="https://schema.org/Offer">
-									<th scope="row" itemprop="category">
-										{lang === 'eu' ? row.regionEu : row.regionEs}
-									</th>
-									{ageCategories.map(cat => (
-										<td
-											class={
-												index === pricingNumberOfRows - 1 ? 'price-latest' : ''
-											}
-										>
-											<span itemprop="price">{formatPrice(row[cat.key])}</span>{' '}
-											<meta itemprop="priceCurrency" content="EUR" />
-										</td>
-									))}
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</section>
-
-				{/* Mobile Card View */}
-				<section aria-labelledby="federation-prices" class="federation-cards">
-					{pricingTable.map(row => (
-						<article
-							class="federation-card"
-							itemscope
-							itemtype="https://schema.org/Offer"
+				{pricingTable.length > 0 && (
+					<>
+						<h2 class="subtitle" id="federation-prices">
+							{t('Kuotak:')}
+						</h2>
+						{/* Desktop Table View */}
+						<section
+							aria-labelledby="federation-prices"
+							class="table-wrapper"
+							role="region"
+							tabindex={0}
 						>
-							<h2 class="card-region" itemprop="category">
-								{lang === 'eu' ? row.regionEu : row.regionEs}
-							</h2>
-							<dl class="card-prices">
-								{ageCategories.map(cat => (
-									<div class="price-row">
-										<dt class="price-label">
-											{lang === 'eu' ? cat.eu : cat.es}
-										</dt>
-										<dd class="price-value">
-											<span itemprop="price">{formatPrice(row[cat.key])}</span>{' '}
-											<meta itemprop="priceCurrency" content="EUR" />
-										</dd>
-									</div>
-								))}
-							</dl>
-						</article>
-					))}
-				</section>
+							<table
+								class="federation-table"
+								itemscope
+								itemtype="https://schema.org/Table"
+							>
+								<thead>
+									<tr>
+										<th scope="col">
+											{lang === 'eu' ? 'Eskualdea' : 'Región'}
+										</th>
+										{ageCategories.map(cat => (
+											<th scope="col">{lang === 'eu' ? cat.eu : cat.es}</th>
+										))}
+									</tr>
+								</thead>
+								<tbody>
+									{pricingTable.map((row, index) => (
+										<tr itemscope itemtype="https://schema.org/Offer">
+											<th scope="row" itemprop="category">
+												{lang === 'eu' ? row.regionEu : row.regionEs}
+											</th>
+											{ageCategories.map(cat => (
+												<td
+													class={
+														index === pricingNumberOfRows - 1
+															? 'price-latest'
+															: ''
+													}
+												>
+													<span itemprop="price">
+														{formatPrice(row[cat.key])}
+													</span>{' '}
+													<meta itemprop="priceCurrency" content="EUR" />
+												</td>
+											))}
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</section>
+
+						{/* Mobile Card View */}
+						<section
+							aria-labelledby="federation-prices"
+							class="federation-cards"
+						>
+							{pricingTable.map(row => (
+								<article
+									class="federation-card"
+									itemscope
+									itemtype="https://schema.org/Offer"
+								>
+									<h2 class="card-region" itemprop="category">
+										{lang === 'eu' ? row.regionEu : row.regionEs}
+									</h2>
+									<dl class="card-prices">
+										{ageCategories.map(cat => (
+											<div class="price-row">
+												<dt class="price-label">
+													{lang === 'eu' ? cat.eu : cat.es}
+												</dt>
+												<dd class="price-value">
+													<span itemprop="price">
+														{formatPrice(row[cat.key])}
+													</span>{' '}
+													<meta itemprop="priceCurrency" content="EUR" />
+												</dd>
+											</div>
+										))}
+									</dl>
+								</article>
+							))}
+						</section>
+					</>
+				)}
 			</section>
 		)
 	}
