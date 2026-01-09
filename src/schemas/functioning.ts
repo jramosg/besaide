@@ -1,8 +1,8 @@
 import { z } from 'astro:content';
 
 export const functioningSchema = z.object({
-	introductionEu: z.string(),
-	introductionEs: z.string(),
+	introductionEu: z.string().optional(),
+	introductionEs: z.string().optional(),
 	boardMembers: z.array(
 		z.object({
 			positionEu: z.string(),
