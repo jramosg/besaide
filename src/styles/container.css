@@ -4,13 +4,13 @@
 	padding: var(--container-padding);
 }
 
+.content__container--narrow {
+	max-width: var(--container-max-width-narrow);
+	padding: var(--container-padding);
+}
+
 @media (max-width: 600px) {
 	:root {
 		--container-padding: 0 1rem;
 	}
-}
-
-.content__container--narrow {
-	max-width: var(--container-max-width-narrow);
-	padding: 0 1rem;
 }
