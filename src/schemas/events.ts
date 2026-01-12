@@ -40,7 +40,7 @@ export const eventsSchema = (image: ImageFunction) =>
 				)
 				.optional()
 		})
-		.refine(data => !data.endDate || data.endDate > data.date, {
+		.refine(data => !data.endDate || data.endDate >= data.date, {
 			message: 'endDate must be after date',
 			path: ['endDate']
 		});
