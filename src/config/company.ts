@@ -10,7 +10,7 @@ export const Phone = {
 	url: 'tel:+34943773066'
 };
 
-const email = 'info@besaide.eus';
+const email = 'besaide.besaide@gmail.com';
 
 export const Email = {
 	name: email,
