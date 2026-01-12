@@ -25,7 +25,9 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 				id="agenda-heading"
 				title={t('Hurrengo irteerak')}
 				buttonText={t('Agenda osoa ikusi')}
-				buttonHref={getUrlFromID('agenda', lang, { year: today.getFullYear() })}
+				buttonHref={getUrlFromID('agenda', lang, {
+					year: new Date().getFullYear()
+				})}
 			>
 				<div class="events-grid">
 					{events.map(item => (

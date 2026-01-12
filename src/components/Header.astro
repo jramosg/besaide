@@ -86,7 +86,9 @@ const headerClasses = [
 											href={getUrlFromID(
 												navItem.slug,
 												lang,
-												navItem.slug === 'agenda' ? { year: 2025 } : undefined
+												navItem.slug === 'agenda'
+													? { year: new Date().getFullYear() }
+													: undefined
 											)}
 										>
 											{t(navItem.title)}
