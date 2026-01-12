@@ -36,6 +36,8 @@ export const eventsSchema = (image: ImageFunction) =>
 				.optional(),
 			priceDescriptionEu: z.string().optional(),
 			priceDescriptionEs: z.string().optional(),
+			inscriptionEu: z.string().optional(),
+			inscriptionEs: z.string().optional(),
 			routes: z
 				.array(
 					z.object({

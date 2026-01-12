@@ -228,7 +228,11 @@ const eventSchema = {
 				{t('Izen ematea')}
 			</h2>
 			<p class="registration-info">
-				{t('event.registrationInfo')}
+				{
+					(lang === 'eu'
+						? event.data.inscriptionEu
+						: event.data.inscriptionEs) || t('event.registrationInfo')
+				}
 			</p>
 		</Container>
 	</section>

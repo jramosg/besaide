@@ -158,6 +158,16 @@ export const events = collection({
 				label: 'Ibilbideak / Rutas',
 				itemLabel: props => props.fields.labelEu.value
 			}
-		)
+		),
+		inscriptionEu: fields.text({
+			label: 'Izena emateko informazioa',
+			description: 'Nola eman izena gertaeran',
+			multiline: true
+		}),
+		inscriptionEs: fields.text({
+			label: 'Información de inscripción',
+			description: 'Cómo inscribirse en el evento',
+			multiline: true
+		})
 	}
 });
