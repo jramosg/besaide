@@ -19,7 +19,7 @@ const t = useTranslations(lang);
 	class="form-section__membership"
 >
 	<Container narrow>
-		<h2 id="form-title" class="h4">
+		<h2 id="form-title" class="h4 form-title">
 			{t('form.title')}
 		</h2>
 
@@ -258,6 +258,9 @@ const t = useTranslations(lang);
 </FormSection>
 
 <style>
+	.form-title {
+		text-align: center;
+	}
 	.form-section__membership {
 		scroll-margin-top: calc(var(--header-height) + 20px);
 	}
