@@ -282,7 +282,13 @@ const headerClasses = [
 		opacity: 1;
 		box-shadow: unset;
 		.header-logo-menu__container {
-			opacity: 0;
+			.besaide-logo {
+				stroke: var(--theme-on-primary);
+				fill: var(--theme-on-primary);
+				path {
+					fill: var(--theme-on-primary);
+				}
+			}
 		}
 
 		.header-toggles__container {
