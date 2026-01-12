@@ -17,3 +17,9 @@ routes:
     url: >-
       https://es.wikiloc.com/rutas-senderismo/ganuza-sierra-de-lokiz-galdeano-8458658
     image: '@/assets/images/event-routes/ganuza-galdeano/routes/0/image.png'
+inscriptionEu: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
+inscriptionEs: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
