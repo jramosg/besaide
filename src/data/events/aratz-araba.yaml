@@ -23,3 +23,9 @@ routes:
     url: >-
       https://es.wikiloc.com/rutas-senderismo/monte-aratz-1-445-m-desde-araia-56541117
     image: '@/assets/images/event-routes/aratz-araba/routes/0/image.png'
+inscriptionEu: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
+inscriptionEs: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
