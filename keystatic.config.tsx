@@ -179,11 +179,11 @@ export default config({
 			schema: {
 				descriptionEu: fields.text({
 					label: 'Bazkidetza deskribapena euskeraz',
-					multiline: true,
+					multiline: true
 				}),
 				descriptionEs: fields.text({
 					label: 'Descripción de la membresía en español',
-					multiline: true,
+					multiline: true
 				}),
 				benefitsEu: fields.text({
 					label: 'Bazkide izatearen onurak',
