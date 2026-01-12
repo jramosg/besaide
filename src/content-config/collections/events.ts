@@ -25,7 +25,7 @@ export const events = collection({
 			options: [
 				{ label: 'Mendi irteera / Salida de montaña', value: 'mountain' },
 				{ label: 'Eski irteera / Salida de esquí', value: 'ski-alpino' },
-				{ label: 'Ekitaldiak / Eventos', value: 'event' },
+				{ label: 'Ekintzak / Eventos', value: 'event' },
 				{ label: 'Ikastaroak / Cursos', value: 'course' }
 			],
 			defaultValue: 'mountain'

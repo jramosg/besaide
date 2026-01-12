@@ -253,7 +253,7 @@ export const ui = {
 		'Hurrengo urtea': 'Año siguiente',
 		'Bilatu irteerak...': 'Buscar salidas...',
 		'Bilatu albisteak...': 'Buscar noticias...',
-		'Ekitaldi mota': 'Tipo de evento',
+		'Ekintza mota': 'Tipo de evento',
 		Guztiak: 'Todas',
 		'agenda.search-label': 'Buscar salidas por nombre',
 		'agenda.filter-label': 'Filtrar por tipo de salida',
