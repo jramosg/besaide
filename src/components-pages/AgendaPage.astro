@@ -178,11 +178,6 @@ const eventTypeOptions: SelectOption[] = [
 					<article class="month-section">
 						<header class="month-header">
 							<h3 class="month-title subtitle2">{title}</h3>
-							<p class="month-summary">
-								{events.length === 1
-									? t('Irteera bakarra dago planifikatuta.')
-									: `${events.length} ${t('irteera daude planifikatuta.')}`}
-							</p>
 						</header>
 						<ul class="events-grid" role="list">
 							{events.map(item => (
@@ -343,12 +338,6 @@ const eventTypeOptions: SelectOption[] = [
 
 	.month-title.past {
 		color: var(--theme-text-secondary);
-	}
-
-	.month-summary {
-		color: var(--theme-primary-900);
-		font-size: var(--font-size-sm);
-		margin: 0;
 	}
 
 	.events-grid {
