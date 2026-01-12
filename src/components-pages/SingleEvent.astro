@@ -167,29 +167,6 @@ const eventSchema = {
 			)
 		}
 		{
-			event.data.routes && event.data.routes.length > 0 && (
-				<section aria-labelledby="routes">
-					<h2 id="routes" class="subtitle">
-						{t('Ibilbideak')}
-					</h2>
-					<ul class="route-list">
-						{event.data.routes.map(route => (
-							<li class="route-list__item">
-								<RouteCard
-									route={{
-										wikilocUrl: route.url,
-										titleEu: route.labelEu,
-										titleEs: route.labelEs,
-										image: route.image
-									}}
-								/>
-							</li>
-						))}
-					</ul>
-				</section>
-			)
-		}
-		{
 			(priceDescriptionEntry?.body ||
 				(event.data.prices && event.data.prices.length > 0)) && (
 				<section aria-labelledby="price-description">
@@ -226,6 +203,32 @@ const eventSchema = {
 			</p>
 		</Container>
 	</section>
+	{
+		event.data.routes && event.data.routes.length > 0 && (
+			<section
+				aria-labelledby="routes"
+				class="content__container routes-section"
+			>
+				<h2 id="routes" class="subtitle">
+					{t('Ibilbideak')}
+				</h2>
+				<ul class="route-list">
+					{event.data.routes.map(route => (
+						<li class="route-list__item">
+							<RouteCard
+								route={{
+									wikilocUrl: route.url,
+									titleEu: route.labelEu,
+									titleEs: route.labelEs,
+									image: route.image
+								}}
+							/>
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
 </Page>
 
 <style>
@@ -299,6 +302,10 @@ const eventSchema = {
 		padding: var(--s6) 0;
 		margin-top: var(--s7);
 		background-color: var(--theme-primary-container-alt);
+	}
+
+	.routes-section {
+		margin-top: var(--s7);
 	}
 
 	:global([data-theme='dark']) .item__price {

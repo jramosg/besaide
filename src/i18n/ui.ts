@@ -411,7 +411,7 @@ export const ui = {
 		DESNIBELA: 'Desnibela',
 		MAILA: 'Maila',
 		// Event page
-		'event.finished': 'EKITALDIA AMAITU DA',
+		'event.finished': 'AMAITUTA',
 		'event.register': 'Izena eman',
 		// Event types
 		'event.type.mountain': 'Mendi irteera',
