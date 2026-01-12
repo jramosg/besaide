@@ -66,7 +66,7 @@ export const events = collection({
 		image: fields.image({
 			label: 'Irudia / Imagen',
 			directory: 'src/assets/images/events',
-			publicPath: '@/assets/images/events',
+			publicPath: '@/assets/images/events'
 		}),
 		summaryEu: fields.text({
 			label: 'Laburpena',
