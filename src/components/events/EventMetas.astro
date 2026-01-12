@@ -32,19 +32,17 @@ const slug = slugify(Astro.props.item.id);
 
 <>
 	{
-		type === 'mountain' ? (
-			mountain && (
-				<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={slug}>
-					<Map slot="icon" />
-				</CardMeta>
-			)
-		) : (
-			location && (
-				<CardMeta title={t('TOKIA')} desc={location || ''} eventId={slug}>
-					<Map slot="icon" />
-				</CardMeta>
-			)
-		)
+		type === 'mountain'
+			? mountain && (
+					<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={slug}>
+						<Map slot="icon" />
+					</CardMeta>
+				)
+			: location && (
+					<CardMeta title={t('TOKIA')} desc={location || ''} eventId={slug}>
+						<Map slot="icon" />
+					</CardMeta>
+				)
 	}
 	{
 		elevationGain && (
