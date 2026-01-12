@@ -20,3 +20,9 @@ routes:
     url: >-
       https://es.wikiloc.com/rutas-senderismo/espana-sierra-de-gredos-desde-la-plataforma-de-gredos-hasta-la-mira-2-343-metros-y-los-galayos-18716673
     image: '@/assets/images/event-routes/gredos-mendilerroa/routes/0/image.png'
+inscriptionEu: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
+inscriptionEs: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
