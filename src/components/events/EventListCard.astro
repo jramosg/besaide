@@ -7,6 +7,7 @@ import { formatEventDate } from '@/utils/date';
 import type { ProcessedEvent } from '@/types/Events';
 import EventMetas from './EventMetas.astro';
 import EventTypeIcon from './EventTypeIcon.astro';
+import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
 
 type Props = {
 	item: ProcessedEvent;
@@ -24,6 +25,8 @@ const formattedDate = formatEventDate(startDate, endDate, lang);
 const slug = slugify(item.id);
 
 const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
+
+
 ---
 
 <a
@@ -36,7 +39,7 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 >
 	<div class="event-image-col">
 		<Image
-			src={item.data.image}
+			src={item.data.image || DefaultImgHorizontal}
 			alt={item.data.title}
 			class="event-thumbnail"
 			style={`view-transition-name: image-${slug}`}

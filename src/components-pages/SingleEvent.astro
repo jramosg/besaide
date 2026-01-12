@@ -13,6 +13,8 @@ import { CompanyName } from '@/config/company';
 import EventMetas from '@/components/events/EventMetas.astro';
 import { formatPrice } from '@/utils/format';
 import RouteCard from '@/components/RouteCard.astro';
+import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
+
 type Props = {
 	event: CollectionEntry<'events'>;
 };
@@ -71,6 +73,8 @@ const { Content: PriceDescriptionContent } = priceDescriptionEntry
 	? await render(priceDescriptionEntry)
 	: { Content: null };
 
+const img = event.data.image || DefaultImgHorizontal;
+
 // Structured data for event
 const eventSchema = {
 	'@context': 'https://schema.org',
@@ -88,7 +92,7 @@ const eventSchema = {
 		name: CompanyName,
 		url: Astro.site?.toString()
 	},
-	image: new URL(event.data.image.src, Astro.site).toString()
+	image: new URL(img.src, Astro.site).toString()
 };
 ---
 
@@ -105,14 +109,14 @@ const eventSchema = {
 		openGraphProps: {
 			title: eventTitle + ' - ' + t('nav.agenda') + ' - ' + CompanyName,
 			description: eventDescription,
-			image: event.data.image.src
+			image: img.src
 		}
 	}}
 	Tag="article"
 >
 	<header class="event-hero">
 		<Image
-			src={event.data.image}
+			src={img}
 			style={`view-transition-name: image-${slug}`}
 			alt={event.data.title}
 			class="hero-image"

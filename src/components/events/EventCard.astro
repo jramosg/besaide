@@ -7,6 +7,7 @@ import type { ProcessedEvent } from '@/types/Events';
 import Chip from '../Chip.astro';
 import EventMetas from './EventMetas.astro';
 import EventTypeIcon from './EventTypeIcon.astro';
+import DefaultImg from '@/assets/images/besaide-default-horizontal.png';
 
 type Props = {
 	item: ProcessedEvent;
@@ -26,8 +27,10 @@ const eventId = slugify(item.id);
 <a href={item.slug} class="card card--elevated event-card">
 	<div class="event-image-container">
 		<Image
-			src={item.data.image}
+			src={item.data.image || DefaultImg}
 			alt={item.data.title}
+			height={400}
+			width={320}
 			class="event-image"
 			style={`view-transition-name: image-${eventId}`}
 		/>

@@ -12,6 +12,7 @@ import { ArrowLeft, Share2 } from '@lucide/astro';
 import { processNewsItem } from '@/utils/news';
 import { CompanyName } from '@/config/company';
 import HeroImage from '@/components/HeroImage.astro';
+import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
 
 const { post } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
@@ -30,6 +31,8 @@ const { Content } = await render(entry);
 
 const slug = slugify(post.id);
 const summary = processedPost.summary;
+
+const img = post.data.image || DefaultImgHorizontal;
 
 // Structured data for article
 const articleSchema = {
@@ -50,7 +53,7 @@ const articleSchema = {
 			url: new URL('/main-logo-horizontal.png', Astro.site).toString()
 		}
 	},
-	image: new URL(processedPost.data.image.src, Astro.site).toString(),
+	image: new URL(img.src, Astro.site).toString(),
 	description: summary || t('news.seo.description'),
 	mainEntityOfPage: {
 		'@type': 'WebPage',
@@ -73,7 +76,7 @@ const articleSchema = {
 		openGraphProps: {
 			title: processedPost.title + ' - ' + CompanyName,
 			description: summary || t('news.seo.description'),
-			image: processedPost.data.image.src
+			image: img.src
 		}
 	}}
 	Tag="article"
@@ -83,7 +86,7 @@ const articleSchema = {
 		{t('Atzera itzuli')}
 	</a>
 	<HeroImage
-		src={processedPost.data.image}
+		src={img}
 		alt={processedPost.title}
 		slug={slug}
 	/>

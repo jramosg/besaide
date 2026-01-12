@@ -67,7 +67,6 @@ export const events = collection({
 			label: 'Irudia / Imagen',
 			directory: 'src/assets/images/events',
 			publicPath: '@/assets/images/events',
-			validation: { isRequired: true }
 		}),
 		summaryEu: fields.text({
 			label: 'Laburpena',

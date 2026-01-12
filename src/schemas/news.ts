@@ -5,7 +5,7 @@ export const newsSchema = (image: ImageFunction) =>
 		titleEu: z.string(),
 		titleEs: z.string().optional(),
 		date: z.date(),
-		image: image(),
+		image: image().optional(),
 		summaryEu: z.string().max(200),
 		summaryEs: z.string().max(200)
 	});

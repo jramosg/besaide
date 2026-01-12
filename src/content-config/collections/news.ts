@@ -19,8 +19,7 @@ export const news = collection({
 		image: fields.image({
 			label: 'Irudia / Imagen',
 			directory: 'src/assets/images/news',
-			publicPath: '@/assets/images/news',
-			validation: { isRequired: true }
+			publicPath: '@/assets/images/news'
 		}),
 		summaryEu: fields.text({
 			label: 'Laburpena euskeraz',

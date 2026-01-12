@@ -5,6 +5,7 @@ import { formatDate } from '@/i18n/utils';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { Share2, ArrowRight } from '@lucide/astro';
 import type { ProcessedNewsItem } from '@/types/News';
+import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
 
 type Props = {
 	item: ProcessedNewsItem;
@@ -24,7 +25,7 @@ const slug = slugify(item.id);
 	<a href={item.slug} class="news-card__link" itemprop="url">
 		<div class="news-card__image">
 			<Image
-				src={item.data.image}
+				src={item.data.image || DefaultImgHorizontal}
 				style={`view-transition-name: image-${slug}`}
 				alt={item.title}
 				itemprop="image"
