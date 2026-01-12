@@ -24,9 +24,14 @@ export const events = collection({
 			description: 'Zer motatako jarduera den (montaña, ski alpino, etc.)',
 			options: [
 				{ label: 'Mendi irteera / Salida de montaña', value: 'mountain' },
+				{ label: 'Mendi martxa', value: 'mountain-martxa' },
 				{ label: 'Eski irteera / Salida de esquí', value: 'ski-alpino' },
 				{ label: 'Ekintzak / Eventos', value: 'event' },
-				{ label: 'Ikastaroak / Cursos', value: 'course' }
+				{ label: 'Ikastaroak / Cursos', value: 'course' },
+				{
+					label: 'Espeologia irteera / Salida de espeleología',
+					value: 'speleology'
+				}
 			],
 			defaultValue: 'mountain'
 		}),

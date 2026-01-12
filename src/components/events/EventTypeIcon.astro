@@ -3,6 +3,7 @@ import MountainClimb from '@/assets/icons/elevation.svg';
 import DownHillSkiing from '@/assets/icons/downhill_skiing.svg';
 import CalendarAddOn from '@/assets/icons/calendar_add_on.svg';
 import CourseIcon from '@/assets/icons/course.svg';
+import HardHat from '@lucide/astro/icons/hard-hat';
 import type { CollectionEntry } from 'astro:content';
 type Props = {
 	item: CollectionEntry<'events'>;
@@ -17,6 +18,8 @@ const { item } = Astro.props;
 		<CalendarAddOn fill="currentColor" />
 	) : item.data.type === 'course' ? (
 		<CourseIcon fill="currentColor" />
+	) : item.data.type === 'speleology' ? (
+		<HardHat fill="currentColor" />
 	) : (
 		<MountainClimb fill="currentColor" />
 	)

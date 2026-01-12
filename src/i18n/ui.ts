@@ -111,9 +111,11 @@ export const ui = {
 		'event.register': 'Inscribirse',
 		// Event types
 		'event.type.mountain': 'Salida de montaña',
+		'event.type.mountain-martxa': 'Mendi martxa',
 		'event.type.ski-alpino': 'Salida de esquí',
 		'event.type.event': 'Evento',
 		'event.type.course': 'Curso',
+		'event.type.speleology': 'Salida de espeleología',
 		'nav.contact': 'Contacto',
 		// Contact form
 		'contact.form.title': 'Formulario de contacto',
@@ -415,9 +417,11 @@ export const ui = {
 		'event.register': 'Izena eman',
 		// Event types
 		'event.type.mountain': 'Mendi irteera',
+		'event.type.mountain-martxa': 'Mendi martxa',
 		'event.type.ski-alpino': 'Eski irteera',
 		'event.type.event': 'Ekitaldia',
 		'event.type.course': 'Ikastaroa',
+		'event.type.speleology': 'Espeleologia irteera',
 		'nav.contact': 'Kontaktua',
 		// Contact form
 		'contact.form.title': 'Kontaktu formularioa',
