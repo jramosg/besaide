@@ -177,6 +177,14 @@ export default config({
 			label: 'Bazkidetza | Membresía',
 			path: 'src/data/membership/membership',
 			schema: {
+				descriptionEu: fields.text({
+					label: 'Bazkidetza deskribapena euskeraz',
+					multiline: true,
+				}),
+				descriptionEs: fields.text({
+					label: 'Descripción de la membresía en español',
+					multiline: true,
+				}),
 				benefitsEu: fields.text({
 					label: 'Bazkide izatearen onurak',
 					multiline: true,

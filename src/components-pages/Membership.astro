@@ -79,9 +79,12 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	>
 		<PageHeader
 			title={t('Bazkidetza')}
-			subtitle={t(
-				'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira'
-			) + ':'}
+			subtitle={(lang === 'eu'
+				? membership.data.descriptionEu
+				: membership.data.descriptionEs) ||
+				t(
+					'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira'
+				) + ':'}
 			id="bazkidetza"
 		/>
 
