@@ -295,10 +295,7 @@ export const ui = {
 		'Zure datuak bidali dira. Eskaera tramitatu bezain laister, zurekin kontaktuan jarriko gara.\nEskerrik asko!':
 			'Tus datos han sido enviados. En cuanto se tramite la solicitud, nos pondremos en contacto contigo.\n¡Gracias!',
 		'Beste galdetegi bat bete': 'Rellenar otro formulario',
-		'email.membership.subject.federation': 'Solicitud de federación',
 		'email.membership.subject.membership': 'Solicitud de socio',
-		'email.membership.subject.membership-and-federation':
-			'Solicitud de socio y federación',
 		required: 'Este campo es obligatorio',
 		Required: 'Este campo es obligatorio',
 		email: 'El email no es válido',
@@ -531,10 +528,7 @@ export const ui = {
 		'form.error.postal-code': 'Posta kodeak 5 zenbaki izan behar ditu',
 		'form.error.accept-terms': 'Erabilera arauak onartu behar dituzu',
 		'form.error.invalid': 'Balio okerra',
-		'email.membership.subject.federation': 'Federatu lizentzia eskaera',
 		'email.membership.subject.membership': 'Bazkide izateko eskaera',
-		'email.membership.subject.membership-and-federation':
-			'Bazkide eta federatu lizentzia eskaera',
 		required: 'Datu hau beharrezkoa da',
 		Required: 'Datu hau beharrezkoa da',
 		email: 'Emailaren formatua ez da zuzena',

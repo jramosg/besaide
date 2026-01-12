@@ -96,13 +96,9 @@ export async function sendMembershipEmail(
 			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
 			to: getEmailRecipients(data),
 			bcc: companyRecipient,
-			subject: `${
-				data.federation && data.membership
-					? t('email.membership.subject.membership-and-federation')
-					: data.federation
-						? t('email.membership.subject.federation')
-						: t('email.membership.subject.membership')
-			} - ${data.name} ${data.surnames}`,
+			subject: `${t(
+				'email.membership.subject.membership'
+			)} - ${data.name} ${data.surnames}`,
 			html: emailHtml,
 			text: plainText,
 			replyTo: data.email
