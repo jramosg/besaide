@@ -12,7 +12,6 @@ export const membershipFormAction = defineAction({
 			language: input.language,
 			infoSpanish: input.infoSpanish === 'on',
 			membership: input.membership === 'on',
-			federation: input.federation === 'on'
 		};
 
 		// Send the email
