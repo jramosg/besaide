@@ -505,7 +505,7 @@ export const ui = {
 		'agenda.search-label': 'Bilatu irteerak izenaren arabera',
 		'agenda.filter-label': 'Iragazi irteera motaren arabera',
 		// Membership form
-		'form.title': 'Bazkide eta federatu lizentzia berrien eskaera orria',
+		'form.title': 'Bazkide lizentzia berrien eskaera orria',
 		'form.instructions':
 			'Galdetegia bete ezazu. Beharrezkoak diren datuak * ikurrarekin aurkituko dituzu.',
 		'form.section.personal-data': 'Datu pertsonalak bete:',
