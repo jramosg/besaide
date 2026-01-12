@@ -71,13 +71,13 @@ export const events = collection({
 		summaryEu: fields.text({
 			label: 'Laburpena',
 			description: 'Laburpen labur bat',
-			validation: { isRequired: true, length: { max: 200 } },
+			validation: { length: { max: 200 } },
 			multiline: true
 		}),
 		summaryEs: fields.text({
 			label: 'Resumen',
 			description: 'Resumen breve',
-			validation: { isRequired: true, length: { max: 200 } },
+			validation: { length: { max: 200 } },
 			multiline: true
 		}),
 		descriptionEu: fields.markdoc({

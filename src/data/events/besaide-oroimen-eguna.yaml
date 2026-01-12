@@ -4,7 +4,5 @@ type: event
 mountain: Besaide
 location: Besaide
 image: '@/assets/images/events/besaide-oroimen-eguna/image.jpeg'
-summaryEu: argh
-summaryEs: dtul
 prices: []
 routes: []

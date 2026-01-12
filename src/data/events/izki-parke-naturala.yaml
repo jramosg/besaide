@@ -4,7 +4,5 @@ type: mountain
 mountain: Postarien eta Txarabitana bidezidorrak
 location: Izki parke naturala, Araba
 image: '@/assets/images/events/izki-parke-naturala/image.PNG'
-summaryEu: izejyf
-summaryEs: izn
 prices: []
 routes: []

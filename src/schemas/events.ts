@@ -23,8 +23,8 @@ export const eventsSchema = (image: ImageFunction) =>
 			elevationGain: z.string().optional(),
 			distance: z.string().optional(),
 			image: image().optional(),
-			summaryEu: z.string(),
-			summaryEs: z.string(),
+			summaryEu: z.string().optional(),
+			summaryEs: z.string().optional(),
 			prices: z
 				.array(
 					z.object({
