@@ -7,3 +7,9 @@ location: 'Cantabria '
 image: '@/assets/images/events/picos-de-europara-irteera/image.PNG'
 prices: []
 routes: []
+inscriptionEu: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
+inscriptionEs: >-
+  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
+  harremanetan.
