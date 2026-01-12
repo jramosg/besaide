@@ -20,10 +20,15 @@ export function processNewsItem(
 	lang: Langs,
 	newsSection: string
 ): ProcessedNewsItem {
+	const title =
+		('es' === lang ? item.data.titleEs : item.data.titleEu) ||
+		item.data.titleEu ||
+		item.data.titleEs ||
+		'';
 	return {
 		...item,
 		slug: `${newsSection}/${slugify(item.id)}${lang === 'eu' ? '' : '-es'}`,
-		title: lang === 'es' ? item.data.titleEs : item.data.titleEu,
+		title: title,
 		summary: lang === 'es' ? item.data.summaryEs : item.data.summaryEu
 	};
 }

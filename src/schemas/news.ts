@@ -3,7 +3,7 @@ import { z, type ImageFunction } from 'astro:content';
 export const newsSchema = (image: ImageFunction) =>
 	z.object({
 		titleEu: z.string(),
-		titleEs: z.string(),
+		titleEs: z.string().optional(),
 		date: z.date(),
 		image: image(),
 		summaryEu: z.string().max(200),
