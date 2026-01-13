@@ -4,7 +4,8 @@ type: event
 location: Jokin Zaitegi gela
 duration: 2 ordu
 meetingPoint: Kultur ate
-time: '18:45'
+time: '19:00'
+image: '@/assets/images/events/batzar-orokorra/image.png'
 summaryEu: Batzar orokorra eta ez ohiko batzar orokorra ospatuko dira
 summaryEs: Batzar orokorra eta ez ohiko batzar orokorra ospatuko dira
 prices: []
