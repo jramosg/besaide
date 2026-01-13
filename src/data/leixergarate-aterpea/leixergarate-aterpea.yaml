@@ -45,9 +45,14 @@ contributionEs: >-
   Dado que las cosas están así y que estás al tanto, te invitamos a utilizar el
   refugio en sí, ya que el uso le da vida y sentido al refugio de Leixargarate.
 prices:
-  - labelEu: Gastu minimoa
-    labelEs: Gasto mínimo
+  - labelEu: >-
+      Gastu minimoa (gutxieneko gastua asteburu eta jai egunetan soilik
+      aplikatuko da)
+    labelEs: >-
+      Gasto mínimo (gutxieneko gastua asteburu eta jai egunetan soilik
+      aplikatuko da)
     price: 25
+    descriptionEu: eguna 25€ / asteburua 50 €
   - labelEu: Bazkideak
     labelEs: Socios
     price: 8
