@@ -213,85 +213,11 @@ export default config({
 						label: 'Prezioak / Precios',
 						itemLabel: props =>
 							props.fields.labelEu.value +
-								': ' +
-								props.fields.price.value +
-								'€' || 'Prezioa / Precio'
+							': ' +
+							props.fields.price.value +
+							'€' || 'Prezioa / Precio'
 					}
 				)
-			}
-		}),
-		leixergarateAterpea: singleton({
-			label: 'Leixergarate aterpetxea / Refugio Leixergarate',
-			path: 'src/data/leixergarate-aterpea/leixergarate-aterpea',
-			schema: {
-				descriptionEu: fields.text({
-					label: 'Deskribapena euskeraz',
-					description: 'Aterpearen deskribapena',
-					multiline: true,
-					validation: { isRequired: true }
-				}),
-				descriptionEs: fields.text({
-					label: 'Descripción en español',
-					description: 'Descripción del refugio',
-					multiline: true,
-					validation: { isRequired: true }
-				}),
-				termsEu: fields.markdoc({
-					label: 'Erabilera baldintzak euskeraz',
-					description: 'Aterpearen erabilera baldintzak',
-					options: createImageOptions('leixergarate-aterpea/terms')
-				}),
-				termsEs: fields.markdoc({
-					label: 'Términos de uso en español',
-					description: 'Términos de uso del refugio',
-					options: createImageOptions('leixergarate-aterpea/terms')
-				}),
-				prices: fields.array(
-					fields.object({
-						labelEu: fields.text({
-							label: 'Prezioaren izena euskeraz',
-							validation: { isRequired: true }
-						}),
-						labelEs: fields.text({
-							label: 'Nombre del precio en español',
-							validation: { isRequired: true }
-						}),
-						priceEu: fields.text({
-							label: 'Prezioa euskeraz (adib: eguna 25€ / asteburua 50 €)',
-							validation: { isRequired: true }
-						}),
-						priceEs: fields.text({
-							label: 'Precio en español (ej: día 25€ / fin de semana 50 €)',
-							validation: { isRequired: true }
-						}),
-						descriptionEu: fields.text({
-							label: 'Deskribapena euskeraz (aukerakoa)',
-							description: 'Adib: gaua, biak barne, etab.'
-						}),
-						descriptionEs: fields.text({
-							label: 'Descripción en español (opcional)',
-							description: 'Ej: noche, ambos inclusive, etc.'
-						})
-					}),
-					{
-						label: 'Prezioak / Precios',
-						itemLabel: props =>
-							props.fields.labelEu.value + ': ' + props.fields.priceEu.value
-					}
-				),
-				contributionEu: fields.text({
-					label: 'Berrikuntzak euskeraz',
-					description: 'Besaide elkarteak aterpeari egindako ekarpena',
-					multiline: true,
-					validation: { isRequired: true }
-				}),
-				contributionEs: fields.text({
-					label: 'Novedades en español',
-					description:
-						'Contribución que ha hecho la asociación Besaide al refugio',
-					multiline: true,
-					validation: { isRequired: true }
-				})
 			}
 		}),
 		federation: singleton({
@@ -424,6 +350,81 @@ export default config({
 						itemLabel: props => props.fields.nameEu.value
 					}
 				)
+			}
+		})
+	
+	leixergarateAterpea: singleton({
+			label: 'Leixergarate aterpetxea / Refugio Leixergarate',
+			path: 'src/data/leixergarate-aterpea/leixergarate-aterpea',
+			schema: {
+				descriptionEu: fields.text({
+					label: 'Deskribapena euskeraz',
+					description: 'Aterpearen deskribapena',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				descriptionEs: fields.text({
+					label: 'Descripción en español',
+					description: 'Descripción del refugio',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				termsEu: fields.markdoc({
+					label: 'Erabilera baldintzak euskeraz',
+					description: 'Aterpearen erabilera baldintzak',
+					options: createImageOptions('leixergarate-aterpea/terms')
+				}),
+				termsEs: fields.markdoc({
+					label: 'Términos de uso en español',
+					description: 'Términos de uso del refugio',
+					options: createImageOptions('leixergarate-aterpea/terms')
+				}),
+				prices: fields.array(
+					fields.object({
+						labelEu: fields.text({
+							label: 'Prezioaren izena euskeraz',
+							validation: { isRequired: true }
+						}),
+						labelEs: fields.text({
+							label: 'Nombre del precio en español',
+							validation: { isRequired: true }
+						}),
+						priceEu: fields.text({
+							label: 'Prezioa euskeraz (adib: eguna 25€ / asteburua 50 €)',
+							validation: { isRequired: true }
+						}),
+						priceEs: fields.text({
+							label: 'Precio en español (ej: día 25€ / fin de semana 50 €)',
+							validation: { isRequired: true }
+						}),
+						descriptionEu: fields.text({
+							label: 'Deskribapena euskeraz (aukerakoa)',
+							description: 'Adib: gaua, biak barne, etab.'
+						}),
+						descriptionEs: fields.text({
+							label: 'Descripción en español (opcional)',
+							description: 'Ej: noche, ambos inclusive, etc.'
+						})
+					}),
+					{
+						label: 'Prezioak / Precios',
+						itemLabel: props =>
+							props.fields.labelEu.value + ': ' + props.fields.priceEu.value
+					}
+				),
+				contributionEu: fields.text({
+					label: 'Berrikuntzak euskeraz',
+					description: 'Besaide elkarteak aterpeari egindako ekarpena',
+					multiline: true,
+					validation: { isRequired: true }
+				}),
+				contributionEs: fields.text({
+					label: 'Novedades en español',
+					description:
+						'Contribución que ha hecho la asociación Besaide al refugio',
+					multiline: true,
+					validation: { isRequired: true }
+				})
 			}
 		})
 	}
