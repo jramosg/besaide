@@ -260,9 +260,13 @@ export default config({
 							label: 'Nombre del precio en español',
 							validation: { isRequired: true }
 						}),
-						price: fields.number({
-							label: 'Prezioa (€) / Precio (€)',
-							validation: { isRequired: true, min: 0 }
+						priceEu: fields.text({
+							label: 'Prezioa euskeraz (adib: eguna 25€ / asteburua 50 €)',
+							validation: { isRequired: true }
+						}),
+						priceEs: fields.text({
+							label: 'Precio en español (ej: día 25€ / fin de semana 50 €)',
+							validation: { isRequired: true }
 						}),
 						descriptionEu: fields.text({
 							label: 'Deskribapena euskeraz (aukerakoa)',

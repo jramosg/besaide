@@ -9,7 +9,8 @@ export const leixergarateAterpeaSchema = z.object({
 		z.object({
 			labelEu: z.string(),
 			labelEs: z.string(),
-			price: z.number(),
+			priceEu: z.string(),
+			priceEs: z.string(),
 			descriptionEu: z.string().optional(),
 			descriptionEs: z.string().optional()
 		})

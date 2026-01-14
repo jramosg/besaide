@@ -62,7 +62,6 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 				longitude: coordinates.lon,
 				elevation: `${coordinates.elevation}m`
 			},
-			priceRange: `€${Math.min(...entry.data.prices.map(p => p.price))} - €${Math.max(...entry.data.prices.map(p => p.price))}`,
 			amenityFeature: [
 				{
 					'@type': 'LocationFeatureSpecification',
@@ -120,33 +119,51 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			<h2 id="prices-heading" class="h4">{t('Prezioak')}</h2>
 			<dl class="price-list">
 				{
-					entry.data.prices.map(price => (
-						<>
-							<dt
-								class="price-label subtitle"
-								itemscope
-								itemtype="https://schema.org/Offer"
-							>
-								<span itemprop="name">{`${lang === 'eu' ? price.labelEu : price.labelEs}: `}</span>
-							</dt>
-							<dd class="price-value subtitle">
-								<span class="price-amount" itemprop="price">
-									{formatPrice(price.price)}
-								</span>
-								<meta itemprop="priceCurrency" content="EUR" />
-								<meta
-									itemprop="availability"
-									content="https://schema.org/InStock"
-								/>
-								{((price.descriptionEu && lang === 'eu') ||
-									(price.descriptionEs && lang === 'es')) && (
-									<span itemprop="priceSpecification" class="price-description">
-										{lang === 'eu' ? price.descriptionEu : price.descriptionEs}
+					entry.data.prices.map(price => {
+						const isDescription =
+							(price.descriptionEu && lang === 'eu') ||
+							(price.descriptionEs && lang === 'es');
+						return (
+							<>
+								<dt
+									class:list={[
+										'price-label',
+										'subtitle2',
+										isDescription ? '' : 'row-border'
+									]}
+									itemscope
+									itemtype="https://schema.org/Offer"
+								>
+									<span itemprop="name">
+										{lang === 'eu' ? price.labelEu : price.labelEs}
 									</span>
+								</dt>
+								<dd
+									class:list={[
+										'price-value',
+										isDescription ? '' : 'row-border'
+									]}
+								>
+									<span itemprop="price">
+										{lang === 'eu' ? price.priceEu : price.priceEs}
+									</span>
+									<meta itemprop="priceCurrency" content="EUR" />
+									<meta
+										itemprop="availability"
+										content="https://schema.org/InStock"
+									/>
+								</dd>
+								{isDescription && (
+									<dd
+										itemprop="priceSpecification"
+										class="price-description row-border"
+									>
+										{lang === 'eu' ? price.descriptionEu : price.descriptionEs}
+									</dd>
 								)}
-							</dd>
-						</>
-					))
+							</>
+						);
+					})
 				}
 			</dl>
 			<small class="prices-note"
@@ -211,7 +228,7 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 		role="region"
 		aria-label="Call to action"
 	>
-		<p class="h4">
+		<p class="h4 leixergarate-footer-text">
 			{
 				t(
 					'Animatu zaitez asteburua mendian igarotzera, familia edo lagun artean!'
@@ -248,6 +265,9 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 		.price-label {
 			grid-column: 1;
 			padding-bottom: var(--s2, 0.5rem);
+		}
+
+		.row-border {
 			border-bottom: 1px solid var(--theme-separator);
 		}
 
@@ -260,9 +280,9 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			white-space: nowrap;
 			grid-column: 2;
 			padding-bottom: var(--s2, 0.5rem);
-			border-bottom: 1px solid var(--theme-separator);
 			width: 100%;
 			justify-content: flex-end;
+			font-weight: var(--font-weight-semibold);
 		}
 
 		.prices-note {
@@ -313,6 +333,17 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 
 		:global([data-theme='dark']) .leixergarate-footer {
 			color: var(--theme-on-bg);
+		}
+
+		.leixergarate-footer-text {
+			font-weight: var(--font-weight-normal);
+		}
+
+		.price-description {
+			grid-column: 1 / span 2;
+			margin-top: calc(var(--s4) * -1);
+			font-size: var(--font-size-);
+			padding-bottom: var(--s2);
 		}
 
 		@media (max-width: 600px) {
