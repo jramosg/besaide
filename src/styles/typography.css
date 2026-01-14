@@ -1,6 +1,6 @@
 :root {
 	--font-size-xs: clamp(10.8px, 12px, 12px);
-	--font-size-sm: clamp(14.4px, 0.07vw + 14.13px, 15px);
+	--font-size-sm: clamp(13px, 0.07vw + 14.13px, 14px);
 	--font-size-base: clamp(14.4px, 0.23vw + 14px, 16px);
 	--font-size-subtitle: clamp(18px, 0.31vw + 17.5px, 20px);
 	--font-size-h4: clamp(21.6px, 0.47vw + 20.2px, 24px);
