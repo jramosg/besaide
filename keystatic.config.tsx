@@ -3,6 +3,7 @@ import { events } from '@/content-config/collections/events';
 import { news } from '@/content-config/collections/news';
 import { homepage } from '@/content-config/singletons/homepage';
 import { libraryMaps } from '@/content-config/singletons/library-mapts';
+import { materialRental } from '@/content-config/singletons/material-rental';
 import { createImageOptions } from '@/content-config/util';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
@@ -425,6 +426,7 @@ export default config({
 					validation: { isRequired: true }
 				})
 			}
-		})
+		}),
+		materialRentalDescription: materialRental
 	}
 });

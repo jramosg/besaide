@@ -3,13 +3,13 @@ import PageHeader from '@/components/PageHeader.astro';
 import MaterialRentalItem from '@/components/MaterialRentalItem.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import Page from '@/layouts/Page.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Get material rental items and sort by availability (available first) then alphabetically by name
 const materialItems = await getCollection('materialRental');
+
 const sortedItems = materialItems.sort((a, b) => {
 	// First sort by availability (available items first)
 	if (a.data.available !== b.data.available) {
@@ -20,6 +20,13 @@ const sortedItems = materialItems.sort((a, b) => {
 	const nameB = lang === 'eu' ? b.data.name_eu : b.data.name_es;
 	return nameA.localeCompare(nameB, lang);
 });
+
+const materialRentalDesc = await getEntry(
+	'materialRentalDesc',
+	'content' + lang
+);
+const materialRentalDescRendered =
+	materialRentalDesc && (await render(materialRentalDesc));
 ---
 
 <Page
@@ -31,7 +38,7 @@ const sortedItems = materialItems.sort((a, b) => {
 >
 	<PageHeader title={t('nav.material-rent')} />
 
-	<p>{t('material-rent.intro')}</p>
+	{materialRentalDescRendered && <materialRentalDescRendered.Content />}
 
 	<dl class="material-list">
 		{

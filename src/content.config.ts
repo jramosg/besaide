@@ -84,6 +84,13 @@ const materialRental = defineCollection({
 	schema: materialRentalSchema
 });
 
+const materialRentalDesc = defineCollection({
+	loader: glob({
+		pattern: ['contentEu.mdoc', 'contentEs.mdoc'],
+		base: './src/data/material-rental'
+	})
+});
+
 const routes = defineCollection({
 	loader: glob({
 		pattern: '**/*.yaml',
@@ -115,6 +122,7 @@ export const collections = {
 	federation,
 	federationContent,
 	materialRental,
+	materialRentalDesc,
 	routes,
 	homepage,
 	leixergarateAterpeaTerms
