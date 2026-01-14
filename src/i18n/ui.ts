@@ -243,8 +243,8 @@ export const ui = {
 		Prezioak: 'Precios',
 		Federatzea: 'Federarse',
 		'material-rent.unavailable': 'No disponible',
-		'Animatu zaitez eta pasa familia edo mendi lagun arteko asteburu bat!':
-			'¡Anímate y pasa un fin de semana en familia o con amigos de la montaña!',
+		'Animatu zaitez asteburua mendian igarotzera, familia edo lagun artean!':
+			'¡Anímate y pasa un fin de semana en familia o con amigos en la montaña!',
 		Ezaugarriak: 'Características',
 		'Informazio gehigarria': 'Información adicional',
 		Prezioa: 'Precio',
