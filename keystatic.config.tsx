@@ -7,7 +7,11 @@ import { createImageOptions } from '@/content-config/util';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 const GitHubConfig = {
-	kind: 'local'
+	kind: 'github',
+	repo: {
+		owner: 'jramosg',
+		name: 'besaide'
+	}
 } as const;
 
 export default config({
