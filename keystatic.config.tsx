@@ -213,9 +213,9 @@ export default config({
 						label: 'Prezioak / Precios',
 						itemLabel: props =>
 							props.fields.labelEu.value +
-							': ' +
-							props.fields.price.value +
-							'€' || 'Prezioa / Precio'
+								': ' +
+								props.fields.price.value +
+								'€' || 'Prezioa / Precio'
 					}
 				)
 			}
@@ -351,9 +351,8 @@ export default config({
 					}
 				)
 			}
-		})
-	
-	leixergarateAterpea: singleton({
+		}),
+		leixergarateAterpea: singleton({
 			label: 'Leixergarate aterpetxea / Refugio Leixergarate',
 			path: 'src/data/leixergarate-aterpea/leixergarate-aterpea',
 			schema: {
