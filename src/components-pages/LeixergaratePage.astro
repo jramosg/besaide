@@ -122,15 +122,6 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			)
 		}
 
-		<section aria-labelledby="contribution-heading">
-			<h2 id="contribution-heading" class="h4">
-				{t('Besaidek egindako ekarpena')}
-			</h2>
-			<p>
-				{lang === 'eu' ? entry.data.contributionEu : entry.data.contributionEs}
-			</p>
-		</section>
-
 		<section aria-labelledby="prices-heading">
 			<h2 id="prices-heading" class="h4">{t('Prezioak')}</h2>
 			<dl class="price-list">
@@ -186,6 +177,22 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 				>{t('*Asteburuetan prezioak eguneko izango dira.')}</small
 			>
 		</section>
+
+		{
+			(entry.data.contributionEu && lang === 'eu') ||
+			(entry.data.contributionEs && lang === 'es') ? (
+				<section aria-labelledby="contribution-heading">
+					<h2 id="contribution-heading" class="h4">
+						{t('Berrikuntzak')}
+					</h2>
+					<p>
+						{lang === 'eu'
+							? entry.data.contributionEu
+							: entry.data.contributionEs}
+					</p>
+				</section>
+			) : null
+		}
 
 		<section aria-labelledby="gallery-heading">
 			<h2 id="gallery-heading" class="h4">{t('Argazki galeria')}</h2>

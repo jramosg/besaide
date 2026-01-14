@@ -237,7 +237,6 @@ export const ui = {
 		TELEFONOA: 'TELÉFONO',
 		'Harremanetan jarri': 'Contactar',
 		Deskribapena: 'Descripción',
-		'Besaidek egindako ekarpena': 'Contribución de Besaide',
 		'Argazki galeria': 'Galería de fotos',
 		Kokapena: 'Ubicación',
 		Prezioak: 'Precios',
@@ -309,7 +308,8 @@ export const ui = {
 
 		'Gehigarriak:': 'Extras:',
 		'Kuotak:': 'Cuotas:',
-		Baldintzak: 'Condiciones'
+		Baldintzak: 'Condiciones',
+		Berrikuntzak: 'Novedades'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',

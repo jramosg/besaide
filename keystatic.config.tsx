@@ -232,18 +232,15 @@ export default config({
 					multiline: true,
 					validation: { isRequired: true }
 				}),
-				contributionEu: fields.text({
-					label: 'Besaidek egindako ekarpena euskeraz',
-					description: 'Besaide elkarteak aterpeari egindako ekarpena',
-					multiline: true,
-					validation: { isRequired: true }
+				termsEu: fields.markdoc({
+					label: 'Erabilera baldintzak euskeraz',
+					description: 'Aterpearen erabilera baldintzak',
+					options: createImageOptions('leixergarate-aterpea/terms')
 				}),
-				contributionEs: fields.text({
-					label: 'Contribución de Besaide en español',
-					description:
-						'Contribución que ha hecho la asociación Besaide al refugio',
-					multiline: true,
-					validation: { isRequired: true }
+				termsEs: fields.markdoc({
+					label: 'Términos de uso en español',
+					description: 'Términos de uso del refugio',
+					options: createImageOptions('leixergarate-aterpea/terms')
 				}),
 				prices: fields.array(
 					fields.object({
@@ -278,15 +275,18 @@ export default config({
 							props.fields.labelEu.value + ': ' + props.fields.priceEu.value
 					}
 				),
-				termsEu: fields.markdoc({
-					label: 'Erabilera baldintzak euskeraz',
-					description: 'Aterpearen erabilera baldintzak',
-					options: createImageOptions('leixergarate-aterpea/terms')
+				contributionEu: fields.text({
+					label: 'Berrikuntzak euskeraz',
+					description: 'Besaide elkarteak aterpeari egindako ekarpena',
+					multiline: true,
+					validation: { isRequired: true }
 				}),
-				termsEs: fields.markdoc({
-					label: 'Términos de uso en español',
-					description: 'Términos de uso del refugio',
-					options: createImageOptions('leixergarate-aterpea/terms')
+				contributionEs: fields.text({
+					label: 'Novedades en español',
+					description:
+						'Contribución que ha hecho la asociación Besaide al refugio',
+					multiline: true,
+					validation: { isRequired: true }
 				})
 			}
 		}),
