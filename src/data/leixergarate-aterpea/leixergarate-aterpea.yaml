@@ -47,10 +47,10 @@ contributionEs: >-
 prices:
   - labelEu: Gastu minimoa
     labelEs: Gasto mínimo
-    descriptionEu: Gutxieneko gastua asteburu eta jai egunetan soilik aplikatuko da
-    descriptionEs: Aplicable solo en fines de semana y festivos
     priceEu: eguna 25€ / asteburua 50 €
     priceEs: día 25€ / fin de semana 50 €
+    descriptionEu: Gutxieneko gastua asteburu eta jai egunetan soilik aplikatuko da
+    descriptionEs: Aplicable solo en fines de semana y festivos
   - labelEu: Bazkideak
     labelEs: Socios
     priceEu: 8 € gaua

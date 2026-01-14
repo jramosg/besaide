@@ -1,4 +1,3 @@
-// keystatic.config.ts
 import { CompanyName } from '@/config/company';
 import { events } from '@/content-config/collections/events';
 import { news } from '@/content-config/collections/news';
@@ -8,11 +7,7 @@ import { createImageOptions } from '@/content-config/util';
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 const GitHubConfig = {
-	kind: 'github',
-	repo: {
-		owner: 'jramosg',
-		name: 'besaide'
-	}
+	kind: 'local'
 } as const;
 
 export default config({
@@ -282,7 +277,17 @@ export default config({
 						itemLabel: props =>
 							props.fields.labelEu.value + ': ' + props.fields.priceEu.value
 					}
-				)
+				),
+				termsEu: fields.markdoc({
+					label: 'Erabilera baldintzak euskeraz',
+					description: 'Aterpearen erabilera baldintzak',
+					options: createImageOptions('leixergarate-aterpea/terms')
+				}),
+				termsEs: fields.markdoc({
+					label: 'Términos de uso en español',
+					description: 'Términos de uso del refugio',
+					options: createImageOptions('leixergarate-aterpea/terms')
+				})
 			}
 		}),
 		federation: singleton({

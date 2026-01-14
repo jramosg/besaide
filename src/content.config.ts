@@ -69,6 +69,13 @@ const leixergarateAterpea = defineCollection({
 	schema: leixergarateAterpeaSchema
 });
 
+const leixergarateAterpeaTerms = defineCollection({
+	loader: glob({
+		pattern: ['termsEu.mdoc', 'termsEs.mdoc'],
+		base: './src/data/leixergarate-aterpea/leixergarate-aterpea'
+	})
+});
+
 const materialRental = defineCollection({
 	loader: glob({
 		pattern: '**/*.yaml',
@@ -109,5 +116,6 @@ export const collections = {
 	federationContent,
 	materialRental,
 	routes,
-	homepage
+	homepage,
+	leixergarateAterpeaTerms
 };

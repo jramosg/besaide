@@ -308,7 +308,8 @@ export const ui = {
 			'*Los precios en fines de semana serán por día.',
 
 		'Gehigarriak:': 'Extras:',
-		'Kuotak:': 'Cuotas:'
+		'Kuotak:': 'Cuotas:',
+		Baldintzak: 'Condiciones'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
