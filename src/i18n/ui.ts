@@ -101,7 +101,7 @@ export const ui = {
 		TOKIA: 'UBICACIÓN',
 		TOPAGUNEA: 'PUNTO DE ENCUENTRO',
 		IRAUPENA: 'DURACIÓN',
-		DESNIBELA: 'DESNIVEL',
+		ALTUERA: 'ALTURA',
 		MAILA: 'DIFICULTAD',
 		DATA: 'FECHA',
 		ORDUA: 'HORA',
@@ -405,7 +405,7 @@ export const ui = {
 		TOKIA: 'TOKIA',
 		TOPAGUNEA: 'Topagunea',
 		IRAUPENA: 'Iraupena',
-		DESNIBELA: 'Desnibela',
+		ALTUERA: 'Altuera',
 		MAILA: 'Maila',
 		// Event page
 		'event.finished': 'AMAITUTA',

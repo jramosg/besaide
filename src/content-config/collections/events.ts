@@ -55,8 +55,8 @@ export const events = collection({
 			label: 'Ordua / Hora'
 		}),
 		elevationGain: fields.text({
-			label: 'Desnibela / Desnivel',
-			description: 'Adib: +1200 m'
+			label: 'Altuera / altura',
+			description: 'Adib: 1200 m'
 		}),
 		distance: fields.text({
 			label: 'Distantzia / Distancia',
