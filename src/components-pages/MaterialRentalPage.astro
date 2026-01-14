@@ -33,8 +33,6 @@ const sortedItems = materialItems.sort((a, b) => {
 
 	<p>{t('material-rent.intro')}</p>
 
-	<p class="request">{t('material-rent.request')}</p>
-
 	<dl class="material-list">
 		{
 			sortedItems.map(item => (
@@ -50,10 +48,6 @@ const sortedItems = materialItems.sort((a, b) => {
 </Page>
 
 <style>
-	.request {
-		color: var(--theme-primary-900);
-	}
-
 	.material-list {
 		margin: 0;
 	}
