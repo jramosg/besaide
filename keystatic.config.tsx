@@ -280,10 +280,7 @@ export default config({
 					{
 						label: 'Prezioak / Precios',
 						itemLabel: props =>
-							props.fields.labelEu.value +
-								': ' +
-								props.fields.price.value +
-								'€' || 'Prezioa / Precio'
+							props.fields.labelEu.value + ': ' + props.fields.priceEu.value
 					}
 				)
 			}
