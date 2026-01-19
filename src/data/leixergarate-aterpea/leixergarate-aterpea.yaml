@@ -34,12 +34,12 @@ prices:
     descriptionEs: Aplicable solo en fines de semana y festivos
   - labelEu: Bazkideak
     labelEs: Socios
-    priceEu: 8 € gaua
-    priceEs: 8 € noche
+    priceEu: 8 €
+    priceEs: 8 €
   - labelEu: ' Ez bazkideak'
     labelEs: No socios
-    priceEu: 11 € gaua
-    priceEs: 11 € noche
+    priceEu: 11 €
+    priceEs: 11 €
   - labelEu: Haurrak
     labelEs: Niños
     priceEu: 4 €
