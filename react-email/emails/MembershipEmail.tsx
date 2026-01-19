@@ -37,8 +37,7 @@ const translations = {
 	},
 	eu: {
 		heading: 'Bazkidetza Eskaera Jasota',
-		intro:
-			'Eskerrik asko zure eskaeragatik. Ondorengo datuak jaso ditugu:',
+		intro: 'Eskerrik asko zure eskaeragatik. Ondorengo datuak jaso ditugu:',
 		preview: 'Bazkidetza eskaera: {name} {surnames}',
 		sections: {
 			personalData: 'Datu Pertsonalak',
