@@ -3,8 +3,8 @@ date: 2026-02-21
 endDate: 2026-02-22
 type: ski-alpino
 location: Formigal
-meetingPoint: Forum atzekaldeko bus geltokia
-time: Larunbatean goizeko 5:00
+meetingPoint: Forum atzealdeko autobus geltokia
+time: Larunbatean, goizeko 5:00etan
 image: '@/assets/images/events/eski-alpinoa/image.PNG'
 prices:
   - labelEu: 'Bazkideak '
