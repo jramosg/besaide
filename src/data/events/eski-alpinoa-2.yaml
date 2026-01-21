@@ -6,7 +6,13 @@ location: Formigal
 meetingPoint: Forum atzealdeko autobus geltokia
 time: 'Larunbatean, goizeko 5:00etan '
 image: '@/assets/images/events/eski-alpinoa-2/image.PNG'
-prices: []
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 130
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 145
 routes: []
 inscriptionEu: >-
   zena emateko aukerak: presentzialki, Besaideko bulegoan astelehen eta
