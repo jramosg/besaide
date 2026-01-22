@@ -3,6 +3,21 @@ date: 2026-03-14
 endDate: 2026-03-15
 type: ski-alpino
 location: Formigal
+meetingPoint: Forum atzealdeko autobus geltokia
+time: 'Larunbatean, goizeko 5:00etan '
 image: '@/assets/images/events/eski-alpinoa-2/image.PNG'
-prices: []
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 130
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 145
 routes: []
+inscriptionEu: >-
+  zena emateko aukerak: presentzialki, Besaideko bulegoan astelehen eta
+  astearteetan 18:30-19:30 bitartean, aldiz, online bidez egin nahi bada,
+  eskiirteerak@gmail.com helbidera mezura bidali beharko da. 
+
+  Izena ematearekin batera ordainketa egin behar da ES55 3035 0001 51 0010017562
+  kontura transferentzia eginez (norberaren izena jarri behar da).
