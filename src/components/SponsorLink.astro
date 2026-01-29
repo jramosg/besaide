@@ -8,6 +8,7 @@ const { url, name, LogoComponent } = Astro.props;
 	target="_blank"
 	rel="noopener noreferrer"
 	class="sponsor-container-link"
+	aria-label={name}
 >
 	{
 		LogoComponent.src.includes('.svg') ? (
