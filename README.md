@@ -98,7 +98,6 @@ Perfect for developers looking to build **SEO-friendly multilingual websites** w
 | **Styling** | CSS with design tokens, CSS nesting |
 | **UI Components** | Astro components, React (Keystatic only) |
 | **Icons** | [Lucide Icons](https://lucide.dev/) |
-| **Deployment** | [Vercel](https://vercel.com) (adaptable to any platform) |
 | **CI/CD** | GitHub Actions for automated builds and deployments |
 | **Package Manager** | pnpm |
 

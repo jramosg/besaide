@@ -9,7 +9,7 @@ import node from '@astrojs/node';
 // https://astro.build/config
 export default defineConfig({
 	server: { port: 1234, host: true },
-	site: 'https://besaide.vercel.app',
+	site: 'https://besaide.eus',
 
 	prefetch: {
 		prefetchAll: true,

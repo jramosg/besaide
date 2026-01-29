@@ -1,4 +1,4 @@
-export const url = 'https://besaide.vercel.app';
+export const url = 'https://besaide.eus';
 
 export const settings = {
 	title: `a`,

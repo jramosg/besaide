@@ -10,21 +10,21 @@ const t = useTranslations(lang);
 const structuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'SportsOrganization',
-	'@id': 'https://besaide.vercel.app#organization',
+	'@id': 'https://besaide.eus#organization',
 	name: CompanyName,
 	alternateName:
 		lang === 'eu' ? 'Besaide Mendi Elkartea' : 'Asociación de Montaña Besaide',
 	description: t(settings.description),
-	url: 'https://besaide.vercel.app',
+	url: 'https://besaide.eus',
 	logo: {
 		'@type': 'ImageObject',
-		url: 'https://besaide.vercel.app/main-logo-horizontal.png',
+		url: 'https://besaide.eus/main-logo-horizontal.png',
 		width: 300,
 		height: 224
 	},
 	image: [
-		'https://besaide.vercel.app/main-logo-horizontal.png',
-		'https://besaide.vercel.app/open-graph.jpg'
+		'https://besaide.eus/main-logo-horizontal.png',
+		'https://besaide.eus/open-graph.jpg'
 	],
 	telephone: Phone.name,
 	email: Email.name.replace('mailto:', ''),
@@ -95,7 +95,7 @@ const breadcrumbData = {
 			'@type': 'ListItem',
 			position: 1,
 			name: lang === 'eu' ? 'Hasiera' : 'Inicio',
-			item: 'https://besaide.vercel.app'
+			item: 'https://besaide.eus'
 		}
 	]
 };
