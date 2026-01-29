@@ -17,9 +17,12 @@ type EmailResponse = {
 
 const resend = import.meta.env.RESEND_API_KEY
 	? new Resend(import.meta.env.RESEND_API_KEY)
-	: null;
+	: process.env.RESEND_API_KEY
+		? new Resend(process.env.RESEND_API_KEY)
+		: null;
 
-const companyRecipient = import.meta.env.RESEND_TO_EMAIL || Email.name;
+const companyRecipient =
+	import.meta.env.RESEND_TO_EMAIL || process.env.RESEND_TO_EMAIL || Email.name;
 
 const getEmailRecipients = (_data: MembershipFormData | ContactFormData) => {
 	// return import.meta.env.PROD	? [data.email, companyRecipient]	: companyRecipient;
