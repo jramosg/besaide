@@ -8,19 +8,19 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-    server: { port: 1234, host: true },
-    site: 'https://besaide.vercel.app',
+	server: { port: 1234, host: true },
+	site: 'https://besaide.vercel.app',
 
-    prefetch: {
-        prefetchAll: true,
-        defaultStrategy: 'viewport'
-    },
+	prefetch: {
+		prefetchAll: true,
+		defaultStrategy: 'viewport'
+	},
 
-    integrations: [react(), markdoc(), keystatic()],
-    adapter: node({
-      mode: 'standalone'
-    }),
-    image: {
-        layout: 'constrained'
-    }
+	integrations: [react(), markdoc(), keystatic()],
+	adapter: node({
+		mode: 'standalone'
+	}),
+	image: {
+		layout: 'constrained'
+	}
 });
