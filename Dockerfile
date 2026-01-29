@@ -9,9 +9,7 @@ WORKDIR /app
 COPY pnpm-lock.yaml .npmrc package.json ./
 
 # Install dependencies (allow build scripts for native modules)
-# This layer is cached until pnpm-lock.yaml or package.json changes
-RUN pnpm config set enable-pre-post-scripts true && \
-    pnpm install --frozen-lockfile --ignore-scripts=false
+RUN pnpm install --frozen-lockfile
 
 # Copy source code (invalidates cache only if source changes)
 COPY . .
