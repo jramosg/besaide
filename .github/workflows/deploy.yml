@@ -89,6 +89,10 @@ jobs:
             echo "Waiting for application to start..."
             sleep 10
 
+            echo "Cleaning up old besaide images..."
+            docker images ghcr.io/${{ github.repository }} --filter "dangling=true" -q | xargs -r docker rmi -f || true
+            docker images ghcr.io/${{ github.repository }} -q | tail -n +2 | xargs -r docker rmi -f 2>/dev/null || true
+
       - name: Health check
         uses: appleboy/ssh-action@v1.2.0
         with:
