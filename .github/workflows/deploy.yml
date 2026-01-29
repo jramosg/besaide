@@ -64,17 +64,18 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_SSH_PORT || 22 }}
           script: |
-            # Login to GitHub Container Registry
+            set -e
+            echo "Logging in to GitHub Container Registry..."
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            # Pull the latest image
+            echo "Pulling latest image..."
             docker pull ghcr.io/${{ github.repository }}:latest
 
-            # Stop and remove existing container
+            echo "Stopping existing container..."
             docker stop besaide 2>/dev/null || true
             docker rm besaide 2>/dev/null || true
 
-            # Run new container
+            echo "Starting new container..."
             docker run -d \
               --name besaide \
               --restart unless-stopped \
@@ -83,5 +84,67 @@ jobs:
               -e RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }} \
               ghcr.io/${{ github.repository }}:latest
 
-            # Clean up old images
-            docker image prune -f
+            echo "Waiting for application to start..."
+            sleep 10
+
+      - name: Health check
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script: |
+            set -e
+            echo "Running health checks..."
+
+            max_attempts=12
+            attempt=1
+            app_port="${{ secrets.APP_PORT }}"
+
+            while [ $attempt -le $max_attempts ]; do
+              echo "Attempt $attempt/$max_attempts - checking container status..."
+
+              if docker ps | grep -q "besaide"; then
+                echo "✅ Container is running"
+
+                # Try to connect to the app
+                if curl -f -s -m 5 http://localhost:$app_port/ >/dev/null 2>&1; then
+                  echo "✅ Application is responding!"
+                  break
+                fi
+              fi
+
+              if [ $attempt -eq $max_attempts ]; then
+                echo "❌ Health check failed after $max_attempts attempts"
+                echo ""
+                echo "📋 Container status:"
+                docker ps -a | grep besaide || echo "Container not found"
+                echo ""
+                echo "📋 Recent logs:"
+                docker logs --tail=30 besaide || echo "Could not retrieve logs"
+                exit 1
+              fi
+
+              echo "Waiting 5 seconds before retry..."
+              sleep 5
+              ((attempt++))
+            done
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script: |
+            echo "📊 Deployment verification..."
+            echo ""
+            echo "🐳 Container status:"
+            docker ps | grep besaide || exit 1
+            echo ""
+            echo "📋 Recent logs:"
+            docker logs --tail=20 besaide
+            echo ""
+            echo "✅ Deployment completed successfully!"
