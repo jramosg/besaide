@@ -10,7 +10,8 @@
 		"preview": "pnpm run build && astro preview",
 		"astro": "astro",
 		"format": "npx prettier -w .",
-		"format:check": "npx prettier --check ."
+		"format:check": "npx prettier --check .",
+		"update": "pnpm dlx @astrojs/upgrade"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.6",
