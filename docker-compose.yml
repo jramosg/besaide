@@ -1,0 +1,21 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - node
+    restart: unless-stopped
+
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HOST=0.0.0.0
+      - PORT=1234
+    expose:
+      - '1234'
+    restart: unless-stopped

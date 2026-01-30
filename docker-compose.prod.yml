@@ -1,0 +1,19 @@
+services:
+  nginx:
+    image: ${NGINX_IMAGE}
+    ports:
+      - '${APP_PORT:-80}:80'
+    depends_on:
+      - node
+    restart: unless-stopped
+
+  node:
+    image: ${NODE_IMAGE}
+    environment:
+      - HOST=0.0.0.0
+      - PORT=1234
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_TO_EMAIL=${RESEND_TO_EMAIL}
+    expose:
+      - '1234'
+    restart: unless-stopped
