@@ -144,6 +144,14 @@ jobs:
           script: |
             set -e
             cd ~/besaide
+
+            # Set environment variables
+            export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
+            export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
+            export APP_PORT=${{ secrets.APP_PORT }}
+            export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+            export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
+
             echo "Running health checks..."
 
             max_attempts=12
@@ -181,22 +189,3 @@ jobs:
               sleep 5
               ((attempt++))
             done
-
-      - name: Verify deployment
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_SSH_PORT || 22 }}
-          script: |
-            cd ~/besaide
-            echo "📊 Deployment verification..."
-            echo ""
-            echo "🐳 Container status:"
-            docker compose -f docker-compose.prod.yml ps
-            echo ""
-            echo "📋 Application logs:"
-            docker compose -f docker-compose.prod.yml logs --tail=20 node
-            echo ""
-            echo "✅ Deployment completed successfully!"
