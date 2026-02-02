@@ -408,8 +408,6 @@ pnpm build
 # Publish directory
 dist
 
-# Environment variables (if needed)
-# None required for basic deployment
 ```
 
 ### Deploy to Cloudflare Pages
@@ -434,7 +432,7 @@ pnpm build
 # Upload ./dist to your static host
 ```
 
-Compatible with: GitHub Pages, AWS S3, DigitalOcean, etc.
+**Note:** For Keystatic CMS functionality in production, set the environment variables listed in `.env.example` on your hosting platform.
 
 ---
 

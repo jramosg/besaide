@@ -109,12 +109,16 @@ jobs:
             echo "Logging in to GitHub Container Registry..."
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            echo "Setting environment variables..."
-            export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
-            export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
-            export APP_PORT=${{ secrets.APP_PORT }}
-            export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
-            export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
+             echo "Setting environment variables..."
+             export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
+             export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
+             export APP_PORT=${{ secrets.APP_PORT }}
+             export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+             export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
+             export KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
+             export KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
+             export KEYSTATIC_SECRET=${{ secrets.KEYSTATIC_SECRET }}
+             export PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${{ secrets.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG }}
 
             echo "Pulling latest images..."
             docker compose -f docker-compose.prod.yml pull
@@ -145,12 +149,16 @@ jobs:
             set -e
             cd ~/besaide
 
-            # Set environment variables
-            export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
-            export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
-            export APP_PORT=${{ secrets.APP_PORT }}
-            export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
-            export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
+             # Set environment variables
+             export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
+             export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
+             export APP_PORT=${{ secrets.APP_PORT }}
+             export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+             export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
+             export KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
+             export KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
+             export KEYSTATIC_SECRET=${{ secrets.KEYSTATIC_SECRET }}
+             export PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${{ secrets.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG }}
 
             echo "Running health checks..."
 
