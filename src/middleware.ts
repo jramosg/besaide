@@ -8,6 +8,20 @@ const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const RATE_LIMIT_MAX_REQUESTS =
 	Number(import.meta.env.RATE_LIMIT_MAX_REQUESTS) || 5;
 
+// Periodic cleanup to prevent memory leaks
+// Remove IPs with no recent activity
+const CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+setInterval(() => {
+	const now = Date.now();
+	for (const [ip, timestamps] of rateLimitStore.entries()) {
+		// Remove IPs where all timestamps are older than the window
+		const validTimestamps = timestamps.filter(ts => now - ts < RATE_LIMIT_WINDOW_MS);
+		if (validTimestamps.length === 0) {
+			rateLimitStore.delete(ip);
+		}
+	}
+}, CLEANUP_INTERVAL_MS);
+
 export const onRequest = defineMiddleware((context, next) => {
 	if (context.url.pathname.startsWith('/_actions/')) {
 		const clientIP = context.clientAddress;
