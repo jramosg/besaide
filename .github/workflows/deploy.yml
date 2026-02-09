@@ -110,8 +110,8 @@ jobs:
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
              echo "Setting environment variables..."
-             export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
-             export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
+             export NODE_IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}
+             export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:${{ github.sha }}
              export APP_PORT=${{ secrets.APP_PORT }}
              export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
              export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
@@ -150,8 +150,8 @@ jobs:
             cd ~/besaide
 
              # Set environment variables
-             export NODE_IMAGE=ghcr.io/${{ github.repository }}:latest
-             export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:latest
+             export NODE_IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}
+             export NGINX_IMAGE=ghcr.io/${{ github.repository }}-nginx:${{ github.sha }}
              export APP_PORT=${{ secrets.APP_PORT }}
              export RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
              export RESEND_TO_EMAIL=${{ secrets.RESEND_TO_EMAIL }}
