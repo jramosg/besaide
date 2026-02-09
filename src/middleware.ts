@@ -15,7 +15,9 @@ setInterval(() => {
 	const now = Date.now();
 	for (const [ip, timestamps] of rateLimitStore.entries()) {
 		// Remove IPs where all timestamps are older than the window
-		const validTimestamps = timestamps.filter(ts => now - ts < RATE_LIMIT_WINDOW_MS);
+		const validTimestamps = timestamps.filter(
+			ts => now - ts < RATE_LIMIT_WINDOW_MS
+		);
 		if (validTimestamps.length === 0) {
 			rateLimitStore.delete(ip);
 		}
