@@ -29,6 +29,14 @@ const getEmailRecipients = (_data: MembershipFormData | ContactFormData) => {
 	return [companyRecipient];
 };
 
+/**
+ * Sanitize email header values to prevent header injection attacks
+ * Removes newlines (\r, \n) and other control characters
+ */
+const sanitizeEmailHeader = (value: string): string => {
+	return value.replace(/[\r\n\x00-\x1F\x7F]/g, '');
+};
+
 export const emailResultProcessor = (
 	result: CreateEmailResponse
 ): EmailResponse => {
@@ -66,7 +74,7 @@ export async function sendContactEmail(
 			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
 			to: getEmailRecipients(data),
 			replyTo: data.email,
-			subject: `${t(data.subject)} - ${data.name}`,
+			subject: `${t(data.subject)} - ${sanitizeEmailHeader(data.name)}`,
 			html: emailHtml,
 			text: plainText,
 			bcc: companyRecipient
@@ -101,7 +109,7 @@ export async function sendMembershipEmail(
 			bcc: companyRecipient,
 			subject: `${t(
 				'email.membership.subject.membership'
-			)} - ${data.name} ${data.surnames}`,
+			)} - ${sanitizeEmailHeader(data.name)} ${sanitizeEmailHeader(data.surnames)}`,
 			html: emailHtml,
 			text: plainText,
 			replyTo: data.email
