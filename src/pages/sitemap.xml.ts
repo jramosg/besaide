@@ -14,10 +14,9 @@ interface SitemapUrl {
 }
 
 export async function GET(context: APIContext) {
-	const site = (context.site?.toString() || 'https://besaide.eus').replace(
-		/\/$/,
-		''
-	);
+	const site = (
+		context.site?.toString() || 'https://besaide.vercel.app/'
+	).replace(/\/$/, '');
 
 	// Get all collections
 	const news = await getCollection('news');
