@@ -1,18 +1,46 @@
 title: Arkamu mendilerroa
 date: 2026-02-15
 type: mountain
-mountain: Montemayor , 1104 m     eta      Cotorrillo, 1084 m
+mountain: Montemayor , 1104 m  - Cotorrillo, 1084 m
 location: Uribarri Kuartango
+duration: 5 ordu
+meetingPoint: Forum atzeko autobus geltokia
+time: '7:30'
+elevationGain: 550 m desnibela
+distance: 12 km
 image: '@/assets/images/events/arkamu-mendilerroa/image.PNG'
-summaryEu: 'Mendi irteeraren ondoren Sagardotegian egingo da bazkaria. '
-summaryEs: 'Mendi irteeraren ondoren Sagardotegian egingo da bazkaria. '
-prices: []
+prices:
+  - labelEu: 'Bazkideak '
+    labelEs: Bazkideak
+    price: 58.5
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 61.5
 routes: []
-inscriptionEu: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
-inscriptionEs: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+inscriptionEu: >+
+  Izena ematea otsailaren 7tik 10era egin daiteke telematikoki, eta otsailaren
+  10ean eta 11an Besaideko bulegoan. Ekintzan parte hartzeko ezinbestekoa izango
+  da federatuta egotea.
+
+
+  Izena emateko ordainketa egin behar da honako kontuetako baten (kontzeptuan
+  norberaren izen jarri behar da): 
+
+
+  -Laboral Kutxan: ES2330350001510010000193
+
+  -Kutxabank: ES3920955055531061009519
+
+inscriptionEs: >
+  Izena ematea otsailaren 7tik 10era egin daiteke telematikoki, eta otsailaren
+  10ean eta 11an Besaideko bulegoan. Ekintzan parte hartzeko ezinbestekoa izango
+  da federatuta egotea.
+
+
+  Izena emateko ordainketa egin behar da honako kontuetako baten (kontzeptuan
+  norberaren izen jarri behar da): 
+
+
+  -Laboral Kutxan: ES2330350001510010000193
+
+  -Kutxabank: ES3920955055531061009519
