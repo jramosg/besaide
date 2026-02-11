@@ -1,0 +1,308 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+import { Calendar, ChevronDown } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import GoogleIcon from '@/assets/icons/google-calendar.svg';
+import YahooIcon from '@/assets/icons/yahoo-calendar.svg';
+import Office365Icon from '@/assets/icons/office365-calendar.svg';
+import AppleIcon from '@/assets/icons/apple-calendar.svg';
+
+interface Props {
+	title: string;
+	description: string;
+	location: string;
+	startDate: string; // ISO string
+	endDate?: string; // ISO string
+	isAllDay?: boolean;
+}
+
+const {
+	title,
+	description,
+	location,
+	startDate,
+	endDate,
+	isAllDay = false
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const formatDate = (dateString: string) => {
+	return new Date(dateString).toISOString().replace(/-|:|\.\d\d\d/g, '');
+};
+
+const getGoogleUrl = () => {
+	const start = formatDate(startDate);
+	const end = endDate ? formatDate(endDate) : start;
+	const details = encodeURIComponent(description || '');
+	const locationEncoded = encodeURIComponent(location || '');
+	const text = encodeURIComponent(title || '');
+
+	return `https://calendar.google.com/calendar/render?action=TEMPLATE&dates=${start}/${end}&details=${details}&location=${locationEncoded}&text=${text}`;
+};
+
+const getYahooUrl = () => {
+	const st = new Date(startDate).toISOString().replace(/-|:|\.\d\d\d/g, '');
+	const en = endDate
+		? new Date(endDate).toISOString().replace(/-|:|\.\d\d\d/g, '')
+		: st;
+
+	return `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(title)}&st=${st}&et=${en}&desc=${encodeURIComponent(description)}&in_loc=${encodeURIComponent(location)}`;
+};
+
+const getOffice365Url = () => {
+	const start = new Date(startDate).toISOString();
+	const end = endDate ? new Date(endDate).toISOString() : start;
+
+	return `https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&startdt=${encodeURIComponent(start)}&enddt=${encodeURIComponent(end)}&subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+};
+
+const downloadIcs = () => {
+	const start = formatDate(startDate);
+	const end = endDate ? formatDate(endDate) : start;
+
+	// Simple ICS generation
+	return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Besaide//NONSGML v1.0//EN
+BEGIN:VEVENT
+UID:${new Date().getTime()}@besaide.com
+DTSTAMP:${formatDate(new Date().toISOString())}
+DTSTART:${start}
+DTEND:${end}
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR`;
+};
+
+const icsContent = downloadIcs();
+// Create a data URI for the download
+const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
+---
+
+<div class="add-to-calendar-container">
+	<button
+		class="btn btn--primary"
+		id="add-to-calendar-btn"
+		aria-haspopup="true"
+		aria-expanded="false"
+	>
+		<span class="icon">
+			<Calendar size={20} />
+		</span>
+		<span>{t('add-to-calendar.label')}</span>
+		<span class="chevron">
+			<ChevronDown size={16} />
+		</span>
+	</button>
+
+	<div class="calendar-dropdown" id="calendar-dropdown">
+		<a
+			href={getGoogleUrl()}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="calendar-option"
+		>
+			<GoogleIcon class="calendar-icon" width={20} height={20} />
+			{t('add-to-calendar.google')}
+		</a>
+		<a
+			href={getOffice365Url()}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="calendar-option"
+		>
+			<Office365Icon class="calendar-icon" width={20} height={20} />
+
+			{t('add-to-calendar.office365')}
+		</a>
+		<a href={icsDataUri} download={`${title}.ics`} class="calendar-option">
+			<AppleIcon class="calendar-icon" width={20} height={20} />
+
+			{t('add-to-calendar.apple')}
+		</a>
+		<a
+			href={getYahooUrl()}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="calendar-option"
+		>
+			<span class="calendar-icon">
+				<YahooIcon width={20} height={20} />
+			</span>
+			{t('add-to-calendar.yahoo')}
+		</a>
+	</div>
+</div>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const container = document.querySelector('.add-to-calendar-container');
+		if (!container) return;
+
+		const btn = container.querySelector('#add-to-calendar-btn');
+		const dropdown = container.querySelector('#calendar-dropdown');
+		const chevron = container.querySelector('.chevron');
+
+		if (!btn || !dropdown || !chevron) return;
+
+		const toggleDropdown = (e: Event) => {
+			e.stopPropagation();
+			const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+			btn.setAttribute('aria-expanded', String(!isExpanded));
+			btn.classList.toggle('active');
+			dropdown.classList.toggle('show');
+			chevron.classList.toggle('rotate');
+		};
+
+		const closeDropdown = () => {
+			btn.setAttribute('aria-expanded', 'false');
+			btn.classList.remove('active');
+			dropdown.classList.remove('show');
+			chevron.classList.remove('rotate');
+		};
+
+		btn.addEventListener('click', toggleDropdown);
+
+		document.addEventListener('click', event => {
+			if (!container.contains(event.target as Node)) {
+				closeDropdown();
+			}
+		});
+
+		document.addEventListener('keydown', event => {
+			if (event.key === 'Escape') {
+				closeDropdown();
+			}
+		});
+	});
+</script>
+
+<style>
+	.add-to-calendar-container {
+		position: relative;
+		display: inline-block;
+		font-family: var(--theme-font-family, sans-serif);
+	}
+
+	.btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		background-color: var(--theme-primary, #b11cab);
+		color: var(--theme-on-primary, #fff);
+		border: none;
+		border-radius: var(--theme-shape-radius, 12px);
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	.btn:hover,
+	.btn.active {
+		background-color: var(--theme-primary-dark, #800080);
+		transform: translateY(-1px);
+		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+	}
+
+	.btn:active {
+		transform: translateY(0);
+	}
+
+	.chevron {
+		transition: transform 0.2s ease;
+		display: flex;
+		align-items: center;
+	}
+
+	.chevron.rotate {
+		transform: rotate(180deg);
+	}
+
+	.calendar-dropdown {
+		display: none;
+		position: absolute;
+		top: calc(100% + 8px);
+		left: 0;
+		z-index: 100;
+		min-width: 220px;
+		background-color: var(--theme-card, #fff);
+		border-radius: var(--theme-shape-radius, 12px);
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+		padding: 0.5rem;
+		border: 1px solid var(--theme-outline, #eee);
+		animation: slideDown 0.2s ease-out;
+	}
+
+	.calendar-dropdown.show {
+		display: block;
+	}
+
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.calendar-option {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		padding: 0.75rem 1rem;
+		text-align: left;
+		background: none;
+		border: none;
+		cursor: pointer;
+		color: var(--theme-on-bg, #000);
+		text-decoration: none;
+		border-radius: 8px;
+		font-size: 0.95rem;
+		transition: background-color 0.15s ease;
+		box-sizing: border-box; /* Ensure padding doesn't affect width */
+	}
+
+	.calendar-option:hover {
+		background-color: var(--theme-primary-container-alt, #fdf2fd);
+		color: var(--theme-primary-900, #800080);
+	}
+
+	.calendar-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		margin-right: 12px;
+		flex-shrink: 0;
+	}
+
+	.icon {
+		display: flex;
+		align-items: center;
+	}
+
+	:global([data-theme='dark']) .calendar-dropdown {
+		background-color: var(--theme-card, #2c2c2c);
+		border-color: var(--theme-outline, #444);
+	}
+
+	:global([data-theme='dark']) .calendar-option {
+		color: var(--theme-on-bg, #eee);
+	}
+
+	:global([data-theme='dark']) .calendar-option:hover {
+		background-color: var(--theme-primary-hover-bg, rgba(236, 67, 237, 0.2));
+		color: var(--theme-primary-300, #f29cf4);
+	}
+</style>

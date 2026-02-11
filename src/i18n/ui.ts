@@ -102,6 +102,13 @@ export const ui = {
 		DATA: 'FECHA',
 		ORDUA: 'HORA',
 		DISTANTZIA: 'DISTANCIA',
+		// Add to Calendar
+		'add-to-calendar.label': 'Añadir al calendario',
+		'add-to-calendar.google': 'Google Calendar',
+		'add-to-calendar.yahoo': 'Yahoo Calendar',
+		'add-to-calendar.outlook': 'Outlook',
+		'add-to-calendar.office365': 'Office 365',
+		'add-to-calendar.apple': 'Apple / iCal',
 		// Event page
 		'event.finished': 'EL EVENTO HA TERMINADO',
 		'event.register': 'Inscribirse',

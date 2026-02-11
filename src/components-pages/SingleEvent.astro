@@ -14,6 +14,7 @@ import EventMetas from '@/components/events/EventMetas.astro';
 import { formatPrice } from '@/utils/format';
 import RouteCard from '@/components/RouteCard.astro';
 import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
+import AddToCalendar from '@/components/events/AddToCalendar.astro';
 
 type Props = {
 	event: CollectionEntry<'events'>;
@@ -28,6 +29,30 @@ const t = useTranslations(lang);
 const eventDate = new Date(event.data.date);
 const endDate = event.data.endDate ? new Date(event.data.endDate) : null;
 const formattedDate = formatEventDate(eventDate, endDate, lang);
+
+// Parse time and create a date with time for calendar
+const startDateWithTime = (() => {
+	if (!event.data.time) return eventDate;
+
+	// Try to parse time in HH:MM or H:MM format
+	const timeMatch = event.data.time.match(/(\d{1,2}):(\d{2})/);
+	if (timeMatch) {
+		const [, hours, minutes] = timeMatch;
+		const dateWithTime = new Date(eventDate);
+		dateWithTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+		return dateWithTime;
+	}
+
+	// If time format is not parseable, return date without time
+	return eventDate;
+})();
+
+// Set end date to end of day (23:59:59) for calendar
+const endDateForCalendar = endDate ? (() => {
+	const endOfDay = new Date(endDate);
+	endOfDay.setHours(23, 59, 59, 999);
+	return endOfDay;
+})() : null;
 
 const eventTitle = event.data.title;
 
@@ -148,6 +173,16 @@ const eventSchema = {
 			{event.data.title}
 		</h1>
 
+		<div class="event-actions">
+			<AddToCalendar
+				title={event.data.title}
+				description={eventDescription || ''}
+				location={event.data.location || ''}
+				startDate={startDateWithTime.toISOString()}
+				endDate={endDateForCalendar?.toISOString()}
+			/>
+		</div>
+
 		{
 			descriptionEntry?.body && (
 				<section aria-labelledby="description">
@@ -254,6 +289,11 @@ const eventSchema = {
 		flex-direction: column;
 		gap: var(--s7);
 		margin-bottom: var(--s6);
+	}
+
+	.event-actions {
+		margin-top: calc(var(--s4) * -1);
+		margin-bottom: var(--s2);
 	}
 
 	.hero-image {
