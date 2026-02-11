@@ -1,0 +1,192 @@
+
+/* Theme Integration */
+:root {
+	--fc-border-color: var(--theme-separator);
+	--fc-button-bg-color: var(--theme-primary);
+	--fc-button-border-color: var(--theme-primary);
+	--fc-button-hover-bg-color: var(--theme-primary-700);
+	--fc-button-hover-border-color: var(--theme-primary-700);
+	--fc-button-active-bg-color: var(--theme-primary-900);
+	--fc-button-active-border-color: var(--theme-primary-900);
+	--fc-today-bg-color: color-mix(
+		in srgb,
+		var(--theme-primary) 10%,
+		transparent
+	);
+	--fc-neutral-bg-color: var(--theme-bg);
+	--fc-page-bg-color: var(--theme-bg);
+}
+
+/* Typography */
+.fc {
+	font-family: var(--theme-font-family);
+}
+
+.fc-toolbar-title {
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-medium);
+	color: var(--theme-on-bg);
+}
+
+.fc-col-header-cell-cushion {
+	color: var(--theme-text-secondary);
+	font-weight: var(--font-weight-medium);
+	text-decoration: none;
+}
+
+.fc-daygrid-day-number {
+	color: var(--theme-on-bg);
+	text-decoration: none;
+}
+
+/* Buttons */
+.fc-button {
+	text-transform: capitalize;
+	border-radius: var(--theme-shape-radius);
+	padding: var(--s2) var(--s3);
+	font-size: var(--font-size-sm);
+}
+
+.fc-button:focus {
+	outline: 2px solid var(--theme-primary);
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+/* Event Type Colors */
+.fc-event--mountain {
+	background-color: var(--theme-primary);
+	border-color: var(--theme-primary);
+	color: var(--theme-on-primary);
+}
+
+.fc-event--mountain-martxa {
+	background-color: var(--theme-primary-700);
+	border-color: var(--theme-primary-700);
+	color: white;
+}
+
+.fc-event--ski-alpino {
+	background-color: var(--theme-secondary);
+	border-color: var(--theme-secondary);
+	color: white;
+}
+
+.fc-event--event {
+	background-color: var(--theme-success);
+	border-color: var(--theme-success);
+	color: white;
+}
+
+.fc-event--course {
+	background-color: var(--theme-primary-400);
+	border-color: var(--theme-primary-400);
+	color: white;
+}
+
+.fc-event--speleology {
+	background-color: var(--grey-600);
+	border-color: var(--grey-600);
+	color: white;
+}
+
+/* Past Events Styling */
+.fc-event--past {
+	filter: grayscale(60%);
+	opacity: 0.6;
+}
+
+/* Event Links */
+.fc-event {
+	cursor: pointer;
+	text-decoration: none;
+	border-radius: 3px;
+	font-size: var(--font-size-xs);
+}
+
+.fc-event:hover {
+	opacity: 0.9;
+}
+
+/* Day Cells */
+.fc-daygrid-day {
+	background-color: var(--theme-bg);
+}
+
+.fc-day-today {
+	background-color: var(--fc-today-bg-color) !important;
+}
+
+.fc-daygrid-day:hover {
+	background-color: color-mix(in srgb, var(--theme-primary) 5%, transparent);
+}
+
+/* Dark Mode Overrides */
+[data-theme='dark'] {
+	--fc-border-color: var(--grey-700);
+}
+
+[data-theme='dark'] .fc-daygrid-day-number {
+	color: var(--grey-300);
+}
+
+[data-theme='dark'] .fc-col-header-cell-cushion {
+	color: var(--grey-400);
+}
+
+[data-theme='dark'] .fc-day-today {
+	background-color: color-mix(
+		in srgb,
+		var(--theme-primary) 15%,
+		transparent
+	) !important;
+}
+
+/* Popover for "+N more" */
+.fc-popover {
+	background-color: var(--theme-bg);
+	border: 1px solid var(--fc-border-color);
+	border-radius: var(--theme-shape-radius);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='dark'] .fc-popover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.fc-popover-header {
+	background-color: var(--theme-primary-container-alt);
+	color: var(--theme-on-bg);
+	padding: var(--s2);
+	font-weight: var(--font-weight-medium);
+}
+
+.fc-popover-close {
+	color: var(--theme-on-bg);
+	opacity: 0.7;
+}
+
+.fc-popover-close:hover {
+	opacity: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+	.fc-toolbar {
+		flex-direction: column;
+		gap: var(--s2);
+	}
+
+	.fc-toolbar-chunk {
+		display: flex;
+		justify-content: center;
+	}
+
+	.fc-daygrid-day-number {
+		font-size: var(--font-size-xs);
+	}
+
+	.fc-event {
+		font-size: 10px;
+	}
+}

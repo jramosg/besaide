@@ -260,6 +260,8 @@ export const ui = {
 		Guztiak: 'Todas',
 		'agenda.search-label': 'Buscar salidas por nombre',
 		'agenda.filter-label': 'Filtrar por tipo de salida',
+		'agenda.view.list': 'Lista',
+		'agenda.view.calendar': 'Calendario',
 		// Membership form
 		'form.title': 'Solicitud de nueva licencia de socio y federación',
 		'form.instructions':
@@ -507,6 +509,8 @@ export const ui = {
 		'Bilatu albisteak...': 'Bilatu albisteak...',
 		'agenda.search-label': 'Bilatu irteerak izenaren arabera',
 		'agenda.filter-label': 'Iragazi irteera motaren arabera',
+		'agenda.view.list': 'Zerrenda',
+		'agenda.view.calendar': 'Egutegia',
 		// Membership form
 		'form.title': 'Bazkide lizentzia berrien eskaera orria',
 		'form.instructions':

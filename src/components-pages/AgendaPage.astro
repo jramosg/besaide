@@ -4,14 +4,19 @@ import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/utils/events';
 import EventListCard from '@/components/events/EventListCard.astro';
 import type { ProcessedEvent } from '@/types/Events';
+import type { CalendarEvent } from '@/types/CalendarEvent';
 import { CompanyName } from '@/config/company';
 import ChevronLeftIcon from '@lucide/astro/icons/chevron-left';
 import ChevronRightIcon from '@lucide/astro/icons/chevron-right';
 import { capitalizeFirstLetter } from '@/utils/string';
 import SearchIcon from '@lucide/astro/icons/search';
+import ListIcon from '@lucide/astro/icons/list';
+import CalendarDaysIcon from '@lucide/astro/icons/calendar-days';
 import Input from '@/components/Input.astro';
 import Select, { type SelectOption } from '@/components/Select.astro';
 import PageHeader from '@/components/PageHeader.astro';
+import AgendaCalendar from '@/components/events/AgendaCalendar';
+import '@/styles/calendar.css';
 
 const today = new Date();
 
@@ -37,29 +42,39 @@ const { futureEventsByMonth, pastEventsByMonth } = events.reduce(
 
 		let title: string;
 		if (lang === 'eu') {
-			const monthName = new Intl.DateTimeFormat('eu', { month: 'long' }).format(
-				date
-			);
+			const monthName = new Intl.DateTimeFormat('eu', {
+				month: 'long'
+			}).format(date);
 			const lastDigit = year % 10;
 			const vowels = [0, 2, 3, 6, 8];
 			const suffix = vowels.includes(lastDigit) ? 'ko' : 'eko';
 			title = `${year}${suffix} ${monthName}`;
 		} else {
-			const monthName = new Intl.DateTimeFormat('es', { month: 'long' }).format(
-				date
-			);
+			const monthName = new Intl.DateTimeFormat('es', {
+				month: 'long'
+			}).format(date);
 			title = `${monthName} ${year}`;
 			title = capitalizeFirstLetter(title);
 		}
 
 		if (item.isPast) {
 			if (!acc.pastEventsByMonth.has(key)) {
-				acc.pastEventsByMonth.set(key, { title, events: [], year, month });
+				acc.pastEventsByMonth.set(key, {
+					title,
+					events: [],
+					year,
+					month
+				});
 			}
 			acc.pastEventsByMonth.get(key)!.events.push(item);
 		} else {
 			if (!acc.futureEventsByMonth.has(key)) {
-				acc.futureEventsByMonth.set(key, { title, events: [], year, month });
+				acc.futureEventsByMonth.set(key, {
+					title,
+					events: [],
+					year,
+					month
+				});
 			}
 			acc.futureEventsByMonth.get(key)!.events.push(item);
 		}
@@ -68,11 +83,21 @@ const { futureEventsByMonth, pastEventsByMonth } = events.reduce(
 	{
 		futureEventsByMonth: new Map<
 			string,
-			{ title: string; events: ProcessedEvent[]; year: number; month: number }
+			{
+				title: string;
+				events: ProcessedEvent[];
+				year: number;
+				month: number;
+			}
 		>(),
 		pastEventsByMonth: new Map<
 			string,
-			{ title: string; events: ProcessedEvent[]; year: number; month: number }
+			{
+				title: string;
+				events: ProcessedEvent[];
+				year: number;
+				month: number;
+			}
 		>()
 	}
 );
@@ -102,6 +127,21 @@ const eventTypeOptions: SelectOption[] = [
 	{ value: 'course', label: t('event.type.course') },
 	{ value: 'speleology', label: t('event.type.speleology') }
 ];
+
+// Serialize events for calendar view
+const calendarEvents: CalendarEvent[] = events.map(event => ({
+	id: event.slug,
+	title: event.data.title,
+	start: event.data.date.toISOString().split('T')[0],
+	end: event.data.endDate
+		? new Date(event.data.endDate.getTime() + 86400000)
+				.toISOString()
+				.split('T')[0]
+		: undefined,
+	url: event.slug,
+	type: event.data.type,
+	isPast: event.isPast
+}));
 ---
 
 <Page
@@ -135,10 +175,37 @@ const eventTypeOptions: SelectOption[] = [
 			aria-live="polite"
 		>
 		</div>
+		<div
+			class="view-toggle"
+			role="group"
+			aria-label={lang === 'eu' ? 'Ikuspegi aldaketa' : 'Cambio de vista'}
+		>
+			<button
+				type="button"
+				id="view-toggle-list"
+				class="view-toggle__button"
+				aria-pressed="true"
+				aria-label={t('agenda.view.list')}
+			>
+				<ListIcon aria-hidden="true" />
+				<span class="button-text">{t('agenda.view.list')}</span>
+			</button>
+			<button
+				type="button"
+				id="view-toggle-calendar"
+				class="view-toggle__button"
+				aria-pressed="false"
+				aria-label={t('agenda.view.calendar')}
+			>
+				<CalendarDaysIcon aria-hidden="true" />
+				<span class="button-text">{t('agenda.view.calendar')}</span>
+			</button>
+		</div>
 	</div>
 
 	<nav
 		class="year-navigation"
+		id="year-navigation"
 		aria-label={lang === 'eu' ? 'Urteko nabigazioa' : 'Navegación por año'}
 	>
 		<a
@@ -168,58 +235,69 @@ const eventTypeOptions: SelectOption[] = [
 		</a>
 	</nav>
 
-	{
-		areFutureEvents ? (
-			<section aria-labelledby="upcoming-events-heading">
-				<h2 id="upcoming-events-heading" class="visually-hidden">
-					{lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas'}
-				</h2>
-				{futureMonths.map(({ title, events }) => (
-					<article class="month-section">
-						<header class="month-header">
-							<h3 class="month-title subtitle2">{title}</h3>
-						</header>
-						<ul class="events-grid" role="list">
-							{events.map(item => (
-								<li>
-									<EventListCard item={item} />
-								</li>
-							))}
-						</ul>
-					</article>
-				))}
-			</section>
-		) : !areFutureEvents && !arePastEvents ? (
-			<div class="empty-state" role="status">
-				<p>{emptyMessage}</p>
-			</div>
-		) : null
-	}
+	<div id="agenda-list-view">
+		{
+			areFutureEvents ? (
+				<section aria-labelledby="upcoming-events-heading">
+					<h2 id="upcoming-events-heading" class="visually-hidden">
+						{lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas'}
+					</h2>
+					{futureMonths.map(({ title, events }) => (
+						<article class="month-section">
+							<header class="month-header">
+								<h3 class="month-title subtitle2">{title}</h3>
+							</header>
+							<ul class="events-grid" role="list">
+								{events.map(item => (
+									<li>
+										<EventListCard item={item} />
+									</li>
+								))}
+							</ul>
+						</article>
+					))}
+				</section>
+			) : !areFutureEvents && !arePastEvents ? (
+				<div class="empty-state" role="status">
+					<p>{emptyMessage}</p>
+				</div>
+			) : null
+		}
 
-	{
-		pastMonths.length > 0 && (
-			<section
-				class:list={[
-					'past-events-section',
-					areFutureEvents ? 'past-events-section--dashed' : ''
-				]}
-				aria-label={pastTitle}
-			>
-				{pastMonths.map(({ title, events }) => (
-					<article class="month-section">
-						<h3 class="month-title past subtitle2">{title}</h3>
-						<ul class="events-grid" role="list">
-							{events.slice(0, 6).map(item => (
-								<li>
-									<EventListCard item={item} />
-								</li>
-							))}
-						</ul>
-					</article>
-				))}
-			</section>
-		)
-	}
+		{
+			pastMonths.length > 0 && (
+				<section
+					class:list={[
+						'past-events-section',
+						areFutureEvents ? 'past-events-section--dashed' : ''
+					]}
+					aria-label={pastTitle}
+				>
+					{pastMonths.map(({ title, events }) => (
+						<article class="month-section">
+							<h3 class="month-title past subtitle2">{title}</h3>
+							<ul class="events-grid" role="list">
+								{events.slice(0, 6).map(item => (
+									<li>
+										<EventListCard item={item} />
+									</li>
+								))}
+							</ul>
+						</article>
+					))}
+				</section>
+			)
+		}
+	</div>
+
+	<div id="agenda-calendar-view" style="display:none">
+		<AgendaCalendar
+			events={calendarEvents}
+			lang={lang}
+			initialYear={yearFilter}
+			client:load
+		/>
+	</div>
 </Page>
 
 <style>
@@ -237,22 +315,29 @@ const eventTypeOptions: SelectOption[] = [
 
 	.header-grid {
 		display: grid;
-		grid-template-columns: 1fr minmax(240px, 1fr) minmax(150px, auto);
+		grid-template-columns: auto 1fr minmax(240px, 1fr) minmax(150px, auto);
 		align-items: center;
 		gap: var(--s4);
 		margin-bottom: var(--s6);
 		row-gap: 0;
 	}
+	.header-grid > :global(:nth-child(1)) {
+		grid-column: 1 / span 2;
+	}
 	.header-grid > :global(:nth-child(2)) {
 		grid-column: 1;
 	}
 	.header-grid :global(.input-wrapper) {
-		grid-column: 2;
+		grid-column: 3;
 		grid-row: 1 / span 2;
 	}
 	.header-grid :global(.select-container) {
-		grid-column: 3;
+		grid-column: 4;
 		grid-row: 1 / span 2;
+	}
+	.view-toggle {
+		grid-column: 1;
+		grid-row: 2;
 	}
 	.page-title.h2 {
 		margin-bottom: 0;
@@ -278,7 +363,7 @@ const eventTypeOptions: SelectOption[] = [
 		transition: opacity 0.2s ease;
 		display: none;
 		top: var(--s7);
-		grid-column: 2;
+		grid-column: 3;
 		margin-top: -40px;
 	}
 
@@ -377,32 +462,81 @@ const eventTypeOptions: SelectOption[] = [
 		font-size: var(--font-size-lg);
 	}
 
+	/* View Toggle Styles */
+	.view-toggle {
+		display: flex;
+		gap: 0;
+		border: 1px solid var(--theme-separator);
+		border-radius: var(--theme-shape-radius);
+		overflow: hidden;
+		width: fit-content;
+	}
+
+	.view-toggle__button {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--s2);
+		padding: var(--s2) var(--s3);
+		background: transparent;
+		border: none;
+		color: var(--theme-on-bg);
+		cursor: pointer;
+		transition:
+			background-color 0.2s,
+			color 0.2s;
+		font-size: var(--font-size-sm);
+	}
+
+	.view-toggle__button:not(:last-child) {
+		border-right: 1px solid var(--theme-separator);
+	}
+
+	.view-toggle__button[aria-pressed='true'] {
+		background: var(--theme-primary);
+		color: var(--theme-on-primary);
+	}
+
+	.view-toggle__button:hover:not([aria-pressed='true']) {
+		background: var(--theme-primary-container-alt);
+	}
+
+	.view-toggle__button:focus-visible {
+		outline: 2px solid var(--theme-primary);
+		outline-offset: 2px;
+	}
+
 	@media (max-width: 992px) {
 		.header-grid {
 			grid-template-columns: 2fr 1fr;
 			gap: var(--s3);
 		}
 
-		.header-grid > :global(:nth-child(1)),
+		.header-grid > :global(:nth-child(1)) {
+			grid-column: 1 / span 2;
+		}
+
 		.header-grid > :global(:nth-child(2)) {
 			grid-column: 1 / span 2;
 		}
 
+		.view-toggle {
+			grid-column: 1 / span 2;
+			grid-row: 3;
+		}
+
 		.header-grid > :global(.input-wrapper) {
 			grid-column: 1;
+			grid-row: 4;
 		}
 
 		.header-grid :global(.select-container) {
 			grid-column: 2;
-		}
-
-		.header-grid :global(.input-wrapper),
-		.header-grid :global(.select-container) {
-			grid-row: 3;
+			grid-row: 4;
 		}
 
 		.filter-results {
 			grid-column: 1 / span 2;
+			grid-row: 5;
 			margin-top: 0;
 		}
 	}
@@ -414,6 +548,14 @@ const eventTypeOptions: SelectOption[] = [
 
 		.year-navigation {
 			gap: var(--s2);
+		}
+
+		.view-toggle__button .button-text {
+			display: none;
+		}
+
+		.view-toggle__button {
+			padding: var(--s2);
 		}
 
 		.header-grid {
@@ -500,10 +642,59 @@ const eventTypeOptions: SelectOption[] = [
 					resultsDiv.style.display = 'none';
 				}
 			}
+
+			// Dispatch event for calendar view
+			window.dispatchEvent(
+				new CustomEvent('agenda-filter-change', {
+					detail: { searchTerm, selectedType }
+				})
+			);
 		};
 
 		// Add event listeners
 		searchInput.addEventListener('input', filterEvents);
 		typeFilter.addEventListener('change', filterEvents);
+
+		// View toggle logic
+		const listViewToggle = document.getElementById('view-toggle-list');
+		const calendarViewToggle = document.getElementById('view-toggle-calendar');
+		const listView = document.getElementById('agenda-list-view');
+		const yearNavigation = document.getElementById('year-navigation');
+		const calendarView = document.getElementById('agenda-calendar-view');
+
+		if (!listViewToggle || !calendarViewToggle || !listView || !calendarView)
+			return;
+
+		function showListView() {
+			yearNavigation.style.display = '';
+			listView.style.display = '';
+			calendarView.style.display = 'none';
+			listViewToggle.setAttribute('aria-pressed', 'true');
+			calendarViewToggle.setAttribute('aria-pressed', 'false');
+			sessionStorage.setItem('agenda-view', 'list');
+		}
+
+		function showCalendarView() {
+			yearNavigation.style.display = 'none';
+			listView.style.display = 'none';
+			calendarView.style.display = '';
+			listViewToggle.setAttribute('aria-pressed', 'false');
+			calendarViewToggle.setAttribute('aria-pressed', 'true');
+			sessionStorage.setItem('agenda-view', 'calendar');
+
+			// Notify the calendar to update its size
+			window.dispatchEvent(new CustomEvent('calendar-view-visible'));
+		}
+
+		// Restore previous view from sessionStorage
+		const savedView = sessionStorage.getItem('agenda-view') || 'list';
+		if (savedView === 'calendar') {
+			showCalendarView();
+		} else {
+			showListView();
+		}
+
+		listViewToggle.addEventListener('click', showListView);
+		calendarViewToggle.addEventListener('click', showCalendarView);
 	});
 </script>
