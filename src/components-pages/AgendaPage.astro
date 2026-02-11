@@ -16,7 +16,7 @@ import Input from '@/components/Input.astro';
 import Select, { type SelectOption } from '@/components/Select.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import AgendaCalendar from '@/components/events/AgendaCalendar';
-//import '@/styles/calendar.css';
+import '@/styles/calendar.css';
 
 const today = new Date();
 
@@ -220,7 +220,8 @@ const calendarEvents: CalendarEvent[] = events.map(event => ({
 		</a>
 
 		<p class="current-year" aria-current="page">
-			<time datetime={yearFilter.toString()} class="h3">{yearFilter}</time>
+			<time datetime={yearFilter.toString()} class="h3">{yearFilter}</time
+			>
 		</p>
 
 		<a
@@ -240,7 +241,9 @@ const calendarEvents: CalendarEvent[] = events.map(event => ({
 			areFutureEvents ? (
 				<section aria-labelledby="upcoming-events-heading">
 					<h2 id="upcoming-events-heading" class="visually-hidden">
-						{lang === 'eu' ? 'Datozen irteerak' : 'Próximas salidas'}
+						{lang === 'eu'
+							? 'Datozen irteerak'
+							: 'Próximas salidas'}
 					</h2>
 					{futureMonths.map(({ title, events }) => (
 						<article class="month-section">
@@ -592,15 +595,21 @@ const calendarEvents: CalendarEvent[] = events.map(event => ({
 
 				eventCards.forEach(card => {
 					totalEvents++;
-					const titleElement = card.querySelector('[data-event-title]');
+					const titleElement =
+						card.querySelector('[data-event-title]');
 					const typeElement = card.querySelector('[data-event-type]');
 
-					const title = titleElement?.textContent?.toLowerCase() || '';
-					const type = typeElement?.getAttribute('data-event-type') || '';
+					const title =
+						titleElement?.textContent?.toLowerCase() || '';
+					const type =
+						typeElement?.getAttribute('data-event-type') || '';
 
-					const matchesSearch = !searchTerm || title.includes(searchTerm);
+					const matchesSearch =
+						!searchTerm || title.includes(searchTerm);
 					const matchesType =
-						!selectedType || selectedType === 'every' || type === selectedType;
+						!selectedType ||
+						selectedType === 'every' ||
+						type === selectedType;
 
 					if (matchesSearch && matchesType) {
 						card.style.display = '';
@@ -657,37 +666,37 @@ const calendarEvents: CalendarEvent[] = events.map(event => ({
 
 		// View toggle logic
 		const listViewToggle = document.getElementById('view-toggle-list');
-		const calendarViewToggle = document.getElementById('view-toggle-calendar');
+		const calendarViewToggle = document.getElementById(
+			'view-toggle-calendar'
+		);
 		const listView = document.getElementById('agenda-list-view');
 		const yearNavigation = document.getElementById('year-navigation');
 		const calendarView = document.getElementById('agenda-calendar-view');
 
-		if (!listViewToggle || !calendarViewToggle || !listView || !calendarView)
+		if (
+			!listViewToggle ||
+			!calendarViewToggle ||
+			!listView ||
+			!calendarView ||
+			!yearNavigation
+		)
 			return;
 
 		function showListView() {
-			yearNavigation ? (yearNavigation.style.display = '') : null;
-			listView ? (listView.style.display = '') : null;
-			calendarView ? (calendarView.style.display = 'none') : null;
-			listViewToggle
-				? listViewToggle.setAttribute('aria-pressed', 'true')
-				: null;
-			calendarViewToggle
-				? calendarViewToggle.setAttribute('aria-pressed', 'false')
-				: null;
+			yearNavigation.style.display = '';
+			listView.style.display = '';
+			calendarView.style.display = 'none';
+			listViewToggle.setAttribute('aria-pressed', 'true');
+			calendarViewToggle.setAttribute('aria-pressed', 'false');
 			sessionStorage.setItem('agenda-view', 'list');
 		}
 
 		function showCalendarView() {
-			yearNavigation ? (yearNavigation.style.display = 'none') : null;
-			listView ? (listView.style.display = 'none') : null;
-			calendarView ? (calendarView.style.display = '') : null;
-			listViewToggle
-				? listViewToggle.setAttribute('aria-pressed', 'false')
-				: null;
-			calendarViewToggle
-				? calendarViewToggle.setAttribute('aria-pressed', 'true')
-				: null;
+			yearNavigation.style.display = 'none';
+			listView.style.display = 'none';
+			calendarView.style.display = '';
+			listViewToggle.setAttribute('aria-pressed', 'false');
+			calendarViewToggle.setAttribute('aria-pressed', 'true');
 			sessionStorage.setItem('agenda-view', 'calendar');
 
 			// Notify the calendar to update its size
