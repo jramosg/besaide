@@ -407,6 +407,13 @@ export const ui = {
 		IRAUPENA: 'Iraupena',
 		ALTUERA: 'Altuera',
 		MAILA: 'Maila',
+		// Add to Calendar
+		'add-to-calendar.label': 'Egutegira gehitu',
+		'add-to-calendar.google': 'Google Calendar',
+		'add-to-calendar.yahoo': 'Yahoo Calendar',
+		'add-to-calendar.outlook': 'Outlook',
+		'add-to-calendar.office365': 'Office 365',
+		'add-to-calendar.apple': 'Apple / iCal',
 		// Event page
 		'event.finished': 'AMAITUTA',
 		'event.register': 'Izena eman',

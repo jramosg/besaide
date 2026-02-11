@@ -47,6 +47,11 @@ export const events = collection({
 			label: 'Iraupena / Duración',
 			description: 'Adib: 8-9 ordu'
 		}),
+		durationHours: fields.number({
+			label: 'Iraupena orduetan / Duración en horas',
+			description:
+				'Egutegira pertsonalera gehitzean amaiera kalkulatzeko. Egun bakarreko ekitaldietarako soilik (amaiera data ez badu). Adib: 5 orduko irteera bat badugu / Solo para eventos de un día (sin fecha fin). Ej: si la actividad dura 5 horas'
+		}),
 		meetingPoint: fields.text({
 			label: 'Topagunea / Punto de encuentro',
 			description: 'Non eta noiz bildu'

@@ -47,12 +47,24 @@ const startDateWithTime = (() => {
 	return eventDate;
 })();
 
-// Set end date to end of day (23:59:59) for calendar
-const endDateForCalendar = endDate ? (() => {
-	const endOfDay = new Date(endDate);
-	endOfDay.setHours(23, 59, 59, 999);
-	return endOfDay;
-})() : null;
+// Calculate end date/time for calendar
+const endDateForCalendar = (() => {
+	// If there's an explicit endDate, use end of that day
+	if (endDate) {
+		const endOfDay = new Date(endDate);
+		endOfDay.setHours(23, 59, 59, 999);
+		return endOfDay;
+	}
+
+	// If there's a durationHours, calculate end time from start time
+	if (event.data.durationHours && event.data.durationHours > 0) {
+		const calculatedEnd = new Date(startDateWithTime);
+		calculatedEnd.setHours(calculatedEnd.getHours() + event.data.durationHours);
+		return calculatedEnd;
+	}
+
+	return null;
+})();
 
 const eventTitle = event.data.title;
 

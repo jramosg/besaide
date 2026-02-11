@@ -8,6 +8,7 @@ export const eventsSchema = (image: ImageFunction) =>
 			date: z.date(),
 			endDate: z.date().optional(),
 			time: z.string().optional(),
+			durationHours: z.number().optional(),
 			type: z.enum([
 				'mountain',
 				'mountain-martxa',

@@ -3,6 +3,7 @@ date: 2025-12-14
 type: mountain
 mountain: Aratz
 duration: 3 ordu
+durationHours: 3
 meetingPoint: Garibai
 time: '08:00'
 elevationGain: 791 m

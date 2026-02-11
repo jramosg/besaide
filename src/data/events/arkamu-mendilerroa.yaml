@@ -4,6 +4,7 @@ type: mountain
 mountain: Montemayor , 1104 m  - Cotorrillo, 1084 m
 location: Uribarri Kuartango
 duration: 5 ordu
+durationHours: 5
 meetingPoint: Forum atzeko autobus geltokia
 time: '7:30'
 elevationGain: 550 m desnibela
