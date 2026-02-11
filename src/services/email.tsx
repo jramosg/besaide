@@ -6,6 +6,10 @@ import type { MembershipFormData } from '@/types/Form';
 import type { ContactFormData } from '@/schemas/contactForm';
 import { useTranslations } from '@/i18n/utils';
 import { Email } from '@/config/company';
+import { createLogger } from '@/lib/logger';
+
+const emailLogger = createLogger('email');
+const resendLogger = createLogger('resend');
 
 type EmailResponse = {
 	success: boolean;
@@ -15,11 +19,18 @@ type EmailResponse = {
 	code?: 'FORBIDDEN' | 'INTERNAL_SERVER_ERROR';
 };
 
-const resend = import.meta.env.RESEND_API_KEY
-	? new Resend(import.meta.env.RESEND_API_KEY)
-	: process.env.RESEND_API_KEY
-		? new Resend(process.env.RESEND_API_KEY)
-		: null;
+const resend = (() => {
+	if (import.meta.env.RESEND_API_KEY) {
+		resendLogger.info({ type: 'resend_init', source: 'import.meta.env' });
+		return new Resend(import.meta.env.RESEND_API_KEY);
+	}
+	if (process.env.RESEND_API_KEY) {
+		resendLogger.info({ type: 'resend_init', source: 'process.env' });
+		return new Resend(process.env.RESEND_API_KEY);
+	}
+	resendLogger.warn({ type: 'resend_init', source: 'none', message: 'No RESEND_API_KEY found' });
+	return null;
+})();
 
 const companyRecipient =
 	import.meta.env.RESEND_TO_EMAIL || process.env.RESEND_TO_EMAIL || Email.name;
@@ -38,9 +49,16 @@ const sanitizeEmailHeader = (value: string): string => {
 };
 
 export const emailResultProcessor = (
-	result: CreateEmailResponse
+	result: CreateEmailResponse,
+	emailType: string
 ): EmailResponse => {
 	if (result.error) {
+		emailLogger.error({
+			type: 'email_send_failed',
+			email_type: emailType,
+			error: result.error.message,
+			status_code: result.error.statusCode
+		});
 		return {
 			success: false,
 			code:
@@ -48,6 +66,12 @@ export const emailResultProcessor = (
 			error: result.error.message || 'error-sending-email-please-try-again'
 		};
 	}
+
+	emailLogger.info({
+		type: 'email_sent',
+		email_type: emailType,
+		email_id: result.data?.id
+	});
 
 	return {
 		success: true,
@@ -64,6 +88,11 @@ export async function sendContactEmail(
 		const t = useTranslations(data.language || 'eu');
 
 		if (!resend) {
+			emailLogger.error({
+				type: 'email_send_failed',
+				email_type: 'contact',
+				error: 'Resend API key is not configured'
+			});
 			return {
 				success: false,
 				error: 'Error: Resend API key is not configured'
@@ -79,7 +108,7 @@ export async function sendContactEmail(
 			text: plainText,
 			bcc: companyRecipient
 		});
-		return emailResultProcessor(result);
+		return emailResultProcessor(result, 'contact');
 	} catch (error) {
 		return {
 			success: false,
@@ -97,6 +126,11 @@ export async function sendMembershipEmail(
 		const t = useTranslations(data.language || 'eu');
 
 		if (!resend) {
+			emailLogger.error({
+				type: 'email_send_failed',
+				email_type: 'membership',
+				error: 'Resend API key is not configured'
+			});
 			return {
 				success: false,
 				error: 'Error: Resend API key is not configured'
@@ -114,7 +148,7 @@ export async function sendMembershipEmail(
 			text: plainText,
 			replyTo: data.email
 		});
-		return emailResultProcessor(result);
+		return emailResultProcessor(result, 'membership');
 	} catch (error) {
 		return {
 			success: false,

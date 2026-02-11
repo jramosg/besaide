@@ -6,12 +6,21 @@ services:
     depends_on:
       - node
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+        compress: 'true'
 
   node:
     image: ${NODE_IMAGE}
     environment:
       - HOST=0.0.0.0
       - PORT=1234
+      - NODE_ENV=production
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_RETENTION_DAYS=${LOG_RETENTION_DAYS:-7}
       - RESEND_API_KEY=${RESEND_API_KEY}
       - RESEND_TO_EMAIL=${RESEND_TO_EMAIL}
       - KEYSTATIC_GITHUB_CLIENT_ID=${KEYSTATIC_GITHUB_CLIENT_ID}
@@ -20,4 +29,12 @@ services:
       - PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}
     expose:
       - '1234'
+    volumes:
+      - ./logs:/app/logs
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+        compress: 'true'

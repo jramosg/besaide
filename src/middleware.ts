@@ -1,4 +1,8 @@
-import { defineMiddleware } from 'astro:middleware';
+import { defineMiddleware, sequence } from 'astro:middleware';
+import { createLogger } from './lib/logger';
+
+const httpLogger = createLogger('http');
+const rateLimitLogger = createLogger('rate-limit');
 
 type RateLimitStore = Map<string, number[]>;
 // In-memory store for rate limiting: IP -> array of timestamps
@@ -24,7 +28,51 @@ setInterval(() => {
 	}
 }, CLEANUP_INTERVAL_MS);
 
-export const onRequest = defineMiddleware((context, next) => {
+// HTTP request logging middleware
+const logRequest = defineMiddleware(async (context, next) => {
+	const start = Date.now();
+	const { request } = context;
+
+	// Get client address safely (not available during prerendering)
+	let clientAddress = 'unknown';
+	try {
+		clientAddress = context.clientAddress;
+	} catch {
+		// clientAddress throws during prerendering - skip logging
+		return next();
+	}
+
+	try {
+		const response = await next();
+		const duration = Date.now() - start;
+
+		httpLogger.info({
+			type: 'http',
+			method: request.method,
+			path: context.url.pathname,
+			status: response.status,
+			duration_ms: duration,
+			ip: clientAddress
+		});
+
+		return response;
+	} catch (error) {
+		const duration = Date.now() - start;
+
+		httpLogger.error({
+			type: 'http',
+			method: request.method,
+			path: context.url.pathname,
+			duration_ms: duration,
+			ip: clientAddress,
+			error: error instanceof Error ? error.message : 'Unknown error'
+		});
+		throw error;
+	}
+});
+
+// Rate limiting middleware
+const rateLimitMiddleware = defineMiddleware((context, next) => {
 	if (context.url.pathname.startsWith('/_actions/')) {
 		const clientIP = context.clientAddress;
 
@@ -37,6 +85,12 @@ export const onRequest = defineMiddleware((context, next) => {
 
 		// Check if rate limit exceeded
 		if (timestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
+			rateLimitLogger.warn({
+				type: 'rate_limit_exceeded',
+				ip: clientIP,
+				path: context.url.pathname,
+				attempts: timestamps.length
+			});
 			return new Response('Too many requests. Please try again later.', {
 				status: 429,
 				headers: {
@@ -54,3 +108,6 @@ export const onRequest = defineMiddleware((context, next) => {
 	// Proceed with the request
 	return next();
 });
+
+// Compose middlewares: log requests first, then apply rate limiting
+export const onRequest = sequence(logRequest, rateLimitMiddleware);
