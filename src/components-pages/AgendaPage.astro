@@ -16,7 +16,7 @@ import Input from '@/components/Input.astro';
 import Select, { type SelectOption } from '@/components/Select.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import AgendaCalendar from '@/components/events/AgendaCalendar';
-import '@/styles/calendar.css';
+//import '@/styles/calendar.css';
 
 const today = new Date();
 
@@ -666,20 +666,28 @@ const calendarEvents: CalendarEvent[] = events.map(event => ({
 			return;
 
 		function showListView() {
-			yearNavigation.style.display = '';
-			listView.style.display = '';
-			calendarView.style.display = 'none';
-			listViewToggle.setAttribute('aria-pressed', 'true');
-			calendarViewToggle.setAttribute('aria-pressed', 'false');
+			yearNavigation ? (yearNavigation.style.display = '') : null;
+			listView ? (listView.style.display = '') : null;
+			calendarView ? (calendarView.style.display = 'none') : null;
+			listViewToggle
+				? listViewToggle.setAttribute('aria-pressed', 'true')
+				: null;
+			calendarViewToggle
+				? calendarViewToggle.setAttribute('aria-pressed', 'false')
+				: null;
 			sessionStorage.setItem('agenda-view', 'list');
 		}
 
 		function showCalendarView() {
-			yearNavigation.style.display = 'none';
-			listView.style.display = 'none';
-			calendarView.style.display = '';
-			listViewToggle.setAttribute('aria-pressed', 'false');
-			calendarViewToggle.setAttribute('aria-pressed', 'true');
+			yearNavigation ? (yearNavigation.style.display = 'none') : null;
+			listView ? (listView.style.display = 'none') : null;
+			calendarView ? (calendarView.style.display = '') : null;
+			listViewToggle
+				? listViewToggle.setAttribute('aria-pressed', 'false')
+				: null;
+			calendarViewToggle
+				? calendarViewToggle.setAttribute('aria-pressed', 'true')
+				: null;
 			sessionStorage.setItem('agenda-view', 'calendar');
 
 			// Notify the calendar to update its size
