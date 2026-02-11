@@ -1,4 +1,3 @@
-
 /* Theme Integration */
 :root {
 	--fc-border-color: var(--theme-separator);
@@ -172,16 +171,6 @@
 
 /* Responsive Adjustments */
 @media (max-width: 600px) {
-	.fc-toolbar {
-		flex-direction: column;
-		gap: var(--s2);
-	}
-
-	.fc-toolbar-chunk {
-		display: flex;
-		justify-content: center;
-	}
-
 	.fc-daygrid-day-number {
 		font-size: var(--font-size-xs);
 	}
