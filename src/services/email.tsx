@@ -28,15 +28,18 @@ const resend = (() => {
 		resendLogger.info({ type: 'resend_init', source: 'process.env' });
 		return new Resend(process.env.RESEND_API_KEY);
 	}
-	resendLogger.warn({ type: 'resend_init', source: 'none', message: 'No RESEND_API_KEY found' });
+	resendLogger.warn({
+		type: 'resend_init',
+		source: 'none',
+		message: 'No RESEND_API_KEY found'
+	});
 	return null;
 })();
 
 const companyRecipient =
-	import.meta.env.RESEND_TO_EMAIL || process.env.RESEND_TO_EMAIL || Email.name;
+	import.meta.env.RESEND_TO_EMAIL || process.env.RESEND_TO_EMAIL;
 
 const getEmailRecipients = (_data: MembershipFormData | ContactFormData) => {
-	// return import.meta.env.PROD	? [data.email, companyRecipient]	: companyRecipient;
 	return [companyRecipient];
 };
 
@@ -100,13 +103,12 @@ export async function sendContactEmail(
 		}
 
 		const result = await resend.emails.send({
-			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-			to: getEmailRecipients(data),
+			from: companyRecipient,
+			to: [companyRecipient],
 			replyTo: data.email,
 			subject: `${t(data.subject)} - ${sanitizeEmailHeader(data.name)}`,
 			html: emailHtml,
 			text: plainText,
-			bcc: companyRecipient
 		});
 		return emailResultProcessor(result, 'contact');
 	} catch (error) {
@@ -140,7 +142,6 @@ export async function sendMembershipEmail(
 		const result = await resend.emails.send({
 			from: import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
 			to: getEmailRecipients(data),
-			bcc: companyRecipient,
 			subject: `${t(
 				'email.membership.subject.membership'
 			)} - ${sanitizeEmailHeader(data.name)} ${sanitizeEmailHeader(data.surnames)}`,
