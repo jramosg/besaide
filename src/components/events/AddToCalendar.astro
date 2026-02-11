@@ -2,7 +2,6 @@
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 import { Calendar, ChevronDown } from '@lucide/astro';
-import { Image } from 'astro:assets';
 import GoogleIcon from '@/assets/icons/google-calendar.svg';
 import YahooIcon from '@/assets/icons/yahoo-calendar.svg';
 import Office365Icon from '@/assets/icons/office365-calendar.svg';
@@ -23,14 +22,23 @@ const {
 	location,
 	startDate,
 	endDate,
-	isAllDay = false
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const formatDate = (dateString: string) => {
-	return new Date(dateString).toISOString().replace(/-|:|\.\d\d\d/g, '');
+	const date = new Date(dateString);
+
+	// Format as YYYYMMDDTHHMMSS in local time (no timezone conversion)
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+	const seconds = String(date.getSeconds()).padStart(2, '0');
+
+	return `${year}${month}${day}T${hours}${minutes}${seconds}`;
 };
 
 const getGoogleUrl = () => {
@@ -44,19 +52,17 @@ const getGoogleUrl = () => {
 };
 
 const getYahooUrl = () => {
-	const st = new Date(startDate).toISOString().replace(/-|:|\.\d\d\d/g, '');
-	const en = endDate
-		? new Date(endDate).toISOString().replace(/-|:|\.\d\d\d/g, '')
-		: st;
+	const st = formatDate(startDate);
+	const en = endDate ? formatDate(endDate) : st;
 
 	return `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(title)}&st=${st}&et=${en}&desc=${encodeURIComponent(description)}&in_loc=${encodeURIComponent(location)}`;
 };
 
 const getOffice365Url = () => {
-	const start = new Date(startDate).toISOString();
-	const end = endDate ? new Date(endDate).toISOString() : start;
+	const start = formatDate(startDate);
+	const end = endDate ? formatDate(endDate) : start;
 
-	return `https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&startdt=${encodeURIComponent(start)}&enddt=${encodeURIComponent(end)}&subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+	return `https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&startdt=${start}&enddt=${end}&subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
 };
 
 const downloadIcs = () => {
@@ -252,7 +258,7 @@ const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsCon
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.75rem 1.5rem;
-		background-color: var(--theme-primary, #b11cab);
+		background-color: var(--theme-primary-800);
 		color: var(--theme-on-primary, #fff);
 		border: none;
 		border-radius: var(--theme-shape-radius, 12px);
