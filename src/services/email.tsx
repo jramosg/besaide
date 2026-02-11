@@ -108,7 +108,7 @@ export async function sendContactEmail(
 			replyTo: data.email,
 			subject: `${t(data.subject)} - ${sanitizeEmailHeader(data.name)}`,
 			html: emailHtml,
-			text: plainText,
+			text: plainText
 		});
 		return emailResultProcessor(result, 'contact');
 	} catch (error) {
