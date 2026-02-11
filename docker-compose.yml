@@ -19,11 +19,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # Only public variables at build time
+        - PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}
     environment:
       - HOST=0.0.0.0
       - PORT=1234
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_RETENTION_DAYS=${LOG_RETENTION_DAYS:-7}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL}
+      - RESEND_TO_EMAIL=${RESEND_TO_EMAIL}
+      - KEYSTATIC_GITHUB_CLIENT_ID=${KEYSTATIC_GITHUB_CLIENT_ID}
+      - KEYSTATIC_GITHUB_CLIENT_SECRET=${KEYSTATIC_GITHUB_CLIENT_SECRET}
+      - KEYSTATIC_SECRET=${KEYSTATIC_SECRET}
+      - PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}
     expose:
       - '1234'
     volumes:

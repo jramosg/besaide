@@ -1,6 +1,11 @@
 # Build stage
 FROM node:22-alpine AS builder
 
+# Only public build-time variables
+# These get inlined into client-side code by Vite
+ARG PUBLIC_KEYSTATIC_GITHUB_APP_SLUG
+ENV PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=$PUBLIC_KEYSTATIC_GITHUB_APP_SLUG
+
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
