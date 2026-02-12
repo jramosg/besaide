@@ -7,20 +7,19 @@ import type { CalendarEvent } from '@/types/CalendarEvent';
 import euLocale from '@fullcalendar/core/locales/eu';
 import esLocale from '@fullcalendar/core/locales/es';
 
-// Basque month and day names for custom formatting
-const euMonthNames = [
-	'Urtarrila',
-	'Otsaila',
-	'Martxoa',
-	'Apirila',
-	'Maiatza',
-	'Ekaina',
-	'Uztaila',
-	'Abuztua',
-	'Iraila',
-	'Urria',
-	'Azaroa',
-	'Abendua'
+const euMonthNamesShort = [
+	'Urt.',
+	'Ots.',
+	'Mar.',
+	'Api.',
+	'Mai.',
+	'Eka.',
+	'Uzt.',
+	'Abu.',
+	'Ira.',
+	'Urr.',
+	'Aza.',
+	'Abe.'
 ];
 
 const euDayNamesShort = ['Ig.', 'Al.', 'Ar.', 'Az.', 'Og.', 'Ol.', 'Lr.'];
@@ -105,7 +104,7 @@ export default function AgendaCalendar({
 			titleFormat={
 				lang === 'eu'
 					? ({ date }) => {
-							const month = euMonthNames[date.month];
+							const month = euMonthNamesShort[date.month];
 							return `${month} ${date.year}`;
 						}
 					: undefined
