@@ -1,7 +1,11 @@
 ---
 import Page from '@/layouts/Page.astro';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
-import { sortedAndFilteredEvents } from '@/utils/events';
+import {
+	calculateEndDateForCalendar,
+	calculateStartDateWithTime,
+	sortedAndFilteredEvents
+} from '@/utils/events';
 import EventListCard from '@/components/events/EventListCard.astro';
 import type { ProcessedEvent } from '@/types/Events';
 import type { CalendarEvent } from '@/types/CalendarEvent';
@@ -129,19 +133,36 @@ const eventTypeOptions: SelectOption[] = [
 ];
 
 // Serialize events for calendar view
-const calendarEvents: CalendarEvent[] = events.map(event => ({
-	id: event.slug,
-	title: event.data.title,
-	start: event.data.date.toISOString().split('T')[0],
-	end: event.data.endDate
-		? new Date(event.data.endDate.getTime() + 86400000)
-				.toISOString()
-				.split('T')[0]
-		: undefined,
-	url: event.slug,
-	type: event.data.type,
-	isPast: event.isPast
-}));
+const calendarEvents: CalendarEvent[] = events.map(event => {
+	const eventDate = new Date(event.data.date);
+	const endDate = event.data.endDate ? new Date(event.data.endDate) : null;
+
+	const startDateWithTime = calculateStartDateWithTime(
+		eventDate,
+		event.data.time
+	);
+
+	const endDateForCalendar = calculateEndDateForCalendar(
+		endDate,
+		startDateWithTime,
+		event.data.durationHours
+	);
+
+	const withNotHours = !event.data.time;
+	return {
+		id: event.slug,
+		title: event.data.title,
+		start: !withNotHours
+			? startDateWithTime.toISOString()
+			: event.data.date.toISOString().split('T')[0],
+		end: endDate
+			? new Date(endDate.getTime() + 86400000).toISOString().split('T')[0]
+			: endDateForCalendar?.toISOString(),
+		url: event.slug,
+		type: event.data.type,
+		isPast: event.isPast
+	};
+});
 ---
 
 <Page

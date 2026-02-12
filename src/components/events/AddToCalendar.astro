@@ -16,13 +16,7 @@ interface Props {
 	isAllDay?: boolean;
 }
 
-const {
-	title,
-	description,
-	location,
-	startDate,
-	endDate,
-} = Astro.props;
+const { title, description, location, startDate, endDate } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -231,10 +225,11 @@ const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsCon
 					link.href = url;
 
 					// Sanitize filename: remove invalid characters and limit length
-					const sanitizedTitle = (title || 'event')
-						.replace(/[^a-z0-9\s\-_]/gi, '')
-						.replace(/\s+/g, '_')
-						.substring(0, 100) || 'event';
+					const sanitizedTitle =
+						(title || 'event')
+							.replace(/[^a-z0-9\s\-_]/gi, '')
+							.replace(/\s+/g, '_')
+							.substring(0, 100) || 'event';
 					link.download = `${sanitizedTitle}.ics`;
 
 					document.body.appendChild(link);

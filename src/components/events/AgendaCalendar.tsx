@@ -54,7 +54,10 @@ export default function AgendaCalendar({
 		window.addEventListener('calendar-view-visible', handleCalendarVisible);
 
 		return () => {
-			window.removeEventListener('calendar-view-visible', handleCalendarVisible);
+			window.removeEventListener(
+				'calendar-view-visible',
+				handleCalendarVisible
+			);
 		};
 	}, []);
 
@@ -116,6 +119,13 @@ export default function AgendaCalendar({
 			}
 			height="auto"
 			dayMaxEvents={3}
+			eventTimeFormat={{
+				hour: '2-digit',
+				minute: '2-digit',
+				hour12: false
+			}}
+			displayEventTime={true}
+			displayEventEnd={false}
 			events={filteredEvents.map(event => ({
 				id: event.id,
 				title: event.title,
@@ -125,7 +135,8 @@ export default function AgendaCalendar({
 				classNames: [
 					`fc-event--${event.type}`,
 					event.isPast ? 'fc-event--past' : ''
-				]
+				],
+				display: event.end && event.start !== event.end ? 'block' : 'auto'
 			}))}
 			eventClick={info => {
 				info.jsEvent.preventDefault();
@@ -136,7 +147,7 @@ export default function AgendaCalendar({
 			headerToolbar={{
 				left: 'prev,next today',
 				center: 'title',
-				right: ''
+				right: 'dayGridMonth,dayGridWeek'
 			}}
 		/>
 	);

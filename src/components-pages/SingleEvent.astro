@@ -15,6 +15,11 @@ import { formatPrice } from '@/utils/format';
 import RouteCard from '@/components/RouteCard.astro';
 import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
 import AddToCalendar from '@/components/events/AddToCalendar.astro';
+import {
+	calculateStartDateWithTime,
+	calculateEndDateForCalendar,
+	formatLocalISOString
+} from '@/utils/events';
 
 type Props = {
 	event: CollectionEntry<'events'>;
@@ -30,53 +35,16 @@ const eventDate = new Date(event.data.date);
 const endDate = event.data.endDate ? new Date(event.data.endDate) : null;
 const formattedDate = formatEventDate(eventDate, endDate, lang);
 
-// Parse time and create a date with time for calendar
-const startDateWithTime = (() => {
-	if (!event.data.time) return eventDate;
+const startDateWithTime = calculateStartDateWithTime(
+	eventDate,
+	event.data.time
+);
 
-	// Try to parse time in HH:MM or H:MM format
-	const timeMatch = event.data.time.match(/(\d{1,2}):(\d{2})/);
-	if (timeMatch) {
-		const [, hours, minutes] = timeMatch;
-		const dateWithTime = new Date(eventDate);
-		dateWithTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
-		return dateWithTime;
-	}
-
-	// If time format is not parseable, return date without time
-	return eventDate;
-})();
-
-// Calculate end date/time for calendar
-const endDateForCalendar = (() => {
-	// If there's an explicit endDate, use end of that day
-	if (endDate) {
-		const endOfDay = new Date(endDate);
-		endOfDay.setHours(23, 59, 59, 999);
-		return endOfDay;
-	}
-
-	// If there's a durationHours, calculate end time from start time
-	if (event.data.durationHours && event.data.durationHours > 0) {
-		const calculatedEnd = new Date(startDateWithTime);
-		calculatedEnd.setHours(calculatedEnd.getHours() + event.data.durationHours);
-		return calculatedEnd;
-	}
-
-	return null;
-})();
-
-// Format date as local ISO string (without UTC conversion)
-const formatLocalISOString = (date: Date) => {
-	const year = date.getFullYear();
-	const month = String(date.getMonth() + 1).padStart(2, '0');
-	const day = String(date.getDate()).padStart(2, '0');
-	const hours = String(date.getHours()).padStart(2, '0');
-	const minutes = String(date.getMinutes()).padStart(2, '0');
-	const seconds = String(date.getSeconds()).padStart(2, '0');
-
-	return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-};
+const endDateForCalendar = calculateEndDateForCalendar(
+	endDate,
+	startDateWithTime,
+	event.data.durationHours
+);
 
 const eventTitle = event.data.title;
 
@@ -203,7 +171,9 @@ const eventSchema = {
 				description={eventDescription || ''}
 				location={event.data.location || ''}
 				startDate={formatLocalISOString(startDateWithTime)}
-				endDate={endDateForCalendar ? formatLocalISOString(endDateForCalendar) : undefined}
+				endDate={endDateForCalendar
+					? formatLocalISOString(endDateForCalendar)
+					: undefined}
 			/>
 		</div>
 
