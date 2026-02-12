@@ -169,6 +169,11 @@
 	opacity: 1;
 }
 
+.fc .fc-button {
+	min-height: unset;
+	min-width: unset;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 600px) {
 	.fc-daygrid-day-number {
