@@ -183,4 +183,12 @@
 	.fc-event {
 		font-size: 10px;
 	}
+	.fc .fc-button {
+		font-size: var(--font-size-sm);
+		padding-left: 0.2em;
+		padding-right: 0.2em;
+	}
+	.fc .fc-toolbar-title {
+		font-size: var(--font-size-base);
+	}
 }
