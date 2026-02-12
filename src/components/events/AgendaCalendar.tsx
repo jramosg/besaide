@@ -27,13 +27,11 @@ const euDayNamesShort = ['Ig.', 'Al.', 'Ar.', 'Az.', 'Og.', 'Ol.', 'Lr.'];
 interface AgendaCalendarProps {
 	events: CalendarEvent[];
 	lang: 'eu' | 'es';
-	initialYear: number;
 }
 
 export default function AgendaCalendar({
 	events,
 	lang,
-	initialYear
 }: AgendaCalendarProps) {
 	const [filteredEvents, setFilteredEvents] = useState(events);
 	const calendarRef = useRef<FullCalendar>(null);

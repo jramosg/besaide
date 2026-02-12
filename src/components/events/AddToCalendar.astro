@@ -88,8 +88,6 @@ const downloadIcs = () => {
 };
 
 const icsContent = downloadIcs();
-// Create a data URI for the download
-const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
 ---
 
 <div class="add-to-calendar-container">
@@ -208,39 +206,31 @@ const icsDataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsCon
 
 				if (!icsContent || !title) return;
 
-				// Detect iOS/iPhone/iPad
-				const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+				// Sanitize filename: remove invalid characters and limit length
+				const sanitizedTitle =
+					(title || 'event')
+						.replace(/[^a-z0-9\s\-_]/gi, '')
+						.replace(/\s+/g, '_')
+						.substring(0, 100) || 'event';
 
-				if (isIOS) {
-					// For iOS, use data URI which opens in Calendar app
-					const dataUri = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
-					window.location.href = dataUri;
-				} else {
-					// For desktop, use blob and download
-					const blob = new Blob([icsContent], {
-						type: 'text/calendar;charset=utf-8'
-					});
-					const url = window.URL.createObjectURL(blob);
-					const link = document.createElement('a');
-					link.href = url;
+				const blob = new Blob([icsContent], {
+					type: 'text/calendar;charset=utf-8'
+				});
+				const url = window.URL.createObjectURL(blob);
 
-					// Sanitize filename: remove invalid characters and limit length
-					const sanitizedTitle =
-						(title || 'event')
-							.replace(/[^a-z0-9\s\-_]/gi, '')
-							.replace(/\s+/g, '_')
-							.substring(0, 100) || 'event';
-					link.download = `${sanitizedTitle}.ics`;
+				const link = document.createElement('a');
+				link.href = url;
+				link.download = `${sanitizedTitle}.ics`;
+				link.style.display = 'none';
 
-					document.body.appendChild(link);
-					link.click();
+				document.body.appendChild(link);
+				link.click();
+
+				// Cleanup after a short delay
+				setTimeout(() => {
 					document.body.removeChild(link);
-
-					// Cleanup
-					setTimeout(() => {
-						window.URL.revokeObjectURL(url);
-					}, 100);
-				}
+					window.URL.revokeObjectURL(url);
+				}, 100);
 
 				closeDropdown();
 			});
