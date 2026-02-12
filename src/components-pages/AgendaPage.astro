@@ -312,11 +312,7 @@ const calendarEvents: CalendarEvent[] = events.map(event => {
 	</div>
 
 	<div id="agenda-calendar-view" style="display:none">
-		<AgendaCalendar
-			events={calendarEvents}
-			lang={lang}
-			client:load
-		/>
+		<AgendaCalendar events={calendarEvents} lang={lang} client:load />
 	</div>
 </Page>
 

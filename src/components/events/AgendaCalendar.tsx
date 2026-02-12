@@ -29,10 +29,7 @@ interface AgendaCalendarProps {
 	lang: 'eu' | 'es';
 }
 
-export default function AgendaCalendar({
-	events,
-	lang,
-}: AgendaCalendarProps) {
+export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 	const [filteredEvents, setFilteredEvents] = useState(events);
 	const calendarRef = useRef<FullCalendar>(null);
 
