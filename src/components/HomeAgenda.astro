@@ -3,6 +3,7 @@ import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import { sortedAndFilteredEvents } from '@/utils/events';
 import HomeSectionHeader from './HomeSectionHeader.astro';
 import EventCard from '@/components/events/EventCard.astro';
+import HomeCalendar from '@/components/events/HomeCalendar.tsx';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,8 +11,45 @@ const agendaSection = getUrlFromID('agenda', lang);
 const today = new Date();
 
 let events = await sortedAndFilteredEvents(agendaSection, today);
+events = events.filter(event => !event.isPast);
 
-events = events.filter(event => !event.isPast).slice(0, 4);
+// Group events by month key "YYYY-M"
+const eventsByMonth = new Map<
+	string,
+	{ title: string; events: typeof events }
+>();
+
+for (const event of events) {
+	const date = new Date(event.data.date);
+	const key = `${date.getFullYear()}-${date.getMonth()}`;
+	if (!eventsByMonth.has(key)) {
+		eventsByMonth.set(key, { title: key, events: [] });
+	}
+	eventsByMonth.get(key)!.events.push(event);
+}
+
+// Serialize lightweight event data for the React calendar (dots only)
+// Use local date parts (not toISOString which converts to UTC and can shift dates)
+const formatLocalDate = (d: Date) => {
+	const y = d.getFullYear();
+	const m = String(d.getMonth() + 1).padStart(2, '0');
+	const day = String(d.getDate()).padStart(2, '0');
+	return `${y}-${m}-${day}`;
+};
+
+const calendarEvents = events.map(event => ({
+	date: formatLocalDate(new Date(event.data.date)),
+	endDate: event.data.endDate
+		? formatLocalDate(new Date(event.data.endDate))
+		: undefined,
+	type: event.data.type
+}));
+
+// The initial month key to show (current month)
+const initialMonthKey = `${today.getFullYear()}-${today.getMonth()}`;
+
+// Get all month keys in order
+const monthKeys = Array.from(eventsByMonth.keys());
 ---
 
 {
@@ -29,10 +67,37 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 					year: new Date().getFullYear()
 				})}
 			>
-				<div class="events-grid">
-					{events.map(item => (
-						<EventCard item={item} />
-					))}
+				<div class="home-agenda-layout">
+					<div class="home-agenda-calendar">
+						<HomeCalendar events={calendarEvents} lang={lang} client:load />
+					</div>
+					<div class="home-agenda-events" id="home-agenda-events">
+						{monthKeys.map(key => (
+							<div
+								class="home-agenda-month-group"
+								data-month-key={key}
+								style={key === initialMonthKey ? '' : 'display:none'}
+							>
+								<div class="events-grid">
+									{eventsByMonth
+										.get(key)!
+										.events.slice(0, 6)
+										.map(item => (
+											<EventCard item={item} />
+										))}
+								</div>
+							</div>
+						))}
+
+						{/* Empty state shown when current month has no events */}
+						<div
+							class="home-agenda-empty"
+							id="home-agenda-empty"
+							style={eventsByMonth.has(initialMonthKey) ? 'display:none' : ''}
+						>
+							<p>{t('home.calendar.no-events')}</p>
+						</div>
+					</div>
 				</div>
 			</HomeSectionHeader>
 		</section>
@@ -40,13 +105,119 @@ events = events.filter(event => !event.isPast).slice(0, 4);
 }
 
 <style>
+	.home-agenda-layout {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: var(--s8);
+		align-items: start;
+	}
+
+	.home-agenda-calendar {
+		position: sticky;
+		top: calc(var(--header-height) + var(--s4));
+	}
+
 	.events-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, 320px);
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 		gap: var(--s6);
 	}
 
-	@media (max-width: 768px) {
+	.home-agenda-empty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 200px;
+		border-radius: var(--theme-shape-radius);
+		background: var(--theme-primary-container-alt);
+		color: var(--theme-text-secondary);
+		text-align: center;
+		padding: var(--s6);
+	}
+
+	.home-agenda-empty p {
+		margin: 0;
+		font-size: var(--font-size-lg);
+	}
+
+	/* react-day-picker theme integration */
+	.home-agenda-calendar :global(.rdp-root) {
+		--rdp-accent-color: var(--theme-primary);
+		--rdp-accent-background-color: var(--theme-primary-container-alt);
+		--rdp-day-height: 48px;
+		--rdp-day-width: 48px;
+		--rdp-day_button-height: 44px;
+		--rdp-day_button-width: 44px;
+		--rdp-day_button-border-radius: 50%;
+		font-family: var(--theme-font-family);
+	}
+
+	.home-agenda-calendar :global(.rdp-month_caption) {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		text-transform: capitalize;
+	}
+
+	.home-agenda-calendar :global(.rdp-weekday) {
+		color: var(--theme-text-secondary);
+		font-weight: var(--font-weight-medium);
+		font-size: var(--font-size-sm);
+		text-transform: capitalize;
+	}
+
+	.home-agenda-calendar :global(.rdp-day_button) {
+		position: relative;
+		font-weight: var(--font-weight-medium);
+	}
+
+	.home-agenda-calendar :global(.rdp-today .rdp-day_button) {
+		font-weight: var(--font-weight-bold);
+		color: var(--theme-primary);
+	}
+
+	.home-agenda-calendar :global(.rdp-nav) {
+		gap: var(--s2);
+	}
+
+	.home-agenda-calendar :global(.rdp-button_next),
+	.home-agenda-calendar :global(.rdp-button_previous) {
+		border-radius: 50%;
+		color: var(--theme-on-bg);
+		transition: background-color 0.15s ease;
+	}
+
+	.home-agenda-calendar :global(.rdp-button_next:hover),
+	.home-agenda-calendar :global(.rdp-button_previous:hover) {
+		background-color: var(--theme-primary-hover-bg);
+	}
+
+	/* Event dot indicators */
+	.home-agenda-calendar :global(.home-cal-dots) {
+		position: absolute;
+		bottom: 2px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 3px;
+	}
+
+	.home-agenda-calendar :global(.home-cal-dot) {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		flex-shrink: 0;
+	}
+
+	@media (max-width: 900px) {
+		.home-agenda-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.home-agenda-calendar {
+			position: static;
+			justify-self: center;
+		}
+
 		.events-grid {
 			grid-template-columns: 1fr;
 		}

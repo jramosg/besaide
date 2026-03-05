@@ -314,7 +314,8 @@ export const ui = {
 		'Gehigarriak:': 'Extras:',
 		'Kuotak:': 'Cuotas:',
 		Baldintzak: 'Condiciones',
-		Berrikuntzak: 'Novedades'
+		Berrikuntzak: 'Novedades',
+		'home.calendar.no-events': 'No hay eventos este mes'
 	},
 	eu: {
 		'switch-language': 'Hizkuntza aldatu',
@@ -547,7 +548,8 @@ export const ui = {
 		postalCodeLength: 'Posta kodeak 5 zenbaki izan behar ditu',
 		postalCodeInvalid: 'Formatua ez da zuzena',
 		'terms.required': 'Baldintzak onartu behar dituzu',
-		loading: 'Bidaltzen...'
+		loading: 'Bidaltzen...',
+		'home.calendar.no-events': 'Hilabete honetan ez dago irteerarik'
 	}
 } as const;
 
