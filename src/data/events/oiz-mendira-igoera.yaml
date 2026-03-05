@@ -2,10 +2,22 @@ title: Oiz mendia
 date: 2026-03-15
 type: mountain
 mountain: Oiz, 1026m
+durationHours: 5
+meetingPoint: Forum atzealko autobus geltokia
+time: '7:30'
+elevationGain: 1026 m
+distance: 12 km
 image: '@/assets/images/events/oiz-mendira-igoera/image.PNG'
-summaryEu: 'Izena ematea zabalik '
-summaryEs: 'Izena ematea zabalik '
-prices: []
+summaryEu: >-
+  Telematikoki martxoaren 7tik 10era bitartean. Presentzialki egin nahi bada
+  Besaide Mendizale Elkarteko bulegoan egin beharko da matxoaren 10 eta 11an. 
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 15
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 18
 routes: []
 inscriptionEu: >-
   Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
