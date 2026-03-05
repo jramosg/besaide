@@ -2,16 +2,38 @@ title: Oiz mendia
 date: 2026-03-15
 type: mountain
 mountain: Oiz, 1026m
+durationHours: 5
+meetingPoint: Forum atzealko autobus geltokia
+time: '7:30'
+elevationGain: 1026 m
+distance: 12 km
 image: '@/assets/images/events/oiz-mendira-igoera/image.PNG'
-summaryEu: 'Izena ematea zabalik '
-summaryEs: 'Izena ematea zabalik '
-prices: []
+summaryEu: >-
+  Telematikoki martxoaren 7tik 10era bitartean. Presentzialki egin nahi bada
+  Besaide Mendizale Elkarteko bulegoan egin beharko da matxoaren 10 eta 11an. 
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 15
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 18
 routes: []
 inscriptionEu: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Izen emateko bi aukera daude: bata, telematikoki martxoaren 7tik 10era
+  bitartean; bestea, presentzialki Besaide Mendizale Elkarteko bulegoan
+  matxoaren 10 eta 11an. 
+
+
+  Izena ematea baieztatzeko ordainketa egin behar da honako kontuetako baten
+  (kontzeptuan norberaren izen jarri behar da): Laboral Kutxan:
+  ES2330350001510010000193 edota Kutxabank: ES3920955055531061009519
 inscriptionEs: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Izen emateko bi aukera daude: bata, telematikoki martxoaren 7tik 10era
+  bitartean; bestea, presentzialki Besaide Mendizale Elkarteko bulegoan
+  matxoaren 10 eta 11an. 
+
+
+  Izena ematea baieztatzeko ordainketa egin behar da honako kontuetako baten
+  (kontzeptuan norberaren izen jarri behar da): Laboral Kutxan:
+  ES2330350001510010000193 edota Kutxabank: ES3920955055531061009519
