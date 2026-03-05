@@ -612,82 +612,8 @@ const headerClasses = [
 </style>
 
 <script>
-	const SCROLL_THRESHOLD = 60;
-	const HEADER_ID = 'besaideHeader';
-	const MOBILE_MENU_ID = 'mobile-menu';
-	const LANG_TOGGLE_BTN_ID = 'lang-toggle-btn';
-	const LANG_DROPDOWN_ID = 'lang-dropdown';
-
-	const CSS_CLASSES = {
-		SCROLLED: 'header-nav__container--scrolled',
-		SCROLLING_DOWN: 'header-nav__container--scrolling-down'
-	} as const;
 
 	document.addEventListener('astro:page-load', () => {
-		const navHeader = document.getElementById(HEADER_ID);
-		const mobileMenu = document.getElementById(MOBILE_MENU_ID);
-		const langToggleBtn = document.getElementById(LANG_TOGGLE_BTN_ID);
-		const dropdown = document.getElementById(LANG_DROPDOWN_ID);
-
-		if (!navHeader) return;
-
-		let lastScrollY = window.scrollY;
-		let ticking = false;
-
-		const closeDropdown = () => {
-			if (!dropdown || !langToggleBtn) return;
-			dropdown.hidden = true;
-			langToggleBtn.setAttribute('aria-expanded', 'false');
-		};
-
-		const handleScroll = () => {
-			const currentScrollY = window.scrollY;
-
-			// Hide dropdown on scroll
-			if (
-				dropdown &&
-				langToggleBtn &&
-				currentScrollY > SCROLL_THRESHOLD &&
-				!dropdown.hidden
-			) {
-				closeDropdown();
-				langToggleBtn.blur();
-			}
-
-			// Prevent scroll logic if mobile menu is open
-			if (mobileMenu?.hasAttribute('open')) {
-				navHeader.classList.remove(CSS_CLASSES.SCROLLING_DOWN);
-				return;
-			}
-
-			// Header hide/show based on scroll direction
-			if (currentScrollY < SCROLL_THRESHOLD) {
-				navHeader.classList.remove(CSS_CLASSES.SCROLLED);
-			} else {
-				navHeader.classList.add(CSS_CLASSES.SCROLLED);
-
-				if (currentScrollY > lastScrollY) {
-					navHeader.classList.add(CSS_CLASSES.SCROLLING_DOWN);
-				} else {
-					navHeader.classList.remove(CSS_CLASSES.SCROLLING_DOWN);
-				}
-			}
-
-			lastScrollY = currentScrollY;
-			ticking = false;
-		};
-
-		const onScrollHandler = () => {
-			if (!ticking) {
-				window.requestAnimationFrame(handleScroll);
-				ticking = true;
-			}
-		};
-
-		const headerClasses = navHeader?.className;
-		if (!headerClasses || !headerClasses.includes('not-toggles'))
-			window.addEventListener('scroll', onScrollHandler);
-
 		// Dropdown menu accessibility
 		const dropdownTriggers = document.querySelectorAll(
 			'[data-dropdown-trigger]'
