@@ -1,9 +1,55 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { DayPicker } from 'react-day-picker';
-import { format } from 'date-fns';
-import { eu } from 'date-fns/locale/eu';
-import { es } from 'date-fns/locale/es';
 import 'react-day-picker/style.css';
+
+// Monday-first weekday abbreviations
+const WEEKDAYS_EU = ['al.', 'ar.', 'az.', 'og.', 'or.', 'lr.', 'ig.'];
+const WEEKDAYS_ES = ['lu.', 'ma.', 'mi.', 'ju.', 'vi.', 'sá.', 'do.'];
+
+const MONTHS_EU = [
+	'urtarrila',
+	'otsaila',
+	'martxoa',
+	'apirila',
+	'maiatza',
+	'ekaina',
+	'uztaila',
+	'abuztua',
+	'iraila',
+	'urria',
+	'azaroa',
+	'abendua'
+];
+const MONTHS_ES = [
+	'enero',
+	'febrero',
+	'marzo',
+	'abril',
+	'mayo',
+	'junio',
+	'julio',
+	'agosto',
+	'septiembre',
+	'octubre',
+	'noviembre',
+	'diciembre'
+];
+
+/** Basque year suffix: "eko" when year ends in 5 or is a multiple of 10, "ko" otherwise */
+function basqueYearSuffix(year: number): string {
+	const lastDigit = year % 10;
+	return lastDigit === 5 || lastDigit === 0 ? 'eko' : 'ko';
+}
+
+function formatCaption(date: Date, lang: 'eu' | 'es'): string {
+	const year = date.getFullYear();
+	const monthIdx = date.getMonth();
+	if (lang === 'eu') {
+		return `${year}${basqueYearSuffix(year)} ${MONTHS_EU[monthIdx]}`;
+	}
+	const month = MONTHS_ES[monthIdx];
+	return `${month.charAt(0).toUpperCase()}${month.slice(1)} ${year}`;
+}
 
 interface CalendarEvent {
 	date: string; // YYYY-MM-DD (local date)
@@ -37,7 +83,7 @@ function getDateRange(startStr: string, endStr: string): Date[] {
 
 export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 	const [month, setMonth] = useState(new Date());
-	const locale = lang === 'eu' ? eu : es;
+	const weekdays = lang === 'eu' ? WEEKDAYS_EU : WEEKDAYS_ES;
 
 	// Build modifier day sets for range highlighting
 	const { rangeStart, rangeMiddle, rangeEnd, singleEvent } = useMemo(() => {
@@ -71,30 +117,32 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 		};
 	}, [events]);
 
-	// Dispatch custom event so Astro can show/hide the correct month group
-	useEffect(() => {
-		const monthKey = `${month.getFullYear()}-${month.getMonth()}`;
-		const groups = document.querySelectorAll('.home-agenda-month-group');
-		const emptyState = document.getElementById('home-agenda-empty');
-		let hasEvents = false;
-
-		groups.forEach(group => {
-			const el = group as HTMLElement;
-			if (el.dataset.monthKey === monthKey) {
-				el.style.display = '';
-				hasEvents = true;
-			} else {
-				el.style.display = 'none';
-			}
-		});
-
-		if (emptyState) {
-			emptyState.style.display = hasEvents ? 'none' : '';
-		}
-	}, [month]);
-
 	const handleMonthChange = (newMonth: Date) => {
+		const prvMonth = month;
 		setMonth(newMonth);
+		if (
+			prvMonth.getMonth() !== newMonth.getMonth() ||
+			prvMonth.getFullYear() !== newMonth.getFullYear()
+		) {
+			const monthKey = `${month.getFullYear()}-${month.getMonth()}`;
+			const groups = document.querySelectorAll('.home-agenda-month-group');
+			const emptyState = document.getElementById('home-agenda-empty');
+			let hasEvents = false;
+
+			groups.forEach(group => {
+				const el = group as HTMLElement;
+				if (el.dataset.monthKey === monthKey) {
+					el.style.display = '';
+					hasEvents = true;
+				} else {
+					el.style.display = 'none';
+				}
+			});
+
+			if (emptyState) {
+				emptyState.style.display = hasEvents ? 'none' : '';
+			}
+		}
 	};
 
 	return (
@@ -104,16 +152,14 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 				mode="single"
 				month={month}
 				onMonthChange={handleMonthChange}
-				locale={locale}
 				weekStartsOn={1}
 				showOutsideDays
 				fixedWeeks
 				formatters={{
-					formatCaption: date => {
-						const monthStr = format(date, 'MMMM yyyy', {
-							locale: locale
-						});
-						return monthStr.charAt(0).toUpperCase() + monthStr.slice(1);
+					formatCaption: date => formatCaption(date, lang),
+					formatWeekdayName: date => {
+						const dow = (date.getDay() + 6) % 7;
+						return weekdays[dow];
 					}
 				}}
 				modifiers={{
