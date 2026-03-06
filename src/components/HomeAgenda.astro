@@ -299,6 +299,63 @@ const monthKeys = Array.from(eventsByMonth.keys());
 		color: var(--theme-on-primary);
 	}
 
+	/* Dark theme overrides */
+
+	:global([data-theme='dark']) .home-agenda-calendar :global(.rdp-root) {
+		--rdp-accent-color: var(--theme-on-bg);
+	}
+	:global([data-theme='dark']) .home-agenda-layout {
+		--cal-event-range: rgba(236, 67, 237, 0.15);
+	}
+
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.home-cal-wrapper) {
+		background: var(--theme-primary-950);
+	}
+
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-month_caption) {
+		border-bottom-color: var(--rdp-accent-color);
+	}
+
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-today .rdp-day_button) {
+		color: var(--theme-primary-300);
+	}
+
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-day.cal-range-start .rdp-day_button),
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-day.cal-range-end .rdp-day_button),
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-day.cal-single-event .rdp-day_button) {
+		background-color: var(--theme-primary-400);
+		color: var(--theme-primary-950);
+	}
+
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-today.cal-range-start .rdp-day_button),
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-today.cal-range-end .rdp-day_button) {
+		background-color: var(--theme-primary-400);
+		color: var(--theme-primary-950);
+	}
+
+	:global([data-theme='dark'])
+		.home-agenda-calendar
+		:global(.rdp-today.cal-single-event .rdp-day_button) {
+		background-color: var(--theme-primary-300);
+		color: var(--theme-primary-950);
+	}
+
 	@media (max-width: 900px) {
 		.home-agenda-layout {
 			grid-template-columns: 1fr;
