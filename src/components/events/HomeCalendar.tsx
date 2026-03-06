@@ -55,6 +55,7 @@ interface CalendarEvent {
 	date: string; // YYYY-MM-DD (local date)
 	endDate?: string; // YYYY-MM-DD (local date, for multi-day events)
 	type: string;
+	slug: string;
 }
 
 interface HomeCalendarProps {
@@ -85,16 +86,20 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 	const [month, setMonth] = useState(new Date());
 	const weekdays = lang === 'eu' ? WEEKDAYS_EU : WEEKDAYS_ES;
 
-	// Build modifier day sets for range highlighting
-	const { rangeStart, rangeMiddle, rangeEnd, singleEvent } = useMemo(() => {
+	// Build modifier day sets for range highlighting + day→URL map
+	const { urlByDay } = useMemo(() => {
 		const starts: Date[] = [];
 		const middles: Date[] = [];
 		const ends: Date[] = [];
 		const singles: Date[] = [];
+		// day key → { single?: slug, range?: slug } — single events take priority
+		const dayLinks = new Map<string, { single?: string; range?: string }>();
+
+		const toKey = (d: Date) =>
+			`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
 		for (const evt of events) {
 			if (evt.endDate && evt.endDate !== evt.date) {
-				// Multi-day event
 				const allDates = getDateRange(evt.date, evt.endDate);
 				if (allDates.length >= 2) {
 					starts.push(allDates[0]);
@@ -103,19 +108,41 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 						middles.push(allDates[i]);
 					}
 				}
+				for (const d of allDates) {
+					const k = toKey(d);
+					const entry = dayLinks.get(k) || {};
+					if (!entry.range) entry.range = evt.slug;
+					dayLinks.set(k, entry);
+				}
 			} else {
-				// Single-day event
 				singles.push(parseLocalDate(evt.date));
+				const k = evt.date;
+				const entry = dayLinks.get(k) || {};
+				entry.single = evt.slug;
+				dayLinks.set(k, entry);
 			}
+		}
+
+		// Resolve: single wins over range
+		const resolved = new Map<string, string>();
+		for (const [k, v] of dayLinks) {
+			resolved.set(k, v.single || v.range!);
 		}
 
 		return {
 			rangeStart: starts,
 			rangeMiddle: middles,
 			rangeEnd: ends,
-			singleEvent: singles
+			singleEvent: singles,
+			urlByDay: resolved
 		};
 	}, [events]);
+
+	const handleDayClick = (day: Date) => {
+		const key = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
+		const url = urlByDay.get(key);
+		if (url) window.location.href = url;
+	};
 
 	const handleMonthChange = (newMonth: Date) => {
 		const prvMonth = month;
@@ -152,6 +179,7 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 				mode="single"
 				month={month}
 				onMonthChange={handleMonthChange}
+				onDayClick={handleDayClick}
 				weekStartsOn={1}
 				showOutsideDays
 				fixedWeeks

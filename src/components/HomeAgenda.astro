@@ -42,7 +42,8 @@ const calendarEvents = events.map(event => ({
 	endDate: event.data.endDate
 		? formatLocalDate(new Date(event.data.endDate))
 		: undefined,
-	type: event.data.type
+	type: event.data.type,
+	slug: event.slug
 }));
 
 // The initial month key to show (current month)
