@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
-import type { DayButtonProps } from 'react-day-picker';
 import { format } from 'date-fns';
 import { eu } from 'date-fns/locale/eu';
 import { es } from 'date-fns/locale/es';
@@ -17,33 +16,20 @@ interface HomeCalendarProps {
 	lang: 'eu' | 'es';
 }
 
-const TYPE_COLORS: Record<string, string> = {
-	mountain: 'var(--theme-primary)',
-	'mountain-martxa': 'var(--theme-primary-700)',
-	'ski-alpino': 'var(--theme-secondary)',
-	event: 'var(--theme-success)',
-	course: 'var(--theme-primary-400)',
-	speleology: 'var(--grey-600)'
-};
+/** Parse "YYYY-MM-DD" into a local Date */
+function parseLocalDate(str: string): Date {
+	const [y, m, d] = str.split('-').map(Number);
+	return new Date(y, m - 1, d);
+}
 
-/** Expand a single date or date range into all individual YYYY-MM-DD keys */
-function expandDateRange(startStr: string, endStr?: string): string[] {
-	const dates: string[] = [startStr];
-	if (!endStr || endStr === startStr) return dates;
-
-	const [sy, sm, sd] = startStr.split('-').map(Number);
-	const [ey, em, ed] = endStr.split('-').map(Number);
-	const start = new Date(sy, sm - 1, sd);
-	const end = new Date(ey, em - 1, ed);
-
+/** Get all dates between start and end (inclusive) as Date objects */
+function getDateRange(startStr: string, endStr: string): Date[] {
+	const dates: Date[] = [];
+	const start = parseLocalDate(startStr);
+	const end = parseLocalDate(endStr);
 	const current = new Date(start);
-	current.setDate(current.getDate() + 1); // skip the start (already added)
-
 	while (current <= end) {
-		const y = current.getFullYear();
-		const m = String(current.getMonth() + 1).padStart(2, '0');
-		const d = String(current.getDate()).padStart(2, '0');
-		dates.push(`${y}-${m}-${d}`);
+		dates.push(new Date(current));
 		current.setDate(current.getDate() + 1);
 	}
 	return dates;
@@ -53,28 +39,41 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 	const [month, setMonth] = useState(new Date());
 	const locale = lang === 'eu' ? eu : es;
 
-	// Build a map: "YYYY-MM-DD" -> event types for that day (expanding multi-day)
-	const eventsByDay = useMemo(() => {
-		const map = new Map<string, string[]>();
+	// Build modifier day sets for range highlighting
+	const { rangeStart, rangeMiddle, rangeEnd, singleEvent } = useMemo(() => {
+		const starts: Date[] = [];
+		const middles: Date[] = [];
+		const ends: Date[] = [];
+		const singles: Date[] = [];
+
 		for (const evt of events) {
-			const dateKeys = expandDateRange(evt.date, evt.endDate);
-			for (const dateKey of dateKeys) {
-				if (!map.has(dateKey)) map.set(dateKey, []);
-				const types = map.get(dateKey)!;
-				if (!types.includes(evt.type)) types.push(evt.type);
+			if (evt.endDate && evt.endDate !== evt.date) {
+				// Multi-day event
+				const allDates = getDateRange(evt.date, evt.endDate);
+				if (allDates.length >= 2) {
+					starts.push(allDates[0]);
+					ends.push(allDates[allDates.length - 1]);
+					for (let i = 1; i < allDates.length - 1; i++) {
+						middles.push(allDates[i]);
+					}
+				}
+			} else {
+				// Single-day event
+				singles.push(parseLocalDate(evt.date));
 			}
 		}
-		return map;
+
+		return {
+			rangeStart: starts,
+			rangeMiddle: middles,
+			rangeEnd: ends,
+			singleEvent: singles
+		};
 	}, [events]);
 
 	// Dispatch custom event so Astro can show/hide the correct month group
 	useEffect(() => {
 		const monthKey = `${month.getFullYear()}-${month.getMonth()}`;
-		// window.dispatchEvent(
-		// 	new CustomEvent('home-calendar-month-change', {
-		// 		detail: { monthKey }
-		// 	})
-		// );
 		const groups = document.querySelectorAll('.home-agenda-month-group');
 		const emptyState = document.getElementById('home-agenda-empty');
 		let hasEvents = false;
@@ -98,30 +97,6 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 		setMonth(newMonth);
 	};
 
-	// Custom DayButton to render event dots
-	const CustomDayButton = ({ day, modifiers, ...props }: DayButtonProps) => {
-		const dateStr = `${day.date.getFullYear()}-${String(day.date.getMonth() + 1).padStart(2, '0')}-${String(day.date.getDate()).padStart(2, '0')}`;
-		const types = eventsByDay.get(dateStr);
-		return (
-			<button {...props}>
-				{day.date.getDate()}
-				{types && types.length > 0 && (
-					<span className="home-cal-dots">
-						{types.slice(0, 3).map((type, i) => (
-							<span
-								key={i}
-								className="home-cal-dot"
-								style={{
-									backgroundColor: TYPE_COLORS[type] || 'var(--theme-primary)'
-								}}
-							/>
-						))}
-					</span>
-				)}
-			</button>
-		);
-	};
-
 	return (
 		<div className="home-cal-wrapper">
 			<DayPicker
@@ -141,8 +116,17 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 						return monthStr.charAt(0).toUpperCase() + monthStr.slice(1);
 					}
 				}}
-				components={{
-					DayButton: CustomDayButton
+				modifiers={{
+					eventRangeStart: rangeStart,
+					eventRangeMiddle: rangeMiddle,
+					eventRangeEnd: rangeEnd,
+					eventSingle: singleEvent
+				}}
+				modifiersClassNames={{
+					eventRangeStart: 'cal-range-start',
+					eventRangeMiddle: 'cal-range-middle',
+					eventRangeEnd: 'cal-range-end',
+					eventSingle: 'cal-single-event'
 				}}
 			/>
 		</div>
