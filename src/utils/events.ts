@@ -8,7 +8,13 @@ const processEventEntry = (
 	agendaSection: string,
 	today: Date
 ): ProcessedEvent => {
-	const isPast = new Date(entry.data.date) < today;
+	const startOfToday = new Date(today);
+	startOfToday.setHours(0, 0, 0, 0);
+
+	const eventDate = new Date(entry.data.date);
+	eventDate.setHours(0, 0, 0, 0);
+
+	const isPast = eventDate.getTime() < startOfToday.getTime();
 	return {
 		...entry,
 		slug: `${agendaSection}/${entry.data.date.getFullYear()}/${slugify(entry.id)}`,
