@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { DayPicker } from 'react-day-picker';
+import { navigate } from 'astro:transitions/client';
 import 'react-day-picker/style.css';
 
 // Monday-first weekday abbreviations
@@ -142,7 +143,7 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 	const handleDayClick = (day: Date) => {
 		const key = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
 		const url = urlByDay.get(key);
-		if (url) window.location.href = url;
+		if (url) navigate(url);
 	};
 
 	const handleMonthChange = (newMonth: Date) => {
