@@ -110,6 +110,7 @@ const monthKeys = Array.from(eventsByMonth.keys());
 		grid-template-columns: auto 1fr;
 		gap: var(--s8);
 		align-items: start;
+		--cal-event-range: #a028ab33;
 	}
 
 	.home-agenda-calendar {
@@ -163,8 +164,6 @@ const monthKeys = Array.from(eventsByMonth.keys());
 	.home-agenda-calendar :global(.rdp-month_caption) {
 		font-size: var(--font-size-lg);
 		font-weight: var(--font-weight-semibold);
-		text-transform: capitalize;
-		padding-bottom: var(--s3);
 		border-bottom: 2px solid var(--theme-primary-900);
 		margin-bottom: var(--s2);
 	}
@@ -184,7 +183,7 @@ const monthKeys = Array.from(eventsByMonth.keys());
 	/* Today: filled purple circle */
 	.home-agenda-calendar :global(.rdp-today .rdp-day_button) {
 		font-weight: var(--font-weight-bold);
-		color: var(--theme-primary-900);
+		color: var(--theme-primary-800);
 		border-radius: 50%;
 	}
 
@@ -224,11 +223,11 @@ const monthKeys = Array.from(eventsByMonth.keys());
 		right: 0;
 		height: var(--rdp-day_button-height, 40px);
 		transform: translateY(-50%);
-		background-color: var(--theme-primary-200);
+		background-color: var(--cal-event-range);
 		z-index: 0;
 	}
 	.home-agenda-calendar :global(.rdp-day.cal-range-start .rdp-day_button) {
-		background-color: var(--theme-primary-900);
+		background-color: var(--theme-primary-800);
 		color: var(--theme-on-primary);
 		border-radius: 50%;
 		position: relative;
@@ -247,7 +246,7 @@ const monthKeys = Array.from(eventsByMonth.keys());
 		right: 0;
 		height: var(--rdp-day_button-height, 40px);
 		transform: translateY(-50%);
-		background-color: var(--theme-primary-200);
+		background-color: var(--cal-event-range);
 		z-index: 0;
 	}
 	.home-agenda-calendar :global(.rdp-day.cal-range-middle .rdp-day_button) {
@@ -270,11 +269,11 @@ const monthKeys = Array.from(eventsByMonth.keys());
 		right: 50%;
 		height: var(--rdp-day_button-height, 40px);
 		transform: translateY(-50%);
-		background-color: var(--theme-primary-200);
+		background-color: var(--cal-event-range);
 		z-index: 0;
 	}
 	.home-agenda-calendar :global(.rdp-day.cal-range-end .rdp-day_button) {
-		background-color: var(--theme-primary-900);
+		background-color: var(--theme-primary-800);
 		color: var(--theme-on-primary);
 		border-radius: 50%;
 		position: relative;
@@ -283,7 +282,7 @@ const monthKeys = Array.from(eventsByMonth.keys());
 
 	/* Single-day event: filled primary circle */
 	.home-agenda-calendar :global(.rdp-day.cal-single-event .rdp-day_button) {
-		background-color: var(--theme-primary-900);
+		background-color: var(--theme-primary-800);
 		color: var(--theme-on-primary);
 		border-radius: 50%;
 	}
@@ -291,7 +290,7 @@ const monthKeys = Array.from(eventsByMonth.keys());
 	/* When today overlaps with an event, event style takes priority */
 	.home-agenda-calendar :global(.rdp-today.cal-range-start .rdp-day_button),
 	.home-agenda-calendar :global(.rdp-today.cal-range-end .rdp-day_button) {
-		background-color: var(--theme-primary-900);
+		background-color: var(--theme-primary-800);
 		color: var(--theme-on-primary);
 	}
 	.home-agenda-calendar :global(.rdp-today.cal-single-event .rdp-day_button) {
