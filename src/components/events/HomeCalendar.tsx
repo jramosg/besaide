@@ -124,7 +124,7 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 			prvMonth.getMonth() !== newMonth.getMonth() ||
 			prvMonth.getFullYear() !== newMonth.getFullYear()
 		) {
-			const monthKey = `${month.getFullYear()}-${month.getMonth()}`;
+			const monthKey = `${newMonth.getFullYear()}-${newMonth.getMonth()}`;
 			const groups = document.querySelectorAll('.home-agenda-month-group');
 			const emptyState = document.getElementById('home-agenda-empty');
 			let hasEvents = false;
