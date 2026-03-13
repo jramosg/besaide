@@ -7,6 +7,7 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { ClientRouter } from 'astro:transitions';
 import OpenGraph from './OpenGraph.astro';
 import StructuredData from './StructuredData.astro';
+import FAQSchema from './FAQSchema.astro';
 
 export interface Props {
 	title?: string;
@@ -113,6 +114,8 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 		<OpenGraph />
 	)
 }
+<FAQSchema />
+
 <StructuredData />
 
 <ThemeProvider />
