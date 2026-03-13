@@ -17,6 +17,7 @@ export interface Props {
 	keywords?: string;
 	alternateLanguages?: { hreflang: string; href: string }[];
 	noindex?: boolean;
+	faqSchema?: boolean;
 	openGraphProps?: {
 		title?: string;
 		description?: string;
@@ -28,6 +29,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const openGraphProps = Astro.props.openGraphProps;
+const faqSchema = Astro.props.faqSchema ?? false;
 const title = Astro.props.title || settings.title;
 const description = Astro.props.description || t(settings.description);
 const canonicalURL =
@@ -114,7 +116,7 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 		<OpenGraph />
 	)
 }
-<FAQSchema />
+{faqSchema && <FAQSchema />}
 
 <StructuredData />
 
