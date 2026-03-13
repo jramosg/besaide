@@ -26,7 +26,8 @@ export const ui = {
 		'Hurrengo orria': 'Página siguiente',
 		eu: 'Euskera',
 		es: 'Español',
-		'settings.description': 'setting.description',
+		'settings.description':
+			'Besaide Mendizale Elkartea - Club de montaña en Arrasate-Mondragón. Salidas, socios, refugio de Leixargarate y servicios para montañeros en Gipuzkoa.',
 		a: 'a',
 		'Orri nagusira joan': 'Ir a la página principal',
 		'Menua itxi': 'Cerrar menú',
@@ -340,7 +341,8 @@ export const ui = {
 		'Hurrengo orria': 'Hurrengo orria',
 		eu: 'Euskera',
 		es: 'Gaztelania',
-		'settings.description': 'setting.description',
+		'settings.description':
+			'Besaide Mendizale Elkartea - Arrasateko mendizale elkartea. Mendi irteerak, bazkidetza, Leixargarate aterpea eta mendizale zerbitzuak Arrasate-Mondragoinen.',
 		a: 'a',
 		'nav.news': 'Albisteak',
 		'nav.home': 'Hasiera',
