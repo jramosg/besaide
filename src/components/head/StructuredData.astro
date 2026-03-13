@@ -6,25 +6,39 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// WebSite schema for sitelinks search box signal
+const websiteData = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	'@id': 'https://besaide.vercel.app/#website',
+	name: CompanyName,
+	url: 'https://besaide.vercel.app/',
+	inLanguage: lang === 'eu' ? 'eu' : 'es',
+	publisher: {
+		'@id': 'https://besaide.vercel.app/#organization'
+	}
+};
+
 // Main organization structured data
 const structuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'SportsOrganization',
 	'@id': 'https://besaide.vercel.app/#organization',
 	name: CompanyName,
+	foundingDate: '1957',
 	alternateName:
 		lang === 'eu' ? 'Besaide Mendi Elkartea' : 'Asociación de Montaña Besaide',
 	description: t(settings.description),
 	url: 'https://besaide.vercel.app/',
 	logo: {
 		'@type': 'ImageObject',
-		url: 'https://besaide.vercel.app//main-logo-horizontal.png',
+		url: 'https://besaide.vercel.app/main-logo-horizontal.png',
 		width: 300,
 		height: 224
 	},
 	image: [
-		'https://besaide.vercel.app//main-logo-horizontal.png',
-		'https://besaide.vercel.app//open-graph.jpg'
+		'https://besaide.vercel.app/main-logo-horizontal.png',
+		'https://besaide.vercel.app/open-graph.jpg'
 	],
 	telephone: Phone.name,
 	email: Email.name.replace('mailto:', ''),
@@ -101,6 +115,11 @@ const breadcrumbData = {
 };
 ---
 
+<script
+	type="application/ld+json"
+	is:inline
+	set:html={JSON.stringify(websiteData)}
+/>
 <script
 	type="application/ld+json"
 	is:inline
