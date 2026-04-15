@@ -3,14 +3,36 @@ date: 2026-04-19
 type: mountain
 mountain: Postarien eta Txarabitana bidezidorrak
 location: Izki parke naturala, Araba
+durationHours: 5
+meetingPoint: Forum atzealdeko autobus geltokia
+time: '7:30'
+distance: 15 km
 image: '@/assets/images/events/izki-parke-naturala/image.PNG'
-prices: []
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 15
+  - labelEu: 'Ez bazkideak '
+    labelEs: 'Ez bazkideak '
+    price: 18
 routes: []
 inscriptionEu: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Izena emateko ordainketa egin beharko da transferentzia bidez edota eskuz,
+  Besaideko bulegoan bertan apirilaren 11tik 14ra bitartean (Besaideko bulegoan
+  ordainketa egiteko aukera apirilaren 14 eta 15ean). Transferentzia egiterakoan
+  ezinbestean jarri beharko dira norbere izen eta abizenak.
+
+
+  LABORAL KUTXA: ES2330350001510010000193.
+
+  KUTXABANK: ES3920955055531061009519
 inscriptionEs: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Izena emateko ordainketa egin beharko da transferentzia bidez edota eskuz,
+  Besaideko bulegoan bertan apirilaren 11tik 14ra bitartean (Besaideko bulegoan
+  ordainketa egiteko aukera apirilaren 14 eta 15ean). Transferentzia egiterakoan
+  ezinbestean jarri beharko dira norbere izen eta abizenak.
+
+
+  LABORAL KUTXA: ES2330350001510010000193.
+
+  KUTXABANK: ES3920955055531061009519
