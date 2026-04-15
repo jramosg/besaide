@@ -6,8 +6,8 @@ location: Anboto mendia
 durationHours: 5
 meetingPoint: Zalduspeko autobus geltokian (kotxeak antolatuko dira bertan)
 time: '8:20'
-elevationGain: 880m desnibela
-distance: '7'
+elevationGain: 880 m desnibela
+distance: 7 km
 image: '@/assets/images/events/anboto-ezagutzen/image.PNG'
 summaryEu: >-
   Alpino Tabira mendi elkartearen eskutik burutuko da "Anbotoren magalean
