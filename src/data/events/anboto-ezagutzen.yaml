@@ -1,17 +1,19 @@
 title: 'Anboto ezagutzen '
-date: 2026-03-28
+date: 2026-05-09
 type: mountain
 mountain: Anboto, 1331 m
+location: Anboto mendia
+durationHours: 5
+meetingPoint: Zalduspeko autobus geltokian (kotxeak antolatuko dira bertan)
+time: '8:20'
+elevationGain: 880m desnibela
+distance: '7'
 image: '@/assets/images/events/anboto-ezagutzen/image.PNG'
-summaryEu: 'Alpino Tabira mendi elkartearen eskutik '
-summaryEs: 'Alpino Tabira mendi elkartearen eskutik '
+summaryEu: >-
+  Alpino Tabira mendi elkartearen eskutik burutuko da "Anbotoren magalean
+  harriturik" irteera
+summaryEs: >-
+  Alpino Tabira mendi elkartearen eskutik burutuko da "Anbotoren magalean
+  harriturik" irteera
 prices: []
 routes: []
-inscriptionEu: >-
-  Izena emateko ordainketa egin beharko da transfereentzia bidez edota Besaideko
-  bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da izena
-  emateko aukera. Informazioa osatzen joango gara. 
-inscriptionEs: >-
-  Izena emateko ordainketa egin beharko da transfereentzia bidez edota Besaideko
-  bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da izena
-  emateko aukera. Informazioa osatzen joango gara. n.
