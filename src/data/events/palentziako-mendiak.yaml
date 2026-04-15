@@ -2,17 +2,60 @@ title: 'Palentziako mendiak '
 date: 2026-06-12
 endDate: 2026-06-14
 type: mountain
-mountain: 'Peña Redonda, 1991m '
+mountain: >-
+  Peña Redonda, 1991 m eta Pico Almonga-Pico de las Cruces -Tejada de Tosande
+  1558 m
 location: Palentzia
-summaryEu: Hiru egunetako irteera izango da Palentziako mendietatik barrena.
-summaryEs: Hiru egunetako irteera izango da Palentziako mendietatik barrena.
-prices: []
-routes: []
+meetingPoint: Zalduespeko autobus geltokian
+time: '16:30'
+elevationGain: >-
+  Peña Redonda, 817 m-ko desnibela / Pico Almonga-Pico de las Cruces -Tejada de
+  Tosande, 846 m-ko desnibela
+distance: >-
+  Peña Redonda, 10,4 km / Pico Almonga-Pico de las Cruces -Tejada de Tosande,
+  13, 97 km
+image: '@/assets/images/events/palentziako-mendiak/image.PNG'
+summaryEu: >-
+  Hiru egunetako irteera izango da Palentziako mendietatik barrena. Ostatua
+  Hotel Peñalabran (Cervera de Pisuerga) hartuko da pentsio erdian. 
+summaryEs: >-
+  Hiru egunetako irteera izango da Palentziako mendietatik barrena. Ostatua
+  Hotel Peñalabran (Cervera de Pisuerga) hartuko da pentsio erdian. 
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 194
+  - labelEu: 'Ez bazkaideak '
+    labelEs: 'Ez bazkaideak '
+    price: 200
+routes:
+  - labelEu: Peña Redonda
+    labelEs: Peña Redonda
+    url: >-
+      [Wikiloc | Ruta Peña
+      Redonda](https://es.wikiloc.com/rutas-senderismo/pena-redonda-236111721)
+    image: '@/assets/images/event-routes/palentziako-mendiak/routes/0/image.PNG'
+  - labelEu: Punta Almonga- Punta las Cruces- la Tejeda de Tosande
+    labelEs: Punta Almonga- Punta las Cruces- la Tejeda de Tosande
+    url: >-
+      [Wikiloc | Ruta Punta Almonga- Punta las Cruces- la Tejeda de Tosande
+      2025](https://es.wikiloc.com/rutas-senderismo/punta-almonga-punta-las-cruces-la-tejeda-de-tosande-2025-236142540)
+    image: '@/assets/images/event-routes/palentziako-mendiak/routes/1/image.PNG'
 inscriptionEu: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Martxoaren 16tik apirilaren 1 arte egongo da izena emateko aukera.
+  Horretarako, 50€ aurrerapena egin beharko da transferentzia bidez
+  (TRANSFERENTZIA EGITERAKOA IZENA ETA ABIZENA JARRI BEHAR DIRA KONTZEPTUAN): 
+
+
+  LABORAL KUTXA: ES2330350001510010000193
+
+  KUTXABANK: ES3920955055531061009519
 inscriptionEs: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Martxoaren 16tik apirilaren 1erarte egongo da izena emateko aukera.
+  Horretarako, 50€ aurrerapena egin beharko da transferentzia bidez
+  (TRANSFERENTZIA EGITERAKOA IZENA ETA ABIZENA JARRI BEHAR DIRA KONTZEPTUAN): 
+
+
+  LABORAL KUTXA: ES2330350001510010000193
+
+  KUTXABANK: ES3920955055531061009519
