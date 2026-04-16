@@ -35,9 +35,7 @@ routes:
     image: '@/assets/images/event-routes/palentziako-mendiak/routes/0/image.PNG'
   - labelEu: Punta Almonga- Punta las Cruces- la Tejeda de Tosande
     labelEs: Punta Almonga- Punta las Cruces- la Tejeda de Tosande
-    url: >-
-      [Wikiloc | Ruta Punta Almonga- Punta las Cruces- la Tejeda de Tosande
-      2025](https://es.wikiloc.com/rutas-senderismo/punta-almonga-punta-las-cruces-la-tejeda-de-tosande-2025-236142540)
+    url: https://es.wikiloc.com/rutas-senderismo/punta-almonga-punta-las-cruces-la-tejeda-de-tosande-2025-236142540
     image: '@/assets/images/event-routes/palentziako-mendiak/routes/1/image.PNG'
 inscriptionEu: >-
   Martxoaren 16tik apirilaren 1 arte egongo da izena emateko aukera.
