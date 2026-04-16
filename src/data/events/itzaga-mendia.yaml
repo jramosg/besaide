@@ -4,6 +4,7 @@ type: mountain
 mountain: Itzaga
 location: Hitzagaondo harana, Nafarroa
 image: '@/assets/images/events/itzaga-mendia/image.png'
+summaryEu: 'Joango gara informazioa eguneratzen. '
 prices: []
 routes: []
 inscriptionEu: >-
