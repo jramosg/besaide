@@ -31,9 +31,7 @@ prices:
 routes:
   - labelEu: Peña Redonda
     labelEs: Peña Redonda
-    url: >-
-      [Wikiloc | Ruta Peña
-      Redonda](https://es.wikiloc.com/rutas-senderismo/pena-redonda-236111721)
+    url: https://es.wikiloc.com/rutas-senderismo/pena-redonda-236111721
     image: '@/assets/images/event-routes/palentziako-mendiak/routes/0/image.PNG'
   - labelEu: Punta Almonga- Punta las Cruces- la Tejeda de Tosande
     labelEs: Punta Almonga- Punta las Cruces- la Tejeda de Tosande
