@@ -150,7 +150,14 @@ export const events = collection({
 				}),
 				url: fields.text({
 					label: 'URL',
-					validation: { isRequired: true }
+					validation: {
+						isRequired: true,
+						pattern: {
+							regex: /^(https?:\/\/[^\s]+)$/,
+							message:
+								'URL formatu okerra / Formato de URL incorrecto. Hurrengo formatuan egon behar da: https://www.adibidea.com'
+						}
+					}
 				}),
 				image: fields.image({
 					label: 'Irudia / Imagen',
