@@ -1,0 +1,25 @@
+title: '"Apinismo hastapenak" ikastaroa'
+date: 2026-04-18
+endDate: 2026-04-19
+type: course
+location: Belagua inguruetan
+duration: '2 egun '
+durationHours: 12
+meetingPoint: Belaguako parking-ean
+time: '10:00'
+image: '@/assets/images/events/apinismo-hastapenak-ikastaroa/image.jpeg'
+summaryEu: Alpinismoaren hastapenak ezagutzeko aukera eskaintiko da ikastaroan.
+summaryEs: Alpinismoaren hastapenak ezagutzeko aukera eskaintiko da ikastaroan.
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 130
+  - labelEu: 'Ez bazkideak: '
+    labelEs: Ez bazkideak
+    price: 190
+routes: []
+inscriptionEu: >-
+  Martxoaren 25a baino lehen egin beharko da izena ematea (plaza mugatuak dira).
+  Horretarako, QR-a eskaneatu beharko da, eta bertako galdetegia bete zein
+  oraindainketa egin beharko da (orainketa egin ezean, ez da ontzat emango izena
+  ematea). 
