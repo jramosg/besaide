@@ -8,9 +8,9 @@ mountain: >-
 location: Palentzia
 meetingPoint: Zalduespeko autobus geltokian
 time: '16:30'
-elevationGain: >-
-  Peña Redonda, 817 m-ko desnibela / Pico Almonga-Pico de las Cruces -Tejada de
-  Tosande, 846 m-ko desnibela
+desnivel: >-
+  Peña Redonda, 817 m-ko / Pico Almonga-Pico de las Cruces -Tejada de Tosande,
+  846 m-ko
 distance: >-
   Peña Redonda, 10,4 km / Pico Almonga-Pico de las Cruces -Tejada de Tosande,
   13, 97 km
