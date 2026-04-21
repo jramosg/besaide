@@ -10,10 +10,8 @@ const t = useTranslations(lang);
 const agendaSection = getUrlFromID('agenda', lang);
 const today = new Date();
 
-let events = await sortedAndFilteredEvents(agendaSection, today);
-events = events.filter(event => !event.isPast);
+const events = await sortedAndFilteredEvents(agendaSection, today);
 
-// Group events by month key "YYYY-M"
 const eventsByMonth = new Map<
 	string,
 	{ title: string; events: typeof events }
