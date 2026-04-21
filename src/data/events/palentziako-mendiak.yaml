@@ -25,8 +25,8 @@ prices:
   - labelEu: Bazkideak
     labelEs: Bazkideak
     price: 194
-  - labelEu: 'Ez bazkaideak '
-    labelEs: 'Ez bazkaideak '
+  - labelEu: 'Ez bazkideak '
+    labelEs: 'Ez bazkideak '
     price: 200
 routes:
   - labelEu: Peña Redonda
