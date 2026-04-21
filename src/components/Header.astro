@@ -253,6 +253,10 @@ const headerClasses = [
 		}
 	}
 
+	.header-logo__link .besaide-logo {
+		transition: filter 0.2s ease;
+	}
+
 	.header-nav__container {
 		display: flex;
 		justify-content: center;
@@ -312,6 +316,11 @@ const headerClasses = [
 		.besaide-theme-toggle {
 			color: var(--theme-on-primary);
 		}
+	}
+
+	/* Compatibility fallback: older browsers can miss SVG path color overrides */
+	header[drawer-open] .header-logo__link .besaide-logo {
+		filter: brightness(0) invert(1);
 	}
 
 	nav {
