@@ -99,6 +99,7 @@ export const ui = {
 		TOPAGUNEA: 'PUNTO DE ENCUENTRO',
 		IRAUPENA: 'DURACIÓN',
 		ALTUERA: 'ALTURA',
+		DESNIBELA: 'DESNIVEL',
 		MAILA: 'DIFICULTAD',
 		DATA: 'FECHA',
 		ORDUA: 'HORA',
@@ -411,6 +412,7 @@ export const ui = {
 		TOPAGUNEA: 'Topagunea',
 		IRAUPENA: 'Iraupena',
 		ALTUERA: 'Altuera',
+		DESNIBELA: 'Desnibela',
 		MAILA: 'Maila',
 		// Add to Calendar
 		'add-to-calendar.label': 'Egutegira gehitu',

@@ -19,6 +19,7 @@ const t = useTranslations(lang);
 const {
 	mountain,
 	elevationGain,
+	desnivel,
 	location,
 	distance,
 	meetingPoint,
@@ -47,6 +48,14 @@ const slug = slugify(Astro.props.item.id);
 	{
 		elevationGain && (
 			<CardMeta title={t('ALTUERA')} desc={elevationGain} eventId={slug}>
+				<MountainClimb slot="icon" fill="currentColor" />
+			</CardMeta>
+		)
+	}
+
+	{
+		desnivel && (
+			<CardMeta title={t('DESNIBELA')} desc={desnivel} eventId={slug}>
 				<MountainClimb slot="icon" fill="currentColor" />
 			</CardMeta>
 		)

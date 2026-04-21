@@ -63,6 +63,10 @@ export const events = collection({
 			label: 'Altuera / altura',
 			description: 'Adib: 1200 m'
 		}),
+		desnivel: fields.text({
+			label: 'Desnibela / Desnivel',
+			description: 'Adib: +900 m'
+		}),
 		distance: fields.text({
 			label: 'Distantzia / Distancia',
 			description: 'Adib: 16 km'

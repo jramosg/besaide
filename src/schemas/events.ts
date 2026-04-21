@@ -22,6 +22,7 @@ export const eventsSchema = (image: ImageFunction) =>
 			duration: z.string().optional(),
 			meetingPoint: z.string().optional(),
 			elevationGain: z.string().optional(),
+			desnivel: z.string().optional(),
 			distance: z.string().optional(),
 			image: image().optional(),
 			summaryEu: z.string().optional(),
