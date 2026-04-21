@@ -8,6 +8,7 @@ import WhatsappIcon from '@/assets/icons/whatsapp.svg';
 import { Image } from 'astro:assets';
 import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import Container from './Container.astro';
+import ThemeSwitcher from '@/components/theme-switcher/ThemeSwitcher.astro';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url);
@@ -182,6 +183,9 @@ const organizationSchema = {
 					{t('Lege oharra / Pribatutasun politika')}
 				</a>
 			</nav>
+			<div class="footer__theme-switcher" aria-label={t('themeSwitcher.toggleTheme')}>
+				<ThemeSwitcher />
+			</div>
 		</Container>
 	</div>
 </footer>
@@ -351,6 +355,25 @@ const organizationSchema = {
 		gap: var(--s4);
 	}
 
+	.footer__theme-switcher {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 var(--s2);
+		border-left: 1px solid color-mix(in srgb, var(--theme-bg) 55%, transparent);
+		min-height: 32px;
+	}
+
+	.footer__theme-switcher :global(.besaide-theme-toggle) {
+		color: var(--theme-bg);
+		opacity: 0.92;
+	}
+
+	.footer__theme-switcher :global(.besaide-theme-toggle:hover),
+	.footer__theme-switcher :global(.besaide-theme-toggle:focus-visible) {
+		opacity: 1;
+	}
+
 	.footer__legal-link {
 		text-decoration: none;
 		transition: color var(--theme-transition);
@@ -398,6 +421,11 @@ const organizationSchema = {
 			flex-direction: column;
 			align-items: center;
 			gap: var(--s2);
+		}
+
+		.footer__theme-switcher {
+			border-left: none;
+			padding: 0;
 		}
 	}
 

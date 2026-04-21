@@ -8,7 +8,6 @@ import {
 	getIdfromUrl
 } from '@/i18n/utils';
 import LanguageToggle from '@/components/LanguageToggle.astro';
-import ThemeSwitcher from '@/components/theme-switcher/ThemeSwitcher.astro';
 import Button from '@/components/buttons/Button.astro';
 import { ChevronDown } from '@lucide/astro';
 import Container from './Container.astro';
@@ -39,7 +38,6 @@ const headerClasses = [
 		includeToggles && (
 			<div class="header-toggles__container">
 				<LanguageToggle />
-				<ThemeSwitcher />
 			</div>
 		)
 	}
