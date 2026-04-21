@@ -161,20 +161,22 @@ const eventSchema = {
 			}
 		</div>
 
-		<h1 class="title h3" style={`view-transition-name: title-${slug}`}>
-			{event.data.title}
-		</h1>
+		<div class="title-actions-row">
+			<h1 class="title h3" style={`view-transition-name: title-${slug}`}>
+				{event.data.title}
+			</h1>
 
-		<div class="event-actions">
-			<AddToCalendar
-				title={event.data.title}
-				description={eventDescription || ''}
-				location={event.data.location || ''}
-				startDate={formatLocalISOString(startDateWithTime)}
-				endDate={endDateForCalendar
-					? formatLocalISOString(endDateForCalendar)
-					: undefined}
-			/>
+			<div class="event-actions">
+				<AddToCalendar
+					title={event.data.title}
+					description={eventDescription || ''}
+					location={event.data.location || ''}
+					startDate={formatLocalISOString(startDateWithTime)}
+					endDate={endDateForCalendar
+						? formatLocalISOString(endDateForCalendar)
+						: undefined}
+				/>
+			</div>
 		</div>
 
 		{
@@ -285,9 +287,18 @@ const eventSchema = {
 		margin-bottom: var(--s6);
 	}
 
+	.title-actions-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--s4);
+		.title {
+			margin: 0;
+		}
+	}
+
 	.event-actions {
-		margin-top: calc(var(--s4) * -1);
-		margin-bottom: var(--s2);
+		flex-shrink: 0;
 	}
 
 	.hero-image {
@@ -353,6 +364,11 @@ const eventSchema = {
 		.event-hero {
 			height: 50vh;
 			min-height: 300px;
+		}
+
+		.title-actions-row {
+			flex-direction: column;
+			align-items: flex-start;
 		}
 
 		.chip-row {
