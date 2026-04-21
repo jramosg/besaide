@@ -1,6 +1,6 @@
 .route-list {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 450px));
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	gap: var(--s6);
 	align-items: stretch;
 	list-style: none;
@@ -11,7 +11,6 @@
 .route-list__item {
 	width: 100%;
 	display: flex;
-	justify-content: center;
 	height: 185px;
 }
 
