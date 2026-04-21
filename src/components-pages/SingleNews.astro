@@ -87,34 +87,32 @@ const articleSchema = {
 	</a>
 	<HeroImage src={img} alt={processedPost.title} slug={slug} />
 
-	<div class="content__container content__container--narrow">
-		<div class="header-row">
-			<h1 class="title h2" style={`view-transition-name: title-${slug}`}>
-				{processedPost.title}
-			</h1>
-			<button
-				class="share-button"
-				aria-label={t('Partekatu')}
-				data-share-title={processedPost.title}
-				data-share-text={summary}
-				data-share-url={Astro.url.href}
-			>
-				<Share2 />
-			</button>
-		</div>
-
-		<time
-			class="overline meta"
-			style={`view-transition-name: date-${slug}`}
-			datetime={post.data.date.toISOString()}
+	<div class="header-row">
+		<h1 class="title h2" style={`view-transition-name: title-${slug}`}>
+			{processedPost.title}
+		</h1>
+		<button
+			class="share-button"
+			aria-label={t('Partekatu')}
+			data-share-title={processedPost.title}
+			data-share-text={summary}
+			data-share-url={Astro.url.href}
 		>
-			{formatDate(post.data.date, lang)}
-		</time>
-
-		<section class="content" itemprop="articleBody">
-			<Content />
-		</section>
+			<Share2 />
+		</button>
 	</div>
+
+	<time
+		class="overline meta"
+		style={`view-transition-name: date-${slug}`}
+		datetime={post.data.date.toISOString()}
+	>
+		{formatDate(post.data.date, lang)}
+	</time>
+
+	<section class="content" itemprop="articleBody">
+		<Content />
+	</section>
 </Page>
 
 <style>
