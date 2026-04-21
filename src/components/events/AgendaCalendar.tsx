@@ -138,10 +138,10 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 					window.location.href = info.event.url;
 				}
 			}}
+			defaultAllDay={true}
 			headerToolbar={{
 				left: 'prev,next today',
-				center: 'title',
-				right: 'dayGridMonth,dayGridWeek'
+				center: 'title'
 			}}
 		/>
 	);
