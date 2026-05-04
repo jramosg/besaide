@@ -221,7 +221,6 @@
 
 .fc-daygrid-day:not(.fc-day-other) {
 	background-color: var(--fc-current-month-day-bg);
-	border-radius: 12px;
 }
 
 .fc-daygrid-day.fc-day--type-mountain:not(.fc-day-other) {
@@ -251,6 +250,10 @@
 .fc-daygrid-day[class*='fc-day--type-']:not(.fc-day-other)
 	.fc-daygrid-day-number {
 	color: white;
+}
+
+.fc-daygrid-day[class*='fc-day--type-']:not(.fc-day-other) {
+	border-radius: 12px;
 }
 
 .fc-day-today {
