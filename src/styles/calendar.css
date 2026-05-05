@@ -1,7 +1,6 @@
 /* Theme Integration */
 :root {
 	--fc-border-color: var(--theme-separator);
-	--fc-current-month-day-bg: #fdf2fd;
 	--fc-day-cell-target-width: 186.4285430908203px;
 	--fc-day-cell-target-height: 137px;
 	--fc-day-cell-grid-width: calc(var(--fc-day-cell-target-width) * 7);
@@ -203,6 +202,7 @@
 .fc-daygrid-day {
 	background-color: var(--theme-bg);
 	min-width: calc(100% / 7);
+	--fc-day-bg-color: var(--fc-current-month-day-bg);
 }
 
 .fc .fc-daygrid-day-frame {
@@ -211,6 +211,9 @@
 	min-height: var(--fc-day-cell-target-height);
 	padding-top: 4px;
 	padding-bottom: 4px;
+	border-radius: 12px;
+	background-color: var(--fc-day-bg-color);
+	overflow: hidden;
 }
 
 .fc .fc-daygrid-day-events {
@@ -224,27 +227,27 @@
 }
 
 .fc-daygrid-day.fc-day--type-mountain:not(.fc-day-other) {
-	background-color: #2fd36f !important;
+	--fc-day-bg-color: #2fd36f;
 }
 
 .fc-daygrid-day.fc-day--type-mountain-martxa:not(.fc-day-other) {
-	background-color: #246dff !important;
+	--fc-day-bg-color: #246dff;
 }
 
 .fc-daygrid-day.fc-day--type-ski-alpino:not(.fc-day-other) {
-	background-color: #b11cab !important;
+	--fc-day-bg-color: #b11cab;
 }
 
 .fc-daygrid-day.fc-day--type-event:not(.fc-day-other) {
-	background-color: #ff8800 !important;
+	--fc-day-bg-color: #ff8800;
 }
 
 .fc-daygrid-day.fc-day--type-course:not(.fc-day-other) {
-	background-color: #92949c !important;
+	--fc-day-bg-color: #92949c;
 }
 
 .fc-daygrid-day.fc-day--type-speleology:not(.fc-day-other) {
-	background-color: #8f4918 !important;
+	--fc-day-bg-color: #8f4918;
 }
 
 .fc-daygrid-day[class*='fc-day--type-']:not(.fc-day-other)
@@ -252,11 +255,15 @@
 	color: white;
 }
 
-.fc-daygrid-day[class*='fc-day--type-']:not(.fc-day-other) {
-	border-radius: 12px;
+.fc-daygrid-day.fc-day-other {
+	--fc-day-bg-color: transparent;
 }
 
 .fc-day-today {
+	background-color: var(--fc-today-bg-color) !important;
+}
+
+.fc-day-today .fc-daygrid-day-frame {
 	background-color: var(--fc-today-bg-color) !important;
 }
 
@@ -293,8 +300,8 @@
 	line-height: 1;
 }
 
-.fc-daygrid-day:hover {
-	background-color: color-mix(in srgb, var(--theme-primary) 5%, transparent);
+.fc-daygrid-day:hover .fc-daygrid-day-frame {
+	filter: brightness(0.98);
 }
 
 /* Dark Mode Overrides */

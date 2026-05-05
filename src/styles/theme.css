@@ -72,6 +72,7 @@
 	--theme-on-bg: #000;
 
 	--theme-card: #fff;
+	--fc-current-month-day-bg: var(--theme-primary-50);
 
 	--theme-on-surface-1: var(--theme-on-bg);
 
@@ -172,6 +173,11 @@
 	--theme-on-bg: hsl(0, 0%, 100%);
 
 	--theme-card: hsl(0, 0%, 20%);
+	--fc-current-month-day-bg: color-mix(
+		in srgb,
+		var(--theme-primary-950) 82%,
+		var(--theme-bg)
+	);
 
 	--theme-surface-2: #203422;
 	--theme-on-surface-2: #ffffff;
