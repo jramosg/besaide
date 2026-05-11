@@ -286,7 +286,7 @@
 .fc-calendar-layout {
 	--fc-calendar-legend-gap: var(--s4);
 	--fc-legend-width: 10rem;
-	--fc-toolbar-offset: 0px;
+	--fc-legend-safe-offset: calc(var(--s8) + var(--s4));
 	display: flex;
 	align-items: flex-start;
 	gap: var(--fc-calendar-legend-gap);
@@ -330,7 +330,7 @@
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	margin-top: var(--fc-toolbar-offset);
+	margin-top: var(--fc-legend-safe-offset);
 	flex: 0 0 var(--fc-legend-width);
 }
 

@@ -261,7 +261,6 @@ const renderEventContent = (arg: EventContentArg) => {
 export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 	const [filteredEvents, setFilteredEvents] = useState(events);
 	const calendarRef = useRef<FullCalendar>(null);
-	const layoutRef = useRef<HTMLDivElement>(null);
 	const navLabels = monthNavigationLabels[lang];
 
 	const dayDataByDate = useMemo(() => {
@@ -360,40 +359,10 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 		};
 	}, [events]);
 
-	useEffect(() => {
-		const updateLegendOffset = () => {
-			const layoutEl = layoutRef.current;
-			if (!layoutEl) return;
-
-			const toolbar = layoutEl.querySelector(
-				'.fc .fc-toolbar.fc-header-toolbar'
-			) as HTMLElement | null;
-
-			if (!toolbar) {
-				layoutEl.style.setProperty('--fc-toolbar-offset', '0px');
-				return;
-			}
-
-			const toolbarStyles = window.getComputedStyle(toolbar);
-			const marginBottom = Number.parseFloat(toolbarStyles.marginBottom) || 0;
-			layoutEl.style.setProperty(
-				'--fc-toolbar-offset',
-				`${toolbar.offsetHeight + marginBottom}px`
-			);
-		};
-
-		updateLegendOffset();
-		window.addEventListener('resize', updateLegendOffset);
-
-		return () => {
-			window.removeEventListener('resize', updateLegendOffset);
-		};
-	}, []);
-
 	const labels = EVENT_TYPE_LABELS[lang];
 
 	return (
-		<div className="fc-calendar-layout" ref={layoutRef}>
+		<div className="fc-calendar-layout">
 			<div className="fc-calendar-main">
 				<FullCalendar
 					ref={calendarRef}
