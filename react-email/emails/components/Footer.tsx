@@ -7,7 +7,7 @@ export const Footer = () => {
 			<div style={footerContent}>
 				<Text style={footerText}>Besaide Mendizale Elkartea</Text>
 				<Text style={footerText}>
-					<Link href="https://besaide.vercel.app/" style={link}>
+					<Link href="https://besaide.eus/" style={link}>
 						besaide.eus
 					</Link>
 					{' · '}
