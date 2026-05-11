@@ -4,7 +4,14 @@ services:
     ports:
       - '${APP_PORT:-80}:80'
     depends_on:
-      - node
+      node:
+        condition: service_started
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -q --spider http://localhost/ || exit 1']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     restart: unless-stopped
 
   node:
@@ -20,4 +27,14 @@ services:
       - PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}
     expose:
       - '1234'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'node -e "fetch(''http://localhost:1234/'').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"'
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     restart: unless-stopped

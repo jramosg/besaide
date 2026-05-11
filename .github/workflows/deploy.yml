@@ -5,6 +5,10 @@ on:
     branches: [master]
   workflow_dispatch:
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -129,11 +133,8 @@ jobs:
             echo "Pulling latest images..."
             docker compose -f docker-compose.prod.yml pull
 
-            echo "Stopping existing services..."
-            docker compose -f docker-compose.prod.yml down
-
             echo "Starting services..."
-            docker compose -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
 
             echo "Waiting for application to start..."
             sleep 10
@@ -159,6 +160,7 @@ jobs:
           script: |
             set -e
             cd ~/besaide
+            APP_PORT="${APP_PORT:-80}"
 
             echo "Running health checks..."
 
