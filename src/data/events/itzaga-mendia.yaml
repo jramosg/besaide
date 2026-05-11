@@ -9,7 +9,13 @@ time: '7:30'
 elevationGain: 1360 m
 distance: '12'
 image: '@/assets/images/events/itzaga-mendia/image.png'
-prices: []
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 15
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 18
 routes: []
 inscriptionEu: >
   Izena ematea maiatzaren9tik 12ra egin daiteke telematikoki, eta maiatzaren 12
