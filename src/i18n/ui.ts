@@ -533,7 +533,7 @@ export const ui = {
 		'form.field.phone2': '2. Telefonoa',
 		'form.field.email': 'Emaila',
 		'form.field.info-spanish': 'Informazioa gazteleraz jaso nahi dut',
-		'form.section.membership': 'Besaidea M.E-ko bazkide izan nahi dut:',
+		'form.section.membership': 'Besaide M.E-ko bazkide izan nahi dut:',
 		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
 		'form.button.submit': 'Eskaera bidali',
 		'form.button.resubmit': 'Beste galdetegi bat bete',

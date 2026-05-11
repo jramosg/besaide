@@ -57,7 +57,7 @@ const translations = {
 			phone2: '2. Telefonoa',
 			email: 'Helbide Elektronikoa',
 			infoSpanish: 'Informazioa Gaztelaniaz Jaso',
-			membership: 'Besaidea M.E-ko bazkide izan nahi dut',
+			membership: 'Besaide M.E-ko bazkide izan nahi dut',
 			federation: 'Federatu lizentzia nahi dut'
 		}
 	}
