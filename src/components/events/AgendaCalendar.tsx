@@ -261,6 +261,7 @@ const renderEventContent = (arg: EventContentArg) => {
 export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 	const [filteredEvents, setFilteredEvents] = useState(events);
 	const calendarRef = useRef<FullCalendar>(null);
+	const layoutRef = useRef<HTMLDivElement>(null);
 	const navLabels = monthNavigationLabels[lang];
 
 	const dayDataByDate = useMemo(() => {
@@ -359,89 +360,121 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 		};
 	}, [events]);
 
+	useEffect(() => {
+		const updateLegendOffset = () => {
+			const layoutEl = layoutRef.current;
+			if (!layoutEl) return;
+
+			const toolbar = layoutEl.querySelector(
+				'.fc .fc-toolbar.fc-header-toolbar'
+			) as HTMLElement | null;
+
+			if (!toolbar) {
+				layoutEl.style.setProperty('--fc-toolbar-offset', '0px');
+				return;
+			}
+
+			const toolbarStyles = window.getComputedStyle(toolbar);
+			const marginBottom = Number.parseFloat(toolbarStyles.marginBottom) || 0;
+			layoutEl.style.setProperty(
+				'--fc-toolbar-offset',
+				`${toolbar.offsetHeight + marginBottom}px`
+			);
+		};
+
+		updateLegendOffset();
+		window.addEventListener('resize', updateLegendOffset);
+
+		return () => {
+			window.removeEventListener('resize', updateLegendOffset);
+		};
+	}, []);
+
 	const labels = EVENT_TYPE_LABELS[lang];
 
 	return (
-		<>
-			<FullCalendar
-				ref={calendarRef}
-				key={lang}
-				plugins={[dayGridPlugin]}
-				initialView="dayGridMonth"
-				initialDate={new Date()}
-				locale={lang === 'eu' ? euLocale : esLocale}
-				titleFormat={
-					lang === 'eu'
-						? ({ date }) => {
-								const month = euMonthNamesShort[date.month];
-								return `${month} ${date.year}`;
-							}
-						: undefined
-				}
-				dayHeaderContent={
-					lang === 'eu'
-						? arg => {
-								return euDayNamesShort[arg.dow];
-							}
-						: undefined
-				}
-				height="auto"
-				dayMaxEvents={3}
-				dayCellClassNames={arg => {
-					const data = dayDataByDate.get(toDateKey(arg.date));
-					return data ? [`fc-day--type-${data.primary}`] : [];
-				}}
-				eventTimeFormat={{
-					hour: '2-digit',
-					minute: '2-digit',
-					hour12: false
-				}}
-				displayEventTime={true}
-				displayEventEnd={false}
-				eventContent={renderEventContent}
-				events={calendarDisplayEvents.map(event => ({
-					id: event.id,
-					title: event.title,
-					start: event.start,
-					end: event.end,
-					url: event.url,
-					extendedProps: (() => {
-						const dateKey = !event.start.includes('T')
-							? event.start
-							: toDateKey(new Date(event.start));
-						const dayData = dayDataByDate.get(dateKey);
-						const allTypesOnDay = dayData
-							? [dayData.primary, ...dayData.secondary]
-							: [];
-						return {
-							type: event.type,
-							secondaryTypes: allTypesOnDay.filter(t => t !== event.type)
-						};
-					})(),
-					classNames: [
-						`fc-event`,
-						`fc-event--${event.type}`,
-						...(event.isPast ? ['fc-event--past'] : [])
-					],
-					display: event.end && event.start !== event.end ? 'block' : 'auto'
-				}))}
-				eventClick={info => {
-					info.jsEvent.preventDefault();
-					if (info.event.url) {
-						window.location.href = info.event.url;
+		<div className="fc-calendar-layout" ref={layoutRef}>
+			<div className="fc-calendar-main">
+				<FullCalendar
+					ref={calendarRef}
+					key={lang}
+					plugins={[dayGridPlugin]}
+					initialView="dayGridMonth"
+					initialDate={new Date()}
+					locale={lang === 'eu' ? euLocale : esLocale}
+					titleFormat={
+						lang === 'eu'
+							? ({ date }) => {
+									const month = euMonthNamesShort[date.month];
+									return `${month} ${date.year}`;
+								}
+							: undefined
 					}
-				}}
-				defaultAllDay={true}
-				buttonText={{
-					prev: navLabels.prev,
-					next: navLabels.next
-				}}
-				headerToolbar={{
-					left: 'prev',
-					center: 'title',
-					right: 'next'
-				}}
-			/>
+					dayHeaderContent={
+						lang === 'eu'
+							? arg => {
+									return euDayNamesShort[arg.dow];
+								}
+							: undefined
+					}
+					height="auto"
+					dayMaxEvents={3}
+					dayCellClassNames={arg => {
+						const data = dayDataByDate.get(toDateKey(arg.date));
+						return data ? [`fc-day--type-${data.primary}`] : [];
+					}}
+					eventTimeFormat={{
+						hour: '2-digit',
+						minute: '2-digit',
+						hour12: false
+					}}
+					displayEventTime={true}
+					displayEventEnd={false}
+					eventContent={renderEventContent}
+					events={calendarDisplayEvents.map(event => ({
+						id: event.id,
+						title: event.title,
+						start: event.start,
+						end: event.end,
+						url: event.url,
+						extendedProps: (() => {
+							const dateKey = !event.start.includes('T')
+								? event.start
+								: toDateKey(new Date(event.start));
+							const dayData = dayDataByDate.get(dateKey);
+							const allTypesOnDay = dayData
+								? [dayData.primary, ...dayData.secondary]
+								: [];
+							return {
+								type: event.type,
+								secondaryTypes: allTypesOnDay.filter(t => t !== event.type)
+							};
+						})(),
+						classNames: [
+							`fc-event`,
+							`fc-event--${event.type}`,
+							...(event.isPast ? ['fc-event--past'] : [])
+						],
+						display: event.end && event.start !== event.end ? 'block' : 'auto'
+					}))}
+					eventClick={info => {
+						info.jsEvent.preventDefault();
+						if (info.event.url) {
+							window.location.href = info.event.url;
+						}
+					}}
+					defaultAllDay={true}
+					buttonText={{
+						prev: navLabels.prev,
+						next: navLabels.next
+					}}
+					headerToolbar={{
+						left: 'prev',
+						center: 'title',
+						right: 'next'
+					}}
+				/>
+			</div>
 			<ul className="fc-legend">
 				{LEGEND_ORDER.map(type => (
 					<li key={type} className="fc-legend-item">
@@ -453,6 +486,6 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 					</li>
 				))}
 			</ul>
-		</>
+		</div>
 	);
 }
