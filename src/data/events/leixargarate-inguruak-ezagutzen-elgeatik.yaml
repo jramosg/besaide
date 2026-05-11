@@ -1,15 +1,49 @@
 title: Leixargarate inguruak ezagutzen Elgeatik
 date: 2026-05-24
 type: mountain
-mountain: Elgea mendilerroa
+mountain: Elgea-Bizkarlatza-Pagobedeinkatugaina-Makatzagain-Leintz Gatzaga
 location: Leixargarate
-prices: []
-routes: []
+durationHours: 5
+meetingPoint: 'Forum atzealdeko autobus geltokian '
+time: '7:30'
+distance: 14,5km
+prices:
+  - labelEu: Bazkideak
+    labelEs: Bazkideak
+    price: 15
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 18
+routes:
+  - labelEu: Elgea-Gatzaga
+    labelEs: Elgea-Gatzaga
+    url: >-
+      https://www.wikiloc.com/hiking-trails/elgea-gatzaga-261379612?wa=sc&utm_campaign=badge&utm_source=unknown&utm_medium=unknown
+    image: >-
+      @/assets/images/event-routes/leixargarate-inguruak-ezagutzen-elgeatik/routes/0/image.PNG
 inscriptionEu: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Izena ematea telematikoki egiteko aukera egongo da maiatzaren 16tik 19ra
+  bitartean edota Besaide Mendizale Elkarteko bulegoan egiteko  maiatzaren 18
+  eta 19an. 
+
+
+  Telematikoki egin nahi bada, ezinbestean egin beharko da ordainketa honako
+  kontu hauetako baten (kontzeptu moduan norbere izena eta abizena jarri): 
+
+
+  LABORAL KUTXA: ES2330350001510010000193
+
+  KUTXABANK:ES3920955055531061009519
 inscriptionEs: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+  Izena ematea telematikoki egiteko aukera egongo da maiatzaren 16tik 19ra
+  bitartean edota Besaide Mendizale Elkarteko bulegoan egiteko  maiatzaren 18
+  eta 19an. 
+
+
+  Telematikoki egin nahi bada, ezinbestean egin beharko da ordainketa honako
+  kontu hauetako baten (kontzeptu moduan norbere izena eta abizena jarri): 
+
+
+  LABORAL KUTXA: ES2330350001510010000193
+
+  KUTXABANK:ES3920955055531061009519
