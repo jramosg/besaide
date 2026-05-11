@@ -3,14 +3,15 @@ date: 2026-05-17
 type: mountain
 mountain: Itzaga
 location: Hitzagaondo harana, Nafarroa
+durationHours: 5
+meetingPoint: Forum atzealdeko autobus geltokian
+time: '7:30'
+elevationGain: 1360 m
+distance: '12'
 image: '@/assets/images/events/itzaga-mendia/image.png'
-summaryEu: 'Joango gara informazioa eguneratzen. '
 prices: []
 routes: []
-inscriptionEu: >-
-  Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
-  Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
-  izena emateko aukera. Informazioa osatzen joango gara.
+inscriptionEu: Izena emateko
 inscriptionEs: >-
   Izena emateko, ordainketa egin beharko da transferentzia bidez edota eskuz,
   Besaideko bulegoan bertan. Irteera data baino bi aste lehenago eskainiko da
