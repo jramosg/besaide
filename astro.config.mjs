@@ -11,7 +11,19 @@ import node from '@astrojs/node';
 // https://astro.build/config
 export default defineConfig({
 	server: { port: 1234, host: true },
-	site: 'https://besaide.eus/',
+	site: 'https://besaide.eus',
+	security: {
+		allowedDomains: [
+			{
+				hostname: 'besaide.eus',
+				protocol: 'https'
+			},
+			{
+				hostname: 'www.besaide.eus',
+				protocol: 'https'
+			}
+		]
+	},
 
 	prefetch: {
 		prefetchAll: true,
