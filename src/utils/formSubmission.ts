@@ -3,13 +3,17 @@
  */
 
 import type { UIKeys } from '@/i18n/ui';
-import type { SafeResult } from 'astro:actions';
 
-export interface FormSubmissionOptions<T = any, D = FormData> {
+export interface FormSubmissionResult<T = unknown> {
+	data?: T;
+	error?: string;
+}
+
+export interface FormSubmissionOptions<T = unknown, D = FormData> {
 	/** The button element to show loading state on */
 	button: HTMLButtonElement;
-	/** The action function to call - accepts Astro actions */
-	action: (input: D) => Promise<SafeResult<any, T>>;
+	/** The submit function to call */
+	action: (input: D) => Promise<FormSubmissionResult<T>>;
 	/** The data to submit */
 	data: D;
 	/** Callback for successful submission */
@@ -26,7 +30,7 @@ export interface FormSubmissionOptions<T = any, D = FormData> {
  * Handles button loading state, calls the action, and manages success/error callbacks.
  * Automatically resets the button state in a finally block.
  */
-export async function submitFormWithLoadingState<T = any, D = FormData>({
+export async function submitFormWithLoadingState<T = unknown, D = FormData>({
 	button,
 	action,
 	data,
@@ -46,25 +50,63 @@ export async function submitFormWithLoadingState<T = any, D = FormData>({
 		`;
 
 		// Execute the action
-		const result: SafeResult<any, T> = await action(data);
+		const result = await action(data);
 
-		// Handle success - SafeResult has data property
 		if (result.data) {
 			onSuccess?.(result.data);
+			return;
 		}
 
-		// Handle error - SafeResult has error property (ActionError)
 		if (result.error) {
-			const errorMessage =
-				typeof result.error === 'object' && 'message' in result.error
-					? (result.error.message as string)
-					: 'An error occurred';
-			onError?.(errorMessage);
+			onError?.(result.error);
+			return;
 		}
+
+		onError?.('An error occurred');
 	} finally {
 		// Always reset loading state
 		button.disabled = false;
 		button.classList.remove('btn-loading');
 		button.innerHTML = originalHTML;
+	}
+}
+
+export async function submitJsonForm<T = unknown>(
+	url: string,
+	data: FormData
+): Promise<FormSubmissionResult<T>> {
+	try {
+		const payload = Object.fromEntries(data.entries());
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json'
+			},
+			body: JSON.stringify(payload)
+		});
+
+		const result = (await response.json().catch(() => null)) as
+			| {
+					success?: boolean;
+					data?: T;
+					error?: string;
+					message?: string;
+			  }
+			| null;
+
+		if (!response.ok || !result?.success) {
+			return {
+				error: result?.error || result?.message || 'An error occurred'
+			};
+		}
+
+		return {
+			data: result.data
+		};
+	} catch {
+		return {
+			error: 'An error occurred'
+		};
 	}
 }

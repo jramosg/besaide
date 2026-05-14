@@ -143,8 +143,10 @@ const t = useTranslations(lang);
 <script>
 	import { setupSchemaFormValidation } from '@/utils/setupSchemaFormValidation';
 	import { contactFormSchema } from '@/schemas/contactForm';
-	import { actions } from 'astro:actions';
-	import { submitFormWithLoadingState } from '@/utils/formSubmission';
+	import {
+		submitFormWithLoadingState,
+		submitJsonForm
+	} from '@/utils/formSubmission';
 	import { toggleSections } from '@/utils/toggleSections';
 	import { useTranslations } from '@/i18n/utils';
 	import type { Langs } from '@/i18n/ui';
@@ -165,7 +167,7 @@ const t = useTranslations(lang);
 				const formSectionId = 'contact-form-section';
 				submitFormWithLoadingState({
 					button,
-					action: actions.submitContact,
+					action: data => submitJsonForm('/api/contact', data),
 					data: formData,
 					onSuccess: () => toggleSections(formSectionId),
 					onError: error => alert(error),

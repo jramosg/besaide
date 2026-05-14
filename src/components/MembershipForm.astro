@@ -342,8 +342,10 @@ const t = useTranslations(lang);
 <script>
 	import { setupSchemaFormValidation } from '@/utils/setupSchemaFormValidation';
 	import { membershipFormSchema } from '@/schemas/membershipForm';
-	import { actions } from 'astro:actions';
-	import { submitFormWithLoadingState } from '@/utils/formSubmission';
+	import {
+		submitFormWithLoadingState,
+		submitJsonForm
+	} from '@/utils/formSubmission';
 
 	import { toggleSections } from '@/utils/toggleSections';
 
@@ -366,7 +368,7 @@ const t = useTranslations(lang);
 				const formSectionId = 'membership-form-section';
 				submitFormWithLoadingState({
 					button,
-					action: actions.submitMembership,
+					action: data => submitJsonForm('/api/membership', data),
 					data: formData,
 					onSuccess: () => toggleSections(formSectionId),
 					onError: error => alert(error),
