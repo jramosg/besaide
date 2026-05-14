@@ -3,6 +3,8 @@ import type { APIRoute } from 'astro';
 import { contactFormSchema } from '@/schemas/contactForm';
 import { sendContactEmail } from '@/services/email';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
 	const payload = await request.json().catch(() => null);
 	const parsed = contactFormSchema.safeParse(payload);

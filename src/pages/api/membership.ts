@@ -3,6 +3,8 @@ import type { APIRoute } from 'astro';
 import { membershipFormSchema } from '@/schemas/membershipForm';
 import { sendMembershipEmail } from '@/services/email';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
 	const payload = await request.json().catch(() => null);
 	const parsed = membershipFormSchema.safeParse(payload);
