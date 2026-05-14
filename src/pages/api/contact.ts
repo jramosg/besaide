@@ -25,8 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
 		return Response.json(
 			{
 				success: false,
-				error:
-					emailResult.error || emailResult.message || 'An error occurred'
+				error: emailResult.error || emailResult.message || 'An error occurred'
 			},
 			{ status: emailResult.code === 'FORBIDDEN' ? 403 : 500 }
 		);

@@ -86,14 +86,12 @@ export async function submitJsonForm<T = unknown>(
 			body: JSON.stringify(payload)
 		});
 
-		const result = (await response.json().catch(() => null)) as
-			| {
-					success?: boolean;
-					data?: T;
-					error?: string;
-					message?: string;
-			  }
-			| null;
+		const result = (await response.json().catch(() => null)) as {
+			success?: boolean;
+			data?: T;
+			error?: string;
+			message?: string;
+		} | null;
 
 		if (!response.ok || !result?.success) {
 			return {
