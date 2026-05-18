@@ -9,6 +9,7 @@
 		"check": "astro check",
 		"build": "astro check && astro build",
 		"preview": "pnpm run build && astro preview",
+		"test": "vitest run",
 		"astro": "astro",
 		"format": "npx prettier -w .",
 		"format:check": "npx prettier --check .",
@@ -46,6 +47,7 @@
 		"@types/react-dom": "^19.0.1",
 		"prettier": "^3.8.1",
 		"prettier-plugin-astro": "^0.14.1",
-		"react-email": "5.0.5"
+		"react-email": "5.0.5",
+		"vitest": "^4.1.6"
 	}
 }

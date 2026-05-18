@@ -9,7 +9,7 @@ on:
 
 jobs:
   format-check:
-    name: Run Prettier and TypeScript checks
+    name: Run Prettier, TypeScript checks and tests
     runs-on: ubuntu-latest
 
     steps:
@@ -46,3 +46,6 @@ jobs:
 
       - name: Run check
         run: pnpm run check --minimumFailingSeverity hint
+
+      - name: Run tests
+        run: pnpm test
