@@ -1,11 +1,21 @@
 import { membershipFormSchema } from '@/schemas/membershipForm';
 import { sendMembershipEmail } from '@/services/email';
+import { checkFormSpam } from '@/utils/formSpam';
 import { ActionError, defineAction } from 'astro:actions';
 
 export const membershipFormAction = defineAction({
 	accept: 'form',
 	input: membershipFormSchema,
 	handler: async input => {
+		const spamCheck = checkFormSpam(input);
+
+		if (!spamCheck.ok) {
+			throw new ActionError({
+				code: 'BAD_REQUEST',
+				message: 'Invalid form data'
+			});
+		}
+
 		const formattedData = {
 			...input,
 			birthdate: input.birthdate.toLocaleDateString('es-ES'),

@@ -19,6 +19,17 @@ const t = useTranslations(lang);
 		aria-label={t('contact.form.title')}
 	>
 		<input type="hidden" name="language" value={lang} />
+		<input type="hidden" name="startedAt" value="" />
+		<div class="contact-form-trap" aria-hidden="true">
+			<label for="website">Website</label>
+			<input
+				id="website"
+				name="website"
+				type="text"
+				tabindex="-1"
+				autocomplete="off"
+			/>
+		</div>
 
 		<FormField
 			label={t('contact.form.name')}
@@ -124,6 +135,14 @@ const t = useTranslations(lang);
 		margin-top: var(--s6);
 	}
 
+	.contact-form-trap {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+
 	.submit-button {
 		margin-top: var(--s2);
 		align-self: center;
@@ -154,6 +173,11 @@ const t = useTranslations(lang);
 	document.addEventListener('astro:page-load', () => {
 		const lang = document.documentElement.lang as Langs;
 		const t = useTranslations(lang);
+		const startedAt = document.querySelector<HTMLInputElement>(
+			'#contact-form [name="startedAt"]'
+		);
+
+		if (startedAt) startedAt.value = Date.now().toString();
 
 		setupSchemaFormValidation(
 			'contact-form',

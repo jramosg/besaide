@@ -29,6 +29,17 @@ const t = useTranslations(lang);
 
 		<form class="membership-form" id="membership-form" novalidate>
 			<input type="hidden" name="language" value={lang} />
+			<input type="hidden" name="startedAt" value="" />
+			<div class="form-trap" aria-hidden="true">
+				<label for="membership-website">Website</label>
+				<input
+					id="membership-website"
+					name="website"
+					type="text"
+					tabindex="-1"
+					autocomplete="off"
+				/>
+			</div>
 
 			<fieldset class="form-section">
 				<legend class="form-subtitle subtitle">
@@ -331,6 +342,15 @@ const t = useTranslations(lang);
 		margin-top: var(--s2);
 		align-self: center;
 	}
+
+	.form-trap {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+
 	/* Responsive adjustments */
 	@media (max-width: 767px) {
 		.membership-form {
@@ -355,6 +375,11 @@ const t = useTranslations(lang);
 	document.addEventListener('astro:page-load', () => {
 		const lang = document.documentElement.lang as Langs;
 		const t = useTranslations(lang);
+		const startedAt = document.querySelector<HTMLInputElement>(
+			'#membership-form [name="startedAt"]'
+		);
+
+		if (startedAt) startedAt.value = Date.now().toString();
 
 		setupSchemaFormValidation(
 			'membership-form',

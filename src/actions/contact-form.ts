@@ -1,11 +1,21 @@
 import { contactFormSchema } from '@/schemas/contactForm';
 import { sendContactEmail } from '@/services/email';
+import { checkFormSpam } from '@/utils/formSpam';
 import { ActionError, defineAction } from 'astro:actions';
 
 export const contactFormAction = defineAction({
 	accept: 'form',
 	input: contactFormSchema,
 	handler: async input => {
+		const spamCheck = checkFormSpam(input);
+
+		if (!spamCheck.ok) {
+			throw new ActionError({
+				code: 'BAD_REQUEST',
+				message: 'Invalid form data'
+			});
+		}
+
 		const emailResult = await sendContactEmail(input);
 
 		if (!emailResult.success) {

@@ -3,6 +3,8 @@ import { z } from 'astro:schema';
 export const contactFormSchema = z.object({
 	name: z.string().min(1, 'required'),
 	email: z.string().email('email').min(1, 'required'),
+	website: z.string().max(0).optional(),
+	startedAt: z.coerce.number().optional(),
 	phone: z
 		.string()
 		.transform((val: string) => val.trim())

@@ -2,6 +2,8 @@ import { z } from 'astro:schema';
 
 export const membershipFormSchema = z.object({
 	dni: z.string().min(1, 'required'),
+	website: z.string().max(0).optional(),
+	startedAt: z.coerce.number().optional(),
 	name: z.string().min(1, 'required'),
 	surnames: z.string().min(1, 'required'),
 	birthdate: z

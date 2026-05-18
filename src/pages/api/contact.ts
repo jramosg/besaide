@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 
 import { contactFormSchema } from '@/schemas/contactForm';
 import { sendContactEmail } from '@/services/email';
+import { checkFormSpam } from '@/utils/formSpam';
 
 export const prerender = false;
 
@@ -14,6 +15,18 @@ export const POST: APIRoute = async ({ request }) => {
 			{
 				success: false,
 				error: parsed.error.issues[0]?.message || 'Invalid form data'
+			},
+			{ status: 400 }
+		);
+	}
+
+	const spamCheck = checkFormSpam(parsed.data);
+
+	if (!spamCheck.ok) {
+		return Response.json(
+			{
+				success: false,
+				error: 'Invalid form data'
 			},
 			{ status: 400 }
 		);
