@@ -42,7 +42,7 @@ const isLowQualityText = (value: string) => {
 		text.length < 10 ||
 		hasMostlyConsonants(text) ||
 		hasLongConsonantRun(text) ||
-		hasRepeatedCharacters(text) ||
+		hasRepeatedCharacters(text)
 	);
 };
 
