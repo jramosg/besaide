@@ -62,6 +62,11 @@ const eventTypeMap: Record<string, string> = {
 
 const eventType = eventTypeMap[event.data.type] || event.data.type;
 const isFinished = new Date() > eventDate;
+const eventLocation =
+	event.data.location?.trim() ||
+	event.data.mountain?.trim() ||
+	event.data.meetingPoint?.trim() ||
+	'Arrasate';
 
 const descriptionEntry = await getEntry(
 	'eventsMarkdown',
@@ -104,6 +109,13 @@ const eventSchema = {
 		? 'https://schema.org/EventScheduled'
 		: 'https://schema.org/EventScheduled',
 	eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+	...(eventLocation && {
+		location: {
+			'@type': 'Place',
+			name: eventLocation,
+			address: eventLocation
+		}
+	}),
 	organizer: {
 		'@type': 'Organization',
 		name: CompanyName,
