@@ -2,14 +2,18 @@ title: Mondranbike
 date: 2026-06-13
 type: event
 location: Arrasate
-image: '@/assets/images/events/mondranbike/image.PNG'
+meetingPoint: J.M Arizmendiarrieta plaza
+time: '9:00'
+desnivel: 1600 m (luzea) eta 1000 m (motza)
+distance: 42 km (luzea) eta 36 km (motza)
+image: '@/assets/images/events/mondranbike/image.jpeg'
 summaryEu: Arrasateko BTT martxa
 summaryEs: Arrasateko BTT martxa
-prices: []
+prices:
+  - labelEu: 'Federatuak '
+    labelEs: 'Federatuak '
+    price: 15
+  - labelEu: 'Ez federatuak '
+    labelEs: 'Ez federatuak '
+    price: 20
 routes: []
-inscriptionEu: >-
-  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
-  harremanetan.
-inscriptionEs: >-
-  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
-  harremanetan.
