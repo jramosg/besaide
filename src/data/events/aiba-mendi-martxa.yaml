@@ -1,14 +1,36 @@
 title: Aiba! mendi martxa
 date: 2026-10-31
 type: mountain
-image: '@/assets/images/events/aiba-mendi-martxa/image.png'
-summaryEu: 'Bi urtetik behin egiten den Arrasateko mendi martxa bueltan da! '
+meetingPoint: Sebero Altube plaza
+time: '7:00etan hasiko da luzea eta 9:00etan motza. '
+desnivel: 2200 m luzea eta 900m motza
+image: '@/assets/images/events/aiba-mendi-martxa/image.jpeg'
+summaryEu: Bi urtetik behin egiten den AIBA! mendi martxa bueltan da
 summaryEs: 'Bi urtetik behin egiten den Arrasateko mendi martxa bueltan da! '
-prices: []
+prices:
+  - labelEu: Federatuak
+    labelEs: Federatuak
+    price: 17
+  - labelEu: Ez federatuak
+    labelEs: Ez federatuak
+    price: 20
+  - labelEu: 'Egunean bertan federatuak '
+    labelEs: 'Egunean bertan federatuak '
+    price: 20
+  - labelEu: Egunean bertan ez federatuak
+    labelEs: Egunean bertan ez federatuak
+    price: 25
 routes: []
-inscriptionEu: >-
-  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
-  harremanetan.
-inscriptionEs: >-
-  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
-  harremanetan.
+inscriptionEu: >
+  Izena emateko epea ekainaren 1ean irekiko da, eta urriaren 16ra arte egongo da
+  zabalik honako helbide honetan: ZirkuituaILI.
+
+
+  Gehienez, 500 pertsonek hartu dezakete parte proban. Egunean bertan ere aukera
+  egongo da izena emateko, betiere, ez badira plaza guztiak betetzen.
+
+
+  Adin txikikoek guraso baimenarekin eta nagusi baten laguntzarekin hartu
+  dezakete parte.
+inscriptionEs: |+
+
