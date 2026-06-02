@@ -3,7 +3,7 @@ date: 2026-10-31
 type: mountain
 meetingPoint: Sebero Altube plaza
 time: '7:00etan hasiko da luzea eta 9:00etan motza. '
-desnivel: 2200 m luzea eta 900m motza
+desnivel: 2200 m luzea eta 900 m motza
 image: '@/assets/images/events/aiba-mendi-martxa/image.jpeg'
 summaryEu: Bi urtetik behin egiten den AIBA! mendi martxa bueltan da
 summaryEs: 'Bi urtetik behin egiten den Arrasateko mendi martxa bueltan da! '
@@ -23,7 +23,8 @@ prices:
 routes: []
 inscriptionEu: >
   Izena emateko epea ekainaren 1ean irekiko da, eta urriaren 16ra arte egongo da
-  zabalik honako helbide honetan: ZirkuituaILI.
+  zabalik honako helbide honetan:
+  https://www.zirkuitua.com/IzenEmate/Pages/DetallesILI.php?club=421 
 
 
   Gehienez, 500 pertsonek hartu dezakete parte proban. Egunean bertan ere aukera
