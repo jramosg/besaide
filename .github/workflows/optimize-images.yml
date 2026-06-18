@@ -7,8 +7,6 @@ on:
       - 'src/assets/images/**'
       - 'src/data/**'
       - 'scripts/optimize-images.mjs'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
   workflow_dispatch:
 
 concurrency:
@@ -59,4 +57,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: 'Optimize uploaded images'
-          file_pattern: 'src/assets/images src/data src/**/*.astro src/**/*.ts src/**/*.tsx keystatic.config.tsx astro.config.mjs'
+          file_pattern: 'src/assets/images src/data src/**/*.astro src/**/*.ts'
