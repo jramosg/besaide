@@ -6,7 +6,7 @@ meetingPoint: J.M Arizmendiarrieta plaza
 time: '9:00'
 desnivel: 1600 m (luzea) eta 1000 m (motza)
 distance: 42 km (luzea) eta 36 km (motza)
-image: '@/assets/images/events/mondranbike/image.jpeg'
+image: '@/assets/images/events/mondranbike/image.webp'
 summaryEu: Arrasateko BTT martxa
 summaryEs: Arrasateko BTT martxa
 prices:
