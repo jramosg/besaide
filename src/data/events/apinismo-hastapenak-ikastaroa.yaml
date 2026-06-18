@@ -7,7 +7,7 @@ duration: '2 egun '
 durationHours: 12
 meetingPoint: Belaguako parking-ean
 time: '10:00'
-image: '@/assets/images/events/apinismo-hastapenak-ikastaroa/image.jpeg'
+image: '@/assets/images/events/apinismo-hastapenak-ikastaroa/image.webp'
 summaryEu: Alpinismoaren hastapenak ezagutzeko aukera eskaintiko da ikastaroan.
 summaryEs: Alpinismoaren hastapenak ezagutzeko aukera eskaintiko da ikastaroan.
 prices:

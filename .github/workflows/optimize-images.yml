@@ -1,0 +1,62 @@
+name: Optimize Images
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'src/assets/images/**'
+      - 'src/data/**'
+      - 'scripts/optimize-images.mjs'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  workflow_dispatch:
+
+concurrency:
+  group: optimize-images-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  optimize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Read Node version from .nvmrc
+        id: node_version
+        run: |
+          if [ -f .nvmrc ]; then
+            ver=$(cat .nvmrc | tr -d " \t\n")
+            echo "version=$ver" >> $GITHUB_OUTPUT
+          else
+            echo "version=22" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.node_version.outputs.version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Optimize source images
+        run: pnpm optimize:images
+
+      - name: Commit optimized images
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: 'Optimize uploaded images'
+          file_pattern: 'src/assets/images src/data src/**/*.astro src/**/*.ts src/**/*.tsx keystatic.config.tsx astro.config.mjs'

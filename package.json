@@ -10,6 +10,8 @@
 		"build": "astro check && astro build",
 		"preview": "pnpm run build && astro preview",
 		"test": "vitest run",
+		"optimize:images": "node scripts/optimize-images.mjs",
+		"optimize:images:check": "node scripts/optimize-images.mjs --check",
 		"astro": "astro",
 		"format": "npx prettier -w .",
 		"format:check": "npx prettier --check .",

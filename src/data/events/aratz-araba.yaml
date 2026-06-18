@@ -8,7 +8,7 @@ meetingPoint: Garibai
 time: '08:00'
 elevationGain: 791 m
 distance: 9,5 km
-image: '@/assets/images/events/aratz-araba/image.jpg'
+image: '@/assets/images/events/aratz-araba/image.webp'
 summaryEu: Abenduak 14 Aratz (Araba)
 summaryEs: 14 de diciembre Aratz (Álava)
 prices:
