@@ -497,6 +497,9 @@ const dotLabel = lang === 'eu' ? 'Bannerra ikusi' : 'Ver banner';
 		private currentIndex = 0;
 		private intervalMs: number;
 		private isReducedMotion: boolean;
+		private isPointerInside = false;
+		private isKeyboardFocusInside = false;
+		private lastInteractionWasKeyboard = false;
 
 		constructor(root: HTMLElement) {
 			this.root = root;
@@ -544,19 +547,42 @@ const dotLabel = lang === 'eu' ? 'Bannerra ikusi' : 'Ver banner';
 			});
 
 			this.root.addEventListener('keydown', event => {
+				this.lastInteractionWasKeyboard = true;
 				if (event.key === 'ArrowLeft') this.goTo(this.currentIndex - 1);
 				if (event.key === 'ArrowRight') this.goTo(this.currentIndex + 1);
 			});
+			this.root.addEventListener('pointerdown', () => {
+				this.lastInteractionWasKeyboard = false;
+				this.isKeyboardFocusInside = false;
+			});
 
-			this.root.addEventListener('mouseenter', () => this.pause());
-			this.root.addEventListener('mouseleave', () => this.play());
-			this.root.addEventListener('focusin', () => this.pause());
-			this.root.addEventListener('focusout', () => this.play());
+			this.root.addEventListener('mouseenter', () => {
+				this.isPointerInside = true;
+				this.pause();
+			});
+			this.root.addEventListener('mouseleave', () => {
+				this.isPointerInside = false;
+				this.resumeIfIdle();
+			});
+			this.root.addEventListener('focusin', () => {
+				if (!this.lastInteractionWasKeyboard) return;
+
+				this.isKeyboardFocusInside = true;
+				this.pause();
+			});
+			this.root.addEventListener('focusout', event => {
+				const nextTarget = event.relatedTarget;
+				if (nextTarget instanceof Node && this.root.contains(nextTarget))
+					return;
+
+				this.isKeyboardFocusInside = false;
+				this.resumeIfIdle();
+			});
 			document.addEventListener('visibilitychange', () => {
 				if (document.hidden) {
 					this.pause();
 				} else {
-					this.play();
+					this.resumeIfIdle();
 				}
 			});
 
@@ -579,13 +605,19 @@ const dotLabel = lang === 'eu' ? 'Bannerra ikusi' : 'Ver banner';
 			this.dots[this.currentIndex]?.classList.add('hero__dot--active');
 			this.dots[this.currentIndex]?.setAttribute('aria-selected', 'true');
 
-			this.play();
+			this.resumeIfIdle();
 		}
 
 		private play(): void {
 			if (this.isReducedMotion || document.hidden) return;
 
 			this.root.dataset.paused = 'false';
+		}
+
+		private resumeIfIdle(): void {
+			if (this.isPointerInside || this.isKeyboardFocusInside) return;
+
+			this.play();
 		}
 
 		private pause(): void {
