@@ -1,24 +1,44 @@
 ---
-// Hero component for Besaide homepage
 import udalaitzImage from '@/assets/udalaitz.webp';
 import { Image } from 'astro:assets';
 import { getLangFromUrl } from '@/i18n/utils';
 import { getEntry } from 'astro:content';
+import { ArrowRight, ChevronLeft, ChevronRight } from '@lucide/astro';
 
 const lang = getLangFromUrl(Astro.url);
-
 const homepageContent = await getEntry('homepage', 'homepage');
-const title =
-	lang === 'eu'
-		? homepageContent?.data.membershipTitleEu
-		: homepageContent?.data.membershipTitleEs;
-const description =
-	lang === 'eu'
-		? homepageContent?.data.membershipDescriptionEu
-		: homepageContent?.data.membershipDescriptionEs;
+
+if (!homepageContent) {
+	throw new Error('Homepage content not found');
+}
+
+const slides = homepageContent.data.slides
+	.map((slide, index) => ({
+		id: `home-hero-slide-${index + 1}`,
+		title: lang === 'eu' ? slide.titleEu : slide.titleEs,
+		description: lang === 'eu' ? slide.descriptionEu : slide.descriptionEs,
+		buttonLabel: lang === 'eu' ? slide.buttonLabelEu : slide.buttonLabelEs,
+		buttonLink: lang === 'eu' ? slide.buttonLinkEu : slide.buttonLinkEs
+	}))
+	.filter(slide => slide.title && slide.title.trim().length > 0);
+
+const hasMultipleSlides = slides.length > 1;
+const prevLabel = lang === 'eu' ? 'Aurreko bannerra' : 'Banner anterior';
+const nextLabel = lang === 'eu' ? 'Hurrengo bannerra' : 'Banner siguiente';
+const dotsLabel = lang === 'eu' ? 'Hero bannerrak' : 'Banners del hero';
+const dotLabel = lang === 'eu' ? 'Bannerra ikusi' : 'Ver banner';
 ---
 
-<section class="hero" id="hero" role="banner" aria-label="Hero">
+<section
+	class:list={['hero', hasMultipleSlides && 'hero--carousel']}
+	id="hero"
+	role={hasMultipleSlides ? 'region' : 'banner'}
+	aria-label="Hero"
+	aria-roledescription={hasMultipleSlides ? 'carousel' : undefined}
+	data-hero-carousel={hasMultipleSlides ? '' : undefined}
+	data-autoplay-interval="7000"
+	tabindex={hasMultipleSlides ? '0' : undefined}
+>
 	<Image
 		src={udalaitzImage}
 		layout="full-width"
@@ -26,18 +46,89 @@ const description =
 		class="hero-image"
 	/>
 	<div class="hero-overlay" aria-hidden="true"></div>
+	{hasMultipleSlides && <div class="hero-glow" aria-hidden="true" />}
 
-	<h1 class="h1 content__container">{title}</h1>
 	{
-		description && description.trim().length > 0 && (
-			<p class="content__container">{description}</p>
+		slides.map((slide, index) => (
+			<article
+				id={slide.id}
+				class:list={['hero__slide', index === 0 && 'hero__slide--active']}
+				data-hero-slide
+				aria-hidden={index === 0 ? 'false' : 'true'}
+				aria-label={`${index + 1} / ${slides.length}`}
+				aria-roledescription={hasMultipleSlides ? 'slide' : undefined}
+				style={`--slide-index: ${index};`}
+			>
+				<div class="hero__content content__container">
+					{index === 0 ? (
+						<h1 class:list={['hero-title', !hasMultipleSlides && 'h1']}>
+							{slide.title}
+						</h1>
+					) : (
+						<h2 class="hero-title">{slide.title}</h2>
+					)}
+					{slide.description && slide.description.trim().length > 0 && (
+						<p class="hero__description">{slide.description}</p>
+					)}
+					{slide.buttonLabel &&
+						slide.buttonLabel.trim().length > 0 &&
+						slide.buttonLink &&
+						slide.buttonLink.trim().length > 0 && (
+							<a class="hero__cta" href={slide.buttonLink}>
+								<span>{slide.buttonLabel}</span>
+								<ArrowRight aria-hidden="true" />
+							</a>
+						)}
+				</div>
+			</article>
+		))
+	}
+
+	{
+		hasMultipleSlides && (
+			<div class="hero__controls" aria-label={dotsLabel}>
+				<button
+					class="hero__nav hero__nav--prev"
+					type="button"
+					aria-label={prevLabel}
+					data-hero-prev
+				>
+					<ChevronLeft aria-hidden="true" />
+				</button>
+				<div class="hero__dots" role="tablist" aria-label={dotsLabel}>
+					{slides.map((slide, index) => (
+						<button
+							class:list={['hero__dot', index === 0 && 'hero__dot--active']}
+							type="button"
+							role="tab"
+							aria-controls={slide.id}
+							aria-selected={index === 0 ? 'true' : 'false'}
+							data-hero-dot
+							data-slide-index={index}
+						>
+							<span class="sr-only">
+								{dotLabel} {index + 1}
+							</span>
+							<span class="hero__dot-progress" aria-hidden="true" />
+						</button>
+					))}
+				</div>
+				<button
+					class="hero__nav hero__nav--next"
+					type="button"
+					aria-label={nextLabel}
+					data-hero-next
+				>
+					<ChevronRight aria-hidden="true" />
+				</button>
+			</div>
 		)
 	}
 
 	<style>
 		.hero {
 			--hero-color: white;
-			--hero-color-contrast: #000000;
+			--hero-progress-duration: 7000ms;
 			position: relative;
 			min-height: 80vh;
 			display: flex;
@@ -48,10 +139,11 @@ const description =
 			overflow: hidden;
 			margin-top: calc(-1 * var(--header-height));
 			padding-top: var(--header-height);
-			h1,
-			p {
-				text-align: center;
-			}
+		}
+
+		.hero--carousel {
+			display: block;
+			min-height: min(820px, 82vh);
 		}
 
 		.hero-image {
@@ -75,14 +167,451 @@ const description =
 			z-index: -1;
 		}
 
-		.btn-home-hero {
-			background-color: var(--theme-card) !important;
-			color: var(--theme-primary) !important;
-			border-color: var(--theme-card) !important;
-			transition: opacity 0.3s ease;
-			&:hover {
-				opacity: 0.72;
+		.hero--carousel .hero-overlay {
+			background:
+				linear-gradient(
+					90deg,
+					rgba(0, 0, 0, 0.72) 0%,
+					rgba(0, 0, 0, 0.42) 48%,
+					rgba(0, 0, 0, 0.22) 100%
+				),
+				linear-gradient(
+					180deg,
+					rgba(0, 0, 0, 0.28) 0%,
+					rgba(0, 0, 0, 0.58) 100%
+				);
+		}
+
+		.hero-glow {
+			position: absolute;
+			inset: auto -12rem -12rem auto;
+			width: min(48vw, 34rem);
+			height: min(48vw, 34rem);
+			background: radial-gradient(
+				circle,
+				rgba(232, 148, 74, 0.32),
+				rgba(232, 148, 74, 0) 68%
+			);
+			pointer-events: none;
+		}
+
+		.hero__slide {
+			display: contents;
+		}
+
+		.hero--carousel .hero__slide {
+			position: absolute;
+			inset: 0;
+			display: grid;
+			align-items: center;
+			padding-top: var(--header-height);
+			opacity: 0;
+			visibility: hidden;
+			transform: translateX(2rem);
+			transition:
+				opacity 700ms ease,
+				transform 700ms ease,
+				visibility 700ms ease;
+		}
+
+		.hero--carousel .hero__slide--active {
+			opacity: 1;
+			visibility: visible;
+			transform: translateX(0);
+			z-index: 1;
+		}
+
+		.hero__content {
+			position: relative;
+			width: 100%;
+			max-width: 820px;
+			margin: 0 auto;
+			padding: var(--container-padding);
+			text-align: center;
+		}
+
+		.hero--carousel .hero__content {
+			margin: 0;
+			text-align: left;
+		}
+
+		.hero-title {
+			margin: 0 auto;
+			color: var(--hero-color);
+			text-wrap: balance;
+		}
+
+		.hero--carousel .hero-title {
+			max-width: 12ch;
+			margin: 0;
+			font-size: clamp(48px, 4vw + 28px, 86px);
+			font-weight: var(--font-weight-bold);
+			line-height: 0.98;
+		}
+
+		.hero__description {
+			max-width: 680px;
+			margin: 0 auto 0;
+			color: rgba(255, 255, 255, 0.9);
+			line-height: 1.5;
+			text-wrap: pretty;
+		}
+
+		.hero--carousel .hero__description {
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		.hero__cta {
+			display: inline-flex;
+			align-items: center;
+			gap: var(--s3);
+			width: fit-content;
+			min-width: 0;
+			min-height: 48px;
+			margin: var(--s6) auto 0;
+			padding: 0.85rem 1rem 0.85rem 1.2rem;
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			border-radius: 999px;
+			background: var(--theme-card);
+			color: var(--theme-primary-900);
+			font-weight: var(--font-weight-semibold);
+			text-decoration: none;
+			box-shadow: 0 18px 46px rgba(0, 0, 0, 0.28);
+			transition:
+				transform 220ms ease,
+				box-shadow 220ms ease,
+				background-color 220ms ease;
+		}
+
+		.hero--carousel .hero__cta {
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		.hero__cta:hover {
+			background: var(--theme-primary-50);
+			transform: translateY(-2px);
+			box-shadow: 0 24px 54px rgba(0, 0, 0, 0.34);
+		}
+
+		.hero__cta :global(svg) {
+			width: 1.15rem;
+			height: 1.15rem;
+			flex: 0 0 auto;
+		}
+
+		.hero__controls {
+			position: absolute;
+			right: var(--s7);
+			bottom: var(--s7);
+			z-index: 3;
+			display: flex;
+			align-items: center;
+			gap: var(--s3);
+		}
+
+		.hero__nav,
+		.hero__dot {
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			background: rgba(255, 255, 255, 0.14);
+			color: var(--hero-color);
+			backdrop-filter: blur(14px);
+			cursor: pointer;
+			transition:
+				background-color 180ms ease,
+				border-color 180ms ease,
+				transform 180ms ease;
+		}
+
+		.hero__nav {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 48px;
+			height: 48px;
+			border-radius: 999px;
+			padding: 0;
+		}
+
+		.hero__nav:hover,
+		.hero__dot:hover {
+			background: rgba(255, 255, 255, 0.24);
+			border-color: rgba(255, 255, 255, 0.56);
+			transform: translateY(-1px);
+		}
+
+		.hero__nav :global(svg) {
+			width: 1.35rem;
+			height: 1.35rem;
+		}
+
+		.hero__dots {
+			display: flex;
+			align-items: center;
+			gap: var(--s2);
+			padding: 0.4rem;
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			border-radius: 999px;
+			background: rgba(0, 0, 0, 0.18);
+			backdrop-filter: blur(14px);
+		}
+
+		.hero__dot {
+			position: relative;
+			width: 2.5rem;
+			height: 0.65rem;
+			min-width: 0;
+			min-height: 0;
+			padding: 0;
+			overflow: hidden;
+			border-radius: 999px;
+		}
+
+		.hero__dot-progress {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			background: var(--theme-secondary);
+			transform: scaleX(0);
+			transform-origin: left;
+		}
+
+		.hero__dot--active {
+			background: rgba(255, 255, 255, 0.28);
+			border-color: rgba(255, 255, 255, 0.68);
+		}
+
+		.hero__dot--active .hero__dot-progress {
+			animation: hero-progress var(--hero-progress-duration) linear forwards;
+		}
+
+		.hero[data-paused='true'] .hero__dot--active .hero__dot-progress {
+			animation-play-state: paused;
+		}
+
+		@keyframes hero-progress {
+			to {
+				transform: scaleX(1);
+			}
+		}
+
+		@media (max-width: 900px) {
+			.hero--carousel {
+				min-height: min(760px, 84vh);
+			}
+
+			.hero--carousel .hero-overlay {
+				background: linear-gradient(
+					180deg,
+					rgba(0, 0, 0, 0.44) 0%,
+					rgba(0, 0, 0, 0.68) 100%
+				);
+			}
+
+			.hero--carousel .hero__content {
+				max-width: 100%;
+				text-align: center;
+			}
+
+			.hero__cta {
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.hero-title,
+			.hero__description {
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.hero-title {
+				max-width: 11ch;
+				font-size: clamp(44px, 10vw, 64px);
+			}
+
+			.hero__description {
+				font-size: var(--font-size-base);
+			}
+
+			.hero__controls {
+				right: 50%;
+				bottom: var(--s5);
+				transform: translateX(50%);
+			}
+		}
+
+		@media (max-width: 560px) {
+			.hero--carousel {
+				min-height: 88vh;
+			}
+
+			.hero__content {
+				padding: 0 var(--s5);
+			}
+
+			.hero-title {
+				font-size: clamp(40px, 12vw, 54px);
+			}
+
+			.hero__controls {
+				width: calc(100% - var(--s5) * 2);
+				justify-content: space-between;
+			}
+
+			.hero__nav {
+				width: 44px;
+				height: 44px;
+			}
+
+			.hero__dots {
+				gap: 0.35rem;
+			}
+
+			.hero__dot {
+				width: 1.7rem;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.hero__slide,
+			.hero__cta,
+			.hero__nav,
+			.hero__dot {
+				transition: none;
+			}
+
+			.hero__dot--active .hero__dot-progress {
+				animation: none;
+				transform: scaleX(1);
 			}
 		}
 	</style>
 </section>
+
+<script>
+	class HeroCarousel {
+		private root: HTMLElement;
+		private slides: HTMLElement[];
+		private dots: HTMLButtonElement[];
+		private currentIndex = 0;
+		private intervalMs: number;
+		private isReducedMotion: boolean;
+
+		constructor(root: HTMLElement) {
+			this.root = root;
+			this.slides = Array.from(
+				root.querySelectorAll('[data-hero-slide]')
+			) as HTMLElement[];
+			this.dots = Array.from(
+				root.querySelectorAll('[data-hero-dot]')
+			) as HTMLButtonElement[];
+			this.intervalMs = parseInt(root.dataset.autoplayInterval || '7000', 10);
+			this.isReducedMotion = window.matchMedia(
+				'(prefers-reduced-motion: reduce)'
+			).matches;
+		}
+
+		init(): void {
+			if (this.slides.length <= 1) return;
+
+			this.root.style.setProperty(
+				'--hero-progress-duration',
+				`${this.intervalMs}ms`
+			);
+
+			this.root
+				.querySelector('[data-hero-prev]')
+				?.addEventListener('click', () => this.goTo(this.currentIndex - 1));
+			this.root
+				.querySelector('[data-hero-next]')
+				?.addEventListener('click', () => this.goTo(this.currentIndex + 1));
+
+			this.dots.forEach(dot => {
+				dot.addEventListener('click', () => {
+					const index = parseInt(dot.dataset.slideIndex || '0', 10);
+					this.goTo(index);
+				});
+
+				dot
+					.querySelector('.hero__dot-progress')
+					?.addEventListener('animationend', () => {
+						if (!dot.classList.contains('hero__dot--active')) return;
+						if (this.root.dataset.paused === 'true') return;
+
+						this.goTo(this.currentIndex + 1);
+					});
+			});
+
+			this.root.addEventListener('keydown', event => {
+				if (event.key === 'ArrowLeft') this.goTo(this.currentIndex - 1);
+				if (event.key === 'ArrowRight') this.goTo(this.currentIndex + 1);
+			});
+
+			this.root.addEventListener('mouseenter', () => this.pause());
+			this.root.addEventListener('mouseleave', () => this.play());
+			this.root.addEventListener('focusin', () => this.pause());
+			this.root.addEventListener('focusout', () => this.play());
+			document.addEventListener('visibilitychange', () => {
+				if (document.hidden) {
+					this.pause();
+				} else {
+					this.play();
+				}
+			});
+
+			this.play();
+		}
+
+		private goTo(index: number): void {
+			const nextIndex = (index + this.slides.length) % this.slides.length;
+			if (nextIndex === this.currentIndex) return;
+
+			this.slides[this.currentIndex]?.classList.remove('hero__slide--active');
+			this.slides[this.currentIndex]?.setAttribute('aria-hidden', 'true');
+			this.dots[this.currentIndex]?.classList.remove('hero__dot--active');
+			this.dots[this.currentIndex]?.setAttribute('aria-selected', 'false');
+
+			this.currentIndex = nextIndex;
+
+			this.slides[this.currentIndex]?.classList.add('hero__slide--active');
+			this.slides[this.currentIndex]?.setAttribute('aria-hidden', 'false');
+			this.dots[this.currentIndex]?.classList.add('hero__dot--active');
+			this.dots[this.currentIndex]?.setAttribute('aria-selected', 'true');
+
+			this.play();
+		}
+
+		private play(): void {
+			if (this.isReducedMotion || document.hidden) return;
+
+			this.root.dataset.paused = 'false';
+		}
+
+		private pause(): void {
+			this.root.dataset.paused = 'true';
+		}
+	}
+
+	function initHeroCarousels(): void {
+		const heroes = document.querySelectorAll(
+			'[data-hero-carousel]'
+		) as NodeListOf<HTMLElement>;
+
+		heroes.forEach(hero => {
+			if (hero.dataset.heroReady === 'true') return;
+			hero.dataset.heroReady = 'true';
+			new HeroCarousel(hero).init();
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initHeroCarousels, {
+			once: true
+		});
+	} else {
+		initHeroCarousels();
+	}
+
+	document.addEventListener('astro:page-load', initHeroCarousels);
+</script>

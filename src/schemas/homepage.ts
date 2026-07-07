@@ -1,8 +1,16 @@
-import { z } from 'astro:content';
+import { z } from 'astro/zod';
+
+const heroSlideSchema = z.object({
+	titleEu: z.string(),
+	titleEs: z.string(),
+	descriptionEu: z.string().optional(),
+	descriptionEs: z.string().optional(),
+	buttonLabelEu: z.string().optional(),
+	buttonLabelEs: z.string().optional(),
+	buttonLinkEu: z.string().optional(),
+	buttonLinkEs: z.string().optional()
+});
 
 export const homepageSchema = z.object({
-	membershipTitleEu: z.string(),
-	membershipTitleEs: z.string(),
-	membershipDescriptionEu: z.string().optional(),
-	membershipDescriptionEs: z.string().optional()
+	slides: z.array(heroSlideSchema)
 });
