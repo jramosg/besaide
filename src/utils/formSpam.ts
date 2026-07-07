@@ -1,6 +1,3 @@
-import type { ContactFormData } from '@/schemas/contactForm';
-import type { MembershipFormData } from '@/schemas/membershipForm';
-
 const minimumCompletionMs = 3500;
 const maximumAgeMs = 1000 * 60 * 60 * 3;
 
@@ -36,7 +33,7 @@ const hasUrl = (value: string) =>
 		value
 	);
 
-const isLowQualityText = (value: string) => {
+export const isLowQualityText = (value: string) => {
 	const text = normalize(value);
 	return (
 		text.length < 10 ||
@@ -46,7 +43,7 @@ const isLowQualityText = (value: string) => {
 	);
 };
 
-const isSuspiciousName = (value: string) => {
+export const isSuspiciousName = (value: string) => {
 	const text = normalize(value);
 	return (
 		text.length > 80 ||
@@ -57,10 +54,10 @@ const isSuspiciousName = (value: string) => {
 	);
 };
 
-type ProtectedFormData = Pick<
-	ContactFormData | MembershipFormData,
-	'name' | 'website' | 'startedAt'
-> & {
+type ProtectedFormData = {
+	name: string;
+	website?: string;
+	startedAt?: number;
 	message?: string;
 	surnames?: string;
 };
