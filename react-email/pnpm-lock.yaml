@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@react-email/components':
-        specifier: ../node_modules/@react-email/components
-        version: link:../node_modules/@react-email/components
+      '@react-email':
+        specifier: ../node_modules/@react-email
+        version: link:../node_modules/@react-email
       react:
         specifier: ../node_modules/react
         version: link:../node_modules/react

@@ -3,7 +3,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Section from './components/Section';
 import Field from './components/Field';
-import { Text } from '@react-email/components';
+import { Text } from 'react-email';
 import { formatDate } from '@/i18n/utils';
 import type { MembershipFormData } from '@/types/Form';
 

@@ -8,12 +8,11 @@
 		"export": "email export"
 	},
 	"dependencies": {
-		"@react-email/components": "../node_modules/@react-email/components",
 		"react-dom": "../node_modules/react-dom",
 		"react": "../node_modules/react"
 	},
 	"devDependencies": {
-		"@react-email/preview-server": "../node_modules/@react-email/preview-server",
+		"@react-email/ui": "../node_modules/@react-email/ui",
 		"@types/react": "../node_modules/@types/react",
 		"@types/react-dom": "../node_modules/@types/react-dom",
 		"react-email": "../node_modules/react-email"
