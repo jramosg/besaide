@@ -1,4 +1,4 @@
-import type { z, ZodObject, ZodRawShape } from 'astro:schema';
+import type { ZodObject, ZodRawShape, ZodType } from 'astro/zod';
 
 import type { UIKeys } from '@/i18n/ui';
 
@@ -82,7 +82,8 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 	}
 
 	function getShape() {
-		return (schema as any)._def.shape();
+		const shape = (schema as any)._def.shape;
+		return typeof shape === 'function' ? shape() : shape;
 	}
 
 	function coerceValue(
@@ -99,7 +100,7 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		if (!input) return true;
 
 		const shape = getShape();
-		const zodField: z.ZodType | undefined = shape[fieldName];
+		const zodField: ZodType | undefined = shape[fieldName];
 		if (!zodField) return true; // unknown field to schema
 
 		const native = input as

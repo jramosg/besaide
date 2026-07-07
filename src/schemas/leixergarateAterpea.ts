@@ -1,4 +1,4 @@
-import { z } from 'astro:content';
+import { z } from 'astro/zod';
 
 export const leixergarateAterpeaSchema = z.object({
 	descriptionEu: z.string(),

@@ -1,11 +1,4 @@
-import {
-	Body,
-	Container,
-	Head,
-	Html,
-	Preview,
-	Font
-} from '@react-email/components';
+import { Body, Container, Head, Html, Preview, Font } from 'react-email';
 import type { ReactNode } from 'react';
 
 interface LayoutProps {

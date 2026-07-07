@@ -1,4 +1,4 @@
-import { Text, Hr, Link } from '@react-email/components';
+import { Text, Hr, Link } from 'react-email';
 
 export const Footer = () => {
 	return (

@@ -1,4 +1,5 @@
-import { z, type ImageFunction } from 'astro:content';
+import type { ImageFunction } from 'astro:content';
+import { z } from 'astro/zod';
 
 // Base Zod schema for events
 export const eventsSchema = (image: ImageFunction) =>
@@ -45,7 +46,7 @@ export const eventsSchema = (image: ImageFunction) =>
 					z.object({
 						labelEu: z.string(),
 						labelEs: z.string(),
-						url: z.string().url(),
+						url: z.url(),
 						image: image()
 					})
 				)

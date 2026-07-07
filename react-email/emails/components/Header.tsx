@@ -1,4 +1,4 @@
-import { Img } from '@react-email/components';
+import { Img } from 'react-email';
 import { logoUrl } from '../constants';
 
 export const Header = () => {
