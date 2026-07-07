@@ -1,8 +1,15 @@
-import { z } from 'astro:schema';
+import { z, type infer as ZodInfer } from 'astro/zod';
+
+import { isLowQualityText, isSuspiciousName } from '@/utils/formSpam';
 
 export const contactFormSchema = z.object({
-	name: z.string().min(1, 'required'),
-	email: z.string().email('email').min(1, 'required'),
+	name: z
+		.string()
+		.min(1, 'required')
+		.refine(value => !isSuspiciousName(value), {
+			message: 'fieldQuality'
+		}),
+	email: z.email('email').min(1, 'required'),
 	website: z.string().max(0).optional(),
 	startedAt: z.coerce.number().optional(),
 	phone: z
@@ -20,11 +27,16 @@ export const contactFormSchema = z.object({
 			'contact.form.subject.other',
 			'{{subject}}'
 		],
-		{ errorMap: () => ({ message: 'required' }) }
+		{ error: 'required' }
 	),
-	message: z.string().min(1, { message: 'required' }),
+	message: z
+		.string()
+		.min(1, { error: 'required' })
+		.refine(value => !isLowQualityText(value), {
+			message: 'messageQuality'
+		}),
 	language: z.enum(['es', 'eu']).default('eu'),
-	terms: z.literal('on', { errorMap: () => ({ message: 'terms.required' }) })
+	terms: z.literal('on', { error: 'terms.required' })
 });
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
+export type ContactFormData = ZodInfer<typeof contactFormSchema>;
