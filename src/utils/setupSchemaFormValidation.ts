@@ -104,9 +104,7 @@ export function setupSchemaFormValidation<T extends ZodRawShape>(
 		if (!zodField) return true; // unknown field to schema
 
 		const native = input as
-			| HTMLInputElement
-			| HTMLTextAreaElement
-			| HTMLSelectElement;
+			HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 		const value = coerceValue(native);
 
 		const r = zodField.safeParse(value);
