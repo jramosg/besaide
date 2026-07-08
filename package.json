@@ -13,8 +13,8 @@
 		"optimize:images": "node scripts/optimize-images.mjs",
 		"optimize:images:check": "node scripts/optimize-images.mjs --check",
 		"astro": "astro",
-		"format": "npx prettier -w .",
-		"format:check": "npx prettier --check .",
+		"format": "prettier -w .",
+		"format:check": "prettier --check .",
 		"update": "pnpm dlx @astrojs/upgrade"
 	},
 	"dependencies": {

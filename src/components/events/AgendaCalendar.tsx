@@ -234,7 +234,8 @@ const LEGEND_ORDER: EventType[] = [
 const renderEventContent = (arg: EventContentArg) => {
 	const type = arg.event.extendedProps.type as EventType | undefined;
 	const secondaryTypes = arg.event.extendedProps.secondaryTypes as
-		EventType[] | undefined;
+		| EventType[]
+		| undefined;
 	return (
 		<div className="fc-event-content-custom">
 			{type ? <EventTypeIcon type={type} /> : null}
