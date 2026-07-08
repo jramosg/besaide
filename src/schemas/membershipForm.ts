@@ -1,4 +1,4 @@
-import { z } from 'astro:schema';
+import { z, type infer as ZodInfer } from 'astro/zod';
 
 export const membershipFormSchema = z.object({
 	dni: z.string().min(1, 'required'),
@@ -9,7 +9,7 @@ export const membershipFormSchema = z.object({
 	birthdate: z
 		.string()
 		.min(1, 'required')
-		.pipe(z.coerce.date({ invalid_type_error: 'required' })),
+		.pipe(z.coerce.date({ error: 'required' })),
 	address: z.string().min(1, 'required'),
 	town: z.string().min(1, 'required'),
 	postalCode: z
@@ -24,11 +24,11 @@ export const membershipFormSchema = z.object({
 		.transform(val => val.trim())
 		.pipe(z.string().min(9, 'phone').or(z.literal('')))
 		.optional(),
-	email: z.string().email('email').min(1, 'required'),
+	email: z.email('email').min(1, 'required'),
 	infoSpanish: z.enum(['on', 'off']).default('off'),
 	membership: z.enum(['on', 'off']).default('off'),
 	language: z.enum(['es', 'eu']).default('eu'),
-	terms: z.literal('on', { errorMap: () => ({ message: 'terms.required' }) })
+	terms: z.literal('on', { error: 'terms.required' })
 });
 
-export type MembershipFormData = z.infer<typeof membershipFormSchema>;
+export type MembershipFormData = ZodInfer<typeof membershipFormSchema>;

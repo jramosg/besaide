@@ -1,4 +1,4 @@
-import { z } from 'astro:content';
+import { z } from 'astro/zod';
 
 // Base Zod schema for material rental items
 export const materialRentalSchema = z.object({
