@@ -2,11 +2,19 @@ title: AGAMI
 date: 2026-09-26
 type: mountain
 location: Arrasate
+duration: 4 ordu
+meetingPoint: Biterin
+time: '9:30'
+distance: 'Ibilbide luzea: 9,1 km eta ibilbide motza: 6 km'
+image: '@/assets/images/events/agami/image.jpeg'
+summaryEu: 6-12 urte bitarteko arrasatear gaztetxoei zuzendutak mendi irteera da AGAMI
 prices: []
 routes: []
 inscriptionEu: >-
-  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
-  harremanetan.
-inscriptionEs: >-
-  Irteera honetan parte hartzea interesatzen bazaizu, jar zaitez gurekin
-  harremanetan.
+  Izena ematea iralaren 25etako 12:00ak baino lehen egin beharko da honako
+  esteka honetan:
+  https://docs.google.com/forms/d/e/1FAIpQLSfjhB3fNl8z4eEHIzp0wzLZLujMqVvmS1qEg-3pbEe6ehcDsw/viewform
+
+
+  Parte hartze kopurua mugatua izango da (gehienez 200 gaztetxok parte hartu
+  ahal izango dute).
