@@ -6,7 +6,7 @@ duration: 4 ordu
 meetingPoint: Biterin
 time: '9:30'
 distance: 'Ibilbide luzea: 9,1 km eta ibilbide motza: 6 km'
-image: '@/assets/images/events/agami/image.jpeg'
+image: '@/assets/images/events/agami/image.webp'
 summaryEu: 6-12 urte bitarteko arrasatear gaztetxoei zuzendutak mendi irteera da AGAMI
 prices: []
 routes: []
