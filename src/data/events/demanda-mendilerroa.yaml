@@ -3,12 +3,31 @@ date: 2026-09-27
 type: mountain
 mountain: Chilizarrias, 1825 m
 location: Pazuengos-Ezcaray
+duration: 5 ordu inguru
+durationHours: .nan
 meetingPoint: Forum atzealdeko autobus gelokian
 time: '7:30'
+distance: 15 km
 image: '@/assets/images/events/demanda-mendilerroa/image.PNG'
-prices: []
-routes: []
+prices:
+  - labelEu: 'Bazkideak '
+    labelEs: 'Bazkideak '
+    price: 15
+  - labelEu: Ez bazkideak
+    labelEs: Ez bazkideak
+    price: 18
+routes:
+  - labelEu: Ezcaray - Pazuengos - Chillizarrias - Ezcara
+    labelEs: Ezcaray - Pazuengos - Chillizarrias - Ezcara
+    url: >-
+      https://www.wikiloc.com/hiking-trails/ezcaray-pazuengos-chillizarrias-ezcaray-268006699?wa=sc&utm_campaign=badge&utm_source=unknown&utm_medium=unknown
+    image: '@/assets/images/event-routes/demanda-mendilerroa/routes/0/image.PNG'
 inscriptionEu: >-
   Izena emateko, ordainketa egin beharko da transferentzia bidez (irailaren
   19tik 22ra biatrtean) edota eskuz Besaideko bulegoan bertan (irailaren 22an
   eta 23an).
+
+
+  Laboral Kutxan: ES2330350001510010000193 
+
+  Kutxabank: ES3920955055531061009519
