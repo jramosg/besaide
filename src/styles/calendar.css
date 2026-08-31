@@ -30,6 +30,15 @@
 	);
 	--fc-neutral-bg-color: var(--theme-bg);
 	--fc-page-bg-color: var(--theme-bg);
+	--fc-classic-primary: var(--theme-primary);
+	--fc-classic-primary-foreground: var(--theme-on-primary);
+	--fc-classic-button: var(--theme-primary);
+	--fc-classic-button-border: var(--theme-primary);
+	--fc-classic-button-strong: var(--theme-primary-700);
+	--fc-classic-button-strong-border: var(--theme-primary-900);
+	--fc-classic-background: var(--theme-bg);
+	--fc-classic-foreground: var(--theme-on-bg);
+	--fc-classic-border: var(--theme-separator);
 }
 
 /* Typography */
@@ -37,9 +46,8 @@
 	font-family: var(--theme-font-family);
 }
 
-.fc .fc-scrollgrid,
-.fc .fc-daygrid-body,
-.fc .fc-scrollgrid-sync-table {
+.fc .fc-calendar-table-header,
+.fc .fc-calendar-table-body {
 	width: min(100%, var(--fc-day-cell-grid-width)) !important;
 	max-width: var(--fc-day-cell-grid-width);
 	margin-inline: auto;
@@ -90,31 +98,6 @@
 	align-items: center;
 	gap: var(--s2);
 	font-weight: var(--font-weight-medium);
-}
-
-.fc .fc-prev-button::before,
-.fc .fc-next-button::after {
-	content: '';
-	width: 1rem;
-	height: 1rem;
-	display: inline-block;
-	background-color: currentColor;
-	mask-repeat: no-repeat;
-	mask-position: center;
-	mask-size: contain;
-	-webkit-mask-repeat: no-repeat;
-	-webkit-mask-position: center;
-	-webkit-mask-size: contain;
-}
-
-.fc .fc-prev-button::before {
-	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
-}
-
-.fc .fc-next-button::after {
-	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
 }
 
 .fc .fc-prev-button:hover,
@@ -216,7 +199,10 @@
 
 /* Day Cells */
 .fc-daygrid-day {
+	display: flex;
+	flex-direction: column;
 	background-color: var(--theme-bg);
+	min-height: var(--fc-day-cell-target-height) !important;
 	min-width: calc(100% / 7);
 	--fc-day-bg-color: var(--fc-current-month-day-bg);
 }
@@ -230,9 +216,10 @@
 	border-radius: 12px;
 	background-color: var(--fc-day-bg-color);
 	overflow: hidden;
+	flex: 1 1 auto;
 }
 
-.fc .fc-daygrid-day-events {
+.fc .fc-daygrid-day-frame > div:first-child {
 	margin-top: auto;
 	padding-top: 10px;
 	padding-bottom: 4px;
@@ -304,9 +291,8 @@
 	min-width: 0;
 }
 
-.fc-calendar-main .fc .fc-scrollgrid,
-.fc-calendar-main .fc .fc-daygrid-body,
-.fc-calendar-main .fc .fc-scrollgrid-sync-table {
+.fc-calendar-main .fc .fc-calendar-table-header,
+.fc-calendar-main .fc .fc-calendar-table-body {
 	width: 100% !important;
 	max-width: none;
 	margin-inline: 0;
