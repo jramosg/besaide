@@ -170,12 +170,17 @@ const t = useTranslations(lang);
 	import { useTranslations } from '@/i18n/utils';
 	import type { Langs } from '@/i18n/ui';
 
-	document.addEventListener('astro:page-load', () => {
+	const initContactForm = () => {
+		const form = document.getElementById(
+			'contact-form'
+		) as HTMLFormElement | null;
+		if (!form || form.dataset.initialized === 'true') return;
+		form.dataset.initialized = 'true';
+
 		const lang = document.documentElement.lang as Langs;
 		const t = useTranslations(lang);
-		const startedAt = document.querySelector<HTMLInputElement>(
-			'#contact-form [name="startedAt"]'
-		);
+		const startedAt =
+			form.querySelector<HTMLInputElement>('[name="startedAt"]');
 
 		if (startedAt) startedAt.value = Date.now().toString();
 
@@ -199,5 +204,8 @@ const t = useTranslations(lang);
 				});
 			}
 		);
-	});
+	};
+
+	initContactForm();
+	document.addEventListener('astro:page-load', initContactForm);
 </script>
