@@ -83,7 +83,7 @@ export const calculateStartDateWithTime = (
 export const calculateEndDateForCalendar = (
 	endDate: Date | null,
 	startDateWithTime: Date,
-	durationHours?: number
+	durationHours?: number | null
 ): Date | null => {
 	// If there's an explicit endDate, use end of that day
 	if (endDate) {
