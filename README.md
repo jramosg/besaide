@@ -107,7 +107,7 @@ Perfect for developers looking to build **SEO-friendly multilingual websites** w
 
 ### Prerequisites
 
-- **Node.js** 18.0 or higher
+- **Node.js** 22.12.0 or higher
 - **pnpm** 9.0 or higher (recommended)
 
 ### Installation
@@ -420,7 +420,7 @@ pnpm build
 dist
 
 # Environment variables
-NODE_VERSION=18
+NODE_VERSION=22.12.0
 ```
 
 ### Static Hosting (Any Platform)
