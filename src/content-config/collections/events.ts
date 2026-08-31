@@ -175,15 +175,15 @@ export const events = collection({
 				itemLabel: props => props.fields.labelEu.value
 			}
 		),
-		inscriptionEu: fields.text({
+		inscriptionEu: fields.markdoc({
 			label: 'Izena emateko informazioa',
 			description: 'Nola eman izena gertaeran',
-			multiline: true
+			options: createImageOptions('events')
 		}),
-		inscriptionEs: fields.text({
+		inscriptionEs: fields.markdoc({
 			label: 'Información de inscripción',
 			description: 'Cómo inscribirse en el evento',
-			multiline: true
+			options: createImageOptions('events')
 		})
 	}
 });

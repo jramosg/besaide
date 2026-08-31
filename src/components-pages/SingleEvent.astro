@@ -95,6 +95,15 @@ const { Content: PriceDescriptionContent } = priceDescriptionEntry
 	? await render(priceDescriptionEntry)
 	: { Content: null };
 
+const inscriptionEntry = await getEntry(
+	'eventsMarkdown',
+	event.id + '/inscription' + lang
+);
+
+const { Content: InscriptionContent } = inscriptionEntry
+	? await render(inscriptionEntry)
+	: { Content: null };
+
 const img = event.data.image || DefaultImgHorizontal;
 
 // Structured data for event
@@ -270,13 +279,15 @@ const eventSchema = {
 			<h2 class="registration-title subtitle">
 				{t('Izen ematea')}
 			</h2>
-			<p class="registration-info">
+			<div class="registration-info">
 				{
-					(lang === 'eu'
-						? event.data.inscriptionEu
-						: event.data.inscriptionEs) || t('event.registrationInfo')
+					inscriptionEntry?.body && InscriptionContent ? (
+						<InscriptionContent />
+					) : (
+						t('event.registrationInfo')
+					)
 				}
-			</p>
+			</div>
 		</Container>
 	</section>
 </Page>
