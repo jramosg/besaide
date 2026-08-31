@@ -1,12 +1,16 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
+import dayGridPlugin from '@fullcalendar/react/daygrid';
 import type { CalendarEvent } from '@/types/CalendarEvent';
-import type { EventContentArg } from '@fullcalendar/core';
+import type { EventDisplayInfo } from '@fullcalendar/react';
+import themePlugin from '@fullcalendar/react/themes/classic';
+import '@fullcalendar/react/skeleton.css';
+import '@fullcalendar/react/themes/classic/theme.css';
+import '@fullcalendar/react/themes/classic/palette.css';
 
 // Import base locales
-import euLocale from '@fullcalendar/core/locales/eu';
-import esLocale from '@fullcalendar/core/locales/es';
+import euLocale from '@fullcalendar/react/locales/eu';
+import esLocale from '@fullcalendar/react/locales/es';
 
 const euMonthNamesShort = [
 	'Urt.',
@@ -231,7 +235,7 @@ const LEGEND_ORDER: EventType[] = [
 	'speleology'
 ];
 
-const renderEventContent = (arg: EventContentArg) => {
+const renderEventContent = (arg: EventDisplayInfo) => {
 	const type = arg.event.extendedProps.type as EventType | undefined;
 	const secondaryTypes = arg.event.extendedProps.secondaryTypes as
 		EventType[] | undefined;
@@ -259,7 +263,6 @@ const renderEventContent = (arg: EventContentArg) => {
 
 export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 	const [filteredEvents, setFilteredEvents] = useState(events);
-	const calendarRef = useRef<FullCalendar>(null);
 	const navLabels = monthNavigationLabels[lang];
 
 	const dayDataByDate = useMemo(() => {
@@ -306,13 +309,9 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 	// Listen for calendar view becoming visible
 	useEffect(() => {
 		const handleCalendarVisible = () => {
-			// Small delay to ensure the calendar is fully visible
-			setTimeout(() => {
-				const calendarApi = calendarRef.current?.getApi();
-				if (calendarApi) {
-					calendarApi.updateSize();
-				}
-			}, 100);
+			// Small delay to ensure the calendar is fully visible. FullCalendar
+			// listens for resize events and recalculates its dimensions.
+			window.setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
 		};
 
 		window.addEventListener('calendar-view-visible', handleCalendarVisible);
@@ -364,12 +363,19 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 		<div className="fc-calendar-layout">
 			<div className="fc-calendar-main">
 				<FullCalendar
-					ref={calendarRef}
 					key={lang}
-					plugins={[dayGridPlugin]}
+					plugins={[themePlugin, dayGridPlugin]}
+					className="fc"
+					tableHeaderClass="fc-calendar-table-header"
+					tableBodyClass="fc-calendar-table-body"
+					headerToolbarClass="fc-header-toolbar"
+					toolbarClass="fc-toolbar"
+					toolbarTitleClass="fc-toolbar-title"
+					buttonClass="fc-button"
 					initialView="dayGridMonth"
 					initialDate={new Date()}
-					locale={lang === 'eu' ? euLocale : esLocale}
+					locales={[euLocale, esLocale]}
+					locale={lang}
 					titleFormat={
 						lang === 'eu'
 							? ({ date }) => {
@@ -378,6 +384,12 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 								}
 							: undefined
 					}
+					dayHeaderClass={arg =>
+						arg.inPopover ? 'fc-popover-header' : 'fc-col-header-cell'
+					}
+					dayHeaderInnerClass="fc-col-header-cell-cushion"
+					popoverClass="fc-popover"
+					popoverCloseClass="fc-popover-close"
 					dayHeaderContent={
 						lang === 'eu'
 							? arg => {
@@ -387,10 +399,19 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 					}
 					height="auto"
 					dayMaxEvents={3}
-					dayCellClassNames={arg => {
+					dayCellClass={arg => {
 						const data = dayDataByDate.get(toDateKey(arg.date));
-						return data ? [`fc-day--type-${data.primary}`] : [];
+						return [
+							'fc-daygrid-day',
+							arg.isOther ? 'fc-day-other' : '',
+							arg.isToday ? 'fc-day-today' : '',
+							data ? `fc-day--type-${data.primary}` : ''
+						]
+							.filter(Boolean)
+							.join(' ');
 					}}
+					dayCellInnerClass="fc-daygrid-day-frame"
+					dayCellTopInnerClass="fc-daygrid-day-number"
 					eventTimeFormat={{
 						hour: '2-digit',
 						minute: '2-digit',
@@ -418,11 +439,11 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 								secondaryTypes: allTypesOnDay.filter(t => t !== event.type)
 							};
 						})(),
-						classNames: [
+						className: [
 							`fc-event`,
 							`fc-event--${event.type}`,
 							...(event.isPast ? ['fc-event--past'] : [])
-						],
+						].join(' '),
 						display: event.end && event.start !== event.end ? 'block' : 'auto'
 					}))}
 					eventClick={info => {
@@ -432,9 +453,17 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 						}
 					}}
 					defaultAllDay={true}
-					buttonText={{
-						prev: navLabels.prev,
-						next: navLabels.next
+					buttons={{
+						prev: {
+							text: navLabels.prev,
+							display: 'icon-text',
+							className: 'fc-prev-button'
+						},
+						next: {
+							text: navLabels.next,
+							display: 'text-icon',
+							className: 'fc-next-button'
+						}
 					}}
 					headerToolbar={{
 						left: 'prev',
