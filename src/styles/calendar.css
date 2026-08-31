@@ -163,6 +163,7 @@
 	gap: 0.25rem;
 	width: 100%;
 	line-height: 1.2;
+	background-color: var(--fc-day-frame-bg-color);
 }
 
 .fc-event-type-squares {
@@ -199,6 +200,7 @@
 
 /* Day Cells */
 .fc-daygrid-day {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	background-color: var(--theme-bg);
@@ -207,19 +209,31 @@
 	--fc-day-bg-color: var(--fc-current-month-day-bg);
 }
 
+.fc .fc-daygrid-day > div:first-child {
+	position: relative;
+	z-index: 1;
+}
+
+.fc .fc-daygrid-day > .fc-HH.fc-GV {
+	position: absolute;
+	inset: 0;
+}
+
 .fc .fc-daygrid-day-frame {
+	--fc-day-frame-bg-color: var(--fc-day-bg-color);
 	display: flex;
 	flex-direction: column;
-	min-height: var(--fc-day-cell-target-height);
+	min-height: var(--fc-day-cell-target-height) !important;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	border-radius: 12px;
-	background-color: var(--fc-day-bg-color);
+	background-color: var(--fc-day-frame-bg-color);
 	overflow: hidden;
 	flex: 1 1 auto;
 }
 
 .fc .fc-daygrid-day-frame > div:first-child {
+	position: static !important;
 	margin-top: auto;
 	padding-top: 10px;
 	padding-bottom: 4px;
@@ -267,7 +281,8 @@
 }
 
 .fc-day-today .fc-daygrid-day-frame {
-	background-color: var(--fc-today-bg-color) !important;
+	--fc-day-frame-bg-color: var(--fc-today-bg-color);
+	background-color: var(--fc-day-frame-bg-color) !important;
 }
 
 .fc-calendar-layout {
