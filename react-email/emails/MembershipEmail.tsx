@@ -77,6 +77,7 @@ export const MembershipEmail = ({
 	email = '{{email}}',
 	infoSpanish,
 	membership,
+	federation,
 	language = 'eu'
 }: MembershipFormData) => {
 	const t = translations[language];
@@ -126,6 +127,15 @@ export const MembershipEmail = ({
 					<Field
 						label={t.labels.membership}
 						value={membership}
+						lang={language}
+						fullWidth
+					/>
+				</Section>
+
+				<Section title={t.sections.federation}>
+					<Field
+						label={t.labels.federation}
+						value={federation}
 						lang={language}
 						fullWidth
 					/>

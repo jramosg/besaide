@@ -21,7 +21,8 @@ export const membershipFormAction = defineAction({
 			birthdate: input.birthdate.toLocaleDateString('es-ES'),
 			language: input.language,
 			infoSpanish: input.infoSpanish === 'on',
-			membership: input.membership === 'on'
+			membership: input.membership === 'on',
+			federation: input.federation === 'on'
 		};
 
 		// Send the email

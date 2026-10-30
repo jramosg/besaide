@@ -37,7 +37,8 @@ export const POST: APIRoute = async ({ request }) => {
 		birthdate: parsed.data.birthdate.toLocaleDateString('es-ES'),
 		language: parsed.data.language,
 		infoSpanish: parsed.data.infoSpanish === 'on',
-		membership: parsed.data.membership === 'on'
+		membership: parsed.data.membership === 'on',
+		federation: parsed.data.federation === 'on'
 	};
 
 	const emailResult = await sendMembershipEmail(formattedData);

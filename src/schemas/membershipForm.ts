@@ -27,6 +27,7 @@ export const membershipFormSchema = z.object({
 	email: z.email('email').min(1, 'required'),
 	infoSpanish: z.enum(['on', 'off']).default('off'),
 	membership: z.enum(['on', 'off']).default('off'),
+	federation: z.enum(['on', 'off']).default('off'),
 	language: z.enum(['es', 'eu']).default('eu'),
 	terms: z.literal('on', { error: 'terms.required' })
 });

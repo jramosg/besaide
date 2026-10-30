@@ -229,12 +229,32 @@ const t = useTranslations(lang);
 			<!-- Section 2: Membership -->
 			<fieldset class="form-section form-section--row">
 				<legend class="form-subtitle subtitle">
-					{'2. ' + t('form.section.membership')}
+					<span class="form-legend">
+						{'2. ' + t('form.section.membership')}
+					</span>
 				</legend>
 
 				<div class="form-grid">
 					<div class="form-field form-field--full">
 						<Checkbox id="membership" name="membership" label={t('Bai')} />
+					</div>
+				</div>
+			</fieldset>
+
+			<!-- Section 3: Federation -->
+			<fieldset class="form-section form-section--row">
+				<legend class="form-subtitle subtitle">
+					<span class="form-legend">
+						{'3. ' + t('form.section.federation')}
+						<small class="form-note">
+							{t('form.section.federation-note')}
+						</small>
+					</span>
+				</legend>
+
+				<div class="form-grid">
+					<div class="form-field form-field--full">
+						<Checkbox id="federation" name="federation" label={t('Bai')} />
 					</div>
 				</div>
 			</fieldset>
@@ -278,14 +298,28 @@ const t = useTranslations(lang);
 		margin-bottom: var(--s4);
 	}
 
+	/* Grid columns keep the "Bai" checkboxes of every row aligned */
 	.form-section--row {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
 		gap: var(--s4);
 		legend {
 			display: contents;
 		}
+	}
+
+	.form-legend {
+		display: flex;
+		flex-direction: column;
+		gap: var(--s2);
+	}
+
+	.form-note {
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-normal);
+		line-height: 1.4;
+		white-space: pre-line;
 	}
 
 	.checkbox-legend {
@@ -316,6 +350,10 @@ const t = useTranslations(lang);
 
 	@media (min-width: 768px) {
 		.form-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.form-section--row {
 			grid-template-columns: repeat(2, 1fr);
 		}
 

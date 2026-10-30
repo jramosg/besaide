@@ -22,5 +22,6 @@ export type MembershipFormData = {
 	email: string;
 	infoSpanish?: boolean;
 	membership?: boolean;
+	federation?: boolean;
 	language?: Langs;
 };

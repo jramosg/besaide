@@ -282,6 +282,9 @@ export const ui = {
 		'form.field.email': 'Email',
 		'form.field.info-spanish': 'Deseo recibir información en castellano',
 		'form.section.membership': 'Quiero ser socio de Besaide M.E.:',
+		'form.section.federation': 'Quiero la licencia federativa:',
+		'form.section.federation-note':
+			'Nota: Para estar federado hay que realizar el pago.\nPara hacer el pago, pasa por la oficina.',
 		Bai: 'Sí',
 		'form.field.accept-terms': 'Acepto las condiciones de uso',
 		'form.button.submit': 'Enviar solicitud',
@@ -536,6 +539,9 @@ export const ui = {
 		'form.field.email': 'Emaila',
 		'form.field.info-spanish': 'Informazioa gazteleraz jaso nahi dut',
 		'form.section.membership': 'Besaide M.E-ko bazkide izan nahi dut:',
+		'form.section.federation': 'Federatu lizentzia nahi dut:',
+		'form.section.federation-note':
+			'Oharra: Federatuta egoteko ordainketa egin behar da.\nOrdainketa egiteko bulegotik pasatu.',
 		'form.field.accept-terms': 'Erabilera arauak onartzen ditut',
 		'form.button.submit': 'Eskaera bidali',
 		'form.button.resubmit': 'Beste galdetegi bat bete',
