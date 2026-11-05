@@ -103,116 +103,25 @@ jobs:
     needs: build-and-push
     permissions:
       contents: read
-      packages: read
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-
-      - name: Deploy to VPS
-        uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_SSH_PORT || 22 }}
-          source: 'docker-compose.prod.yml'
-          target: '~/besaide'
-
-      - name: Deploy with Docker Compose
-        uses: appleboy/ssh-action@7eaf76671a0d7eec5d98ee897acda4f968735a17 # v1.2.0
+      - name: Deploy through the restricted CI gate
+        # The key can only run `deploy besaide <sha>` on the server, which
+        # pulls the public sha-tagged images. Compose and .env there are
+        # admin-managed (see vps-ops/ci-deploy).
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTOR: ${{ github.actor }}
-          NODE_IMAGE: ghcr.io/${{ github.repository }}:sha-${{ env.DEPLOY_SHA }}
-          NGINX_IMAGE: ghcr.io/${{ github.repository }}-nginx:sha-${{ env.DEPLOY_SHA }}
-          APP_PORT: ${{ secrets.APP_PORT }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          RESEND_TO_EMAIL: ${{ secrets.RESEND_TO_EMAIL }}
-          KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
-          KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
-          KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
-          PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: ${{ secrets.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG }}
-          REPO_NAME: ${{ github.repository }}
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_SSH_PORT || 22 }}
-          envs: GITHUB_TOKEN,GITHUB_ACTOR,NODE_IMAGE,NGINX_IMAGE,APP_PORT,RESEND_API_KEY,RESEND_TO_EMAIL,KEYSTATIC_GITHUB_CLIENT_ID,KEYSTATIC_GITHUB_CLIENT_SECRET,KEYSTATIC_SECRET,PUBLIC_KEYSTATIC_GITHUB_APP_SLUG,REPO_NAME
-          script: |
-            set -e
-            cd ~/besaide
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          HOST_KEY: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEmoaMAZ9yKpppVl6J2NPsXsirLII1K5/FR47keXM215
+        run: |
+          set -eu
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          echo "vps $HOST_KEY" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy -o HostKeyAlias=vps \
+            -o StrictHostKeyChecking=yes "ci@$VPS_HOST" \
+            deploy besaide "$DEPLOY_SHA" < /dev/null
 
-            echo "Logging in to GitHub Container Registry..."
-            echo "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
-
-            echo "Pulling latest images..."
-            docker compose -f docker-compose.prod.yml pull
-
-            echo "Starting services..."
-            docker compose -f docker-compose.prod.yml up -d --remove-orphans
-
-            echo "Waiting for application to start..."
-            sleep 10
-
-            echo "Cleaning up old images..."
-            docker images "ghcr.io/$REPO_NAME" --filter "dangling=true" -q | xargs -r docker rmi -f || true
-            docker images "ghcr.io/${REPO_NAME}-nginx" --filter "dangling=true" -q | xargs -r docker rmi -f || true
-            docker images "ghcr.io/$REPO_NAME" -q | tail -n +2 | xargs -r docker rmi -f 2>/dev/null || true
-            docker images "ghcr.io/${REPO_NAME}-nginx" -q | tail -n +2 | xargs -r docker rmi -f 2>/dev/null || true
-
-      - name: Health check
-        uses: appleboy/ssh-action@7eaf76671a0d7eec5d98ee897acda4f968735a17 # v1.2.0
-        env:
-          NODE_IMAGE: ghcr.io/${{ github.repository }}:sha-${{ env.DEPLOY_SHA }}
-          NGINX_IMAGE: ghcr.io/${{ github.repository }}-nginx:sha-${{ env.DEPLOY_SHA }}
-          APP_PORT: ${{ secrets.APP_PORT }}
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_SSH_PORT || 22 }}
-          envs: NODE_IMAGE,NGINX_IMAGE,APP_PORT
-          script: |
-            set -e
-            cd ~/besaide
-            APP_PORT="${APP_PORT:-80}"
-
-            echo "Running health checks..."
-
-            max_attempts=12
-            attempt=1
-
-            while [ $attempt -le $max_attempts ]; do
-              echo "Attempt $attempt/$max_attempts - checking container status..."
-
-              if docker compose -f docker-compose.prod.yml ps | grep -q "Up"; then
-                echo "Containers are running"
-
-                if curl -f -s -m 5 "http://localhost:${APP_PORT}/" >/dev/null 2>&1; then
-                  echo "Application is responding!"
-                  break
-                fi
-              fi
-
-              if [ $attempt -eq $max_attempts ]; then
-                echo "Health check failed after $max_attempts attempts"
-                echo ""
-                echo "Container status:"
-                docker compose -f docker-compose.prod.yml ps
-                echo ""
-                echo "Node logs:"
-                docker compose -f docker-compose.prod.yml logs --tail=30 node || echo "Could not retrieve logs"
-                echo ""
-                echo "Nginx logs:"
-                docker compose -f docker-compose.prod.yml logs --tail=30 nginx || echo "Could not retrieve logs"
-                exit 1
-              fi
-
-              echo "Waiting 5 seconds before retry..."
-              sleep 5
-              ((attempt++))
-            done
+      - name: Verify site
+        run: curl -fsS --retry 5 --retry-delay 3 -o /dev/null https://besaide.eus/
