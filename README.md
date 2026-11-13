@@ -355,6 +355,9 @@ Besaide is optimized for speed and Core Web Vitals:
 
 - **Zero JavaScript** on most pages (only Keystatic admin requires JS)
 - **Optimized images** - WebP/AVIF with lazy loading
+- **Home hero** - `dev`, `check`, and `build` generate responsive AVIF/WebP
+  files from `src/assets/udalaitz.webp`. The SSR home page uses these static
+  assets, so serving the hero does not require an image transformation.
 - **Critical CSS** inlined for faster FCP
 - **Prefetching** - Automatic link prefetching for instant navigation
 

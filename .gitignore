@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# Responsive hero images generated before dev, check and build
+src/assets/generated/hero/
+
 # generated types
 .astro/
 
