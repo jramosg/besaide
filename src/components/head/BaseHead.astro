@@ -18,6 +18,11 @@ export interface Props {
 	alternateLanguages?: { hreflang: string; href: string }[];
 	noindex?: boolean;
 	faqSchema?: boolean;
+	imagePreload?: {
+		src: string;
+		srcset: string;
+		sizes: string;
+	};
 	openGraphProps?: {
 		title?: string;
 		description?: string;
@@ -57,6 +62,19 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <link rel="shortcut icon" href="/favicon.png" />
 <link rel="sitemap" href="/sitemap.xml" />
 <meta charset="UTF-8" />
+
+{
+	Astro.props.imagePreload && (
+		<link
+			rel="preload"
+			as="image"
+			href={Astro.props.imagePreload.src}
+			imagesrcset={Astro.props.imagePreload.srcset}
+			imagesizes={Astro.props.imagePreload.sizes}
+			fetchpriority="high"
+		/>
+	)
+}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>

@@ -8,6 +8,7 @@ import type { ProcessedEvent } from '@/types/Events';
 import EventMetas from './EventMetas.astro';
 import EventTypeIcon from './EventTypeIcon.astro';
 import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
+import { eventThumbnailImageOptions } from '@/config/images';
 
 type Props = {
 	item: ProcessedEvent;
@@ -40,9 +41,7 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 		<Image
 			src={item.data.image || DefaultImgHorizontal}
 			alt={item.data.title}
-			width={768}
-			widths={[320, 480, 640, 768]}
-			sizes="(max-width: 768px) 100vw, (max-width: 1024px) 200px, 236px"
+			{...eventThumbnailImageOptions}
 			priority={priority}
 			class="event-thumbnail"
 			style={`view-transition-name: image-${slug}`}

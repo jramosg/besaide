@@ -21,6 +21,9 @@ import Select, { type SelectOption } from '@/components/Select.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import AgendaCalendar from '@/components/events/AgendaCalendar';
 import '@/styles/calendar.css';
+import { getImage } from 'astro:assets';
+import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png';
+import { eventThumbnailImageOptions } from '@/config/images';
 
 const today = new Date();
 
@@ -109,8 +112,14 @@ const { futureEventsByMonth, pastEventsByMonth } = events.reduce(
 const futureMonths = Array.from(futureEventsByMonth.values());
 const pastMonths = Array.from(pastEventsByMonth.values());
 
-const priorityEventId =
-	futureMonths[0]?.events[0]?.id ?? pastMonths[0]?.events[0]?.id;
+const priorityEvent = futureMonths[0]?.events[0] ?? pastMonths[0]?.events[0];
+const priorityEventId = priorityEvent?.id;
+const priorityImage = priorityEvent
+	? await getImage({
+			src: priorityEvent.data.image || DefaultImgHorizontal,
+			...eventThumbnailImageOptions
+		})
+	: undefined;
 
 const areFutureEvents = futureMonths.length > 0;
 const arePastEvents = pastMonths.length > 0;
@@ -171,7 +180,12 @@ const calendarEvents: CalendarEvent[] = events.map(event => {
 <Page
 	seo={{
 		title: t('nav.agenda') + ' - ' + CompanyName,
-		description: t('agenda.seo.description')
+		description: t('agenda.seo.description'),
+		imagePreload: priorityImage && {
+			src: priorityImage.src,
+			srcset: priorityImage.srcSet.attribute,
+			sizes: eventThumbnailImageOptions.sizes
+		}
 	}}
 	pageClass="content__container"
 >
