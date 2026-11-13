@@ -7,6 +7,26 @@ import 'react-day-picker/style.css';
 const WEEKDAYS_EU = ['al.', 'ar.', 'az.', 'og.', 'or.', 'lr.', 'ig.'];
 const WEEKDAYS_ES = ['lu.', 'ma.', 'mi.', 'ju.', 'vi.', 'sá.', 'do.'];
 
+// Full names for screen readers, Monday first
+const WEEKDAY_NAMES_EU = [
+	'astelehena',
+	'asteartea',
+	'asteazkena',
+	'osteguna',
+	'ostirala',
+	'larunbata',
+	'igandea'
+];
+const WEEKDAY_NAMES_ES = [
+	'lunes',
+	'martes',
+	'miércoles',
+	'jueves',
+	'viernes',
+	'sábado',
+	'domingo'
+];
+
 const MONTHS_EU = [
 	'urtarrila',
 	'otsaila',
@@ -52,6 +72,22 @@ function formatCaption(date: Date, lang: 'eu' | 'es'): string {
 	return `${month.charAt(0).toUpperCase()}${month.slice(1)} ${year}`;
 }
 
+/**
+ * Spoken label of a day. It starts with the number the button shows,
+ * so voice-control users can say what they see.
+ */
+function formatDayLabel(date: Date, lang: 'eu' | 'es'): string {
+	const day = date.getDate();
+	const year = date.getFullYear();
+	const dow = (date.getDay() + 6) % 7;
+	if (lang === 'eu') {
+		const month = MONTHS_EU[date.getMonth()];
+		return `${day}, ${WEEKDAY_NAMES_EU[dow]}, ${year}${basqueYearSuffix(year)} ${month}`;
+	}
+	const month = MONTHS_ES[date.getMonth()];
+	return `${day} de ${month} de ${year}, ${WEEKDAY_NAMES_ES[dow]}`;
+}
+
 interface CalendarEvent {
 	date: string; // YYYY-MM-DD (local date)
 	endDate?: string; // YYYY-MM-DD (local date, for multi-day events)
@@ -86,6 +122,7 @@ function getDateRange(startStr: string, endStr: string): Date[] {
 export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 	const [month, setMonth] = useState(new Date());
 	const weekdays = lang === 'eu' ? WEEKDAYS_EU : WEEKDAYS_ES;
+	const weekdayNames = lang === 'eu' ? WEEKDAY_NAMES_EU : WEEKDAY_NAMES_ES;
 
 	// Build modifier day sets for range highlighting + day→URL map
 	const { rangeStart, rangeMiddle, rangeEnd, singleEvent, urlByDay } =
@@ -191,6 +228,16 @@ export default function HomeCalendar({ events, lang }: HomeCalendarProps) {
 						const dow = (date.getDay() + 6) % 7;
 						return weekdays[dow];
 					}
+				}}
+				labels={{
+					labelDayButton: date => formatDayLabel(date, lang),
+					labelGrid: date => formatCaption(date, lang),
+					labelWeekday: date => weekdayNames[(date.getDay() + 6) % 7],
+					labelNav: () => (lang === 'eu' ? 'Hilabeteak' : 'Meses'),
+					labelNext: () =>
+						lang === 'eu' ? 'Hurrengo hilabetea' : 'Mes siguiente',
+					labelPrevious: () =>
+						lang === 'eu' ? 'Aurreko hilabetea' : 'Mes anterior'
 				}}
 				modifiers={{
 					eventRangeStart: rangeStart,

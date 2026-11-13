@@ -12,6 +12,11 @@ import node from '@astrojs/node';
 export default defineConfig({
 	server: { port: 1234, host: true },
 	site: 'https://besaide.eus',
+	// The stylesheets are small; inlining them removes two
+	// render-blocking requests from first paint.
+	build: {
+		inlineStylesheets: 'always'
+	},
 	security: {
 		allowedDomains: [
 			{
