@@ -8,9 +8,9 @@
 		"node": ">=22.12.0"
 	},
 	"scripts": {
-		"dev": "node scripts/generate-hero-images.mjs && astro dev",
-		"check": "node scripts/generate-hero-images.mjs && astro check",
-		"build": "node scripts/generate-hero-images.mjs && astro check && astro build",
+		"dev": "astro dev",
+		"check": "astro check",
+		"build": "astro check && astro build",
 		"preview": "pnpm run build && astro preview",
 		"test": "vitest run",
 		"optimize:images": "node scripts/optimize-images.mjs",

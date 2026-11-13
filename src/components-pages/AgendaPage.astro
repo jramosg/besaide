@@ -109,6 +109,9 @@ const { futureEventsByMonth, pastEventsByMonth } = events.reduce(
 const futureMonths = Array.from(futureEventsByMonth.values());
 const pastMonths = Array.from(pastEventsByMonth.values());
 
+const priorityEventId =
+	futureMonths[0]?.events[0]?.id ?? pastMonths[0]?.events[0]?.id;
+
 const areFutureEvents = futureMonths.length > 0;
 const arePastEvents = pastMonths.length > 0;
 
@@ -271,7 +274,10 @@ const calendarEvents: CalendarEvent[] = events.map(event => {
 							<ul class="events-grid" role="list">
 								{events.map(item => (
 									<li>
-										<EventListCard item={item} />
+										<EventListCard
+											item={item}
+											priority={item.id === priorityEventId}
+										/>
 									</li>
 								))}
 							</ul>
@@ -300,7 +306,10 @@ const calendarEvents: CalendarEvent[] = events.map(event => {
 							<ul class="events-grid" role="list">
 								{events.slice(0, 6).map(item => (
 									<li>
-										<EventListCard item={item} />
+										<EventListCard
+											item={item}
+											priority={item.id === priorityEventId}
+										/>
 									</li>
 								))}
 							</ul>
@@ -312,7 +321,7 @@ const calendarEvents: CalendarEvent[] = events.map(event => {
 	</div>
 
 	<div id="agenda-calendar-view" style="display:none">
-		<AgendaCalendar events={calendarEvents} lang={lang} client:load />
+		<AgendaCalendar events={calendarEvents} lang={lang} client:visible />
 	</div>
 </Page>
 

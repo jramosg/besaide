@@ -326,9 +326,13 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 
 	// Listen for filter changes from the main page
 	useEffect(() => {
-		const handleFilterChange = (event: CustomEvent) => {
-			const { searchTerm, selectedType } = event.detail;
-
+		const applyFilters = ({
+			searchTerm,
+			selectedType
+		}: {
+			searchTerm: string;
+			selectedType: string;
+		}) => {
 			const filtered = events.filter(evt => {
 				const matchesSearch =
 					!searchTerm ||
@@ -343,6 +347,18 @@ export default function AgendaCalendar({ events, lang }: AgendaCalendarProps) {
 
 			setFilteredEvents(filtered);
 		};
+
+		const handleFilterChange = (event: CustomEvent) =>
+			applyFilters(event.detail);
+
+		// Filters may have changed before the hidden calendar was hydrated.
+		applyFilters({
+			searchTerm:
+				document.querySelector<HTMLInputElement>('#event-search')?.value ?? '',
+			selectedType:
+				document.querySelector<HTMLSelectElement>('#event-type-filter')
+					?.value ?? 'every'
+		});
 
 		window.addEventListener(
 			'agenda-filter-change',

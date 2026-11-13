@@ -4,8 +4,14 @@ import { sortedAndFilteredEvents } from '@/utils/events';
 import HomeSectionHeader from './HomeSectionHeader.astro';
 import EventCard from '@/components/events/EventCard.astro';
 import HomeCalendar from '@/components/events/HomeCalendar.tsx';
+import type { Langs } from '@/i18n/ui';
 
-const lang = getLangFromUrl(Astro.url);
+interface Props {
+	lang?: Langs;
+}
+
+// Server islands have their own URL; retain the parent page's language.
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const agendaSection = getUrlFromID('agenda', lang);
 const today = new Date();
@@ -82,7 +88,7 @@ const monthKeys = Array.from(eventsByMonth.keys());
 										.get(key)!
 										.events.slice(0, 6)
 										.map(item => (
-											<EventCard item={item} />
+											<EventCard item={item} lang={lang} />
 										))}
 								</div>
 							</div>

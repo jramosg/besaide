@@ -8,12 +8,14 @@ import PlaceIcon from '@/assets/icons/place.svg';
 import { Map, Clock3 } from '@lucide/astro';
 import DistanceIcon from '@/assets/icons/distance.svg';
 import type { CollectionEntry } from 'astro:content';
+import type { Langs } from '@/i18n/ui';
 
 type Props = {
 	item: CollectionEntry<'events'>;
+	lang?: Langs;
 };
 
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const {

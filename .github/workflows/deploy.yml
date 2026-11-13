@@ -85,6 +85,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile.nginx
+          build-contexts: |
+            app=docker-image://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ env.DEPLOY_SHA }}
           push: true
           tags: ${{ steps.nginx-meta.outputs.tags }}
           cache-from: type=gha,scope=nginx

@@ -3,9 +3,10 @@ import Hero from '@/components/Hero.astro';
 import '@/styles/card.css';
 import Sponsors from '@/components/Sponsors.astro';
 import Page from '@/layouts/Page.astro';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { getLangFromUrl, getUrlFromID, useTranslations } from '@/i18n/utils';
 import HomeNews from '@/components/news/HomeNews.astro';
 import HomeAgenda from '@/components/HomeAgenda.astro';
+import HomeSectionHeader from '@/components/HomeSectionHeader.astro';
 import HomeShortcuts from '@/components/HomeShortcuts.astro';
 import { CompanyName } from '@/config/company';
 import udalaitzImage from '@/assets/udalaitz.webp';
@@ -30,7 +31,22 @@ const t = useTranslations(lang);
 	transparentHeader={true}
 >
 	<Hero />
-	<HomeAgenda />
+	<HomeAgenda lang={lang} server:defer>
+		<section
+			slot="fallback"
+			class="home-section_container home-agenda-placeholder"
+			aria-busy="true"
+			aria-label={t('Hurrengo irteerak')}
+		>
+			<HomeSectionHeader
+				title={t('Hurrengo irteerak')}
+				buttonText={t('Agenda osoa ikusi')}
+				buttonHref={getUrlFromID('agenda', lang, {
+					year: new Date().getFullYear()
+				})}
+			/>
+		</section>
+	</HomeAgenda>
 	<HomeNews />
 	<HomeShortcuts />
 	<Sponsors />
@@ -44,6 +60,16 @@ const t = useTranslations(lang);
 		flex-direction: column;
 		gap: var(--s8);
 		margin-bottom: var(--s4);
+	}
+
+	.home-agenda-placeholder {
+		min-height: 500px;
+	}
+
+	@media (max-width: 900px) {
+		.home-agenda-placeholder {
+			min-height: 900px;
+		}
 	}
 
 	:global(.home-section_container) {

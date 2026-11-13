@@ -11,12 +11,13 @@ import DefaultImgHorizontal from '@/assets/images/besaide-default-horizontal.png
 
 type Props = {
 	item: ProcessedEvent;
+	priority?: boolean;
 };
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { item } = Astro.props;
+const { item, priority = false } = Astro.props;
 
 const startDate = new Date(item.data.date);
 const endDate = item.data.endDate ? new Date(item.data.endDate) : null;
@@ -39,6 +40,10 @@ const summary = lang === 'eu' ? item.data.summaryEu : item.data.summaryEs;
 		<Image
 			src={item.data.image || DefaultImgHorizontal}
 			alt={item.data.title}
+			width={768}
+			widths={[320, 480, 640, 768]}
+			sizes="(max-width: 768px) 100vw, (max-width: 1024px) 200px, 236px"
+			priority={priority}
 			class="event-thumbnail"
 			style={`view-transition-name: image-${slug}`}
 		/>

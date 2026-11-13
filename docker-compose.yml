@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+      additional_contexts:
+        app: service:node
     ports:
       - '80:80'
     depends_on:

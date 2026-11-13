@@ -8,12 +8,14 @@ import Chip from '../Chip.astro';
 import EventMetas from './EventMetas.astro';
 import EventTypeIcon from './EventTypeIcon.astro';
 import DefaultImg from '@/assets/images/besaide-default-horizontal.png';
+import type { Langs } from '@/i18n/ui';
 
 type Props = {
 	item: ProcessedEvent;
+	lang?: Langs;
 };
 
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 
 const { item } = Astro.props;
 
@@ -52,7 +54,7 @@ const eventId = slugify(item.id);
 		</h3>
 
 		<div class="event-meta">
-			<EventMetas item={item} />
+			<EventMetas item={item} lang={lang} />
 		</div>
 	</div>
 </a>

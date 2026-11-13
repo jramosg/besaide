@@ -1,6 +1,5 @@
 node_modules
 dist
-src/assets/generated/hero
 .git
 .gitignore
 *.md

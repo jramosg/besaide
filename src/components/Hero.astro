@@ -1,21 +1,10 @@
 ---
-import type { ImageMetadata } from 'astro';
-import fallbackImage from '@/assets/generated/hero/udalaitz-1280.webp';
+import udalaitzImage from '@/assets/udalaitz.webp';
+import { Picture } from 'astro:assets';
 import { getLangFromUrl } from '@/i18n/utils';
 import { getEntry } from 'astro:content';
 import { ArrowRight, ChevronLeft, ChevronRight } from '@lucide/astro';
 
-const heroImages = Object.values(
-	import.meta.glob<ImageMetadata>('../assets/generated/hero/*.{avif,webp}', {
-		eager: true,
-		import: 'default'
-	})
-).sort((a, b) => a.width - b.width);
-const srcset = (format: 'avif' | 'webp') =>
-	heroImages
-		.filter(image => image.format === format)
-		.map(image => `${image.src} ${image.width}w`)
-		.join(', ');
 const lang = getLangFromUrl(Astro.url);
 const homepageContent = await getEntry('homepage', 'homepage');
 
@@ -50,21 +39,17 @@ const dotLabel = lang === 'eu' ? 'Bannerra ikusi' : 'Ver banner';
 	data-autoplay-interval="7000"
 	tabindex={hasMultipleSlides ? '0' : undefined}
 >
-	<picture>
-		<source type="image/avif" srcset={srcset('avif')} sizes="100vw" />
-		<img
-			src={fallbackImage.src}
-			srcset={srcset('webp')}
-			sizes="100vw"
-			width={fallbackImage.width}
-			height={fallbackImage.height}
-			alt="Udalaitz mendia"
-			class="hero-image"
-			loading="eager"
-			decoding="sync"
-			fetchpriority="high"
-		/>
-	</picture>
+	<Picture
+		src={udalaitzImage}
+		formats={['avif']}
+		fallbackFormat="webp"
+		width={2560}
+		layout="full-width"
+		quality={50}
+		alt="Udalaitz mendia"
+		class="hero-image"
+		priority
+	/>
 	<div class="hero-overlay" aria-hidden="true"></div>
 	{hasMultipleSlides && <div class="hero-glow" aria-hidden="true" />}
 
