@@ -8,6 +8,10 @@ updates:
       day: monday
       time: '09:00'
       timezone: Europe/Madrid
+    # pnpm rejects releases younger than a day (minimumReleaseAge); wait
+    # before proposing them. Security updates are not delayed.
+    cooldown:
+      default-days: 2
     open-pull-requests-limit: 5
     groups:
       astro:
