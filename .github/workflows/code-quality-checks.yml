@@ -38,3 +38,16 @@ jobs:
 
       - name: Run tests
         run: pnpm test
+
+  docker-build:
+    name: Build production Docker image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build production image
+        run: docker build --tag besaide:ci .
