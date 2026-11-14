@@ -388,6 +388,24 @@ Typical Lighthouse scores (production build):
 
 ## 🚢 Deployment
 
+### GitHub Actions: skip an automatic VPS deploy
+
+VPS deployments run after **Code Quality Checks** succeeds on `master`. Add
+`[skip deploy]` anywhere in the commit message to skip building and publishing
+Docker images and deploying that commit:
+
+```bash
+git commit -m "Update documentation [skip deploy]"
+```
+
+Code-quality checks still run. The marker is case-insensitive and is checked in
+the head commit's message, so when pushing multiple commits, put it on the last
+commit. For a merge or squash, include it in the resulting commit on `master`.
+Skipped commits do not cancel an in-progress deployment.
+
+To deploy manually, open **Actions → Deploy to VPS → Run workflow** and select
+the branch. Manual runs deploy even when the commit contains `[skip deploy]`.
+
 ### Deploy to Vercel (Recommended)
 
 The project is configured for Vercel deployment:
