@@ -8,25 +8,22 @@ importers:
 
   .:
     dependencies:
-      '@react-email':
-        specifier: ../node_modules/@react-email
-        version: link:../node_modules/@react-email
       react:
         specifier: ../node_modules/react
         version: link:../node_modules/react
       react-dom:
         specifier: ../node_modules/react-dom
         version: link:../node_modules/react-dom
+      react-email:
+        specifier: ../node_modules/react-email
+        version: link:../node_modules/react-email
     devDependencies:
-      '@react-email/preview-server':
-        specifier: ../node_modules/@react-email/preview-server
-        version: link:../node_modules/@react-email/preview-server
+      '@react-email/ui':
+        specifier: ../node_modules/@react-email/ui
+        version: link:../node_modules/@react-email/ui
       '@types/react':
         specifier: ../node_modules/@types/react
         version: link:../node_modules/@types/react
       '@types/react-dom':
         specifier: ../node_modules/@types/react-dom
         version: link:../node_modules/@types/react-dom
-      react-email:
-        specifier: ../node_modules/react-email
-        version: link:../node_modules/react-email

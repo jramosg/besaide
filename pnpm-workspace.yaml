@@ -1,9 +1,10 @@
 packages:
   - '.'
 
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+# Install scripts pnpm may run (pnpm 10+ blocks them unless listed).
+allowBuilds:
+  esbuild: true
+  sharp: true
 
 overrides:
   # Keystatic 0.6.9 requires minimatch 10, which has no patched release.
