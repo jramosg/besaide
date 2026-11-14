@@ -113,8 +113,13 @@ const t = useTranslations(lang);
 
 	@media (min-width: 1200px) {
 		.group {
+			min-width: 0;
 			animation: none;
 			padding-right: unset;
+			will-change: auto;
+		}
+		.group + .group {
+			display: none;
 		}
 		.carousel {
 			-webkit-mask-image: none;
