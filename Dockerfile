@@ -1,5 +1,5 @@
 # Build stage
-FROM node:22-alpine AS builder
+FROM node:25-alpine AS builder
 ENV ASTRO_TELEMETRY_DISABLED=1
 
 RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
@@ -19,7 +19,7 @@ COPY . .
 RUN pnpm run build
 
 # Production stage
-FROM node:22-alpine AS runner
+FROM node:25-alpine AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
