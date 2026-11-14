@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile.nginx
       additional_contexts:
         app: service:node
+    volumes:
+      - image-cache:/var/cache/nginx/images
     ports:
       - '80:80'
     depends_on:
@@ -21,3 +23,6 @@ services:
     expose:
       - '1234'
     restart: unless-stopped
+
+volumes:
+  image-cache:

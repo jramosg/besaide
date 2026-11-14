@@ -361,7 +361,8 @@ Besaide is optimized for speed and Core Web Vitals:
   Keystatic are included in the next build automatically.
 - **Dynamic images** - Nginx caches `/_image` responses by their full URL,
   including the source hash and transform parameters. Concurrent requests
-  share one transformation. HTML, forms and the CMS are not cached.
+  share one transformation. The `image-cache` Docker volume preserves these
+  files across deployments. HTML, forms and the CMS are not cached.
 - **Critical CSS** inlined for faster FCP
 - **Prefetching** - Automatic link prefetching for instant navigation
 

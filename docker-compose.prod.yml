@@ -1,6 +1,8 @@
 services:
   nginx:
     image: ${NGINX_IMAGE}
+    volumes:
+      - image-cache:/var/cache/nginx/images
     ports:
       - '127.0.0.1:${APP_PORT:-80}:80'
     depends_on:
@@ -38,3 +40,6 @@ services:
       retries: 3
       start_period: 15s
     restart: unless-stopped
+
+volumes:
+  image-cache:
