@@ -2,15 +2,16 @@
 FROM node:26.13.1-alpine AS builder
 ENV ASTRO_TELEMETRY_DISABLED=1
 
-RUN npm install --global pnpm@10.33.0
+RUN npm install --global pnpm@12.18.0
 
 WORKDIR /app
 
 # Copy only lock files first (cache dependencies separately)
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
-# Install dependencies (allow build scripts for native modules)
-RUN pnpm install --frozen-lockfile && pnpm approve-builds
+# Install dependencies; pnpm-workspace.yaml lists the install scripts
+# pnpm may run.
+RUN pnpm install --frozen-lockfile
 
 # Copy source code (invalidates cache only if source changes)
 COPY . .
