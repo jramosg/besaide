@@ -107,7 +107,7 @@ Perfect for developers looking to build **SEO-friendly multilingual websites** w
 
 ### Prerequisites
 
-- **Node.js** 22.23.4 or higher
+- **Node.js** 26.13.1 (see `.nvmrc`)
 - **pnpm** 10.33.0 (see `packageManager` in `package.json`)
 
 ### Installation
@@ -446,7 +446,7 @@ pnpm build
 dist
 
 # Environment variables
-NODE_VERSION=22.23.4
+NODE_VERSION=26.13.1
 ```
 
 ### Static Hosting (Any Platform)

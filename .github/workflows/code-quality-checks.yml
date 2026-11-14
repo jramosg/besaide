@@ -16,17 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Read Node version from .nvmrc
-        id: node_version
-        run: |
-          if [ -f .nvmrc ]; then
-            ver=$(cat .nvmrc | tr -d " \t\n")
-            echo "version=$ver" >> $GITHUB_OUTPUT
-          else
-            # Fallback to Astro's supported Node major if .nvmrc is missing
-            echo "version=22" >> $GITHUB_OUTPUT
-          fi
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -35,7 +24,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.node_version.outputs.version }}
+          node-version-file: .nvmrc
           cache: 'pnpm'
 
       - name: Install dependencies
