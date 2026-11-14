@@ -1,5 +1,5 @@
 import { Resend, type CreateEmailResponse } from 'resend';
-import { render, toPlainText } from '@react-email/render';
+import { render, toPlainText } from 'react-email';
 import MembershipEmail from '@mail/emails/MembershipEmail';
 import { ContactEmail } from '@mail/emails/ContactEmail';
 import type { MembershipFormData } from '@/types/Form';
