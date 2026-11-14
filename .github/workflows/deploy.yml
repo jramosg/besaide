@@ -24,10 +24,15 @@ env:
 
 jobs:
   build-and-push:
+    # The branches filter and head_branch also match a fork PR from a
+    # branch named "master"; require a push to this repository so fork
+    # code is never built, pushed to GHCR or deployed.
     if: |
       github.event_name == 'workflow_dispatch' ||
       (
         github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event == 'push' &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
         github.event.workflow_run.head_branch == 'master' &&
         !contains(github.event.workflow_run.head_commit.message, '[skip deploy]')
       )
@@ -42,7 +47,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
