@@ -28,23 +28,21 @@ const switchLang = languages.filter(l => l.code !== lang)[0];
 const switchHref = langHref(switchLang.code);
 ---
 
-{
-	switchHref && (
-		<nav class="language-toggle button-text" aria-label="Language selector">
-			{languages.map(language => (
-				<a
-					href={langHref(language.code)}
-					aria-current={language.code === lang ? 'page' : undefined}
-					aria-label={language.name}
-					class={`lang-toggle-link lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
-				>
-					<span />
-					{language.nativeName}
-				</a>
-			))}
-		</nav>
-	)
-}
+{switchHref && (
+	<nav class="language-toggle button-text" aria-label="Language selector">
+		{languages.map(language => (
+			<a
+				href={langHref(language.code)}
+				aria-current={language.code === lang ? 'page' : undefined}
+				aria-label={language.name}
+				class={`lang-toggle-link lang-option-btn lang-option${language.code === lang ? ' selected' : ''}`}
+			>
+				<span />
+				{language.nativeName}
+			</a>
+		))}
+	</nav>
+)}
 
 <style>
 	.language-toggle {

@@ -28,7 +28,9 @@ const processedNews = processNewsItems(page.data, lang);
 	<PageHeader title={t('nav.news')} />
 
 	<section class="news-grid" aria-label={t('nav.news')}>
-		{processedNews.map(p => <NewsCard item={p} />)}
+		{processedNews.map(p => (
+			<NewsCard item={p} />
+		))}
 	</section>
 
 	<PaginationWrapper page={page} />

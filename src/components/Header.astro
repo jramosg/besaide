@@ -34,13 +34,11 @@ const headerClasses = [
 ---
 
 <header id="besaideHeader" class={headerClasses}>
-	{
-		includeToggles && (
-			<div class="header-toggles__container">
-				<LanguageToggle />
-			</div>
-		)
-	}
+	{includeToggles && (
+		<div class="header-toggles__container">
+			<LanguageToggle />
+		</div>
+	)}
 	<Container class="header-container">
 		<div class="header-logo-menu__container">
 			<a
@@ -55,86 +53,82 @@ const headerClasses = [
 		<div class="header-nav__container">
 			<nav aria-label={t('Nabigazio nagusia')}>
 				<ul>
-					{
-						navData.map((navItem, index) => {
-							const isActive =
-								navItem.slug === currentPageId ||
-								navItem.children.some(child => child.slug === currentPageId);
-							const hasChildren = navItem.children.length > 0;
-							const dropdownId = `dropdown-${index}`;
+					{navData.map((navItem, index) => {
+						const isActive =
+							navItem.slug === currentPageId ||
+							navItem.children.some(child => child.slug === currentPageId);
+						const hasChildren = navItem.children.length > 0;
+						const dropdownId = `dropdown-${index}`;
 
-							return (
-								<li
-									class={`header-nav__item button-text ${hasChildren ? 'has-dropdown' : ''}`}
-								>
-									{hasChildren ? (
-										<button
-											class={`dropdown-trigger border-effect ${isActive ? 'nav-link--active' : ''}`}
-											aria-haspopup="true"
-											aria-expanded="false"
-											aria-controls={dropdownId}
-											data-dropdown-trigger
-										>
-											{t(navItem.title)}
-											<ChevronDown class="dropdown-arrow" size={16} />
-										</button>
-									) : navItem.title === 'nav.home' ? null : (
-										<a
-											class={
-												'nav-link ' +
-												'border-effect ' +
-												(isActive ? 'nav-link--active' : '')
-											}
-											href={getUrlFromID(
-												navItem.slug,
-												lang,
-												navItem.slug === 'agenda'
-													? { year: new Date().getFullYear() }
-													: undefined
-											)}
-										>
-											{t(navItem.title)}
-										</a>
-									)}
-									{hasChildren && (
-										<ul class="dropdown-menu" id={dropdownId} role="menu">
-											{navItem.children.map(child => {
-												const isChildActive = child.slug === currentPageId;
-												return (
-													<li role="none" class="nav-child--list-item">
-														<a
-															class={
-																'nav-child ' +
-																(isChildActive ? 'nav-child--active' : '')
-															}
-															href={getUrlFromID(child.slug, lang)}
-															role="menuitem"
-														>
-															{t(child.title)}
-														</a>
-													</li>
-												);
-											})}
-										</ul>
-									)}
-								</li>
-							);
-						})
-					}
+						return (
+							<li
+								class={`header-nav__item button-text ${hasChildren ? 'has-dropdown' : ''}`}
+							>
+								{hasChildren ? (
+									<button
+										class={`dropdown-trigger border-effect ${isActive ? 'nav-link--active' : ''}`}
+										aria-haspopup="true"
+										aria-expanded="false"
+										aria-controls={dropdownId}
+										data-dropdown-trigger
+									>
+										{t(navItem.title)}
+										<ChevronDown class="dropdown-arrow" size={16} />
+									</button>
+								) : navItem.title === 'nav.home' ? null : (
+									<a
+										class={
+											'nav-link ' +
+											'border-effect ' +
+											(isActive ? 'nav-link--active' : '')
+										}
+										href={getUrlFromID(
+											navItem.slug,
+											lang,
+											navItem.slug === 'agenda'
+												? { year: new Date().getFullYear() }
+												: undefined
+										)}
+									>
+										{t(navItem.title)}
+									</a>
+								)}
+								{hasChildren && (
+									<ul class="dropdown-menu" id={dropdownId} role="menu">
+										{navItem.children.map(child => {
+											const isChildActive = child.slug === currentPageId;
+											return (
+												<li role="none" class="nav-child--list-item">
+													<a
+														class={
+															'nav-child ' +
+															(isChildActive ? 'nav-child--active' : '')
+														}
+														href={getUrlFromID(child.slug, lang)}
+														role="menuitem"
+													>
+														{t(child.title)}
+													</a>
+												</li>
+											);
+										})}
+									</ul>
+								)}
+							</li>
+						);
+					})}
 				</ul>
 			</nav>
 		</div>
 		<div class="header-action-item__container">
-			{
-				navActions.map((action, i) => (
-					<Button
-						outlined={i !== navActions.length - 1}
-						href={getUrlFromID(action.slug, lang)}
-					>
-						{t(action.title)}
-					</Button>
-				))
-			}
+			{navActions.map((action, i) => (
+				<Button
+					outlined={i !== navActions.length - 1}
+					href={getUrlFromID(action.slug, lang)}
+				>
+					{t(action.title)}
+				</Button>
+			))}
 			<Burger
 				id="menuButton"
 				aria-label={t('Menua ireki')}

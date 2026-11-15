@@ -38,7 +38,6 @@ const organizationSchema = {
 	type="application/ld+json"
 	set:html={JSON.stringify(organizationSchema)}
 />
-
 <footer
 	class="footer"
 	role="contentinfo"
@@ -54,7 +53,9 @@ const organizationSchema = {
 			class="footer__section footer__section--address"
 			aria-labelledby="footer-address-heading"
 		>
-			<h2 class="subtitle" id="footer-address-heading">{t('Helbidea')}</h2>
+			<h2 class="subtitle" id="footer-address-heading">
+				{t('Helbidea')}
+			</h2>
 			<a
 				href={Address.url}
 				target="_blank"
@@ -91,11 +92,9 @@ const organizationSchema = {
 					{t('Emaila') + ': ' + Email.name}
 				</a>
 				<p class="footer__office-hours">
-					{
-						t(
-							'Jende aurreko arreta zerbitzua astearte eta asteazkenetan 19:30-tatik 20:30-tara.'
-						)
-					}
+					{t(
+						'Jende aurreko arreta zerbitzua astearte eta asteazkenetan 19:30-tatik 20:30-tara.'
+					)}
 				</p>
 			</div>
 		</section>
@@ -104,7 +103,9 @@ const organizationSchema = {
 			class="footer__section footer__section--social"
 			aria-labelledby="footer-social-heading"
 		>
-			<h2 class="subtitle" id="footer-social-heading">{t('Sare sozialak')}</h2>
+			<h2 class="subtitle" id="footer-social-heading">
+				{t('Sare sozialak')}
+			</h2>
 			<ul class="footer__social-list">
 				<li class="footer__social-item">
 					<a

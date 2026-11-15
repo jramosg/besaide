@@ -22,7 +22,9 @@ const newsSection = getUrlFromID('news', lang);
 		buttonHref={newsSection}
 	>
 		<div class="featured-news">
-			{processedNews.map(item => <NewsCard item={item} />)}
+			{processedNews.map(item => (
+				<NewsCard item={item} />
+			))}
 		</div>
 	</HomeSectionHeader>
 </section>

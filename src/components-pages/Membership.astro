@@ -79,34 +79,34 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 	>
 		<PageHeader
 			title={t('Bazkidetza')}
-			subtitle={(lang === 'eu'
-				? membership.data.descriptionEu
-				: membership.data.descriptionEs) ||
+			subtitle={
+				(lang === 'eu'
+					? membership.data.descriptionEu
+					: membership.data.descriptionEs) ||
 				t(
 					'2025eko Besaide Mendizale Elkarteko bazkide kuotak honako hauek dira'
-				) + ':'}
+				) + ':'
+			}
 			id="bazkidetza"
 		/>
 
 		<ul class="prices-list">
-			{
-				membership.data.prices.map(item => {
-					const label = lang === 'eu' ? item.labelEu : item.labelEs;
-					const formatted = formatPriceLabel(label, item.price);
+			{membership.data.prices.map(item => {
+				const label = lang === 'eu' ? item.labelEu : item.labelEs;
+				const formatted = formatPriceLabel(label, item.price);
 
-					return (
-						<li class="price-item">
-							<h2 class="price-category">
-								<strong>{formatted.firstWord}</strong> {formatted.rest}
-							</h2>
-							<p class="price-amount">
-								<span class="price-value">{formatPrice(formatted.price)}</span>
-								<meta itemprop="priceCurrency" content="EUR" />
-							</p>
-						</li>
-					);
-				})
-			}
+				return (
+					<li class="price-item">
+						<h2 class="price-category">
+							<strong>{formatted.firstWord}</strong> {formatted.rest}
+						</h2>
+						<p class="price-amount">
+							<span class="price-value">{formatPrice(formatted.price)}</span>
+							<meta itemprop="priceCurrency" content="EUR" />
+						</p>
+					</li>
+				);
+			})}
 		</ul>
 
 		<aside class="card__membership--benefits" aria-labelledby="benefits-title">
@@ -114,137 +114,126 @@ const pricingNumberOfRows = pricingTable ? pricingTable.length : 0;
 				{t('Bazkide izatearen abantailak')}
 			</h2>
 			<p class="benefits-description">
-				{
-					lang === 'eu'
-						? membership.data.benefitsEu
-						: membership.data.benefitsEs
-				}
+				{lang === 'eu'
+					? membership.data.benefitsEu
+					: membership.data.benefitsEs}
 			</p>
 		</aside>
 	</Container>
 
-	{
-		pricingTable && (
-			<section
-				class="section__federation content__container"
-				aria-labelledby="federatzea"
-			>
-				<h1 id="federatzea" class="h2">
-					{t('Federatzea')}
-				</h1>
-				<FederationContent />
-				<div class="federation-info-card">
-					<div class="info-icon-container">
-						<InfoIcon size={24} aria-hidden="true" />
-					</div>
-					{lang === 'eu'
-						? federation.data.infoCardEu
-						: federation.data.infoCardEs}
+	{pricingTable && (
+		<section
+			class="section__federation content__container"
+			aria-labelledby="federatzea"
+		>
+			<h1 id="federatzea" class="h2">
+				{t('Federatzea')}
+			</h1>
+			<FederationContent />
+			<div class="federation-info-card">
+				<div class="info-icon-container">
+					<InfoIcon size={24} aria-hidden="true" />
 				</div>
-				{pricingTable.length > 0 && (
-					<>
-						<h2 class="subtitle" id="federation-prices">
-							{t('Kuotak:')}
-						</h2>
-						{/* Desktop Table View */}
-						<section
-							aria-labelledby="federation-prices"
-							class="table-wrapper"
-							role="region"
-							tabindex={0}
+				{lang === 'eu'
+					? federation.data.infoCardEu
+					: federation.data.infoCardEs}
+			</div>
+			{pricingTable.length > 0 && (
+				<>
+					<h2 class="subtitle" id="federation-prices">
+						{t('Kuotak:')}
+					</h2>
+					{/* Desktop Table View */}
+					<section
+						aria-labelledby="federation-prices"
+						class="table-wrapper"
+						role="region"
+						tabindex={0}
+					>
+						<table
+							class="federation-table"
+							itemscope
+							itemtype="https://schema.org/Table"
 						>
-							<table
-								class="federation-table"
-								itemscope
-								itemtype="https://schema.org/Table"
-							>
-								<thead>
-									<tr>
-										<th scope="col">
-											{lang === 'eu' ? 'Eskualdea' : 'Región'}
+							<thead>
+								<tr>
+									<th scope="col">{lang === 'eu' ? 'Eskualdea' : 'Región'}</th>
+									{ageCategories.map(cat => (
+										<th scope="col">{lang === 'eu' ? cat.eu : cat.es}</th>
+									))}
+								</tr>
+							</thead>
+							<tbody>
+								{pricingTable.map((row, index) => (
+									<tr itemscope itemtype="https://schema.org/Offer">
+										<th scope="row" itemprop="category">
+											{lang === 'eu' ? row.regionEu : row.regionEs}
 										</th>
 										{ageCategories.map(cat => (
-											<th scope="col">{lang === 'eu' ? cat.eu : cat.es}</th>
+											<td
+												class={
+													index === pricingNumberOfRows - 1
+														? 'price-latest'
+														: ''
+												}
+											>
+												<span itemprop="price">
+													{formatPrice(row[cat.key])}
+												</span>{' '}
+												<meta itemprop="priceCurrency" content="EUR" />
+											</td>
 										))}
 									</tr>
-								</thead>
-								<tbody>
-									{pricingTable.map((row, index) => (
-										<tr itemscope itemtype="https://schema.org/Offer">
-											<th scope="row" itemprop="category">
-												{lang === 'eu' ? row.regionEu : row.regionEs}
-											</th>
-											{ageCategories.map(cat => (
-												<td
-													class={
-														index === pricingNumberOfRows - 1
-															? 'price-latest'
-															: ''
-													}
-												>
-													<span itemprop="price">
-														{formatPrice(row[cat.key])}
-													</span>{' '}
-													<meta itemprop="priceCurrency" content="EUR" />
-												</td>
-											))}
-										</tr>
+								))}
+							</tbody>
+						</table>
+					</section>
+
+					{/* Mobile Card View */}
+					<section aria-labelledby="federation-prices" class="federation-cards">
+						{pricingTable.map(row => (
+							<article
+								class="federation-card"
+								itemscope
+								itemtype="https://schema.org/Offer"
+							>
+								<h2 class="card-region" itemprop="category">
+									{lang === 'eu' ? row.regionEu : row.regionEs}
+								</h2>
+								<dl class="card-prices">
+									{ageCategories.map(cat => (
+										<div class="price-row">
+											<dt class="price-label">
+												{lang === 'eu' ? cat.eu : cat.es}
+											</dt>
+											<dd class="price-value">
+												<span itemprop="price">
+													{formatPrice(row[cat.key])}
+												</span>{' '}
+												<meta itemprop="priceCurrency" content="EUR" />
+											</dd>
+										</div>
 									))}
-								</tbody>
-							</table>
-						</section>
+								</dl>
+							</article>
+						))}
+					</section>
+				</>
+			)}
+		</section>
+	)}
 
-						{/* Mobile Card View */}
-						<section
-							aria-labelledby="federation-prices"
-							class="federation-cards"
-						>
-							{pricingTable.map(row => (
-								<article
-									class="federation-card"
-									itemscope
-									itemtype="https://schema.org/Offer"
-								>
-									<h2 class="card-region" itemprop="category">
-										{lang === 'eu' ? row.regionEu : row.regionEs}
-									</h2>
-									<dl class="card-prices">
-										{ageCategories.map(cat => (
-											<div class="price-row">
-												<dt class="price-label">
-													{lang === 'eu' ? cat.eu : cat.es}
-												</dt>
-												<dd class="price-value">
-													<span itemprop="price">
-														{formatPrice(row[cat.key])}
-													</span>{' '}
-													<meta itemprop="priceCurrency" content="EUR" />
-												</dd>
-											</div>
-										))}
-									</dl>
-								</article>
-							))}
-						</section>
-					</>
-				)}
-			</section>
-		)
-	}
-
-	{
-		federation.data.extras && federation.data.extras.length > 0 && (
-			<section
-				class="section__extras content__container"
-				aria-labelledby="extras-title"
-			>
-				<h2 id="extras-title" class="subtitle">
-					{t('Gehigarriak:')}
-				</h2>
-				<ExtrasTable extras={federation.data.extras} lang={lang} />
-			</section>
-		)
-	}
+	{federation.data.extras && federation.data.extras.length > 0 && (
+		<section
+			class="section__extras content__container"
+			aria-labelledby="extras-title"
+		>
+			<h2 id="extras-title" class="subtitle">
+				{t('Gehigarriak:')}
+			</h2>
+			<ExtrasTable extras={federation.data.extras} lang={lang} />
+		</section>
+	)}
 	<FormSuccessSection
 		formSectionId="membership-form-section"
 		titleKey="form.success.title"

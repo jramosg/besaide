@@ -17,11 +17,9 @@ const routes = filterLeixargarate
 ---
 
 <ul class="route-list">
-	{
-		routes.map(route => (
-			<li class="route-list__item">
-				<RouteCard route={route.data} />
-			</li>
-		))
-	}
+	{routes.map(route => (
+		<li class="route-list__item">
+			<RouteCard route={route.data} />
+		</li>
+	))}
 </ul>

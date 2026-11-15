@@ -11,16 +11,14 @@ type Props = {
 const { item } = Astro.props;
 ---
 
-{
-	item.data.type === 'ski-alpino' ? (
-		<DownHillSkiing fill="currentColor" />
-	) : item.data.type === 'event' ? (
-		<CalendarAddOn fill="currentColor" />
-	) : item.data.type === 'course' ? (
-		<CourseIcon fill="currentColor" />
-	) : item.data.type === 'speleology' ? (
-		<HardHat fill="currentColor" />
-	) : (
-		<MountainClimb fill="currentColor" />
-	)
-}
+{item.data.type === 'ski-alpino' ? (
+	<DownHillSkiing fill="currentColor" />
+) : item.data.type === 'event' ? (
+	<CalendarAddOn fill="currentColor" />
+) : item.data.type === 'course' ? (
+	<CourseIcon fill="currentColor" />
+) : item.data.type === 'speleology' ? (
+	<HardHat fill="currentColor" />
+) : (
+	<MountainClimb fill="currentColor" />
+)}

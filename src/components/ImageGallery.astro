@@ -30,32 +30,30 @@ imageEntries.sort((a, b) => {
 ---
 
 <div class="gallery">
-	{
-		imageEntries.map(({ image }, index) => (
-			<div class="gallery__item">
-				<button
-					class="gallery__button"
-					data-index={index}
-					data-full-src={image.src}
-					data-full-width={image.width}
-					data-full-height={image.height}
-					aria-label={`View image ${index + 1}`}
-				>
-					<Image
-						src={image}
-						alt={`${alt} ${index + 1}`}
-						class="gallery__image"
-						loading="lazy"
-						widths={[400, 600, 800]}
-						sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-					/>
-					<div class="gallery__overlay">
-						<ZoomIn size={48} />
-					</div>
-				</button>
-			</div>
-		))
-	}
+	{imageEntries.map(({ image }, index) => (
+		<div class="gallery__item">
+			<button
+				class="gallery__button"
+				data-index={index}
+				data-full-src={image.src}
+				data-full-width={image.width}
+				data-full-height={image.height}
+				aria-label={`View image ${index + 1}`}
+			>
+				<Image
+					src={image}
+					alt={`${alt} ${index + 1}`}
+					class="gallery__image"
+					loading="lazy"
+					widths={[400, 600, 800]}
+					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+				/>
+				<div class="gallery__overlay">
+					<ZoomIn size={48} />
+				</div>
+			</button>
+		</div>
+	))}
 </div>
 
 <!-- Lightbox Modal -->

@@ -41,13 +41,11 @@ const siteName = 'Besaide Mendizale Elkartea';
 	content="Besaide Mendizale Elkartea - Arrasate, Gipuzkoa"
 />
 <meta property="og:locale" content={lang === 'eu' ? 'eu_ES' : 'es_ES'} />
-{
-	lang === 'eu' ? (
-		<meta property="og:locale:alternate" content="es_ES" />
-	) : (
-		<meta property="og:locale:alternate" content="eu_ES" />
-	)
-}
+{lang === 'eu' ? (
+	<meta property="og:locale:alternate" content="es_ES" />
+) : (
+	<meta property="og:locale:alternate" content="eu_ES" />
+)}
 
 <!-- Additional business-specific Open Graph tags -->
 <meta property="business:contact_data:street_address" content="Garibai 3 bis" />

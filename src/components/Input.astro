@@ -24,41 +24,39 @@ const {
 } = Astro.props;
 ---
 
-{
-	addWrapper ? (
-		<div class="input-wrapper">
-			<slot name="start-icon" />
-			<input
-				type={type}
-				id={id}
-				name={name || id}
-				class="input-field"
-				placeholder={placeholder}
-				aria-label={ariaLabel}
-				autocomplete={autocomplete}
-				required={required}
-				value={value}
-			/>
-			<slot />
-		</div>
-	) : (
-		<>
-			<slot name="start-icon" />
-			<input
-				type={type}
-				id={id}
-				name={name || id}
-				class="input-field"
-				placeholder={placeholder}
-				aria-label={ariaLabel}
-				value={value}
-				autocomplete={autocomplete}
-				required={required}
-			/>
-			<slot />
-		</>
-	)
-}
+{addWrapper ? (
+	<div class="input-wrapper">
+		<slot name="start-icon" />
+		<input
+			type={type}
+			id={id}
+			name={name || id}
+			class="input-field"
+			placeholder={placeholder}
+			aria-label={ariaLabel}
+			autocomplete={autocomplete}
+			required={required}
+			value={value}
+		/>
+		<slot />
+	</div>
+) : (
+	<>
+		<slot name="start-icon" />
+		<input
+			type={type}
+			id={id}
+			name={name || id}
+			class="input-field"
+			placeholder={placeholder}
+			aria-label={ariaLabel}
+			value={value}
+			autocomplete={autocomplete}
+			required={required}
+		/>
+		<slot />
+	</>
+)}
 
 <style>
 	.input-wrapper {

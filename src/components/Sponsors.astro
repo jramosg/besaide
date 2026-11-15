@@ -50,18 +50,14 @@ const t = useTranslations(lang);
 	>
 		<div class="carousel" role="region" aria-label={t('Babesleak')}>
 			<div class="group">
-				{
-					sponsors.map(sponsor => {
-						return <SponsorLink {...sponsor} />;
-					})
-				}
+				{sponsors.map(sponsor => {
+					return <SponsorLink {...sponsor} />;
+				})}
 			</div>
 			<div class="group">
-				{
-					sponsors.map(sponsor => {
-						return <SponsorLink {...sponsor} />;
-					})
-				}
+				{sponsors.map(sponsor => {
+					return <SponsorLink {...sponsor} />;
+				})}
 			</div>
 		</div>
 	</HomeSectionHeader>

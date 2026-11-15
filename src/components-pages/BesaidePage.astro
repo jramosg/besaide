@@ -48,34 +48,32 @@ const boardMembers = besaideFunctioning.data.boardMembers;
 		<HistoryContent />
 	</section>
 
-	{
-		boardMembers && boardMembers.length > 0 && (
-			<section class="functioning-section">
-				<h2 class="h4">{t('Funtzionamendua')}</h2>
-				<p>
-					{lang === 'eu'
-						? besaideFunctioning.data.introductionEu
-						: besaideFunctioning.data.introductionEs}
-				</p>
-				<ul class="board-members">
-					{boardMembers.map(member => (
-						<li>
-							<strong>
-								{lang === 'eu' ? member.positionEu : member.positionEs}:
-							</strong>{' '}
-							{member.name}
-						</li>
-					))}
-				</ul>
+	{boardMembers && boardMembers.length > 0 && (
+		<section class="functioning-section">
+			<h2 class="h4">{t('Funtzionamendua')}</h2>
+			<p>
+				{lang === 'eu'
+					? besaideFunctioning.data.introductionEu
+					: besaideFunctioning.data.introductionEs}
+			</p>
+			<ul class="board-members">
+				{boardMembers.map(member => (
+					<li>
+						<strong>
+							{lang === 'eu' ? member.positionEu : member.positionEs}:
+						</strong>{' '}
+						{member.name}
+					</li>
+				))}
+			</ul>
 
-				<p>
-					{lang === 'eu'
-						? besaideFunctioning.data.closingTextEu
-						: besaideFunctioning.data.closingTextEs}
-				</p>
-			</section>
-		)
-	}
+			<p>
+				{lang === 'eu'
+					? besaideFunctioning.data.closingTextEu
+					: besaideFunctioning.data.closingTextEs}
+			</p>
+		</section>
+	)}
 	<section>
 		<h2 class="h4">{t('Arreta zerbitzua')}</h2>
 		<OfficeHours />

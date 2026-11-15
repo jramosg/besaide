@@ -108,32 +108,30 @@ const nextUrl = currentPage < lastPage ? getPageUrl(currentPage + 1) : null;
 		</li>
 
 		<!-- Page numbers -->
-		{
-			pageNumbers.map(pageNum => (
-				<li class="pagination__item">
-					{pageNum === '...' ? (
-						<span class="pagination__ellipsis" aria-hidden="true">
-							...
-						</span>
-					) : pageNum === currentPage ? (
-						<span
-							class="pagination__link pagination__link--current"
-							aria-current="page"
-						>
-							{pageNum}
-						</span>
-					) : (
-						<a
-							href={getPageUrl(pageNum as number)}
-							class="pagination__link"
-							aria-label={`${pageNum}. ${t('pagination.page')}`}
-						>
-							{pageNum}
-						</a>
-					)}
-				</li>
-			))
-		}
+		{pageNumbers.map(pageNum => (
+			<li class="pagination__item">
+				{pageNum === '...' ? (
+					<span class="pagination__ellipsis" aria-hidden="true">
+						...
+					</span>
+				) : pageNum === currentPage ? (
+					<span
+						class="pagination__link pagination__link--current"
+						aria-current="page"
+					>
+						{pageNum}
+					</span>
+				) : (
+					<a
+						href={getPageUrl(pageNum as number)}
+						class="pagination__link"
+						aria-label={`${pageNum}. ${t('pagination.page')}`}
+					>
+						{pageNum}
+					</a>
+				)}
+			</li>
+		))}
 
 		<!-- Next page -->
 		<li class="pagination__item">

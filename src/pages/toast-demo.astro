@@ -6,19 +6,31 @@ import Button from '@/components/buttons/Button.astro';
 import Page from '@/layouts/Page.astro';
 ---
 
-<Page
-	><Container>
+<Page>
+	<Container>
 		<h1>Toast System Demo</h1>
 		<p>Click the buttons below to test different toast variants:</p>
 
 		<div class="demo-buttons">
 			<Button id="success-btn">Success Toast</Button>
-			<Button id="error-btn" outlined>Error Toast</Button>
-			<Button id="warning-btn" outlined>Warning Toast</Button>
-			<Button id="info-btn" outlined>Info Toast</Button>
-			<Button id="action-btn" outlined>Toast with Action</Button>
-			<Button id="long-btn" outlined>Long Duration Toast</Button>
-			<Button id="dismiss-all-btn" outlined>Dismiss All</Button>
+			<Button id="error-btn" outlined>
+				Error Toast
+			</Button>
+			<Button id="warning-btn" outlined>
+				Warning Toast
+			</Button>
+			<Button id="info-btn" outlined>
+				Info Toast
+			</Button>
+			<Button id="action-btn" outlined>
+				Toast with Action
+			</Button>
+			<Button id="long-btn" outlined>
+				Long Duration Toast
+			</Button>
+			<Button id="dismiss-all-btn" outlined>
+				Dismiss All
+			</Button>
 		</div>
 	</Container>
 

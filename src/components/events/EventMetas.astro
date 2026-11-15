@@ -34,63 +34,49 @@ const slug = slugify(Astro.props.item.id);
 ---
 
 <>
-	{
-		type === 'mountain'
-			? mountain && (
-					<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={slug}>
-						<Map slot="icon" />
-					</CardMeta>
-				)
-			: location && (
-					<CardMeta title={t('TOKIA')} desc={location || ''} eventId={slug}>
-						<Map slot="icon" />
-					</CardMeta>
-				)
-	}
-	{
-		elevationGain && (
-			<CardMeta title={t('ALTUERA')} desc={elevationGain} eventId={slug}>
-				<MountainClimb slot="icon" fill="currentColor" />
-			</CardMeta>
-		)
-	}
+	{type === 'mountain'
+		? mountain && (
+				<CardMeta title={t('MENDIA')} desc={mountain || ''} eventId={slug}>
+					<Map slot="icon" />
+				</CardMeta>
+			)
+		: location && (
+				<CardMeta title={t('TOKIA')} desc={location || ''} eventId={slug}>
+					<Map slot="icon" />
+				</CardMeta>
+			)}
+	{elevationGain && (
+		<CardMeta title={t('ALTUERA')} desc={elevationGain} eventId={slug}>
+			<MountainClimb slot="icon" fill="currentColor" />
+		</CardMeta>
+	)}
 
-	{
-		desnivel && (
-			<CardMeta title={t('DESNIBELA')} desc={desnivel} eventId={slug}>
-				<MountainClimb slot="icon" fill="currentColor" />
-			</CardMeta>
-		)
-	}
+	{desnivel && (
+		<CardMeta title={t('DESNIBELA')} desc={desnivel} eventId={slug}>
+			<MountainClimb slot="icon" fill="currentColor" />
+		</CardMeta>
+	)}
 
-	{
-		distance && (
-			<CardMeta title={t('DISTANTZIA')} desc={distance} eventId={slug}>
-				<DistanceIcon slot="icon" fill="currentColor" />
-			</CardMeta>
-		)
-	}
+	{distance && (
+		<CardMeta title={t('DISTANTZIA')} desc={distance} eventId={slug}>
+			<DistanceIcon slot="icon" fill="currentColor" />
+		</CardMeta>
+	)}
 
-	{
-		meetingPoint && (
-			<CardMeta title={t('TOPAGUNEA')} desc={meetingPoint} eventId={slug}>
-				<PlaceIcon slot="icon" fill="currentColor" />
-			</CardMeta>
-		)
-	}
+	{meetingPoint && (
+		<CardMeta title={t('TOPAGUNEA')} desc={meetingPoint} eventId={slug}>
+			<PlaceIcon slot="icon" fill="currentColor" />
+		</CardMeta>
+	)}
 
-	{
-		time && (
-			<CardMeta title={t('ORDUA')} desc={time} eventId={slug}>
-				<Clock3 slot="icon" />
-			</CardMeta>
-		)
-	}
-	{
-		duration && (
-			<CardMeta title={t('IRAUPENA')} desc={duration} eventId={slug}>
-				<DurationIcon slot="icon" fill="currentColor" />
-			</CardMeta>
-		)
-	}
+	{time && (
+		<CardMeta title={t('ORDUA')} desc={time} eventId={slug}>
+			<Clock3 slot="icon" />
+		</CardMeta>
+	)}
+	{duration && (
+		<CardMeta title={t('IRAUPENA')} desc={duration} eventId={slug}>
+			<DurationIcon slot="icon" fill="currentColor" />
+		</CardMeta>
+	)}
 </>
