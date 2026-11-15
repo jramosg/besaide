@@ -30,17 +30,15 @@ const shortcuts = [
 
 <section class="shortcuts-container">
 	<Container class="shortcuts-grid">
-		{
-			shortcuts.map(shortcut => (
-				<>
-					<div class="shortcut-item">
-						<h3>{shortcut.title}</h3>
-						<p>{shortcut.description}</p>
-						<Button href={shortcut.href}>{shortcut.cta}</Button>
-					</div>
-				</>
-			))
-		}
+		{shortcuts.map(shortcut => (
+			<>
+				<div class="shortcut-item">
+					<h3>{shortcut.title}</h3>
+					<p>{shortcut.description}</p>
+					<Button href={shortcut.href}>{shortcut.cta}</Button>
+				</div>
+			</>
+		))}
 	</Container>
 </section>
 

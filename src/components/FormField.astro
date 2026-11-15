@@ -27,13 +27,11 @@ const errorMessage = name ? errors[name] : '';
 <div class:list={['form-field', className]} {...rest}>
 	<label for={htmlFor} class="form-label">
 		{label}
-		{
-			required && (
-				<abbr title="required" aria-label="required">
-					*
-				</abbr>
-			)
-		}
+		{required && (
+			<abbr title="required" aria-label="required">
+				*
+			</abbr>
+		)}
 	</label>
 	<slot />
 	{errorMessage && <FormError message={errorMessage} />}

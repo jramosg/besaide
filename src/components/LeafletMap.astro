@@ -20,16 +20,21 @@ const { latitude, longitude, zoom, tileLayer, markerComponent } = Astro.props;
 	data-longitude={longitude}
 	data-zoom={zoom}
 	data-tiles={tileLayer}
-	data-marker-component={markerComponent ||
-		`<a href=${Address.url} target="_blank" rel="noopener noreferrer">${CompanyName}</a>`}
->
-</leaflet-map>
+	data-marker-component={
+		markerComponent ||
+		`<a href=${Address.url} target="_blank" rel="noopener noreferrer">${CompanyName}</a>`
+	}
+></leaflet-map>
 <div class="leaflet-attribution">
-	&copy; <a
+	&copy;{' '}
+	<a
 		href="https://www.openstreetmap.org/copyright"
 		target="_blank"
-		rel="noopener noreferrer">OpenStreetMap</a
-	> contributors
+		rel="noopener noreferrer"
+	>
+		OpenStreetMap
+	</a>{' '}
+	contributors
 </div>
 
 <script>

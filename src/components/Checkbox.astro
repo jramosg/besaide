@@ -32,13 +32,11 @@ const {
 	/>
 	<label for={id} class="checkbox-label">
 		{label}
-		{
-			required && (
-				<span class="required-mark" aria-label="required">
-					*
-				</span>
-			)
-		}
+		{required && (
+			<span class="required-mark" aria-label="required">
+				*
+			</span>
+		)}
 	</label>
 </div>
 

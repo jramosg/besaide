@@ -15,9 +15,11 @@ const viewTransitionName = slug ? `image-${slug}` : undefined;
 <header class="hero">
 	<Image
 		src={src}
-		style={viewTransitionName
-			? `view-transition-name: ${viewTransitionName}`
-			: undefined}
+		style={
+			viewTransitionName
+				? `view-transition-name: ${viewTransitionName}`
+				: undefined
+		}
 		alt={alt}
 		layout="full-width"
 	/>

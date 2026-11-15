@@ -57,57 +57,55 @@ const initialMonthKey = `${today.getFullYear()}-${today.getMonth()}`;
 const monthKeys = Array.from(eventsByMonth.keys());
 ---
 
-{
-	events.length > 0 ? (
-		<section
-			id="agenda"
-			class="home-section_container"
-			aria-labelledby="agenda-heading"
+{events.length > 0 ? (
+	<section
+		id="agenda"
+		class="home-section_container"
+		aria-labelledby="agenda-heading"
+	>
+		<HomeSectionHeader
+			id="agenda-heading"
+			title={t('Hurrengo irteerak')}
+			buttonText={t('Agenda osoa ikusi')}
+			buttonHref={getUrlFromID('agenda', lang, {
+				year: new Date().getFullYear()
+			})}
 		>
-			<HomeSectionHeader
-				id="agenda-heading"
-				title={t('Hurrengo irteerak')}
-				buttonText={t('Agenda osoa ikusi')}
-				buttonHref={getUrlFromID('agenda', lang, {
-					year: new Date().getFullYear()
-				})}
-			>
-				<div class="home-agenda-layout">
-					<div class="home-agenda-calendar">
-						<HomeCalendar events={calendarEvents} lang={lang} client:visible />
-					</div>
-					<div class="home-agenda-events" id="home-agenda-events">
-						{monthKeys.map(key => (
-							<div
-								class="home-agenda-month-group"
-								data-month-key={key}
-								style={key === initialMonthKey ? '' : 'display:none'}
-							>
-								<div class="events-grid">
-									{eventsByMonth
-										.get(key)!
-										.events.slice(0, 6)
-										.map(item => (
-											<EventCard item={item} lang={lang} />
-										))}
-								</div>
-							</div>
-						))}
-
-						{/* Empty state shown when current month has no events */}
+			<div class="home-agenda-layout">
+				<div class="home-agenda-calendar">
+					<HomeCalendar events={calendarEvents} lang={lang} client:visible />
+				</div>
+				<div class="home-agenda-events" id="home-agenda-events">
+					{monthKeys.map(key => (
 						<div
-							class="home-agenda-empty"
-							id="home-agenda-empty"
-							style={eventsByMonth.has(initialMonthKey) ? 'display:none' : ''}
+							class="home-agenda-month-group"
+							data-month-key={key}
+							style={key === initialMonthKey ? '' : 'display:none'}
 						>
-							<p>{t('home.calendar.no-events')}</p>
+							<div class="events-grid">
+								{eventsByMonth
+									.get(key)!
+									.events.slice(0, 6)
+									.map(item => (
+										<EventCard item={item} lang={lang} />
+									))}
+							</div>
 						</div>
+					))}
+
+					{/* Empty state shown when current month has no events */}
+					<div
+						class="home-agenda-empty"
+						id="home-agenda-empty"
+						style={eventsByMonth.has(initialMonthKey) ? 'display:none' : ''}
+					>
+						<p>{t('home.calendar.no-events')}</p>
 					</div>
 				</div>
-			</HomeSectionHeader>
-		</section>
-	) : null
-}
+			</div>
+		</HomeSectionHeader>
+	</section>
+) : null}
 
 <style>
 	.home-agenda-layout {

@@ -47,20 +47,18 @@ const selectedOption = options.find(opt => opt.value === defaultValue);
 		aria-label={ariaLabel}
 		data-select-content
 	>
-		{
-			options.map(option => (
-				<div
-					class="select-item"
-					role="option"
-					aria-selected={option.value === defaultValue ? 'true' : 'false'}
-					data-value={option.value}
-					data-select-item
-				>
-					<Check class="select-item-indicator" aria-hidden="true" />
-					<span>{option.label}</span>
-				</div>
-			))
-		}
+		{options.map(option => (
+			<div
+				class="select-item"
+				role="option"
+				aria-selected={option.value === defaultValue ? 'true' : 'false'}
+				data-value={option.value}
+				data-select-item
+			>
+				<Check class="select-item-indicator" aria-hidden="true" />
+				<span>{option.label}</span>
+			</div>
+		))}
 	</div>
 
 	<!-- Hidden input for form submission -->

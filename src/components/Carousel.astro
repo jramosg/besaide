@@ -41,31 +41,27 @@ const nextBtnId = `${carouselId}-next`;
 	<div id={slidesId} class="carousel__slides">
 		<slot />
 	</div>
-	{
-		showNavigation && (
-			<button
-				id={prevBtnId}
-				class="carousel__nav carousel__nav--prev"
-				aria-label="Previous slide"
-				type="button"
-			>
-				<ArrowLeft />
-			</button>
-		)
-	}
+	{showNavigation && (
+		<button
+			id={prevBtnId}
+			class="carousel__nav carousel__nav--prev"
+			aria-label="Previous slide"
+			type="button"
+		>
+			<ArrowLeft />
+		</button>
+	)}
 
-	{
-		showNavigation && (
-			<button
-				id={nextBtnId}
-				class="carousel__nav carousel__nav--next"
-				aria-label="Next slide"
-				type="button"
-			>
-				<ArrowRight />
-			</button>
-		)
-	}
+	{showNavigation && (
+		<button
+			id={nextBtnId}
+			class="carousel__nav carousel__nav--next"
+			aria-label="Next slide"
+			type="button"
+		>
+			<ArrowRight />
+		</button>
+	)}
 </div>
 
 <style>

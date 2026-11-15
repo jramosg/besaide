@@ -106,98 +106,97 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			slug="leixargarate-aterpea"
 		/>
 		<section aria-labelledby="description-heading">
-			<h2 id="description-heading" class="h4">{t('Deskribapena')}</h2>
+			<h2 id="description-heading" class="h4">
+				{t('Deskribapena')}
+			</h2>
 			<p itemprop="description">
 				{lang === 'eu' ? entry.data.descriptionEu : entry.data.descriptionEs}
 			</p>
 		</section>
-		{
-			termsRender && (
-				<section aria-labelledby="terms-heading">
-					<h2 id="terms-heading" class="h4">
-						{t('Baldintzak')}
-					</h2>
-					{termsRender && <termsRender.Content />}
-				</section>
-			)
-		}
+		{termsRender && (
+			<section aria-labelledby="terms-heading">
+				<h2 id="terms-heading" class="h4">
+					{t('Baldintzak')}
+				</h2>
+				{termsRender && <termsRender.Content />}
+			</section>
+		)}
 
 		<section aria-labelledby="prices-heading">
-			<h2 id="prices-heading" class="h4">{t('Prezioak')}</h2>
+			<h2 id="prices-heading" class="h4">
+				{t('Prezioak')}
+			</h2>
 			<dl class="price-list">
-				{
-					entry.data.prices.map(price => {
-						const isDescription =
-							(price.descriptionEu && lang === 'eu') ||
-							(price.descriptionEs && lang === 'es');
-						return (
-							<>
-								<dt
-									class:list={[
-										'price-label',
-										'subtitle2',
-										isDescription ? '' : 'row-border'
-									]}
-									itemscope
-									itemtype="https://schema.org/Offer"
-								>
-									<span itemprop="name">
-										{lang === 'eu' ? price.labelEu : price.labelEs}
-									</span>
-								</dt>
+				{entry.data.prices.map(price => {
+					const isDescription =
+						(price.descriptionEu && lang === 'eu') ||
+						(price.descriptionEs && lang === 'es');
+					return (
+						<>
+							<dt
+								class:list={[
+									'price-label',
+									'subtitle2',
+									isDescription ? '' : 'row-border'
+								]}
+								itemscope
+								itemtype="https://schema.org/Offer"
+							>
+								<span itemprop="name">
+									{lang === 'eu' ? price.labelEu : price.labelEs}
+								</span>
+							</dt>
+							<dd
+								class:list={['price-value', isDescription ? '' : 'row-border']}
+							>
+								<span itemprop="price">
+									{lang === 'eu' ? price.priceEu : price.priceEs}
+								</span>
+								<meta itemprop="priceCurrency" content="EUR" />
+								<meta
+									itemprop="availability"
+									content="https://schema.org/InStock"
+								/>
+							</dd>
+							{isDescription && (
 								<dd
-									class:list={[
-										'price-value',
-										isDescription ? '' : 'row-border'
-									]}
+									itemprop="priceSpecification"
+									class="price-description row-border"
 								>
-									<span itemprop="price">
-										{lang === 'eu' ? price.priceEu : price.priceEs}
-									</span>
-									<meta itemprop="priceCurrency" content="EUR" />
-									<meta
-										itemprop="availability"
-										content="https://schema.org/InStock"
-									/>
+									{lang === 'eu' ? price.descriptionEu : price.descriptionEs}
 								</dd>
-								{isDescription && (
-									<dd
-										itemprop="priceSpecification"
-										class="price-description row-border"
-									>
-										{lang === 'eu' ? price.descriptionEu : price.descriptionEs}
-									</dd>
-								)}
-							</>
-						);
-					})
-				}
+							)}
+						</>
+					);
+				})}
 			</dl>
 		</section>
 
-		{
-			(entry.data.contributionEu && lang === 'eu') ||
-			(entry.data.contributionEs && lang === 'es') ? (
-				<section aria-labelledby="contribution-heading">
-					<h2 id="contribution-heading" class="h4">
-						{t('Berrikuntzak')}
-					</h2>
-					<p>
-						{lang === 'eu'
-							? entry.data.contributionEu
-							: entry.data.contributionEs}
-					</p>
-				</section>
-			) : null
-		}
+		{(entry.data.contributionEu && lang === 'eu') ||
+		(entry.data.contributionEs && lang === 'es') ? (
+			<section aria-labelledby="contribution-heading">
+				<h2 id="contribution-heading" class="h4">
+					{t('Berrikuntzak')}
+				</h2>
+				<p>
+					{lang === 'eu'
+						? entry.data.contributionEu
+						: entry.data.contributionEs}
+				</p>
+			</section>
+		) : null}
 
 		<section aria-labelledby="gallery-heading">
-			<h2 id="gallery-heading" class="h4">{t('Argazki galeria')}</h2>
+			<h2 id="gallery-heading" class="h4">
+				{t('Argazki galeria')}
+			</h2>
 			<ImageGallery images={images} alt={t('nav.leixagarate-aterpea')} />
 		</section>
 
 		<section class="leixergarate-routes" aria-labelledby="routes-heading">
-			<h2 id="routes-heading" class="h4">{t('nav.routes')}</h2>
+			<h2 id="routes-heading" class="h4">
+				{t('nav.routes')}
+			</h2>
 			<RouteList filterLeixargarate={true} />
 		</section>
 		<section
@@ -205,7 +204,9 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 			itemscope
 			itemtype="https://schema.org/Place"
 		>
-			<h2 id="location-heading" class="h4">{t('Kokapena')}</h2>
+			<h2 id="location-heading" class="h4">
+				{t('Kokapena')}
+			</h2>
 			<div class="location-grid">
 				<div
 					class="leaflet-map-container"
@@ -249,11 +250,9 @@ const coordinatesText = `N42º 58.365′ W2º 31.207′, ${coordinates.elevation
 		aria-label="Call to action"
 	>
 		<p class="h4 leixergarate-footer-text">
-			{
-				t(
-					'Animatu zaitez asteburua mendian igarotzera, familia edo lagun artean!'
-				)
-			}
+			{t(
+				'Animatu zaitez asteburua mendian igarotzera, familia edo lagun artean!'
+			)}
 		</p>
 	</section>
 

@@ -23,46 +23,42 @@ const t = useTranslations(lang);
 
 <div class:list={['material-item', !available && 'material-item--unavailable']}>
 	<div class="material-item__icon" aria-hidden="true">
-		{
-			icon === 'ice-axe' ? (
-				<Pickaxe size={24} />
-			) : icon === 'shovel' ? (
-				<Shovel size={24} />
-			) : icon === 'snowshoe' ? (
-				<SnowShoeIcon fill="currentColor" />
-			) : icon === 'helmet' ? (
-				<HardHat />
-			) : icon === 'cramps' ? (
-				<CrampsIcon fill="transparent" stroke="currentColor" />
-			) : icon === 'foka' ? (
-				<FokaIcon stroke="currentColor" />
-			) : (
-				<ConstructIcon fill="currentColor" />
-			)
-		}
+		{icon === 'ice-axe' ? (
+			<Pickaxe size={24} />
+		) : icon === 'shovel' ? (
+			<Shovel size={24} />
+		) : icon === 'snowshoe' ? (
+			<SnowShoeIcon fill="currentColor" />
+		) : icon === 'helmet' ? (
+			<HardHat />
+		) : icon === 'cramps' ? (
+			<CrampsIcon fill="transparent" stroke="currentColor" />
+		) : icon === 'foka' ? (
+			<FokaIcon stroke="currentColor" />
+		) : (
+			<ConstructIcon fill="currentColor" />
+		)}
 	</div>
 	<dt class="material-item__name">{name}</dt>
 	<dd class="material-item__price">
 		{formatPrice(price)}
 		<meta itemprop="priceCurrency" content="EUR" />
 	</dd>
-	{
-		!available && (
-			<>
-				<dd class="material-item__chip-wrapper">
-					<Chip class="material-item__chip" variant="error">
-						{t('material-rent.unavailable')}
-					</Chip>
-				</dd>
-				<dd
-					class="material-item__unavailable-mobile"
-					aria-label={t('material-rent.unavailable')}
-				>
-					✕
-				</dd>
-			</>
-		)
-	}
+	{!available && (
+		<>
+			<dd class="material-item__chip-wrapper">
+				<Chip class="material-item__chip" variant="error">
+					{t('material-rent.unavailable')}
+				</Chip>
+			</dd>
+			<dd
+				class="material-item__unavailable-mobile"
+				aria-label={t('material-rent.unavailable')}
+			>
+				✕
+			</dd>
+		</>
+	)}
 </div>
 
 <style>

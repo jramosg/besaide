@@ -30,13 +30,19 @@ const t = useTranslations(lang);
 								x2="0%"
 								y2="100%"
 							>
-								<stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1"
+								<stop
+									offset="0%"
+									style="stop-color:#4A90E2;stop-opacity:1"
 								></stop>
-								<stop offset="100%" style="stop-color:#2E5C8A;stop-opacity:1"
+								<stop
+									offset="100%"
+									style="stop-color:#2E5C8A;stop-opacity:1"
 								></stop>
 							</linearGradient>
 							<filter id="glow">
-								<feGaussianBlur stdDeviation="3" result="coloredBlur"
+								<feGaussianBlur
+									stdDeviation="3"
+									result="coloredBlur"
 								></feGaussianBlur>
 								<feMerge>
 									<feMergeNode in="coloredBlur"></feMergeNode>
@@ -49,13 +55,15 @@ const t = useTranslations(lang);
 							class="mountain-peak"
 							d="M100,40 L160,140 L40,140 Z"
 							fill="url(#mountainGradient)"
-							filter="url(#glow)"></path>
+							filter="url(#glow)"
+						></path>
 						<!-- Snow Cap -->
 						<path
 							class="snow-cap"
 							d="M100,40 L120,80 L80,80 Z"
 							fill="#FFFFFF"
-							opacity="0.9"></path>
+							opacity="0.9"
+						></path>
 						<!-- Flag -->
 						<g class="flag-group">
 							<line
@@ -65,8 +73,12 @@ const t = useTranslations(lang);
 								y2="20"
 								stroke="#E8944A"
 								stroke-width="2"
-								class="flag-pole"></line>
-							<path d="M100,20 L115,25 L100,30 Z" fill="#E8944A" class="flag"
+								class="flag-pole"
+							></line>
+							<path
+								d="M100,20 L115,25 L100,30 Z"
+								fill="#E8944A"
+								class="flag"
 							></path>
 						</g>
 						<!-- Clouds -->
@@ -76,21 +88,24 @@ const t = useTranslations(lang);
 							cy="50"
 							r="8"
 							fill="#ffffff"
-							opacity="0.4"></circle>
+							opacity="0.4"
+						></circle>
 						<circle
 							class="cloud cloud-1"
 							cx="38"
 							cy="48"
 							r="10"
 							fill="#ffffff"
-							opacity="0.4"></circle>
+							opacity="0.4"
+						></circle>
 						<circle
 							class="cloud cloud-1"
 							cx="45"
 							cy="50"
 							r="7"
 							fill="#ffffff"
-							opacity="0.4"></circle>
+							opacity="0.4"
+						></circle>
 
 						<circle
 							class="cloud cloud-2"
@@ -98,21 +113,24 @@ const t = useTranslations(lang);
 							cy="60"
 							r="9"
 							fill="#ffffff"
-							opacity="0.3"></circle>
+							opacity="0.3"
+						></circle>
 						<circle
 							class="cloud cloud-2"
 							cx="160"
 							cy="58"
 							r="11"
 							fill="#ffffff"
-							opacity="0.3"></circle>
+							opacity="0.3"
+						></circle>
 						<circle
 							class="cloud cloud-2"
 							cx="168"
 							cy="60"
 							r="8"
 							fill="#ffffff"
-							opacity="0.3"></circle>
+							opacity="0.3"
+						></circle>
 					</svg>
 				</div>
 
@@ -139,14 +157,16 @@ const t = useTranslations(lang);
 							stroke-width="3"
 							fill="none"
 							stroke-dasharray="10,5"
-							stroke-linecap="round"></path>
+							stroke-linecap="round"
+						></path>
 						<circle class="hiker" cx="0" cy="30" r="6" fill="#E8944A">
 							<animate
 								attributeName="cx"
 								from="0"
 								to="400"
 								dur="4s"
-								repeatCount="indefinite"></animate>
+								repeatCount="indefinite"
+							></animate>
 						</circle>
 					</svg>
 				</div>

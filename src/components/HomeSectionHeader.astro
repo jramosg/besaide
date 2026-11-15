@@ -23,25 +23,23 @@ const {
 
 <>
 	<div class={`section-header ${className || ''}`} {...rest}>
-		<h2 class="section-header__title" id={id}>{title}</h2>
-		{
-			buttonText && (
-				<div class="section-header__action">
-					<Button href={buttonHref}>{buttonText}</Button>
-				</div>
-			)
-		}
+		<h2 class="section-header__title" id={id}>
+			{title}
+		</h2>
+		{buttonText && (
+			<div class="section-header__action">
+				<Button href={buttonHref}>{buttonText}</Button>
+			</div>
+		)}
 		{subtitle && <p class="section-header__subtitle">{subtitle}</p>}
 	</div>
 
 	<slot />
-	{
-		buttonText && (
-			<div class="section-header__action__mobile">
-				<Button href={buttonHref}>{buttonText}</Button>
-			</div>
-		)
-	}
+	{buttonText && (
+		<div class="section-header__action__mobile">
+			<Button href={buttonHref}>{buttonText}</Button>
+		</div>
+	)}
 </>
 
 <style>

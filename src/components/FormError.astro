@@ -6,10 +6,8 @@ interface Props {
 const { message, ...rest } = Astro.props;
 ---
 
-{
-	message && (
-		<p class="form-error" role="alert" {...rest}>
-			{message}
-		</p>
-	)
-}
+{message && (
+	<p class="form-error" role="alert" {...rest}>
+		{message}
+	</p>
+)}

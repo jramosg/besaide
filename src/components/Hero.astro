@@ -53,82 +53,78 @@ const dotLabel = lang === 'eu' ? 'Bannerra ikusi' : 'Ver banner';
 	<div class="hero-overlay" aria-hidden="true"></div>
 	{hasMultipleSlides && <div class="hero-glow" aria-hidden="true" />}
 
-	{
-		slides.map((slide, index) => (
-			<article
-				id={slide.id}
-				class:list={['hero__slide', index === 0 && 'hero__slide--active']}
-				data-hero-slide
-				aria-hidden={index === 0 ? 'false' : 'true'}
-				aria-label={`${index + 1} / ${slides.length}`}
-				aria-roledescription={hasMultipleSlides ? 'slide' : undefined}
-				style={`--slide-index: ${index};`}
-			>
-				<div class="hero__content content__container">
-					{index === 0 ? (
-						<h1 class:list={['hero-title', !hasMultipleSlides && 'h1']}>
-							{slide.title}
-						</h1>
-					) : (
-						<h1 class="hero-title">{slide.title}</h1>
+	{slides.map((slide, index) => (
+		<article
+			id={slide.id}
+			class:list={['hero__slide', index === 0 && 'hero__slide--active']}
+			data-hero-slide
+			aria-hidden={index === 0 ? 'false' : 'true'}
+			aria-label={`${index + 1} / ${slides.length}`}
+			aria-roledescription={hasMultipleSlides ? 'slide' : undefined}
+			style={`--slide-index: ${index};`}
+		>
+			<div class="hero__content content__container">
+				{index === 0 ? (
+					<h1 class:list={['hero-title', !hasMultipleSlides && 'h1']}>
+						{slide.title}
+					</h1>
+				) : (
+					<h1 class="hero-title">{slide.title}</h1>
+				)}
+				{slide.description && slide.description.trim().length > 0 && (
+					<p class="hero__description">{slide.description}</p>
+				)}
+				{slide.buttonLabel &&
+					slide.buttonLabel.trim().length > 0 &&
+					slide.buttonLink &&
+					slide.buttonLink.trim().length > 0 && (
+						<a class="hero__cta" href={slide.buttonLink}>
+							<span>{slide.buttonLabel}</span>
+							<ArrowRight aria-hidden="true" />
+						</a>
 					)}
-					{slide.description && slide.description.trim().length > 0 && (
-						<p class="hero__description">{slide.description}</p>
-					)}
-					{slide.buttonLabel &&
-						slide.buttonLabel.trim().length > 0 &&
-						slide.buttonLink &&
-						slide.buttonLink.trim().length > 0 && (
-							<a class="hero__cta" href={slide.buttonLink}>
-								<span>{slide.buttonLabel}</span>
-								<ArrowRight aria-hidden="true" />
-							</a>
-						)}
-				</div>
-			</article>
-		))
-	}
-
-	{
-		hasMultipleSlides && (
-			<div class="hero__controls" aria-label={dotsLabel}>
-				<button
-					class="hero__nav hero__nav--prev"
-					type="button"
-					aria-label={prevLabel}
-					data-hero-prev
-				>
-					<ChevronLeft aria-hidden="true" />
-				</button>
-				<div class="hero__dots" role="tablist" aria-label={dotsLabel}>
-					{slides.map((slide, index) => (
-						<button
-							class:list={['hero__dot', index === 0 && 'hero__dot--active']}
-							type="button"
-							role="tab"
-							aria-controls={slide.id}
-							aria-selected={index === 0 ? 'true' : 'false'}
-							data-hero-dot
-							data-slide-index={index}
-						>
-							<span class="sr-only">
-								{dotLabel} {index + 1}
-							</span>
-							<span class="hero__dot-progress" aria-hidden="true" />
-						</button>
-					))}
-				</div>
-				<button
-					class="hero__nav hero__nav--next"
-					type="button"
-					aria-label={nextLabel}
-					data-hero-next
-				>
-					<ChevronRight aria-hidden="true" />
-				</button>
 			</div>
-		)
-	}
+		</article>
+	))}
+
+	{hasMultipleSlides && (
+		<div class="hero__controls" aria-label={dotsLabel}>
+			<button
+				class="hero__nav hero__nav--prev"
+				type="button"
+				aria-label={prevLabel}
+				data-hero-prev
+			>
+				<ChevronLeft aria-hidden="true" />
+			</button>
+			<div class="hero__dots" role="tablist" aria-label={dotsLabel}>
+				{slides.map((slide, index) => (
+					<button
+						class:list={['hero__dot', index === 0 && 'hero__dot--active']}
+						type="button"
+						role="tab"
+						aria-controls={slide.id}
+						aria-selected={index === 0 ? 'true' : 'false'}
+						data-hero-dot
+						data-slide-index={index}
+					>
+						<span class="sr-only">
+							{dotLabel} {index + 1}
+						</span>
+						<span class="hero__dot-progress" aria-hidden="true" />
+					</button>
+				))}
+			</div>
+			<button
+				class="hero__nav hero__nav--next"
+				type="button"
+				aria-label={nextLabel}
+				data-hero-next
+			>
+				<ChevronRight aria-hidden="true" />
+			</button>
+		</div>
+	)}
 
 	<style>
 		.hero {

@@ -10,13 +10,11 @@ const { url, name, LogoComponent } = Astro.props;
 	class="sponsor-container-link"
 	aria-label={name}
 >
-	{
-		LogoComponent.src.includes('.svg') ? (
-			<LogoComponent />
-		) : (
-			<Image src={LogoComponent} alt={name} />
-		)
-	}
+	{LogoComponent.src.includes('.svg') ? (
+		<LogoComponent />
+	) : (
+		<Image src={LogoComponent} alt={name} />
+	)}
 </a>
 
 <style>

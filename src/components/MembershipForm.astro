@@ -23,9 +23,7 @@ const t = useTranslations(lang);
 			{t('form.title')}
 		</h2>
 
-		<p class="form-instructions">
-			{t('form.instructions')}
-		</p>
+		<p class="form-instructions">{t('form.instructions')}</p>
 
 		<form class="membership-form" id="membership-form" novalidate>
 			<input type="hidden" name="language" value={lang} />
@@ -246,9 +244,7 @@ const t = useTranslations(lang);
 				<legend class="form-subtitle subtitle">
 					<span class="form-legend">
 						{'3. ' + t('form.section.federation')}
-						<small class="form-note">
-							{t('form.section.federation-note')}
-						</small>
+						<small class="form-note">{t('form.section.federation-note')}</small>
 					</span>
 				</legend>
 

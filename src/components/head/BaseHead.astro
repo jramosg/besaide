@@ -63,18 +63,16 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <link rel="sitemap" href="/sitemap.xml" />
 <meta charset="UTF-8" />
 
-{
-	Astro.props.imagePreload && (
-		<link
-			rel="preload"
-			as="image"
-			href={Astro.props.imagePreload.src}
-			imagesrcset={Astro.props.imagePreload.srcset}
-			imagesizes={Astro.props.imagePreload.sizes}
-			fetchpriority="high"
-		/>
-	)
-}
+{Astro.props.imagePreload && (
+	<link
+		rel="preload"
+		as="image"
+		href={Astro.props.imagePreload.src}
+		imagesrcset={Astro.props.imagePreload.srcset}
+		imagesizes={Astro.props.imagePreload.sizes}
+		fetchpriority="high"
+	/>
+)}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -83,11 +81,9 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Alternate Languages -->
-{
-	alternateLanguages.map(({ hreflang, href }) => (
-		<link rel="alternate" hreflang={hreflang} href={href} />
-	))
-}
+{alternateLanguages.map(({ hreflang, href }) => (
+	<link rel="alternate" hreflang={hreflang} href={href} />
+))}
 
 <!-- Author and Business Info -->
 <meta name="author" content="Nerea Dorronsoro & Jon Ramos" />
@@ -96,10 +92,12 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <!-- Enhanced Keywords for SEO -->
 <meta
 	name="keywords"
-	content={keywords ||
+	content={
+		keywords ||
 		(lang === 'eu'
 			? 'Besaide, Mendizale Elkartea, Arrasate, Besaide Mendizale Elkartea, eski irteera, Leixargarate, Besaide bazkidetza, Mendi federazioa, Garibai 3, mendizale taldea, mendi ibilaldiak'
-			: 'Besaide, Asociación de montaña, Arrasate-Mondragón, esquí alpino, Leixargarate, Socio Besaide, Federación de montaña, Garibai, club de montaña, excursiones de montaña')}
+			: 'Besaide, Asociación de montaña, Arrasate-Mondragón, esquí alpino, Leixargarate, Socio Besaide, Federación de montaña, Garibai, club de montaña, excursiones de montaña')
+	}
 />
 
 <!-- Location-based meta tags -->
@@ -109,31 +107,27 @@ const alternateLanguages = Astro.props.alternateLanguages || [
 <meta name="ICBM" content="43.0651336, -2.4921267" />
 
 <!-- Robots and indexing directives -->
-{
-	Astro.props.noindex ? (
-		<meta name="robots" content="noindex, nofollow" />
-	) : (
-		<meta
-			name="robots"
-			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-		/>
-	)
-}
+{Astro.props.noindex ? (
+	<meta name="robots" content="noindex, nofollow" />
+) : (
+	<meta
+		name="robots"
+		content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+	/>
+)}
 
 <!-- Security headers -->
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-{
-	openGraphProps ? (
-		<OpenGraph
-			title={openGraphProps.title || title}
-			desc={openGraphProps.description || description}
-			image={openGraphProps.image}
-		/>
-	) : (
-		<OpenGraph />
-	)
-}
+{openGraphProps ? (
+	<OpenGraph
+		title={openGraphProps.title || title}
+		desc={openGraphProps.description || description}
+		image={openGraphProps.image}
+	/>
+) : (
+	<OpenGraph />
+)}
 {faqSchema && <FAQSchema />}
 
 <StructuredData />
