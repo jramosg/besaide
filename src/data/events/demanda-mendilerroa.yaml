@@ -4,8 +4,7 @@ type: mountain
 mountain: Chilizarrias, 1825 m
 location: Pazuengos-Ezcaray
 duration: 5 ordu inguru
-durationHours:
-meetingPoint: Forum atzealdeko autobus gelokian
+meetingPoint: Forum atzealdeko autobus geltokian
 time: '7:30'
 distance: 15 km
 image: '@/assets/images/events/demanda-mendilerroa/image.PNG'
